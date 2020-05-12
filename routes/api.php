@@ -13,6 +13,13 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+//Auth Routes
+Route::group(['prefix' => 'v1'], function () {
+
+	Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
+	Route::post('password/reset', 'Auth\ResetPasswordController@reset');
+	Route::post('register', 'Auth\RegisterController@register');
+});
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
