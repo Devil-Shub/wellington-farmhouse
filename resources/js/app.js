@@ -1,17 +1,26 @@
-// App.js
+//Imports
+import 'vuetify/dist/vuetify.min.css'; // vuetify style css
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+import Vuetify from 'vuetify'
+import * as VeeValidate from 'vee-validate';
+import App from './App'
+import routes from './routes.js'
 
-require('./bootstrap');
+//Load Plugins
+Vue.use(VueRouter)
+Vue.use(Vuetify)
+Vue.use(VeeValidate)
 
-window.Vue = require('vue');
+//Router configuration
+const router = new VueRouter({
+  mode: 'history',
+  routes 
+})
 
-import VueRouter from 'vue-router';
-Vue.use(VueRouter);
-
-import VueAxios from 'vue-axios';
-import axios from 'axios';
-Vue.use(VueAxios, axios);
-
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-
-const router = new VueRouter({ mode: 'history'});
-const app = new Vue(Vue.util.extend({ router })).$mount('#app');
+export const vm = new Vue({
+    vuetify : new Vuetify(),
+    el: '#app',
+    render: h => h(App),
+    router
+});
