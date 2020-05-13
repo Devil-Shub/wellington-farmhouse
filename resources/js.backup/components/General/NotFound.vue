@@ -6,10 +6,10 @@
 
         <div class="content">
             <div class="title m-b-md">
-                Ticketing System
+                Not Found
             </div>
 
-            <p>The place where tickets are submitted</p>
+            <p>Component not register</p>
         </div>
     </div>
 </template>

@@ -39,7 +39,7 @@ class AuthController extends Controller
         $user->save();
         //return success response
         return response()->json([
-            'success' => true,
+            'status' => true,
             'message' => 'Successfully created user!'
         ], 201);
     }
@@ -64,7 +64,7 @@ class AuthController extends Controller
         $credentials = request(['email', 'password']);
         if(!Auth::attempt($credentials))
             return response()->json([
-                'success' => false,
+                'status' => false,
                 'message' => 'Unauthorized'
             ], 401);
         $user = $request->user();
@@ -74,7 +74,7 @@ class AuthController extends Controller
         //     $token->expires_at = Carbon::now()->addWeeks(1);
         $token->save();
         return response()->json([
-            'success' => true,
+            'status' => true,
             'data' => array(
                 'access_token' => $tokenResult->accessToken,
                 'token_type' => 'Bearer',
@@ -94,7 +94,7 @@ class AuthController extends Controller
     {
         $request->user()->token()->revoke();
         return response()->json([
-            'success' => true,
+            'status' => true,
             'message' => 'Successfully logged out'
         ]);
     }
@@ -107,7 +107,7 @@ class AuthController extends Controller
     public function user(Request $request)
     {
         return response()->json([
-            'success' => true,
+            'status' => true,
             'data' => $request->user()
         ]);
     }

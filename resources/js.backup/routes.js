@@ -1,4 +1,6 @@
 //Dashboard Components
+import { Role } from "./role";
+
 import DashboardLayout from './components/Backend/Layouts/DashboardLayout.vue'
 import Dashboard from './components/Backend/Views/Dashboard.vue'
 

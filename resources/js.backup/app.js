@@ -12,7 +12,7 @@ Vue.use(VueRouter)
 Vue.use(Vuetify)
 Vue.use(VeeValidate)
 
-//Router configuration
+//Router configuration 
 const router = new VueRouter({
   mode: 'history',
   routes 
