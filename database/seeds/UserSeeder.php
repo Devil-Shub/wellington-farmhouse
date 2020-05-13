@@ -1,10 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Carbon;
 use App\User;
 
-class UserTableSeeder extends Seeder
+class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
