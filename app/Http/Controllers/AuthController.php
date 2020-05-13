@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 use App\User;
 
@@ -28,20 +29,33 @@ class AuthController extends Controller
             'email' => 'required|string|email|unique:users',
             'password' => 'required|string|confirmed'
         ]);
-        //create new user
-        $user = new User([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'email' => $request->email,
-            'role_id' => $request->role_id,
-            'password' => bcrypt($request->password)
-        ]);
-        $user->save();
-        //return success response
-        return response()->json([
-            'status' => true,
-            'message' => 'Successfully created user!'
-        ], 201);
+
+        try {
+            //create new user
+            $user = new User([
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'email' => $request->email,
+                'role_id' => $request->role_id,
+                'password' => bcrypt($request->password)
+            ]);
+            $user->save();
+            //return success response
+            return response()->json([
+                'status' => true,
+                'message' => 'Successfully created user!',
+                'data' => []
+            ], 200);
+        } catch (\Exception $e) {
+            //make log of errors
+            Log::error(json_encode($e->getMessage()));
+            //return with error
+            return response()->json([
+                'status' => false,
+                'message' => 'Internal server error!',
+                'data' => []
+            ], 500);
+        }
     }
 
     /**
@@ -61,28 +75,42 @@ class AuthController extends Controller
             'password' => 'required|string',
             // 'remember_me' => 'boolean'
         ]);
-        $credentials = request(['email', 'password']);
-        if(!Auth::attempt($credentials))
+
+        try {
+            $credentials = request(['email', 'password']);
+            if(!Auth::attempt($credentials))
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Unauthorized',
+                    'data' => []
+                ], 401);
+            $user = $request->user();
+            $tokenResult = $user->createToken('Personal Access Token');
+            $token = $tokenResult->token;
+            // if ($request->remember_me)
+            //     $token->expires_at = Carbon::now()->addWeeks(1);
+            $token->save();
+            return response()->json([
+                'status' => true,
+                'message' => 'Login Successful',
+                'data' => array(
+                    'access_token' => $tokenResult->accessToken,
+                    'token_type' => 'Bearer',
+                    'expires_at' => Carbon::parse(
+                        $tokenResult->token->expires_at
+                    )->toDateTimeString()
+                )
+            ]);
+        } catch (\Exception $e) {
+            //make log of errors
+            Log::error(json_encode($e->getMessage()));
+            //return with error
             return response()->json([
                 'status' => false,
-                'message' => 'Unauthorized'
-            ], 401);
-        $user = $request->user();
-        $tokenResult = $user->createToken('Personal Access Token');
-        $token = $tokenResult->token;
-        // if ($request->remember_me)
-        //     $token->expires_at = Carbon::now()->addWeeks(1);
-        $token->save();
-        return response()->json([
-            'status' => true,
-            'data' => array(
-                'access_token' => $tokenResult->accessToken,
-                'token_type' => 'Bearer',
-                'expires_at' => Carbon::parse(
-                    $tokenResult->token->expires_at
-                )->toDateTimeString()
-            )
-        ]);
+                'message' => 'Internal server error!',
+                'data' => []
+            ], 500);
+        }
     }
 
     /**
@@ -95,7 +123,8 @@ class AuthController extends Controller
         $request->user()->token()->revoke();
         return response()->json([
             'status' => true,
-            'message' => 'Successfully logged out'
+            'message' => 'Successfully logged out',
+            'data' => []
         ]);
     }
 
@@ -107,7 +136,8 @@ class AuthController extends Controller
     public function user(Request $request)
     {
         return response()->json([
-            'status' => true,
+            'success' => true,
+            'message' => 'User details!',
             'data' => $request->user()
         ]);
     }
