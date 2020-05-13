@@ -1,26 +1,17 @@
-//Imports
-import 'vuetify/dist/vuetify.min.css'; // vuetify style css
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Vuetify from 'vuetify'
-import * as VeeValidate from 'vee-validate';
-import App from './App'
-import routes from './routes.js'
+import Vue from "vue";
+import Vuelidate from "vuelidate";
 
-//Load Plugins
-Vue.use(VueRouter)
-Vue.use(Vuetify)
-Vue.use(VeeValidate)
+import { router } from "./_helpers/router";
+import App from "./app/App";
 
-//Router configuration
-const router = new VueRouter({
-  mode: 'history',
-  routes 
-})
+// setup fake backend
+import { configureFakeBackend } from "./_helpers/fake-backend";
+configureFakeBackend();
 
-export const vm = new Vue({
-    vuetify : new Vuetify(),
-    el: '#app',
-    render: h => h(App),
-    router
+Vue.use(Vuelidate);
+
+new Vue({
+  el: "#app",
+  router,
+  render: h => h(App)
 });
