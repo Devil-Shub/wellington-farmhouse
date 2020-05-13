@@ -14,26 +14,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 //Auth Routes
-Route::group(['prefix' => 'v1'], function () {
-
-	Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
-	Route::post('password/reset', 'Auth\ResetPasswordController@reset');
-	Route::post('register', 'Auth\RegisterController@register');
-});
-
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
 
-Route::group([
-    'prefix' => 'auth'
-], function () {
+Route::group(['prefix' => 'auth'], function () {
+    //Auth free routes
     Route::post('login', 'AuthController@login');
     Route::post('signup', 'AuthController@signup');
-  
-    Route::group([
-      'middleware' => 'auth:api'
-    ], function() {
+    
+    //Auth full routes
+    Route::group(['middleware' => 'auth:api'], function() {
         Route::get('logout', 'AuthController@logout');
         Route::get('user', 'AuthController@user');
     });
