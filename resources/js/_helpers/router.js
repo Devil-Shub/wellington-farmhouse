@@ -6,6 +6,7 @@ import { Role } from "./role";
 import HomePage from "../home/HomePage";
 import AdminPage from "../admin/AdminPage";
 import LoginPage from "../login/LoginPage";
+import RegisterPage from "../register/RegisterPage";
 
 Vue.use(Router);
 
@@ -25,6 +26,10 @@ export const router = new Router({
     {
       path: "/login",
       component: LoginPage
+    },
+    {
+      path: "/register",
+      component: RegisterPage
     },
 
     // otherwise redirect to home
