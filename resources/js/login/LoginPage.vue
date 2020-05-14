@@ -9,7 +9,7 @@
       <div class="form-group">
         <label for="email">Email</label>
         <input
-          type="text"
+          type="email"
           v-model.trim="$v.email.$model"
           name="email"
           class="form-control"
