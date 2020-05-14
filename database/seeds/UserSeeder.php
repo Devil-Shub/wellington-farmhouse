@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
 
         $addDetails->first_name = 'Admin';
         $addDetails->last_name = 'Account';
-        $addDetails->email = 'admin@yopmail.com';
+        $addDetails->email = 'admin@admin.com';
         $addDetails->role_id = 1;
         $addDetails->is_confirmed = 1;
         $addDetails->is_active = 1;

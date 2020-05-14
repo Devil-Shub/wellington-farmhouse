@@ -26,6 +26,19 @@ Route::group(['prefix' => 'auth'], function () {
     //Auth full routes
     Route::group(['middleware' => 'auth:api'], function() {
         Route::get('logout', 'AuthController@logout');
+        
         Route::get('user', 'AuthController@user');
+
+        Route::group(['prefix' => 'admin'], function () {
+            //update admin profile
+            Route::post('edit-profile', 'AuthController@editProfile');
+
+            //manager
+            Route::post('create-manager', 'ManagerController@createManager');
+            Route::post('update-manager/{manager_id}', 'ManagerController@updateManager');
+            Route::get('delete-manager/{manager_id}', 'ManagerController@deleteManager');
+            Route::get('get-manager/{manager_id}', 'ManagerController@getManager');
+        });
+
     });
 });
