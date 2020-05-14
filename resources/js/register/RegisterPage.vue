@@ -115,11 +115,11 @@
           if( this.$refs.form.validate() ){
               this.axios.post('http://klk.leagueofclicks.com/api/auth/signup',{first_name: this.firstname, last_name:this.lastname,email:this.email, password:this.password, confirm_passwors:this.confirm_password, role_id:4})
                .then(function (response) {
+
                    console.log("Ddd");
                    console.log(response)
                 })
                 .catch(function (error) {
-                     console.log("Dddddd");
                      console.log(error)
                 });
           }
