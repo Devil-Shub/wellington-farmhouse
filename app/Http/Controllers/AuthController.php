@@ -67,6 +67,7 @@ class AuthController extends Controller
                 'last_name' => $request->last_name,
                 'email' => $request->email,
                 'role_id' => $request->role_id,
+                'is_active' => 1,
                 'phone' => $request->phone,
                 'user_image' => $file,
                 'password' => bcrypt($request->password)
@@ -152,7 +153,8 @@ class AuthController extends Controller
                     'token_type' => 'Bearer',
                     'expires_at' => Carbon::parse(
                         $tokenResult->token->expires_at
-                    )->toDateTimeString()
+                    )->toDateTimeString(),
+                    'user' => $user
                 )
             ]);
         } catch (\Exception $e) {
@@ -268,6 +270,10 @@ class AuthController extends Controller
     }
 
     public function _welcomeEmail() {
+        $encode = base64_encode("shubhamgakhar13@gmail.com");
+        dump($encode);
+
+        dd(base64_decode($encode));
 
         $data = array(
             'name'=>'NAME',
@@ -278,5 +284,29 @@ class AuthController extends Controller
               ('Laravel Basic Testing Mail');
            $message->from('xyz@yopmail.com','HEAVEN');
         });
+     }
+
+     public function confirmEmail(Request $request) {
+        $email = base64_decode($request->decode_code);
+
+        $getUser = User::whereEmail($email)->first();
+        //check if email exist
+        if($getUser != null) {
+            $getUser->is_confirmed;
+            $getUser->save();
+            $message = "Your account has been successfully confirmed. Please login to proceed further.";
+            $status = true;
+            $errCode = 200;
+        } else {
+            $status = false;
+            $message = "Your confirmation link has been expired.";
+            $errCode = 400; 
+        }
+
+        return response()->json([
+            'status' => $status,
+            'message' => $message,
+            'data' => []
+        ], $errCode);
      }
 }

@@ -22,6 +22,7 @@ Route::group(['prefix' => 'auth'], function () {
     //Auth free routes
     Route::post('login', 'AuthController@login');
     Route::post('signup', 'AuthController@signup');
+    Route::get('confirm-email/{decode_code}', 'AuthController@confirmEmail');
     
     //Auth full routes
     Route::group(['middleware' => 'auth:api'], function() {
