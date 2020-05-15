@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 use Validator;
+use Mail;
 use App\User;
 
 class AuthController extends Controller
@@ -70,11 +71,15 @@ class AuthController extends Controller
                 'user_image' => $file,
                 'password' => bcrypt($request->password)
             ]);
-            $user->save();
+
+            if($user->save()) {
+                $this->_welcomeEmail($user);
+            }
+
             //return success response
             return response()->json([
                 'status' => true,
-                'message' => 'Successfully created user!',
+                'message' => 'Your account was successfully created. We have sent you an e-mail to confirm your account.',
                 'data' => []
             ], 200);
         } catch (\Exception $e) {
@@ -120,10 +125,20 @@ class AuthController extends Controller
             if(!Auth::attempt($credentials))
                 return response()->json([
                     'status' => false,
-                    'message' => 'Unauthorized',
+                    'message' => 'These credentials do not match our records.',
                     'data' => []
                 ], 401);
             $user = $request->user();
+
+            //check if account is not confirmed
+            if($user->is_confirmed == 0) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Your account is not confirmed. Please click the confirmation link in your e-mail box.',
+                    'data' => []
+                ], 401);
+            }
+
             $tokenResult = $user->createToken('Personal Access Token');
             $token = $tokenResult->token;
             // if ($request->remember_me)
@@ -251,4 +266,16 @@ class AuthController extends Controller
             ], 500);
         }
     }
+
+    private function _welcomeEmail($user) {
+        $data = array(
+            'name'=>$user->first_name.' '.$user->last_name,
+        );
+     
+        Mail::send(['text'=>'email_templates.welcome_email'], $data, function($message) {
+           $message->to('shubhamgakhar13@gmail.com', 'Tutorials Point')->subject
+              ('Laravel Basic Testing Mail');
+           $message->from('xyz@yopmail.com','HEAVEN');
+        });
+     }
 }

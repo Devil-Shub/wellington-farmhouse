@@ -10,7 +10,6 @@ import VueAxios from 'vue-axios'
 import VueToast from 'vue-toast-notification';
 
 import { router } from "./_helpers/router";
-import { handleResponse } from "./_helpers/handle-response";
 import App from "./app/App";
 
 // setup fake backend
@@ -34,6 +33,5 @@ new Vue({
     }),
   el: "#app",
   router,
-  handleResponse,
   render: h => h(App)
 });
