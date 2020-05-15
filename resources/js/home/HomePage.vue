@@ -1,33 +1,47 @@
 <template>
-    <div>
-        <h1>Home</h1>
-        <p>You're logged in with Vue.js & JWT!!</p>
-        <p>Your role is: <strong>{{ currentUser.role }}</strong>.</p>
-        <p>This page can be accessed by all authenticated users.</p>
-        <div>
-            Current user from secure api end point:
-            <ul v-if="userFromApi">
-                <li>{{ userFromApi.firstName }} {{ userFromApi.lastName }}</li>
-            </ul>
-        </div>
-    </div>
+  <div>
+    <v-carousel v-model="model" :show-arrows="false" cycle>
+      <v-carousel-item
+        v-for="(color, i) in colors"
+        :key="color"
+      >
+        <v-sheet
+          :color="color"
+          height="100%"
+          tile
+        >
+          <v-row
+            class="fill-height"
+            align="center"
+            justify="center"
+          >
+            <div class="display-3">Slide {{ i + 1 }}</div>
+          </v-row>
+        </v-sheet>
+      </v-carousel-item>
+    </v-carousel>
+        <v-row justify="space-around" >
+          
+      
+      {{ model+1 }}/{{colors.length}}
+     
+    </v-row>
+  </div>
 </template>
 
 <script>
-import { authenticationService } from '../_services/authentication.service';
-import { userService } from '../_services/user.service';
-
-export default {
-    data() {
-        return {
-            currentUser: authenticationService.currentUserValue,
-            userFromApi: null
-        };
+  export default {
+    data () {
+      return {
+        colors: [
+          'primary',
+          'secondary',
+          'yellow darken-2',
+          'red',
+          'orange',
+        ],
+        model: 1,
+      }
     },
-    created() {
-        userService
-            .getById(this.currentUser.id)
-            .then(user => (this.userFromApi = user));
-    }
-};
+  }
 </script>
