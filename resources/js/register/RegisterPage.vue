@@ -58,7 +58,7 @@
            <v-text-field
             v-model="confirm_password"
             :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
-            :rules="confirmPassword"
+            :rules="[rules.required, rules.min, passwordConfirmationRule]"
             :type="show2 ? 'text' : 'password'"
             name="confirm_password"
             label="Confirm Password"
@@ -105,18 +105,14 @@
           required: value => !!value || 'Password is equired.',
           min: v => v.length >= 8 || 'Password Min 8 characters'
       },
-       confirmPassword: [
-        v => !!v || 'Confirm password is equired.',
-        v => (v && v.length >= 8) || 'Confirm password must be 8 characters', 
-      ],
     }),
+    computed: {
+        passwordConfirmationRule() {
+          return () => (this.password === this.confirm_password) || 'Password must match'
+        },
+    },
     methods: {
         validate () {
-            this.$toast.open({
-                message: 'Something went wrong!',
-                type: 'error',
-                // all other options may go here
-            });
           if( this.$refs.form.validate() ){
               
               const options = {
@@ -130,9 +126,16 @@
                   };
                   this.axios(options)
                     .then(response => {
-                        console.log(JSON.parse(response));
-                      console.log(JSON.stringify(response));
-                    }).catch(error => { console.log(JSON.parse(error)); console.log(JSON.stringify(error)) });
+                        if(response.status){
+                            this.$toast.open({
+                                message: 'Something wentjhjghjghgh wrong!',
+                                type: 'success',
+                                // all other options may go here
+                            });
+                        }
+                    }).catch((err) => {
+                        console.log('catch',err);
+                    });
 
 //              this.axios.post('http://klk.leagueofclicks.com/api/auth/signup',{first_name: this.firstname, last_name:this.lastname,email:this.email, password:this.password, password_confirmation:this.confirm_password, role_id:4})
 //               .then(response => {
