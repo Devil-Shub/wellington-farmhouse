@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
+Route::get('/send/email', 'AuthController@_welcomeEmail');
+
 Route::get('/', function () {
     return view('welcome');
 });

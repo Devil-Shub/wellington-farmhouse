@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 use Validator;
-use Mail;
+use Illuminate\Support\Facades\Mail;
 use App\User;
 
 class AuthController extends Controller
@@ -267,9 +267,10 @@ class AuthController extends Controller
         }
     }
 
-    private function _welcomeEmail($user) {
+    public function _welcomeEmail() {
+
         $data = array(
-            'name'=>$user->first_name.' '.$user->last_name,
+            'name'=>'NAME',
         );
      
         Mail::send(['text'=>'email_templates.welcome_email'], $data, function($message) {
