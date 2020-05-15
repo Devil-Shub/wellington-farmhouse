@@ -112,14 +112,38 @@
     }),
     methods: {
         validate () {
+            this.$toast.open({
+                message: 'Something went wrong!',
+                type: 'error',
+                // all other options may go here
+            });
           if( this.$refs.form.validate() ){
-              this.axios.post('http://klk.leagueofclicks.com/api/auth/signup',{first_name: this.firstname, last_name:this.lastname,email:this.email, password:this.password, confirm_passwors:this.confirm_password, role_id:4})
-               .then(function (response) {
-                   console.log(response)
-                })
-                .catch(function (error) {
-                     console.log(error)
-                });
+              
+              const options = {
+                    url: 'http://klk.leagueofclicks.com/api/auth/signup',
+                    method: 'POST',
+                    headers: {
+                      'Accept': 'application/json',
+                      'Content-Type': 'application/json;charset=UTF-8'
+                    },
+                    data: {first_name: this.firstname, last_name:this.lastname,email:this.email, password:this.password, password_confirmation:this.confirm_password, role_id:4}
+                  };
+                  this.axios(options)
+                    .then(response => {
+                        console.log(JSON.parse(response));
+                      console.log(JSON.stringify(response));
+                    }).catch(error => { console.log(JSON.parse(error)); console.log(JSON.stringify(error)) });
+
+//              this.axios.post('http://klk.leagueofclicks.com/api/auth/signup',{first_name: this.firstname, last_name:this.lastname,email:this.email, password:this.password, password_confirmation:this.confirm_password, role_id:4})
+//               .then(response => {
+//                   console.log(response)
+//               console.log(JSON.stringify(response))
+//               
+//              })
+//              .catch(error => {
+//               
+//                
+//              })
           }
        }
     }
