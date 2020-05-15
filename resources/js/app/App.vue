@@ -20,6 +20,7 @@
         </div>
       </div>
     </div>
+    <div id="snackbar">Some text some message..</div>
   </div>
 </template>
 
