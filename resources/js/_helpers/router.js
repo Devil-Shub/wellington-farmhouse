@@ -16,9 +16,10 @@ export const router = new Router({
     {
       path: "/",
       component: HomePage,
+      meta: { authorize: [Role.Admin] }
     },
     {
-      path: "/admin",
+      path: "/dashboard",
       component: AdminPage,
       meta: { authorize: [Role.Admin] }
     },
@@ -48,7 +49,7 @@ router.beforeEach((to, from, next) => {
     }
 
     // check if route is restricted by role
-    if (authorize.length && !authorize.includes(currentUser.role)) {
+    if (authorize.length && !authorize.includes(currentUser.data.user.role_id)) {
       // role not authorised so redirect to home page
       return next({ path: "/" });
     }

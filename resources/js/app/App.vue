@@ -1,26 +1,28 @@
 <template>
   <div>
-    <nav v-if="currentUser" class="navbar navbar-expand navbar-dark bg-dark">
+    <nav v-if="isCustomer" class="navbar navbar-expand navbar-dark bg-dark">
       <div class="navbar-nav">
         <router-link to="/" class="nav-item nav-link">Home</router-link>
-        <router-link v-if="isAdmin" to="/admin" class="nav-item nav-link">Admin</router-link>
         <a @click="logout" class="nav-item nav-link">Logout</a>
       </div>
     </nav>
-    <nav v-else class="navbar navbar-expand navbar-dark bg-dark">
+    <nav v-if="!currentUser" class="navbar navbar-expand navbar-dark bg-dark">
       <div class="navbar-nav">
         <router-link to="/login" class="nav-item nav-link">Login</router-link>
         <router-link to="/register" class="nav-item nav-link">Register</router-link>
       </div>
     </nav>
-    <div class="jumbotron">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-6 offset-sm-3"><router-view></router-view></div>
-        </div>
-      </div>
+     
+    <div v-if="isAdmin">
+      <nav v-if="currentUser" class="navbar navbar-expand navbar-dark bg-dark">
+          <div class="navbar-nav">
+            <router-link to="/dashboard" class="nav-item nav-link">Dashboard</router-link>
+            <a @click="logout" class="nav-item nav-link">Logout</a>
+          </div>
+      </nav>
     </div>
-    <div id="snackbar">Some text some message..</div>
+     <router-view></router-view>
+ 
   </div>
 </template>
 
@@ -38,7 +40,22 @@ export default {
   },
   computed: {
     isAdmin() {
-      return this.currentUser && this.currentUser.role === Role.Admin;
+      return this.currentUser && this.currentUser.data.user.role_id === Role.Admin;
+    },
+    isAdminManager() {
+      return this.currentUser && this.currentUser.data.user.role_id === Role.Admin_Manager;
+    },
+    isTruckDriver() {
+      return this.currentUser && this.currentUser.data.user.role_id === Role.Truck_Driver;
+    },
+    isCustomer() {
+      return this.currentUser && this.currentUser.data.user.role_id === Role.Customer;
+    },
+    isCustomerManager() {
+      return this.currentUser && this.currentUser.data.user.role_id === Role.Customer_Manager;
+    },
+    Company() {
+      return this.currentUser && this.currentUser.data.user.role_id === Role.Company;
     }
   },
   created() {

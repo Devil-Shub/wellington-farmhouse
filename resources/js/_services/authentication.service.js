@@ -29,9 +29,6 @@ function register(data) {
     .then(handleResponse)
     .then(user => {
       // store user details and passport token in local storage to keep user logged in between page refreshes
-          console.log(user);
-      // localStorage.setItem("currentUser", JSON.stringify(user));
-      // currentUserSubject.next(user);
 
       return user;
     });
@@ -46,7 +43,6 @@ function login(email, password) {
     .then(handleResponse)
     .then(user => {
       // store user details and passport token in local storage to keep user logged in between page refreshes
-          console.log(user);
       localStorage.setItem("currentUser", JSON.stringify(user));
       currentUserSubject.next(user);
 
