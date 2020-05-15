@@ -127,13 +127,19 @@ import { authenticationService } from "../_services/authentication.service";
             this.registerForm.last_name = this.lastname;
             this.registerForm.email = this.email;
             this.registerForm.password = this.password;
-
+            this.registerForm.password_confirmation = this.confirm_password;
             authenticationService.register(this.registerForm).then(
-              // console.log(user),
+//               console.log(user),
               // user => router.push(this.returnUrl),
               error => {
-                console.log(error);
-                // this.error = error;
+                  // Can accept an Object of options
+                this.$toast.open({
+                   message: error,
+                   type: 'error',
+                    position: 'top-right'
+                   // all other options may go here
+               })
+                   // this.error = error;
                 // this.loading = false;
               }
             );
