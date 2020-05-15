@@ -3,6 +3,8 @@ import { BehaviorSubject } from "rxjs";
 import { requestOptions } from "../_helpers/request-options";
 import { handleResponse } from "../_helpers/handle-response";
 
+import { environment } from "../config/test.env";
+
 const currentUserSubject = new BehaviorSubject(
   JSON.parse(localStorage.getItem("currentUser"))
 );
@@ -10,6 +12,7 @@ const currentUserSubject = new BehaviorSubject(
 export const authenticationService = {
   login,
   logout,
+  apiUrl: environment.apiUrl,
   currentUser: currentUserSubject.asObservable(),
   get currentUserValue() {
     return currentUserSubject.value;
@@ -17,8 +20,9 @@ export const authenticationService = {
 };
 
 function login(email, password) {
+
   return fetch(
-    `http://klk.leagueofclicks.com/api/auth/login`,
+    this.apiUrl+`login`,
     requestOptions.post({ email, password })
   )
     .then(handleResponse)
