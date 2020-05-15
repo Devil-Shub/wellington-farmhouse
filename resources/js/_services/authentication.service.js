@@ -12,12 +12,30 @@ const currentUserSubject = new BehaviorSubject(
 export const authenticationService = {
   login,
   logout,
+  register,
   apiUrl: environment.apiUrl,
   currentUser: currentUserSubject.asObservable(),
   get currentUserValue() {
     return currentUserSubject.value;
   }
 };
+
+function register(data) {
+
+  return fetch(
+    this.apiUrl+`signup`,
+    requestOptions.post(data)
+  )
+    .then(handleResponse)
+    .then(user => {
+      // store user details and passport token in local storage to keep user logged in between page refreshes
+          console.log(user);
+      // localStorage.setItem("currentUser", JSON.stringify(user));
+      // currentUserSubject.next(user);
+
+      return user;
+    });
+}
 
 function login(email, password) {
 

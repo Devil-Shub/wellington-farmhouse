@@ -67,13 +67,7 @@
             @click:append="show2 = !show2"
           ></v-text-field>
         </v-col>
-           <v-btn
-                color="success"
-                class="mr-4"
-                @click="validate"
-              >
-      Submit
-    </v-btn>
+           <v-btn color="success" class="mr-4" @click="validate">Submit</v-btn>
       </v-row>
     </v-container>
   </v-form>
@@ -81,8 +75,19 @@
 </template>
 
 <script>
+import { required } from "vuelidate/lib/validators";
+
+import { router } from "../_helpers/router";
+import { authenticationService } from "../_services/authentication.service";
   export default {
     data: () => ({
+      registerForm: {
+        first_name: '',
+        last_name: '',
+        email: '',
+        role_id: 4,
+        password: '',
+      },
       valid: true,
       show1: false,
       show2: false,
@@ -118,32 +123,24 @@
                 // all other options may go here
             });
           if( this.$refs.form.validate() ){
-              
-              const options = {
-                    url: 'http://klk.leagueofclicks.com/api/auth/signup',
-                    method: 'POST',
-                    headers: {
-                      'Accept': 'application/json',
-                      'Content-Type': 'application/json;charset=UTF-8'
-                    },
-                    data: {first_name: this.firstname, last_name:this.lastname,email:this.email, password:this.password, password_confirmation:this.confirm_password, role_id:4}
-                  };
-                  this.axios(options)
-                    .then(response => {
-                        console.log(JSON.parse(response));
-                      console.log(JSON.stringify(response));
-                    }).catch(error => { console.log(JSON.parse(error)); console.log(JSON.stringify(error)) });
 
-//              this.axios.post('http://klk.leagueofclicks.com/api/auth/signup',{first_name: this.firstname, last_name:this.lastname,email:this.email, password:this.password, password_confirmation:this.confirm_password, role_id:4})
-//               .then(response => {
-//                   console.log(response)
-//               console.log(JSON.stringify(response))
-//               
-//              })
-//              .catch(error => {
-//               
-//                
-//              })
+            // this.submitted = true;
+            // this.loading = true;
+
+            this.registerForm.first_name = this.firstname;
+            this.registerForm.last_name = this.lastname;
+            this.registerForm.email = this.email;
+            this.registerForm.password = this.password;
+
+            authenticationService.register(this.registerForm).then(
+              // console.log(user),
+              // user => router.push(this.returnUrl),
+              error => {
+                console.log(error);
+                // this.error = error;
+                // this.loading = false;
+              }
+            );
           }
        }
     }
