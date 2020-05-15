@@ -90,7 +90,7 @@ export default {
              this.$toast.open({
                 message: error,
                 type: 'error',
-                 position: 'top-right'
+                position: 'top-right'
                 // all other options may go here
             })
           this.loading = false;
