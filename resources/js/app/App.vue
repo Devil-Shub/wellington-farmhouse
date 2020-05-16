@@ -4,16 +4,14 @@
       <nav v-if="!isAdmin" class="navbar navbar-expand navbar-dark bg-dark">
         <header-component></header-component>
       </nav>
+    
       <nav v-if="isCustomer" class="navbar navbar-expand navbar-dark bg-dark">
         <frontend-header-component></frontend-header-component>
      </nav>
- 
       <nav v-if="isAdmin" class="navbar navbar-expand navbar-dark bg-dark">
           <backend-header-component></backend-header-component>
       </nav>
-  
      <router-view></router-view>
-<div id="snackbar">Something Here ....</div> 
   </div>
 </template>
 
@@ -29,6 +27,7 @@ import FrontendFooter from '.././menu/frontend/footer';
 
 import BackendHeader from '.././menu/backend/header';
 import BackendFooter from '.././menu/backend/footer';
+import BackendSidebar from '.././menu/backend/sidebar';
 
 export default {
   name: "app",
@@ -38,6 +37,7 @@ export default {
       'frontend-header-component': FrontendHeader,
       'frontend-footer-component': FrontendFooter,
       'backend-header-component': BackendHeader,
+      'backend-sidebar-component': BackendSidebar,
     },
   data() {
     return {

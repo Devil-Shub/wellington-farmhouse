@@ -1,15 +1,26 @@
 <template>
     <v-app>
+             <v-container>
+      <v-row>
+      <v-col
+          cols="6"
+          md="6"
+          >
+              
+      </v-col>
+       <v-col
+          cols="6"
+          md="6"
+          >
  <v-form
     ref="form"
     v-model="valid"
     lazy-validation
   >
-    <v-container>
-      <v-row>
+ 
         <v-col
           cols="12"
-          md="6"
+          md="12"
         >
           <v-text-field
             v-model="firstname"
@@ -21,7 +32,7 @@
 
         <v-col
           cols="12"
-          md="6"
+          md="12"
         >
           <v-text-field
             v-model="lastname"
@@ -68,9 +79,11 @@
           ></v-text-field>
         </v-col>
            <v-btn color="success" class="mr-4" @click="validate">Submit</v-btn>
-      </v-row>
-    </v-container>
+   
   </v-form>
+       </v-col>
+             </v-row>
+    </v-container>
     </v-app>
 </template>
 
@@ -128,6 +141,7 @@ import { authenticationService } from "../_services/authentication.service";
             this.registerForm.email = this.email;
             this.registerForm.password = this.password;
             this.registerForm.password_confirmation = this.confirm_password;
+            this.registerForm.user_image = '';
             authenticationService.register(this.registerForm).then(
 //               console.log(user),
               // user => router.push(this.returnUrl),
