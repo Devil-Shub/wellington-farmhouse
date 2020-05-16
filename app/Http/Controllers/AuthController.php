@@ -269,15 +269,18 @@ class AuthController extends Controller
         }
     }
 
-    public function _welcomeEmail() {
+    public function _welcomeEmail($user) {
+        $name = $user->first_name.' '.$user->last_name;
         $data = array(
-            'name'=>'NAME',
+            'name' => $name,
+            'email' => $user->email,
+            'verificationLink' => env('APP_URL').'confirm-email/'.base64_encode($user->email)
         );
      
-        Mail::send('email_templates.welcome_email', $data, function($message) {
-           $message->to('shubhamgakhar13@gmail.com', 'Tutorials Point')->subject
-              ('Laravel Basic Testing Mail');
-           $message->from('xyz@yopmail.com','HEAVEN');
+        Mail::send('email_templates.welcome_email', $data, function($message) use ($user, $name) {
+           $message->to($user->email, $name)->subject
+              ('Email Confirmation');
+           $message->from(env('MAIL_USERNAME'),env('MAIL_USERNAME'));
         });
      }
 
