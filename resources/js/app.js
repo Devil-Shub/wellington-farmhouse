@@ -8,6 +8,8 @@ import Vuetify from 'vuetify'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueToast from 'vue-toast-notification';
+import VueFeatherIcon from 'vue-feather-icon'
+
 
 import { router } from "./_helpers/router";
 import App from "./app/App";
@@ -20,6 +22,7 @@ Vue.use(VueAxios, axios)
 Vue.use(Vuelidate);
 Vue.use(Vuetify);
 Vue.use(VueToast);
+Vue.use(VueFeatherIcon)
 
 new Vue({
   vuetify : new Vuetify({
