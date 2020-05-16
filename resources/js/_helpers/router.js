@@ -8,6 +8,8 @@ import HomePage from "../home/HomePage";
 //layouts
 import AdminLayout from "../components/layout/AdminLayout";
 //admin components
+import Dashboard from "../components/admin/Dashboard";
+import Settings from "../components/admin/Settings";
 import ProfilePage from "../components/admin/profile/ProfilePage";
 
 import LoginPage from "../components/login/LoginPage";
@@ -26,7 +28,8 @@ export const router = new Router({
       component: AdminLayout,
       meta: { authorize: [Role.Admin] },
       children: [
-        { path: 'dashboard', component: AdminLayout, name: 'Dashboard' },
+        { path: 'dashboard', component: Dashboard, name: 'Dashboard' },
+        { path: 'settings', component: Settings, name: 'Settings' },
         { path: 'profile', component: ProfilePage, name: 'Profile' },
       ]
     },
