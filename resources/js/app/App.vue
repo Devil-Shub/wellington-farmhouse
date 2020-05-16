@@ -1,26 +1,17 @@
 <template>
   <div>
-    <nav v-if="isCustomer" class="navbar navbar-expand navbar-dark bg-dark">
-      <div class="navbar-nav">
-        <router-link to="/" class="nav-item nav-link">Home</router-link>
-        <a @click="logout" class="nav-item nav-link">Logout</a>
-      </div>
-    </nav>
-    <nav v-if="!currentUser" class="navbar navbar-expand navbar-dark bg-dark">
-      <div class="navbar-nav">
-        <router-link to="/login" class="nav-item nav-link">Login</router-link>
-        <router-link to="/register" class="nav-item nav-link">Register</router-link>
-      </div>
-    </nav>
-     
-    <div v-if="isAdmin">
-      <nav v-if="currentUser" class="navbar navbar-expand navbar-dark bg-dark">
-          <div class="navbar-nav">
-            <router-link to="/dashboard" class="nav-item nav-link">Dashboard</router-link>
-            <a @click="logout" class="nav-item nav-link">Logout</a>
-          </div>
+      <!--header for without login user-->
+      <nav v-if="!isAdmin" class="navbar navbar-expand navbar-dark bg-dark">
+        <header-component></header-component>
       </nav>
-    </div>
+      <nav v-if="isCustomer" class="navbar navbar-expand navbar-dark bg-dark">
+        <frontend-header-component></frontend-header-component>
+     </nav>
+ 
+      <nav v-if="isAdmin" class="navbar navbar-expand navbar-dark bg-dark">
+          <backend-header-component></backend-header-component>
+      </nav>
+  
      <router-view></router-view>
  
   </div>
@@ -30,9 +21,24 @@
 import { authenticationService } from "../_services/authentication.service";
 import { router } from "../_helpers/router";
 import { Role } from "../_helpers/role";
+import Header from '.././menu/header';
+import Footer from '.././menu/footer';
+
+import FrontendHeader from '.././menu/frontend/header';
+import FrontendFooter from '.././menu/frontend/footer';
+
+import BackendHeader from '.././menu/backend/header';
+import BackendFooter from '.././menu/backend/footer';
 
 export default {
   name: "app",
+   components: {
+      'header-component': Header,
+      'footer-component': Footer,
+      'frontend-header-component': FrontendHeader,
+      'frontend-footer-component': FrontendFooter,
+      'backend-header-component': BackendHeader,
+    },
   data() {
     return {
       currentUser: null
