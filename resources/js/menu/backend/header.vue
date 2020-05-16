@@ -11,7 +11,10 @@
             <v-icon>mdi-view-dashboard</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title> <a href="/admin/dashboard" class="nav-item nav-link">Dashboard</a></v-list-item-title>
+            <v-list-item-title> 
+              <!-- <a href="/admin/dashboard" class="nav-item nav-link">Dashboard</a> -->
+              <router-link to="/admin/dashboard" class="nav-item nav-link">Dashboard</router-link>
+            </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
         <v-list-item link>
@@ -50,8 +53,14 @@
       </template>
        <v-list>
         <v-list-item>
-          <v-list-item-title><a href="/admin/profile" class="nav-item nav-link">Profile</a></v-list-item-title>
-          <v-list-item-title>  <a @click="logout" class="nav-item nav-link">Logout</a></v-list-item-title>
+          <v-list-item-title>
+            <!-- <a href="/admin/profile" class="nav-item nav-link">Profile</a> -->
+            <router-link to="/admin/profile" class="nav-item nav-link">Profile</router-link>
+          </v-list-item-title>
+          <v-list-item-title>  
+            <!-- <a @click="logout" class="nav-item nav-link">Logout</a> -->
+            <router-link @click="logout" to="" class="nav-item nav-link">Logout</router-link>
+          </v-list-item-title>
         </v-list-item>
       </v-list>
     </v-menu>

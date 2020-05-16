@@ -14,25 +14,29 @@ Vue.use(Router);
 export const router = new Router({
   mode: "history",
   routes: [
+    { path: "/", component: HomePage, meta: { authorize: [Role.Customer] } },
+    { path: "/confirm-email", component: HomePage },
+    //admin routes
     {
-      path: "/",
-      component: HomePage,
-      meta: { authorize: [Role.Customer] }
-    },
-    {
-      path: "/confirm-email",
-      component: HomePage
-    },
-    {
-      path: "/admin/dashboard",
+      path: '/admin',
       component: AdminPage,
-      meta: { authorize: [Role.Admin] }
+      meta: { authorize: [Role.Admin] },
+      children: [
+        { path: 'dashboard', component: AdminPage, name: 'Dashboard' },
+        { path: 'profile', component: ProfilePage, name: 'Profile' },
+      ]
     },
-    {
-      path: "/admin/profile",
-      component: ProfilePage,
-      meta: { authorize: [Role.Admin] }
-    },
+
+    // {
+    //   path: "/admin/dashboard",
+    //   component: AdminPage,
+    //   meta: { authorize: [Role.Admin] }
+    // },
+    // {
+    //   path: "/admin/profile",
+    //   component: ProfilePage,
+    //   meta: { authorize: [Role.Admin] }
+    // },
     {
       path: "/login",
       component: LoginPage
