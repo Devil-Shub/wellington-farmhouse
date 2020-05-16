@@ -270,16 +270,11 @@ class AuthController extends Controller
     }
 
     public function _welcomeEmail() {
-        $encode = base64_encode("shubhamgakhar13@gmail.com");
-        dump($encode);
-
-        dd(base64_decode($encode));
-
         $data = array(
             'name'=>'NAME',
         );
      
-        Mail::send(['text'=>'email_templates.welcome_email'], $data, function($message) {
+        Mail::send('email_templates.welcome_email', $data, function($message) {
            $message->to('shubhamgakhar13@gmail.com', 'Tutorials Point')->subject
               ('Laravel Basic Testing Mail');
            $message->from('xyz@yopmail.com','HEAVEN');

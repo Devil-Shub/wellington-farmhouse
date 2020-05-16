@@ -22,7 +22,7 @@
       </nav>
     </div>
      <router-view></router-view>
- 
+<div id="snackbar">Something Here ....</div> 
   </div>
 </template>
 
