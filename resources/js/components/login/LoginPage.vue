@@ -55,8 +55,8 @@
 <script>
 import { required } from "vuelidate/lib/validators";
 
-import { router } from "../_helpers/router";
-import { authenticationService } from "../_services/authentication.service";
+import { router } from "../../_helpers/router";
+import { authenticationService } from "../../_services/authentication.service";
 
 export default {
   data() {
