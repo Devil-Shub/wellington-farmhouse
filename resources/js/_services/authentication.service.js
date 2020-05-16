@@ -47,7 +47,7 @@ function login(email, password) {
       localStorage.setItem("currentUser", JSON.stringify(user));
       currentUserSubject.next(user);
       if(user.data.user.role_id == 1){
-          this.currentUrl = "/dashboard";
+          this.currentUrl = "/admin/dashboard";
       }
       if(user.data.user.role_id == 4){
           this.currentUrl = "/";
