@@ -89,7 +89,6 @@
 
 <script>
 import { required } from "vuelidate/lib/validators";
-
 import { router } from "../_helpers/router";
 import { authenticationService } from "../_services/authentication.service";
   export default {
@@ -142,21 +141,24 @@ import { authenticationService } from "../_services/authentication.service";
             this.registerForm.password = this.password;
             this.registerForm.password_confirmation = this.confirm_password;
             this.registerForm.user_image = '';
-            authenticationService.register(this.registerForm).then(
-//               console.log(user),
-              // user => router.push(this.returnUrl),
-              error => {
-                  // Can accept an Object of options
-                this.$toast.open({
-                   message: error,
-                   type: 'error',
+            authenticationService.register(this.registerForm).then(response => {
+              //handle response
+              if(response.status) {
+                  this.$toast.open({
+                    message: response.message,
+                    type: 'success',
                     position: 'top-right'
-                   // all other options may go here
-               })
-                   // this.error = error;
-                // this.loading = false;
+                  });
+               //redirect to login
+               router.push("/login");
+              } else {
+                  this.$toast.open({
+                    message: response.message,
+                    type: 'error',
+                    position: 'top-right'
+                  })
               }
-            );
+            });
           }
        }
     }
