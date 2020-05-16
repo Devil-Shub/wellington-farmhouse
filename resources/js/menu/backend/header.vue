@@ -58,8 +58,8 @@
             <router-link to="/admin/profile" class="nav-item nav-link">Profile</router-link>
           </v-list-item-title>
           <v-list-item-title>  
-            <!-- <a @click="logout" class="nav-item nav-link">Logout</a> -->
-            <router-link @click="logout" to="" class="nav-item nav-link">Logout</router-link>
+            <button type="button" @click="logout" class="nav-item nav-link">Logout</button>
+            <!-- <router-link @click="logout" to="" class="nav-item nav-link">Logout</router-link> -->
           </v-list-item-title>
         </v-list-item>
       </v-list>
