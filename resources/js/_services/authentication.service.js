@@ -14,6 +14,7 @@ export const authenticationService = {
   logout,
   register,
   apiUrl: environment.apiUrl,
+  currentUrl: '',
   currentUser: currentUserSubject.asObservable(),
   get currentUserValue() {
     return currentUserSubject.value;
@@ -45,8 +46,13 @@ function login(email, password) {
       // store user details and passport token in local storage to keep user logged in between page refreshes
       localStorage.setItem("currentUser", JSON.stringify(user));
       currentUserSubject.next(user);
-
-      return user;
+      if(user.data.user.role_id == 1){
+          this.currentUrl = "/dashboard";
+      }
+      if(user.data.user.role_id == 4){
+          this.currentUrl = "/";
+      }
+      return this.currentUrl;
     });
 }
 

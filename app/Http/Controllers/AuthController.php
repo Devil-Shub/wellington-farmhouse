@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
-use Validator;
-use Illuminate\Support\Facades\Mail;
+use Mail;
 use App\User;
 
 class AuthController extends Controller

@@ -16,7 +16,7 @@ export const router = new Router({
     {
       path: "/",
       component: HomePage,
-      meta: { authorize: [Role.Admin] }
+      meta: { authorize: [Role.Customer] }
     },
     {
       path: "/dashboard",

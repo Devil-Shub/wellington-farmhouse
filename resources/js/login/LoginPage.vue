@@ -1,12 +1,23 @@
 <template>
  <v-app>
+         <v-container>
+      <v-row>
+      <v-col
+          cols="6"
+          md="6"
+          >
+              
+      </v-col>
+       <v-col
+          cols="6"
+          md="6"
+          >
  <v-form
     ref="form"
     v-model="valid"
     lazy-validation
   >
-    <v-container>
-      <v-row>
+
         <v-col
           cols="12"
           md="12"
@@ -33,9 +44,11 @@
           
         </v-col>
            <v-btn color="success" class="mr-4" @click="onSubmit">Login</v-btn>
-      </v-row>
-    </v-container>
+   
   </v-form>
+       </v-col>
+             </v-row>
+    </v-container>
     </v-app>
 </template>
 
@@ -71,7 +84,6 @@ export default {
     if (authenticationService.currentUserValue) { 
         return router.push('/');
     }
-
     // get return url from route parameters or default to '/'
     this.returnUrl = this.$route.query.returnUrl || "/";
   },
@@ -84,7 +96,7 @@ export default {
     
       this.loading = true;
       authenticationService.login(this.email, this.password).then(
-        user => router.push(this.returnUrl),
+        user => router.push(user),
         error => {
             // Can accept an Object of options
              this.$toast.open({
