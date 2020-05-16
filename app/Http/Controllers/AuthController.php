@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
-use Validator;
+use Mail;
 use App\User;
 
 class AuthController extends Controller
@@ -41,24 +42,28 @@ class AuthController extends Controller
         }
 
         try {
-            //upload path
-            $folderPath = "images/";
-            //get base64 image
-            $img = $request->user_image;
-            //decode base64
-            $image_parts = explode(";base64,", $img);
-            $image_type_aux = explode("image/", $image_parts[0]);
-            $image_type = $image_type_aux[1];
-            $image_base64 = base64_decode($image_parts[1]);
-            $file = $folderPath . uniqid() . '. '.$image_type;
-            
-            //check if directory exist if not create one
-            $path = public_path().'/images';
-            if (!file_exists($path)) {
-                mkdir($path, 0777, true);
+            if($request->user_image != '' && $request->user_image != null) {
+                //upload path
+                $folderPath = "images/";
+                //get base64 image
+                $img = $request->user_image;
+                //decode base64
+                $image_parts = explode(";base64,", $img);
+                $image_type_aux = explode("image/", $image_parts[0]);
+                $image_type = $image_type_aux[1];
+                $image_base64 = base64_decode($image_parts[1]);
+                $file = $folderPath . uniqid() . '. '.$image_type;
+                
+                //check if directory exist if not create one
+                $path = public_path().'/images';
+                if (!file_exists($path)) {
+                    mkdir($path, 0777, true);
+                }
+                //upload image
+                file_put_contents($file, $image_base64);
+            } else {
+                $file = null;
             }
-            //upload image
-            file_put_contents($file, $image_base64);
 
             //create new user
             $user = new User([
@@ -66,15 +71,20 @@ class AuthController extends Controller
                 'last_name' => $request->last_name,
                 'email' => $request->email,
                 'role_id' => $request->role_id,
+                'is_active' => 1,
                 'phone' => $request->phone,
                 'user_image' => $file,
                 'password' => bcrypt($request->password)
             ]);
-            $user->save();
+
+            if($user->save()) {
+                $this->_welcomeEmail($user);
+            }
+
             //return success response
             return response()->json([
                 'status' => true,
-                'message' => 'Successfully created user!',
+                'message' => 'Your account was successfully created. We have sent you an e-mail to confirm your account.',
                 'data' => []
             ], 200);
         } catch (\Exception $e) {
@@ -120,10 +130,20 @@ class AuthController extends Controller
             if(!Auth::attempt($credentials))
                 return response()->json([
                     'status' => false,
-                    'message' => 'Unauthorized',
+                    'message' => 'These credentials do not match our records.',
                     'data' => []
                 ], 401);
             $user = $request->user();
+
+            //check if account is not confirmed
+            if($user->is_confirmed == 0) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Your account is not confirmed. Please click the confirmation link in your e-mail box.',
+                    'data' => []
+                ], 401);
+            }
+
             $tokenResult = $user->createToken('Personal Access Token');
             $token = $tokenResult->token;
             // if ($request->remember_me)
@@ -137,7 +157,8 @@ class AuthController extends Controller
                     'token_type' => 'Bearer',
                     'expires_at' => Carbon::parse(
                         $tokenResult->token->expires_at
-                    )->toDateTimeString()
+                    )->toDateTimeString(),
+                    'user' => $user
                 )
             ]);
         } catch (\Exception $e) {
@@ -251,4 +272,43 @@ class AuthController extends Controller
             ], 500);
         }
     }
+
+    public function _welcomeEmail($user) {
+        $name = $user->first_name.' '.$user->last_name;
+        $data = array(
+            'name' => $name,
+            'email' => $user->email,
+            'verificationLink' => env('APP_URL').'confirm-email/'.base64_encode($user->email)
+        );
+     
+        Mail::send('email_templates.welcome_email', $data, function($message) use ($user, $name) {
+           $message->to($user->email, $name)->subject
+              ('Email Confirmation');
+           $message->from(env('MAIL_USERNAME'),env('MAIL_USERNAME'));
+        });
+     }
+
+     public function confirmEmail(Request $request) {
+        $email = base64_decode($request->decode_code);
+
+        $getUser = User::whereEmail($email)->first();
+        //check if email exist
+        if($getUser != null) {
+            $getUser->is_confirmed;
+            $getUser->save();
+            $message = "Your account has been successfully confirmed. Please login to proceed further.";
+            $status = true;
+            $errCode = 200;
+        } else {
+            $status = false;
+            $message = "Your confirmation link has been expired.";
+            $errCode = 400; 
+        }
+
+        return response()->json([
+            'status' => $status,
+            'message' => $message,
+            'data' => []
+        ], $errCode);
+     }
 }

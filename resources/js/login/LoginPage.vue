@@ -1,49 +1,55 @@
 <template>
-  <div>
-    <div class="alert alert-info">
-      <strong>Normal User</strong> - U: user P: user<br />
-      <strong>Administrator</strong> - U: admin P: admin
-    </div>
-    <h2>Login</h2>
-    <form @submit.prevent="onSubmit">
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input
-          type="email"
-          v-model.trim="$v.email.$model"
-          name="email"
-          class="form-control"
-          :class="{ 'is-invalid': submitted && $v.email.$error }"
-        />
-        <div v-if="submitted && !$v.email.required" class="invalid-feedback">
-          Email is required
-        </div>
-      </div>
-      <div class="form-group">
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          v-model.trim="$v.password.$model"
-          name="password"
-          class="form-control"
-          :class="{ 'is-invalid': submitted && $v.password.$error }"
-        />
-        <div v-if="submitted && !$v.password.required" class="invalid-feedback">
-          Password is required
-        </div>
-      </div>
-      <div class="form-group">
-        <button class="btn btn-primary" :disabled="loading">
-          <span
-            class="spinner-border spinner-border-sm"
-            v-show="loading"
-          ></span>
-          <span>Login</span>
-        </button>
-      </div>
-      <div v-if="error" class="alert alert-danger">{{ error }}</div>
-    </form>
-  </div>
+ <v-app>
+         <v-container>
+      <v-row>
+      <v-col
+          cols="6"
+          md="6"
+          >
+              
+      </v-col>
+       <v-col
+          cols="6"
+          md="6"
+          >
+ <v-form
+    ref="form"
+    v-model="valid"
+    lazy-validation
+  >
+
+        <v-col
+          cols="12"
+          md="12"
+        >
+          <v-text-field
+            v-model="email"
+            :rules="emailRules"
+            name="email"
+            label="E-mail"
+            required
+          ></v-text-field>
+        </v-col>
+           <v-col cols="12" sm="12">
+          <v-text-field
+            v-model="password"
+            :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+            :rules="[rules.required]"
+            :type="show1 ? 'text' : 'password'"
+            name="password"
+            label="Password"
+            counter
+            @click:append="show1 = !show1"
+          ></v-text-field>
+          
+        </v-col>
+           <v-btn color="success" class="mr-4" @click="onSubmit">Login</v-btn>
+   
+  </v-form>
+       </v-col>
+             </v-row>
+    </v-container>
+    </v-app>
 </template>
 
 <script>
@@ -55,45 +61,54 @@ import { authenticationService } from "../_services/authentication.service";
 export default {
   data() {
     return {
+      valid: true,
+      show1: false,
       email: "",
+       emailRules: [
+        v => !!v || 'E-mail is required',
+        v => /.+@.+/.test(v) || 'E-mail must be valid',
+      ],
       password: "",
+      rules: {
+          required: value => !!value || 'Password is equired.',
+          min: v => v.length >= 8 || 'Password Min 8 characters'
+      },
       submitted: false,
       loading: false,
       returnUrl: "",
-      error: ""
+
     };
-  },
-  validations: {
-    email: { required },
-    password: { required }
   },
   created() {
     // redirect to home if already logged in
     if (authenticationService.currentUserValue) { 
         return router.push('/');
     }
-
     // get return url from route parameters or default to '/'
     this.returnUrl = this.$route.query.returnUrl || "/";
   },
   methods: {
     onSubmit() {
+         if( this.$refs.form.validate() ){
       this.submitted = true;
 
       // stop here if form is invalid
-      this.$v.$touch();
-      if (this.$v.$invalid) {
-        return;
-      }
-
+    
       this.loading = true;
       authenticationService.login(this.email, this.password).then(
-        user => router.push(this.returnUrl),
+        user => router.push(user),
         error => {
-          this.error = error;
+            // Can accept an Object of options
+             this.$toast.open({
+                message: error,
+                type: 'error',
+                position: 'top-right'
+                // all other options may go here
+            })
           this.loading = false;
         }
       );
+    }
     }
   }
 };

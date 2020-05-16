@@ -5,6 +5,7 @@ import { authenticationService } from "../_services/authentication.service";
 import { Role } from "./role";
 import HomePage from "../home/HomePage";
 import AdminPage from "../admin/AdminPage";
+import ProfilePage from "../admin/profile/ProfilePage";
 import LoginPage from "../login/LoginPage";
 import RegisterPage from "../register/RegisterPage";
 
@@ -16,11 +17,20 @@ export const router = new Router({
     {
       path: "/",
       component: HomePage,
-      meta: { authorize: [] }
+      meta: { authorize: [Role.Customer] }
     },
     {
-      path: "/admin",
+      path: "/confirm-email",
+      component: HomePage
+    },
+    {
+      path: "/admin/dashboard",
       component: AdminPage,
+      meta: { authorize: [Role.Admin] }
+    },
+    {
+      path: "/admin/profile",
+      component: ProfilePage,
       meta: { authorize: [Role.Admin] }
     },
     {
@@ -49,7 +59,7 @@ router.beforeEach((to, from, next) => {
     }
 
     // check if route is restricted by role
-    if (authorize.length && !authorize.includes(currentUser.role)) {
+    if (authorize.length && !authorize.includes(currentUser.data.user.role_id)) {
       // role not authorised so redirect to home page
       return next({ path: "/" });
     }

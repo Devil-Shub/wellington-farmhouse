@@ -1,25 +1,17 @@
 <template>
   <div>
-    <nav v-if="currentUser" class="navbar navbar-expand navbar-dark bg-dark">
-      <div class="navbar-nav">
-        <router-link to="/" class="nav-item nav-link">Home</router-link>
-        <router-link v-if="isAdmin" to="/admin" class="nav-item nav-link">Admin</router-link>
-        <a @click="logout" class="nav-item nav-link">Logout</a>
-      </div>
-    </nav>
-    <nav v-else class="navbar navbar-expand navbar-dark bg-dark">
-      <div class="navbar-nav">
-        <router-link to="/login" class="nav-item nav-link">Login</router-link>
-        <router-link to="/register" class="nav-item nav-link">Register</router-link>
-      </div>
-    </nav>
-    <div class="jumbotron">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-6 offset-sm-3"><router-view></router-view></div>
-        </div>
-      </div>
-    </div>
+      <!--header for without login user-->
+      <nav v-if="!isAdmin" class="navbar navbar-expand navbar-dark bg-dark">
+        <header-component></header-component>
+      </nav>
+    
+      <nav v-if="isCustomer" class="navbar navbar-expand navbar-dark bg-dark">
+        <frontend-header-component></frontend-header-component>
+     </nav>
+      <nav v-if="isAdmin" class="navbar navbar-expand navbar-dark bg-dark">
+          <backend-header-component></backend-header-component>
+      </nav>
+     <router-view></router-view>
   </div>
 </template>
 
@@ -27,9 +19,26 @@
 import { authenticationService } from "../_services/authentication.service";
 import { router } from "../_helpers/router";
 import { Role } from "../_helpers/role";
+import Header from '.././menu/header';
+import Footer from '.././menu/footer';
+
+import FrontendHeader from '.././menu/frontend/header';
+import FrontendFooter from '.././menu/frontend/footer';
+
+import BackendHeader from '.././menu/backend/header';
+import BackendFooter from '.././menu/backend/footer';
+import BackendSidebar from '.././menu/backend/sidebar';
 
 export default {
   name: "app",
+   components: {
+      'header-component': Header,
+      'footer-component': Footer,
+      'frontend-header-component': FrontendHeader,
+      'frontend-footer-component': FrontendFooter,
+      'backend-header-component': BackendHeader,
+      'backend-sidebar-component': BackendSidebar,
+    },
   data() {
     return {
       currentUser: null
@@ -37,7 +46,22 @@ export default {
   },
   computed: {
     isAdmin() {
-      return this.currentUser && this.currentUser.role === Role.Admin;
+      return this.currentUser && this.currentUser.data.user.role_id === Role.Admin;
+    },
+    isAdminManager() {
+      return this.currentUser && this.currentUser.data.user.role_id === Role.Admin_Manager;
+    },
+    isTruckDriver() {
+      return this.currentUser && this.currentUser.data.user.role_id === Role.Truck_Driver;
+    },
+    isCustomer() {
+      return this.currentUser && this.currentUser.data.user.role_id === Role.Customer;
+    },
+    isCustomerManager() {
+      return this.currentUser && this.currentUser.data.user.role_id === Role.Customer_Manager;
+    },
+    Company() {
+      return this.currentUser && this.currentUser.data.user.role_id === Role.Company;
     }
   },
   created() {
