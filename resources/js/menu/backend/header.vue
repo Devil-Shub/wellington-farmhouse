@@ -5,8 +5,8 @@
           </div>
 </template>
 <script>
-import { authenticationService } from ".../_services/authentication.service";
-//import { router } from ".../_helpers/router";
+import { authenticationService } from "../../_services/authentication.service";
+import { router } from "../../_helpers/router";
 export default {
   methods: {
     logout() {
