@@ -42,7 +42,7 @@ class AuthController extends Controller
         }
 
         try {
-            if($request->user_image != '' && $request->user_image != null) {
+            if ($request->user_image != '' && $request->user_image != null) {
                 //upload path
                 $folderPath = "images/";
                 //get base64 image
@@ -52,10 +52,10 @@ class AuthController extends Controller
                 $image_type_aux = explode("image/", $image_parts[0]);
                 $image_type = $image_type_aux[1];
                 $image_base64 = base64_decode($image_parts[1]);
-                $file = $folderPath . uniqid() . '. '.$image_type;
-                
+                $file = $folderPath . uniqid() . '. ' . $image_type;
+
                 //check if directory exist if not create one
-                $path = public_path().'/images';
+                $path = public_path() . '/images';
                 if (!file_exists($path)) {
                     mkdir($path, 0777, true);
                 }
@@ -77,7 +77,7 @@ class AuthController extends Controller
                 'password' => bcrypt($request->password)
             ]);
 
-            if($user->save()) {
+            if ($user->save()) {
                 $this->_welcomeEmail($user);
             }
 
@@ -126,8 +126,8 @@ class AuthController extends Controller
 
         try {
             $credentials = request(['email', 'password']);
-            
-            if(!Auth::attempt($credentials))
+
+            if (!Auth::attempt($credentials))
                 return response()->json([
                     'status' => false,
                     'message' => 'These credentials do not match our records.',
@@ -136,7 +136,7 @@ class AuthController extends Controller
             $user = $request->user();
 
             //check if account is not confirmed
-            if($user->is_confirmed == 0) {
+            if ($user->is_confirmed == 0) {
                 return response()->json([
                     'status' => false,
                     'message' => 'Your account is not confirmed. Please click the confirmation link in your e-mail box.',
@@ -210,7 +210,7 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(), [
             'first_name' => 'required|string',
             'last_name' => 'required|string',
-            'email' => 'required|string|email|unique:users,email,'.$request->user()->id,
+            'email' => 'required|string|email|unique:users,email,' . $request->user()->id,
             'password' => 'required|confirmed'
         ]);
 
@@ -225,7 +225,7 @@ class AuthController extends Controller
         try {
             $loggedInUser = $request->user();
             //if admin changes profile image
-            if($request->user_image != null && $request->user_image != '') {
+            if ($request->user_image != null && $request->user_image != '') {
                 //upload path
                 $folderPath = "images/";
                 //get base64 image
@@ -235,10 +235,10 @@ class AuthController extends Controller
                 $image_type_aux = explode("image/", $image_parts[0]);
                 $image_type = $image_type_aux[1];
                 $image_base64 = base64_decode($image_parts[1]);
-                $file = $folderPath . uniqid() . '. '.$image_type;
-                
+                $file = $folderPath . uniqid() . '. ' . $image_type;
+
                 //check if directory exist if not create one
-                $path = public_path().'/images';
+                $path = public_path() . '/images';
                 if (!file_exists($path)) {
                     mkdir($path, 0777, true);
                 }
@@ -273,27 +273,28 @@ class AuthController extends Controller
         }
     }
 
-    public function _welcomeEmail($user) {
-        $name = $user->first_name.' '.$user->last_name;
+    public function _welcomeEmail($user)
+    {
+        $name = $user->first_name . ' ' . $user->last_name;
         $data = array(
             'name' => $name,
             'email' => $user->email,
-            'verificationLink' => env('APP_URL').'confirm-email/'.base64_encode($user->email)
+            'verificationLink' => env('APP_URL') . 'confirm-email/' . base64_encode($user->email)
         );
-     
-        Mail::send('email_templates.welcome_email', $data, function($message) use ($user, $name) {
-           $message->to($user->email, $name)->subject
-              ('Email Confirmation');
-           $message->from(env('MAIL_USERNAME'),env('MAIL_USERNAME'));
-        });
-     }
 
-     public function confirmEmail(Request $request) {
+        Mail::send('email_templates.welcome_email', $data, function ($message) use ($user, $name) {
+            $message->to($user->email, $name)->subject('Email Confirmation');
+            $message->from(env('MAIL_USERNAME'), env('MAIL_USERNAME'));
+        });
+    }
+
+    public function confirmEmail(Request $request)
+    {
         $email = base64_decode($request->decode_code);
 
         $getUser = User::whereEmail($email)->first();
         //check if email exist
-        if($getUser != null) {
+        if ($getUser != null) {
             $getUser->is_confirmed;
             $getUser->save();
             $message = "Your account has been successfully confirmed. Please login to proceed further.";
@@ -302,7 +303,7 @@ class AuthController extends Controller
         } else {
             $status = false;
             $message = "Your confirmation link has been expired.";
-            $errCode = 400; 
+            $errCode = 400;
         }
 
         return response()->json([
@@ -310,5 +311,5 @@ class AuthController extends Controller
             'message' => $message,
             'data' => []
         ], $errCode);
-     }
+    }
 }
