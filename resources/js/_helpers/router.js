@@ -3,11 +3,15 @@ import Router from "vue-router";
 
 import { authenticationService } from "../_services/authentication.service";
 import { Role } from "./role";
+
 import HomePage from "../home/HomePage";
-import AdminPage from "../admin/AdminPage";
-import ProfilePage from "../admin/profile/ProfilePage";
-import LoginPage from "../login/LoginPage";
-import RegisterPage from "../register/RegisterPage";
+//layouts
+import AdminLayout from "../components/layout/AdminLayout";
+//admin components
+import ProfilePage from "../components/admin/profile/ProfilePage";
+
+import LoginPage from "../components/login/LoginPage";
+import RegisterPage from "../components/register/RegisterPage";
 
 Vue.use(Router);
 
@@ -19,10 +23,10 @@ export const router = new Router({
     //admin routes
     {
       path: '/admin',
-      component: AdminPage,
+      component: AdminLayout,
       meta: { authorize: [Role.Admin] },
       children: [
-        { path: 'dashboard', component: AdminPage, name: 'Dashboard' },
+        { path: 'dashboard', component: AdminLayout, name: 'Dashboard' },
         { path: 'profile', component: ProfilePage, name: 'Profile' },
       ]
     },

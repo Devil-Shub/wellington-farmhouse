@@ -8,9 +8,9 @@
       <nav v-if="isCustomer" class="navbar navbar-expand navbar-dark bg-dark">
         <frontend-header-component></frontend-header-component>
      </nav>
-      <nav v-if="isAdmin" class="navbar navbar-expand navbar-dark bg-dark">
+      <!-- <nav v-if="isAdmin" class="navbar navbar-expand navbar-dark bg-dark">
           <backend-header-component></backend-header-component>
-      </nav>
+      </nav> -->
      <router-view></router-view>
   </div>
 </template>
