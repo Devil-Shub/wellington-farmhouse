@@ -20,6 +20,10 @@ export const router = new Router({
       meta: { authorize: [Role.Customer] }
     },
     {
+      path: "/confirm-email",
+      component: HomePage
+    },
+    {
       path: "/admin/dashboard",
       component: AdminPage,
       meta: { authorize: [Role.Admin] }

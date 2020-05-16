@@ -42,24 +42,28 @@ class AuthController extends Controller
         }
 
         try {
-            //upload path
-            $folderPath = "images/";
-            //get base64 image
-            $img = $request->user_image;
-            //decode base64
-            $image_parts = explode(";base64,", $img);
-            $image_type_aux = explode("image/", $image_parts[0]);
-            $image_type = $image_type_aux[1];
-            $image_base64 = base64_decode($image_parts[1]);
-            $file = $folderPath . uniqid() . '. '.$image_type;
-            
-            //check if directory exist if not create one
-            $path = public_path().'/images';
-            if (!file_exists($path)) {
-                mkdir($path, 0777, true);
+            if($request->user_image != '' && $request->user_image != null) {
+                //upload path
+                $folderPath = "images/";
+                //get base64 image
+                $img = $request->user_image;
+                //decode base64
+                $image_parts = explode(";base64,", $img);
+                $image_type_aux = explode("image/", $image_parts[0]);
+                $image_type = $image_type_aux[1];
+                $image_base64 = base64_decode($image_parts[1]);
+                $file = $folderPath . uniqid() . '. '.$image_type;
+                
+                //check if directory exist if not create one
+                $path = public_path().'/images';
+                if (!file_exists($path)) {
+                    mkdir($path, 0777, true);
+                }
+                //upload image
+                file_put_contents($file, $image_base64);
+            } else {
+                $file = null;
             }
-            //upload image
-            file_put_contents($file, $image_base64);
 
             //create new user
             $user = new User([
@@ -269,15 +273,18 @@ class AuthController extends Controller
         }
     }
 
-    public function _welcomeEmail() {
+    public function _welcomeEmail($user) {
+        $name = $user->first_name.' '.$user->last_name;
         $data = array(
-            'name'=>'NAME',
+            'name' => $name,
+            'email' => $user->email,
+            'verificationLink' => env('APP_URL').'confirm-email/'.base64_encode($user->email)
         );
      
-        Mail::send('email_templates.welcome_email', $data, function($message) {
-           $message->to('shubhamgakhar13@gmail.com', 'Tutorials Point')->subject
-              ('Laravel Basic Testing Mail');
-           $message->from('xyz@yopmail.com','HEAVEN');
+        Mail::send('email_templates.welcome_email', $data, function($message) use ($user, $name) {
+           $message->to($user->email, $name)->subject
+              ('Email Confirmation');
+           $message->from(env('MAIL_USERNAME'),env('MAIL_USERNAME'));
         });
      }
 
