@@ -23,7 +23,6 @@
           <img :src="avatar" alt="John">
       </div>
   
-                <input type="hidden" :value="user_id" name="user_id">
       <v-file-input 
         :rules="rules"
         placeholder="Pick an avatar"  
@@ -31,7 +30,7 @@
         show-size accept="image/*" 
         label="Avatar"
         @change="GetImage"
-        v-model="user_image"
+        v-model="editForm.user_image"
         >
       </v-file-input>
     
@@ -41,7 +40,7 @@
           md="12"
         >
           <v-text-field
-            v-model="first_name"
+            v-model="editForm.first_name"
             :rules="FnameRules"
             label="First name"
             required
@@ -53,7 +52,7 @@
           md="12"
         >
           <v-text-field
-            v-model="last_name"
+            v-model="editForm.last_name"
             :rules="LnameRules"
             label="Last name"
             required
@@ -65,7 +64,7 @@
           md="12"
         >
           <v-text-field
-            v-model="email"
+            v-model="editForm.email"
             :rules="emailRules"
             name="email"
             label="E-mail"
@@ -93,12 +92,12 @@ export default {
         valid: true,
         avatar: null,
         editForm: {
-        user_id: null,
-        first_name: '',
-        last_name: '',
-        email: '',
-        user_image: '',
-        role_id: 2,
+            user_id: null,
+            first_name: '',
+            last_name: '',
+            email: '',
+            user_image: null,
+            phone: '',
         },
        FnameRules: [
         v => !!v || 'First name is required',
@@ -106,7 +105,6 @@ export default {
       LnameRules: [
         v => !!v || 'Last name is required',
       ],
-      email: '',
       emailRules: [
         v => !!v || 'E-mail is required',
         v => /.+@.+/.test(v) || 'E-mail must be valid',
@@ -116,35 +114,37 @@ export default {
       ],
     };
   },
-    created() {
-      const currentUser = JSON.parse(localStorage.getItem("currentUser"))
-    this.user_id = currentUser.data.user.id;
-    this.user_image = currentUser.data.user.image;
-    if(currentUser.data.user.image){
-        this.avatar = currentUser.data.user.image;
-    }else{
-        this.avatar = '/images/avatar.png';
-    }
-    this.first_name = currentUser.data.user.first_name;
-    this.last_name = currentUser.data.user.last_name;
-    this.email = currentUser.data.user.email;
-  },
+   mounted: function() {
+         managerService.getManager(this.$route.params.id).then(response => {
+              //handle response
+              if(response.status) {
+                this.editForm.user_image = response.data.user_image;
+                if(response.data.user_image){
+                    this.avatar = response.data.user_image;
+                }else{
+                    this.avatar = '/images/avatar.png';
+                }
+                this.editForm.first_name = response.data.first_name;
+                this.editForm.last_name = response.data.last_name;
+                this.editForm.email = response.data.email;
+                this.editForm.phone = response.data.phone;
+              } else {
+                  router.push("/admin/manager"); 
+                  this.$toast.open({
+                    message: response.message,
+                    type: 'error',
+                    position: 'top-right'
+                  })
+              }
+            });
+    },
   methods: {
       GetImage(e){
          this.avatar = URL.createObjectURL(e);
       },
-      upload(){
-          
-      },
        update () {
           if( this.$refs.form.validate() ){
-            this.editForm.user_id = this.user_id;
-            this.editForm.first_name = this.first_name;
-            this.editForm.last_name = this.last_name;
-            this.editForm.email = this.email;
-            this.editForm.user_image = this.user_image;
-            this.editForm.role_id = 2;
-              managerService.add(this.editForm).then(response => {
+              managerService.edit(this.editForm).then(response => {
               //handle response
               if(response.status) {
                   this.$toast.open({

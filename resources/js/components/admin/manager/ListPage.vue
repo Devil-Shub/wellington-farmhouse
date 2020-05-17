@@ -33,7 +33,7 @@
           <td>{{ item.name }}</td>
           <td>{{ item.email }}</td>
           <td> 
-            <router-link to="/admin/manager/edit" class="nav-item nav-link"><edit-icon size="1.5x" class="custom-class"></edit-icon></router-link>
+            <router-link to="/admin/manager/edit/4" class="nav-item nav-link"><edit-icon size="1.5x" class="custom-class"></edit-icon></router-link>
               <v-menu
                 bottom
                 origin="center center"
@@ -95,9 +95,10 @@
 </template>
 
 <script>
-       import { required } from "vuelidate/lib/validators";
+ import { required } from "vuelidate/lib/validators";
  import { managerService } from "../../../_services/manager.service";
-    import { UserPlusIcon, EditIcon } from 'vue-feather-icons'
+ import { UserPlusIcon, EditIcon } from 'vue-feather-icons'
+ import { router } from "../../../_helpers/router";
   export default {
       components: {
        UserPlusIcon,
@@ -106,6 +107,7 @@
     data () {
       return {
           dialog: false,
+          on: false,
         managers: [
           {
             name: 'Frozen Yogurt',
@@ -120,7 +122,7 @@
         },
         Delete(e){
            if(e){
-            managerService.Delete({'user_id': e}).then(response => {
+            managerService.Delete(e).then(response => {
               //handle response
               if(response.status) {
                   this.$toast.open({
@@ -129,8 +131,10 @@
                     position: 'top-right'
                   });
                //redirect to login
+               this.dialog = false 
                router.push("/admin/manager");
               } else {
+                  this.dialog = false 
                   this.$toast.open({
                     message: response.message,
                     type: 'error',

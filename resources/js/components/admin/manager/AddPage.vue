@@ -80,8 +80,9 @@
 </template>
 
 <script>
-    import { required } from "vuelidate/lib/validators";
+ import { required } from "vuelidate/lib/validators";
  import { managerService } from "../../../_services/manager.service";
+ import { router } from "../../../_helpers/router";
 //import { imageVUE } from '../../image'
 export default {
    components: {

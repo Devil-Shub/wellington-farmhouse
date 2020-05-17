@@ -81,8 +81,9 @@
 </template>
 
 <script>
-    import { required } from "vuelidate/lib/validators";
+ import { required } from "vuelidate/lib/validators";
  import { authenticationService } from "../../../_services/authentication.service";
+ import { router } from "../../../_helpers/router";
 //import { imageVUE } from '../../image'
 export default {
    components: {
@@ -115,17 +116,17 @@ export default {
     };
   },
     created() {
-    const currentUser = JSON.parse(localStorage.getItem("currentUser"))
-    this.user_id = currentUser.data.user.id;
-    this.user_image = currentUser.data.user.image;
-    if(currentUser.data.user.image){
-        this.avatar = currentUser.data.user.image;
-    }else{
-        this.avatar = '/images/avatar.png';
-    }
-    this.first_name = currentUser.data.user.first_name;
-    this.last_name = currentUser.data.user.last_name;
-    this.email = currentUser.data.user.email;
+        const currentUser = JSON.parse(localStorage.getItem("currentUser"))
+        this.user_id = currentUser.data.user.id;
+        this.user_image = currentUser.data.user.image;
+        if(currentUser.data.user.image){
+            this.avatar = currentUser.data.user.image;
+        }else{
+            this.avatar = '/images/avatar.png';
+        }
+        this.first_name = currentUser.data.user.first_name;
+        this.last_name = currentUser.data.user.last_name;
+        this.email = currentUser.data.user.email;
 
   },
   methods: {

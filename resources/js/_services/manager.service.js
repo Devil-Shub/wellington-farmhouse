@@ -13,6 +13,7 @@ export const managerService = {
   add,
   edit,
   Delete,
+  getManager,
   apiUrl: environment.apiUrl,
   currentUrl: '',
   currentUser: currentUserSubject.asObservable(),
@@ -36,9 +37,8 @@ function add(data) {
 }
 
 function edit(data) {
-
   return fetch(
-    this.apiUrl+`admin/update-manager`,
+    this.apiUrl+`admin/update-manager/`+data.user_id,
     requestOptions.post(data)
   )
     .then(handleResponse)
@@ -49,10 +49,22 @@ function edit(data) {
     });
 }
 function Delete(data) {
-
   return fetch(
-    this.apiUrl+`admin/delete-manager`,
-    requestOptions.post(data)
+    this.apiUrl+`admin/delete-manager/`+data,
+    requestOptions.get()
+  )
+    .then(handleResponse)
+    .then(user => {
+      // store user details and passport token in local storage to keep user logged in between page refreshes
+
+      return user;
+    });
+}
+
+function getManager(data) {
+  return fetch(
+    this.apiUrl+`admin/get-manager/`+data,
+    requestOptions.get()
   )
     .then(handleResponse)
     .then(user => {
