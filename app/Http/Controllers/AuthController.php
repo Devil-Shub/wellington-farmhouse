@@ -277,6 +277,9 @@ class AuthController extends Controller
         }
     }
 
+    /**
+     * email for email confirmation
+     */
     public function _welcomeEmail($user)
     {
         $name = $user->first_name . ' ' . $user->last_name;
