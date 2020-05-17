@@ -38,7 +38,7 @@ export const router = new Router({
         { path: 'profile', component: ProfilePage, name: 'Profile' },
         { path: 'manager', component: ListPage, name: 'Manager' },
         { path: 'manager/add', component: AddPage, name: 'Add' },
-        { path: 'manager/edit', component: EditPage, name: 'Edit' },
+        { path: 'manager/edit/:id', component: EditPage, name: 'Edit' },
       ]
     },
 

@@ -32,19 +32,73 @@
             </td>
           <td>{{ item.name }}</td>
           <td>{{ item.email }}</td>
-          <td>  <router-link to="/admin/manager/edit" class="nav-item nav-link"><edit-icon size="1.5x" class="custom-class"></edit-icon></router-link></td>
+          <td> 
+            <router-link to="/admin/manager/edit/4" class="nav-item nav-link"><edit-icon size="1.5x" class="custom-class"></edit-icon></router-link>
+              <v-menu
+                bottom
+                origin="center center"
+                transition="scale-transition"
+              >
+            <template v-slot:activator="{ on }">
+              <v-btn
+                color="primary"
+                dark
+                v-on="on"
+              >
+                More
+              </v-btn>
+            </template>
+            <v-list>
+              <v-list-item>
+                <v-list-item-title @click="Action()">Deactivate</v-list-item-title>
+               
+                <v-list-item-title v-on="on">
+                <v-row justify="center">
+                    <v-dialog v-model="dialog" persistent max-width="600px">
+                      <template v-slot:activator="{ on }">
+                        <v-btn color="primary" dark v-on="on">Delete</v-btn>
+                      </template>
+                      <v-card>
+                        <v-card-title>
+                          <span class="headline">User Delete</span>
+                        </v-card-title>
+                        <v-card-text>
+                          <v-container>
+                            <v-row>
+                                Are you sure you want delete this user?
+                            </v-row>
+                          </v-container>
+                        </v-card-text>
+                        <v-card-actions>
+                          <v-spacer></v-spacer>
+                          <v-btn color="blue darken-1" text @click="Close">No</v-btn>
+                          <v-btn color="blue darken-1" text @click="Delete(2)">Yes</v-btn>
+                        </v-card-actions>
+                      </v-card>
+                    </v-dialog>
+                </v-row>
+                </v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+          </td>
         </tr>
       </tbody>
     </template>
   </v-simple-table>
-            </v-col>
-             </v-row>
+          
+  
+      </v-col>         
+     </v-row>
     </v-container>
     </v-app>
 </template>
 
 <script>
-    import { UserPlusIcon, EditIcon } from 'vue-feather-icons'
+ import { required } from "vuelidate/lib/validators";
+ import { managerService } from "../../../_services/manager.service";
+ import { UserPlusIcon, EditIcon } from 'vue-feather-icons'
+ import { router } from "../../../_helpers/router";
   export default {
       components: {
        UserPlusIcon,
@@ -52,6 +106,8 @@
       },
     data () {
       return {
+          dialog: false,
+          on: false,
         managers: [
           {
             name: 'Frozen Yogurt',
@@ -60,5 +116,37 @@
         ],
       }
     },
+    methods: {
+        Action(){
+            
+        },
+        Delete(e){
+           if(e){
+            managerService.Delete(e).then(response => {
+              //handle response
+              if(response.status) {
+                  this.$toast.open({
+                    message: response.message,
+                    type: 'success',
+                    position: 'top-right'
+                  });
+               //redirect to login
+               this.dialog = false 
+               router.push("/admin/manager");
+              } else {
+                  this.dialog = false 
+                  this.$toast.open({
+                    message: response.message,
+                    type: 'error',
+                    position: 'top-right'
+                  })
+              }
+            });
+           }
+        },
+        Close(){
+          this.dialog = false 
+        }
+    }
   }
 </script>

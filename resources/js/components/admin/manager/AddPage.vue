@@ -2,10 +2,10 @@
       <v-app>
              <v-container>
       <v-row>
-              <v-col
+          <v-col
           cols="12"
           md="12"
-          ><h2>Add Manager</h2></v-col>
+          ><h2>Admin Profile</h2></v-col>
              <v-col
           cols="12"
           md="12"
@@ -23,7 +23,6 @@
           <img :src="avatar" alt="John">
       </div>
   
-                <input type="hidden" :value="user_id" name="user_id">
       <v-file-input 
         :rules="rules"
         placeholder="Pick an avatar"  
@@ -31,7 +30,7 @@
         show-size accept="image/*" 
         label="Avatar"
         @change="GetImage"
-        v-model="user_image"
+        v-model="addForm.user_image"
         >
       </v-file-input>
     
@@ -41,7 +40,7 @@
           md="12"
         >
           <v-text-field
-            v-model="first_name"
+            v-model="addForm.first_name"
             :rules="FnameRules"
             label="First name"
             required
@@ -53,7 +52,7 @@
           md="12"
         >
           <v-text-field
-            v-model="last_name"
+            v-model="addForm.last_name"
             :rules="LnameRules"
             label="Last name"
             required
@@ -65,14 +64,14 @@
           md="12"
         >
           <v-text-field
-            v-model="email"
+            v-model="addForm.email"
             :rules="emailRules"
             name="email"
             label="E-mail"
             required
           ></v-text-field>
         </v-col>
-           <v-btn color="success" class="mr-4" @click="save">Submit</v-btn>
+           <v-btn color="success" class="mr-4" @click="update">Submit</v-btn>
              </v-form>
                  </v-col>
    </v-row>
@@ -81,8 +80,9 @@
 </template>
 
 <script>
-    import { required } from "vuelidate/lib/validators";
- import { authenticationService } from "../../../_services/authentication.service";
+ import { required } from "vuelidate/lib/validators";
+ import { managerService } from "../../../_services/manager.service";
+ import { router } from "../../../_helpers/router";
 //import { imageVUE } from '../../image'
 export default {
    components: {
@@ -93,12 +93,11 @@ export default {
         valid: true,
         avatar: null,
         addForm: {
-        user_id: null,
         first_name: '',
         last_name: '',
         email: '',
-        user_image: '',
-        role_id: 2,
+         user_image: null,
+         phone: '',
         },
        FnameRules: [
         v => !!v || 'First name is required',
@@ -106,7 +105,6 @@ export default {
       LnameRules: [
         v => !!v || 'Last name is required',
       ],
-      email: '',
       emailRules: [
         v => !!v || 'E-mail is required',
         v => /.+@.+/.test(v) || 'E-mail must be valid',
@@ -116,7 +114,7 @@ export default {
       ],
     };
   },
-    created() {
+  created() {
         this.avatar = '/images/avatar.png';
   },
   methods: {
@@ -126,15 +124,26 @@ export default {
       upload(){
           
       },
-       save () {
+       update () {
           if( this.$refs.form.validate() ){
-            this.addForm.user_id = this.user_id;
-            this.addForm.first_name = this.first_name;
-            this.addForm.last_name = this.last_name;
-            this.addForm.email = this.email;
-            this.addForm.user_image = this.user_image;
-            this.addForm.role_id = 2;
-            console.log(this.addForm);
+             managerService.add(this.addForm).then(response => {
+              //handle response
+              if(response.status) {
+                  this.$toast.open({
+                    message: response.message,
+                    type: 'success',
+                    position: 'top-right'
+                  });
+               //redirect to login
+               router.push("/admin/manager");
+              } else {
+                  this.$toast.open({
+                    message: response.message,
+                    type: 'error',
+                    position: 'top-right'
+                  })
+              }
+            });
           }
       }
     }
