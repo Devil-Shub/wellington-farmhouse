@@ -21,9 +21,7 @@ class ManagerController extends Controller
             'first_name' => 'required|string',
             'last_name' => 'required|string',
             'email' => 'required|string|email|unique:users',
-            'phone' => 'required',
-            'user_image' => 'required',
-            'password' => 'required|confirmed'
+            'password' => 'confirmed'
         ]);
 
         if ($validator->fails()) {
@@ -35,31 +33,35 @@ class ManagerController extends Controller
         }
 
         try {
-            //upload path
-            $folderPath = "images/";
-            //get base64 image
-            $img = $request->user_image;
-            //decode base64
-            $image_parts = explode(";base64,", $img);
-            $image_type_aux = explode("image/", $image_parts[0]);
-            $image_type = $image_type_aux[1];
-            $image_base64 = base64_decode($image_parts[1]);
-            $file = $folderPath . uniqid() . '. '.$image_type;
-            
-            //check if directory exist if not create one
-            $path = public_path().'/images';
-            if (!file_exists($path)) {
-                mkdir($path, 0777, true);
+            if($request->user_image != '' && $request->user_image != null) {
+                //upload path
+                $folderPath = "images/";
+                //get base64 image
+                $img = $request->user_image;
+                //decode base64
+                $image_parts = explode(";base64,", $img);
+                $image_type_aux = explode("image/", $image_parts[0]);
+                $image_type = $image_type_aux[1];
+                $image_base64 = base64_decode($image_parts[1]);
+                $file = $folderPath . uniqid() . '. '.$image_type;
+                
+                //check if directory exist if not create one
+                $path = public_path().'/images';
+                if (!file_exists($path)) {
+                    mkdir($path, 0777, true);
+                }
+                //upload image
+                file_put_contents($file, $image_base64);
+            } else {
+                $file = '';
             }
-            //upload image
-            file_put_contents($file, $image_base64);
 
             //create new user
             $user = new User([
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
                 'email' => $request->email,
-                'role_id' => $request->role_id,
+                'role_id' => config('constant.roles.Admin_Manager'),
                 'phone' => $request->phone,
                 'user_image' => $file,
                 'password' => bcrypt($request->password)

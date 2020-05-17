@@ -38,7 +38,7 @@ export const requestOptions = {
 
 function headers() {
   const currentUser = authenticationService.currentUserValue || {};
-  const authHeader = currentUser.data.access_token
+  const authHeader = currentUser.data != undefined
     ? { Authorization: "Bearer " + currentUser.data.access_token }
     : {};
   return {
