@@ -39,6 +39,9 @@ Route::group(['prefix' => 'auth'], function () {
             Route::post('update-manager/{manager_id}', 'ManagerController@updateManager');
             Route::get('delete-manager/{manager_id}', 'ManagerController@deleteManager');
             Route::get('get-manager/{manager_id}', 'ManagerController@getManager');
+
+            //services
+            Route::post('create-service', 'ServicesController@createService');
         });
 
     });
