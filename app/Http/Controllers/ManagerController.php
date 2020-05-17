@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
+use Mail;
 use Carbon\Carbon;
 use Validator;
 use App\User;
@@ -56,6 +58,9 @@ class ManagerController extends Controller
                 $file = '';
             }
 
+            //random string for new password
+            $newPassword = Str::random();
+
             //create new user
             $user = new User([
                 'first_name' => $request->first_name,
@@ -64,9 +69,13 @@ class ManagerController extends Controller
                 'role_id' => config('constant.roles.Admin_Manager'),
                 'phone' => $request->phone,
                 'user_image' => $file,
-                'password' => bcrypt($request->password)
+                'is_confirmed' => 1,
+                'password' => bcrypt($newPassword)
             ]);
-            $user->save();
+            if($user->save()) {
+                //send email for new email and password
+                $this->_confirmPassword($user, $newPassword);
+            }
             //return success response
             return response()->json([
                 'status' => true,
@@ -95,7 +104,6 @@ class ManagerController extends Controller
             'first_name' => 'required|string',
             'last_name' => 'required|string',
             'email' => 'required|string|email|unique:users,email,'.$request->manager_id,
-            'phone' => 'required',
             'password' => 'confirmed'
         ]);
 
@@ -214,5 +222,22 @@ class ManagerController extends Controller
             'data' => User::whereRoleId(config('constant.roles.Admin_Manager'))->get()
         ], 200);
 
+    }
+
+    /**
+     * email for new registration and password
+     */
+    public function _confirmPassword($user, $newPassword)
+    {
+        $name = $user->first_name . ' ' . $user->last_name;
+        $data = array(
+            'user' => $user,
+            'password' => $newPassword
+        );
+
+        Mail::send('email_templates.welcome_email_manager', $data, function ($message) use ($user, $name) {
+            $message->to($user->email, $name)->subject('Login Details');
+            $message->from(env('MAIL_USERNAME'), env('MAIL_USERNAME'));
+        });
     }
 }
