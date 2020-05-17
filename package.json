@@ -32,6 +32,7 @@
         "rxjs": "^6.5.5",
         "vue-axios": "^2.1.5",
         "vue-feather-icon": "^1.2.0",
+        "vue-feather-icons": "^5.0.0",
         "vue-router": "^3.1.6",
         "vue-toast-notification": "^0.4.0",
         "vuelidate": "^0.7.5"
