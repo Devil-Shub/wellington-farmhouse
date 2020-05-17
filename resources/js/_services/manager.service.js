@@ -9,11 +9,10 @@ const currentUserSubject = new BehaviorSubject(
   JSON.parse(localStorage.getItem("currentUser"))
 );
 
-export const authenticationService = {
-  login,
-  logout,
-  register,
-  updateProfile,
+export const managerService = {
+  add,
+  edit,
+  Delete,
   apiUrl: environment.apiUrl,
   currentUrl: '',
   currentUser: currentUserSubject.asObservable(),
@@ -22,10 +21,10 @@ export const authenticationService = {
   }
 };
 
-function register(data) {
+function add(data) {
 
   return fetch(
-    this.apiUrl+`signup`,
+    this.apiUrl+`admin/create-manager`,
     requestOptions.post(data)
   )
     .then(handleResponse)
@@ -36,10 +35,23 @@ function register(data) {
     });
 }
 
-function updateProfile(data) {
+function edit(data) {
 
   return fetch(
-    this.apiUrl+`admin/edit-profile`,
+    this.apiUrl+`admin/update-manager`,
+    requestOptions.post(data)
+  )
+    .then(handleResponse)
+    .then(user => {
+      // store user details and passport token in local storage to keep user logged in between page refreshes
+
+      return user;
+    });
+}
+function Delete(data) {
+
+  return fetch(
+    this.apiUrl+`admin/delete-manager`,
     requestOptions.post(data)
   )
     .then(handleResponse)
@@ -50,29 +62,3 @@ function updateProfile(data) {
     });
 }
 
-function login(email, password) {
-
-  return fetch(
-    this.apiUrl+`login`,
-    requestOptions.post({ email, password })
-  )
-    .then(handleResponse)
-    .then(user => {
-      // store user details and passport token in local storage to keep user logged in between page refreshes
-      localStorage.setItem("currentUser", JSON.stringify(user));
-      currentUserSubject.next(user);
-      if(user.data.user.role_id == 1){
-          this.currentUrl = "/admin/dashboard";
-      }
-      if(user.data.user.role_id == 4){
-          this.currentUrl = "/";
-      }
-      return this.currentUrl;
-    });
-}
-
-function logout() {
-  // remove user from local storage to log user out
-  localStorage.removeItem("currentUser");
-  currentUserSubject.next(null);
-}

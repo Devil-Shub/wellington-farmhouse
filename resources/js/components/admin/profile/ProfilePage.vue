@@ -23,7 +23,7 @@
           <img :src="avatar" alt="John">
       </div>
   
-                <input type="hidden" :value="user_id" name="user_id">
+       <input type="hidden" :value="user_id" name="user_id">
       <v-file-input 
         :rules="rules"
         placeholder="Pick an avatar"  
@@ -105,7 +105,6 @@ export default {
       LnameRules: [
         v => !!v || 'Last name is required',
       ],
-      email: '',
       emailRules: [
         v => !!v || 'E-mail is required',
         v => /.+@.+/.test(v) || 'E-mail must be valid',
@@ -127,6 +126,7 @@ export default {
     this.first_name = currentUser.data.user.first_name;
     this.last_name = currentUser.data.user.last_name;
     this.email = currentUser.data.user.email;
+
   },
   methods: {
       GetImage(e){
@@ -142,7 +142,24 @@ export default {
             this.updateForm.last_name = this.last_name;
             this.updateForm.email = this.email;
             this.updateForm.user_image = this.user_image;
-            console.log(this.updateForm);
+             authenticationService.updateProfile(this.updateForm).then(response => {
+              //handle response
+              if(response.status) {
+                  this.$toast.open({
+                    message: response.message,
+                    type: 'success',
+                    position: 'top-right'
+                  });
+               //redirect to login
+               router.push("/admin/profile");
+              } else {
+                  this.$toast.open({
+                    message: response.message,
+                    type: 'error',
+                    position: 'top-right'
+                  })
+              }
+            });
           }
       }
     }
