@@ -39,9 +39,12 @@ Route::group(['prefix' => 'auth'], function () {
             Route::post('update-manager/{manager_id}', 'ManagerController@updateManager');
             Route::get('delete-manager/{manager_id}', 'ManagerController@deleteManager');
             Route::get('get-manager/{manager_id}', 'ManagerController@getManager');
+            Route::get('list-manager', 'ManagerController@listManager');
 
             //services
             Route::post('create-service', 'ServicesController@createService');
+            Route::post('edit-service/{service_id}', 'ServicesController@editService');
+            Route::post('edit-service-time-slot/{time_slot_id}', 'ServicesController@editTimeSlot');
         });
 
     });
