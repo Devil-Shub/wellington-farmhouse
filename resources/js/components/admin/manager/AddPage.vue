@@ -120,6 +120,7 @@ export default {
   methods: {
       GetImage(e){
          this.avatar = URL.createObjectURL(e);
+         this.addForm.user_image = e;
       },
       upload(){
           

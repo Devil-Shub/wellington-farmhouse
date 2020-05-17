@@ -132,6 +132,7 @@ export default {
   methods: {
       GetImage(e){
          this.avatar = URL.createObjectURL(e);
+          this.updateForm.user_image = e;
       },
       upload(){
           
@@ -142,7 +143,7 @@ export default {
             this.updateForm.first_name = this.first_name;
             this.updateForm.last_name = this.last_name;
             this.updateForm.email = this.email;
-            this.updateForm.user_image = this.user_image;
+           console.log(this.updateForm)
              authenticationService.updateProfile(this.updateForm).then(response => {
               //handle response
               if(response.status) {

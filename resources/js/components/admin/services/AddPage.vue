@@ -20,7 +20,7 @@
           md="12"
         >
           <v-text-field
-            v-model="addForm.name"
+            v-model="addForm.service_name"
             :rules="nameRules"
             label="Service name"
             required
@@ -78,7 +78,7 @@ export default {
         valid: true,
         avatar: null,
         addForm: {
-        name: '',
+        service_name: '',
         price: '',
         description: '',
         },

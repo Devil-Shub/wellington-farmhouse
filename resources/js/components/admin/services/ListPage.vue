@@ -17,23 +17,18 @@
     <template v-slot:default>
       <thead>
         <tr>
-            <th class="text-left">Image</th>
-          <th class="text-left">Name</th>
-          <th class="text-left">Email</th>
+            <th class="text-left">Service Name</th>
+          <th class="text-left">Price</th>
+          <th class="text-left">Descriptions</th>
           <th class="text-left">Action</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="item in managers" :key="item.name">
-            <td>   
-                <div class="v-avatar v-list-item__avatar" style="height: 40px; min-width: 40px; width: 40px;">
-                    <img :src="`/images/avatar.png`" alt="John">
-                </div>
-            </td>
-          <td>{{ item.name }}</td>
-          <td>{{ item.email }}</td>
+          <td>{{ item.service_name }}</td>
+          <td>${{ item.email }}</td>
           <td> 
-            <router-link to="/admin/service/edit/4" class="nav-item nav-link"><edit-icon size="1.5x" class="custom-class"></edit-icon></router-link>
+           <router-link :to="'/admin/service/edit/' + item.id" class="nav-item nav-link"><edit-icon size="1.5x" class="custom-class"></edit-icon></router-link>
               <v-menu
                 bottom
                 origin="center center"
@@ -106,13 +101,23 @@
       return {
           dialog: false,
           on: false,
-        managers: [
-          {
-            name: 'Frozen Yogurt',
-            email: 159,
-          },
-        ],
+        managers: [],
       }
+    },
+    mounted: function()  {
+      jobService.jobService().then(response => {
+              //handle response
+              if(response.status) {
+               this.managers = response.data;
+              } else {
+                 
+                  this.$toast.open({
+                    message: response.message,
+                    type: 'error',
+                    position: 'top-right'
+                  })
+              }
+            });
     },
     methods: {
         Action(){

@@ -14,6 +14,7 @@ export const jobService = {
   edit,
   Delete,
   getService,
+  listService,
   apiUrl: environment.apiUrl,
   currentUrl: '',
   currentUser: currentUserSubject.asObservable(),
@@ -64,6 +65,19 @@ function Delete(data) {
 function getService(data) {
   return fetch(
     this.apiUrl+`admin/get-service/`+data,
+    requestOptions.get()
+  )
+    .then(handleResponse)
+    .then(user => {
+      // store user details and passport token in local storage to keep user logged in between page refreshes
+
+      return user;
+    });
+}
+
+function listService() {
+  return fetch(
+    this.apiUrl+`admin/list-service/`,
     requestOptions.get()
   )
     .then(handleResponse)

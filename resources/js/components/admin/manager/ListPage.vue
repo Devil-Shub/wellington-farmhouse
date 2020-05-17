@@ -31,7 +31,7 @@
                     <img :src="`/images/avatar.png`" alt="John">
                 </div>
             </td>
-          <td>{{ item.name }}</td>
+          <td>{{ item.first_name }} {{ item.last_name }}</td>
           <td>{{ item.email }}</td>
           <td>
                <v-chip v-if="!item.is_active"
@@ -50,7 +50,7 @@
             </v-chip>
             </td>
           <td> 
-            <router-link to="/admin/manager/edit/4" class="nav-item nav-link"><edit-icon size="1.5x" class="custom-class"></edit-icon></router-link>
+            <router-link :to="'/admin/manager/edit/' + item.id" class="nav-item nav-link"><edit-icon size="1.5x" class="custom-class"></edit-icon></router-link>
               <v-menu
                 bottom
                 origin="center center"
@@ -89,7 +89,7 @@
                         <v-card-actions>
                           <v-spacer></v-spacer>
                           <v-btn color="blue darken-1" text @click="Close">No</v-btn>
-                          <v-btn color="blue darken-1" text @click="Delete(2)">Yes</v-btn>
+                          <v-btn color="blue darken-1" text @click="Delete()">Yes</v-btn>
                         </v-card-actions>
                       </v-card>
                     </v-dialog>
@@ -125,25 +125,14 @@
       return {
           dialog: false,
           on: false,
-        managers: [
-          {
-            name: 'Fake Admin',
-            email: 'fake@admin.com',
-            is_active: 0,
-          },
-          {
-            name: 'Admin',
-            email: 'admin@admin.com',
-            is_active: 1,
-          },
-        ],
+        managers: [],
       }
     },
     mounted: function()  {
           managerService.listService().then(response => {
               //handle response
               if(response.status) {
-               console.log(response)
+               this.managers = response.data;
               } else {
                  
                   this.$toast.open({

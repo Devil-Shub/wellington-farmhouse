@@ -118,6 +118,7 @@ export default {
          managerService.getManager(this.$route.params.id).then(response => {
               //handle response
               if(response.status) {
+                   this.editForm.user_id = response.data.id;
                 this.editForm.user_image = response.data.user_image;
                 if(response.data.user_image){
                     this.avatar = response.data.user_image;
@@ -141,6 +142,7 @@ export default {
   methods: {
       GetImage(e){
          this.avatar = URL.createObjectURL(e);
+        this.editForm.user_image = e;
       },
        update () {
           if( this.$refs.form.validate() ){
