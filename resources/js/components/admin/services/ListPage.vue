@@ -26,27 +26,12 @@
       <tbody>
         <tr v-for="item in managers" :key="item.name">
           <td>{{ item.service_name }}</td>
-          <td>${{ item.email }}</td>
+          <td>${{ item.price }}</td>
+           <td>${{ item.description }}</td>
           <td> 
            <router-link :to="'/admin/service/edit/' + item.id" class="nav-item nav-link"><edit-icon size="1.5x" class="custom-class"></edit-icon></router-link>
-              <v-menu
-                bottom
-                origin="center center"
-                transition="scale-transition"
-              >
-            <template v-slot:activator="{ on }">
-              <v-btn
-                color="primary"
-                dark
-                v-on="on"
-              >
-                More
-              </v-btn>
-            </template>
-            <v-list>
-              <v-list-item>  
-                <v-list-item-title v-on="on">
-                <v-row justify="center">
+            <v-btn color="blue darken-1" text @click="Delete(item.id)">Delete</v-btn>
+<!--                <v-row justify="center">
                     <v-dialog v-model="dialog" persistent max-width="600px">
                       <template v-slot:activator="{ on }">
                         <v-btn color="primary" dark v-on="on">Delete</v-btn>
@@ -65,15 +50,11 @@
                         <v-card-actions>
                           <v-spacer></v-spacer>
                           <v-btn color="blue darken-1" text @click="Close">No</v-btn>
-                          <v-btn color="blue darken-1" text @click="Delete(2)">Yes</v-btn>
+                         
                         </v-card-actions>
                       </v-card>
                     </v-dialog>
-                </v-row>
-                </v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-menu>
+                </v-row>-->
           </td>
         </tr>
       </tbody>
@@ -104,20 +85,23 @@
         managers: [],
       }
     },
+    getList(){
+     
+    },
     mounted: function()  {
-      jobService.jobService().then(response => {
-              //handle response
-              if(response.status) {
-               this.managers = response.data;
-              } else {
-                 
-                  this.$toast.open({
-                    message: response.message,
-                    type: 'error',
-                    position: 'top-right'
-                  })
-              }
-            });
+          jobService.listService().then(response => {
+            //handle response
+            if(response.status) {
+             this.managers = response.data;
+            } else {
+
+                this.$toast.open({
+                  message: response.message,
+                  type: 'error',
+                  position: 'top-right'
+                })
+            }
+          });
     },
     methods: {
         Action(){
@@ -125,6 +109,7 @@
         },
         Delete(e){
            if(e){
+              
             jobService.Delete(e).then(response => {
               //handle response
               if(response.status) {
@@ -135,7 +120,7 @@
                   });
                //redirect to login
                this.dialog = false 
-               router.push("/admin/service");
+//               router.push("/admin/service");
               } else {
                   this.dialog = false 
                   this.$toast.open({

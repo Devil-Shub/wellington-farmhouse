@@ -39,7 +39,7 @@ function add(data) {
 
 function edit(data) {
   return fetch(
-    this.apiUrl+`admin/update-service/`+data.user_id,
+    this.apiUrl+`admin/edit-service/`+data.id,
     requestOptions.post(data)
   )
     .then(handleResponse)
@@ -52,7 +52,7 @@ function edit(data) {
 function Delete(data) {
   return fetch(
     this.apiUrl+`admin/delete-service/`+data,
-    requestOptions.get()
+    requestOptions.delete()
   )
     .then(handleResponse)
     .then(user => {
@@ -77,7 +77,7 @@ function getService(data) {
 
 function listService() {
   return fetch(
-    this.apiUrl+`admin/list-service/`,
+    this.apiUrl+`admin/list-services`,
     requestOptions.get()
   )
     .then(handleResponse)

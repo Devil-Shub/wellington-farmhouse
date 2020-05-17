@@ -20,7 +20,7 @@
           md="12"
         >
           <v-text-field
-            v-model="editForm.name"
+            v-model="editForm.service_name"
             :rules="nameRules"
             label="Service Name"
             required
@@ -49,8 +49,8 @@
       <v-textarea
       clearable
       clear-icon="cancel"
-     v-model="addForm.description"
-    :rules="descriptionRules"
+     v-model="editForm.description"
+    :rules="descRules"
     label="Description"
     required
     ></v-textarea>
@@ -76,7 +76,8 @@ export default {
         valid: true,
         avatar: null,
         editForm: {
-        name:'',
+            id: '',
+        service_name:'',
         price:'',
         description:''
         },
@@ -95,7 +96,8 @@ export default {
          jobService.getService(this.$route.params.id).then(response => {
               //handle response
               if(response.status) {
-                this.editForm.name = response.data.name;
+                  this.editForm.id = response.data.id;
+                this.editForm.service_name = response.data.service_name;
                 this.editForm.price = response.data.price;
                 this.editForm.description = response.data.description;
               } else {
@@ -114,7 +116,7 @@ export default {
       },
        update () {
           if( this.$refs.form.validate() ){
-              managerService.edit(this.editForm).then(response => {
+              jobService.edit(this.editForm).then(response => {
               //handle response
               if(response.status) {
                   this.$toast.open({
@@ -123,7 +125,7 @@ export default {
                     position: 'top-right'
                   });
                //redirect to login
-               router.push("/admin/manager");
+               router.push("/admin/service");
               } else {
                   this.$toast.open({
                     message: response.message,

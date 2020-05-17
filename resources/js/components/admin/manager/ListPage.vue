@@ -51,7 +51,8 @@
             </td>
           <td> 
             <router-link :to="'/admin/manager/edit/' + item.id" class="nav-item nav-link"><edit-icon size="1.5x" class="custom-class"></edit-icon></router-link>
-              <v-menu
+            <v-btn color="blue darken-1" text @click="Delete(item.id)">Delete</v-btn>
+<!--              <v-menu
                 bottom
                 origin="center center"
                 transition="scale-transition"
@@ -89,7 +90,7 @@
                         <v-card-actions>
                           <v-spacer></v-spacer>
                           <v-btn color="blue darken-1" text @click="Close">No</v-btn>
-                          <v-btn color="blue darken-1" text @click="Delete()">Yes</v-btn>
+                          <v-btn color="blue darken-1" text @click="Delete(item.id)">Yes</v-btn>
                         </v-card-actions>
                       </v-card>
                     </v-dialog>
@@ -97,7 +98,7 @@
                 </v-list-item-title>
               </v-list-item>
             </v-list>
-          </v-menu>
+          </v-menu>-->
           </td>
         </tr>
       </tbody>
@@ -128,8 +129,11 @@
         managers: [],
       }
     },
+    getList(){
+        
+    },
     mounted: function()  {
-          managerService.listService().then(response => {
+         managerService.listService().then(response => {
               //handle response
               if(response.status) {
                this.managers = response.data;
@@ -141,7 +145,7 @@
                     position: 'top-right'
                   })
               }
-            });
+            }); 
     },
     methods: {
         Action(){
@@ -159,7 +163,7 @@
                   });
                //redirect to login
                this.dialog = false 
-               router.push("/admin/manager");
+//               router.push("/admin/manager");
               } else {
                   this.dialog = false 
                   this.$toast.open({

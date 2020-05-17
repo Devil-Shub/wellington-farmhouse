@@ -22,8 +22,7 @@
         <div class="v-avatar v-list-item__avatar" style="height: 40px; min-width: 40px; width: 40px;">
           <img :src="avatar" alt="John">
       </div>
-  
-       <input type="hidden" :value="user_id" name="user_id">
+    <input type="file" v-on:change="onFileChange" class="form-control">
       <v-file-input 
         :rules="rules"
         placeholder="Pick an avatar"  
@@ -31,7 +30,8 @@
         show-size accept="image/*" 
         label="Avatar"
         @change="GetImage"
-        v-model="user_image"
+        type="file"
+        v-model="updateForm.user_image"
         >
       </v-file-input>
     
@@ -41,7 +41,7 @@
           md="12"
         >
           <v-text-field
-            v-model="first_name"
+            v-model="updateForm.first_name"
             :rules="FnameRules"
             label="First name"
             required
@@ -53,7 +53,7 @@
           md="12"
         >
           <v-text-field
-            v-model="last_name"
+            v-model="updateForm.last_name"
             :rules="LnameRules"
             label="Last name"
             required
@@ -65,7 +65,7 @@
           md="12"
         >
           <v-text-field
-            v-model="email"
+            v-model="updateForm.email"
             :rules="emailRules"
             name="email"
             label="E-mail"
@@ -117,33 +117,39 @@ export default {
   },
     created() {
         const currentUser = JSON.parse(localStorage.getItem("currentUser"))
-        this.user_id = currentUser.data.user.id;
-        this.user_image = currentUser.data.user.image;
+        this.updateForm.user_id = currentUser.data.user.id;
+        this.updateForm.user_image = currentUser.data.user.image;
         if(currentUser.data.user.image){
             this.avatar = currentUser.data.user.image;
         }else{
             this.avatar = '/images/avatar.png';
         }
-        this.first_name = currentUser.data.user.first_name;
-        this.last_name = currentUser.data.user.last_name;
-        this.email = currentUser.data.user.email;
+        this.updateForm.first_name = currentUser.data.user.first_name;
+        this.updateForm.last_name = currentUser.data.user.last_name;
+        this.updateForm.email = currentUser.data.user.email;
 
   },
   methods: {
       GetImage(e){
          this.avatar = URL.createObjectURL(e);
-          this.updateForm.user_image = e;
       },
-      upload(){
-          
-      },
+       onFileChange(e) {
+                let files = e.target.files || e.dataTransfer.files;
+                if (!files.length)
+                    return;
+                this.createImage(files[0]);
+            },
+            createImage(file) {
+                let reader = new FileReader();
+                
+                reader.onload = (e) => {
+                    this.updateForm.user_image = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            },
        update () {
           if( this.$refs.form.validate() ){
-            this.updateForm.user_id = this.user_id;
-            this.updateForm.first_name = this.first_name;
-            this.updateForm.last_name = this.last_name;
-            this.updateForm.email = this.email;
-           console.log(this.updateForm)
+           console.log(this.updateForm.user_image)
              authenticationService.updateProfile(this.updateForm).then(response => {
               //handle response
               if(response.status) {
