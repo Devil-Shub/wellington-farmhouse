@@ -14,6 +14,7 @@ export const managerService = {
   edit,
   Delete,
   getManager,
+  listService,
   apiUrl: environment.apiUrl,
   currentUrl: '',
   currentUser: currentUserSubject.asObservable(),
@@ -61,6 +62,18 @@ function Delete(data) {
     });
 }
 
+function listService(){
+      return fetch(
+    this.apiUrl+`admin/list-manager`,
+    requestOptions.get()
+  )
+    .then(handleResponse)
+    .then(user => {
+      // store user details and passport token in local storage to keep user logged in between page refreshes
+
+      return user;
+    });
+}
 function getManager(data) {
   return fetch(
     this.apiUrl+`admin/get-manager/`+data,

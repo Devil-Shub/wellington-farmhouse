@@ -139,6 +139,21 @@
         ],
       }
     },
+    mounted: function()  {
+          managerService.listService().then(response => {
+              //handle response
+              if(response.status) {
+               console.log(response)
+              } else {
+                 
+                  this.$toast.open({
+                    message: response.message,
+                    type: 'error',
+                    position: 'top-right'
+                  })
+              }
+            });
+    },
     methods: {
         Action(){
             
