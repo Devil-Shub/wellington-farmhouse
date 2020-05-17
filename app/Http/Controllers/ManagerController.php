@@ -200,4 +200,17 @@ class ManagerController extends Controller
         }
 
     }
+
+    /**
+     * list manager
+     */
+    public function listManager()
+    {
+        return response()->json([
+            'status' => true,
+            'message' => 'Manager List',
+            'data' => User::whereRoleId(config('constant.roles.Admin_Manager'))->get()
+        ], 200);
+
+    }
 }
