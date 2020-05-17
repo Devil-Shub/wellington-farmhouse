@@ -23,6 +23,9 @@ Vue.use(Vuelidate);
 Vue.use(Vuetify);
 Vue.use(VueToast);
 Vue.use(VueFeatherIcon)
+global.jQuery = require('jquery');
+var $ = global.jQuery;
+window.$ = $;
 
 new Vue({
   vuetify : new Vuetify({

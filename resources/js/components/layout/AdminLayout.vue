@@ -1,29 +1,58 @@
 <template>
   <v-app id="inspire">
     <v-navigation-drawer v-model="drawer" app clipped>
-      <v-list dense>
-        <v-list-item link>
-          <v-list-item-action>
-            <v-icon>mdi-view-dashboard</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>
-              <!-- <a href="/admin/dashboard" class="nav-item nav-link">Dashboard</a> -->
-              <router-link to="/admin/dashboard" class="nav-item nav-link">Dashboard</router-link>
-            </v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item link>
-          <v-list-item-action>
-            <v-icon>mdi-settings</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>
-              <router-link to="/admin/settings" class="nav-item nav-link">Settings</router-link>
-            </v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
+        
+        
+         <v-card
+    class="mx-auto"
+    width="300"
+  >
+    <v-list>
+      <v-list-item>
+        <v-list-item-icon>
+          <v-icon>mdi-home</v-icon>
+        </v-list-item-icon>
+        <v-list-item-title><router-link to="/admin/dashboard" class="nav-item nav-link">Dashboard</router-link></v-list-item-title>
+      </v-list-item>
+
+      <v-list-group
+        prepend-icon="account_circle"
+        value="false"
+      >
+        <template v-slot:activator>
+          <v-list-item-title>Users</v-list-item-title>
+        </template>
+             <v-list-group
+          no-action
+          sub-group
+          value="true"
+        >
+          <template v-slot:activator>
+            <v-list-item-content>
+              <v-list-item-title> <router-link to="/admin/manager" class="nav-item nav-link">Admin</router-link></v-list-item-title>
+            </v-list-item-content>
+          </template>
+        </v-list-group>
+        <v-list-group
+          no-action
+          sub-group
+          value="true"
+        >
+          <template v-slot:activator>
+            <v-list-item-content>
+              <v-list-item-title> <router-link to="/admin/manager" class="nav-item nav-link">Manager</router-link></v-list-item-title>
+            </v-list-item-content>
+          </template>
+        </v-list-group>
+      </v-list-group>
+            <v-list-item>
+        <v-list-item-icon>
+          <v-icon>mdi-home</v-icon>
+        </v-list-item-icon>
+        <v-list-item-title><router-link to="/admin/settings" class="nav-item nav-link">Settings</router-link></v-list-item-title>
+      </v-list-item>
+    </v-list>
+  </v-card>
     </v-navigation-drawer>
 
     <v-app-bar app clipped-left>
@@ -62,7 +91,7 @@
       </v-row>
     </v-app-bar>
 
-    <div class="addHereHtml">
+      <div class="addHereHtml" style="width: 600px;margin-left: 257px;margin-top: 85px;">
       <router-view></router-view>
     </div>
   </v-app>
@@ -77,7 +106,7 @@ export default {
   },
 
   data: () => ({
-    drawer: null
+    drawer: null,
   }),
 
   created() {},

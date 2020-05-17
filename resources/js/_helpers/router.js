@@ -12,6 +12,11 @@ import Dashboard from "../components/admin/Dashboard";
 import Settings from "../components/admin/Settings";
 import ProfilePage from "../components/admin/profile/ProfilePage";
 
+//manager
+import ListPage from "../components/admin/manager/ListPage";
+import AddPage from "../components/admin/manager/AddPage";
+import EditPage from "../components/admin/manager/EditPage";
+
 import LoginPage from "../components/login/LoginPage";
 import RegisterPage from "../components/register/RegisterPage";
 
@@ -31,6 +36,9 @@ export const router = new Router({
         { path: 'dashboard', component: Dashboard, name: 'Dashboard' },
         { path: 'settings', component: Settings, name: 'Settings' },
         { path: 'profile', component: ProfilePage, name: 'Profile' },
+        { path: 'manager', component: ListPage, name: 'Manager' },
+        { path: 'manager/add', component: AddPage, name: 'Add' },
+        { path: 'manager/edit', component: EditPage, name: 'Edit' },
       ]
     },
 

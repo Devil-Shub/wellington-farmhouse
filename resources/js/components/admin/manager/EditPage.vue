@@ -2,10 +2,10 @@
       <v-app>
              <v-container>
       <v-row>
-          <v-col
+              <v-col
           cols="12"
           md="12"
-          ><h2>Admin Profile</h2></v-col>
+          ><h2>Edit Manager</h2></v-col>
              <v-col
           cols="12"
           md="12"
@@ -72,7 +72,7 @@
             required
           ></v-text-field>
         </v-col>
-           <v-btn color="success" class="mr-4" @click="update">Submit</v-btn>
+           <v-btn color="success" class="mr-4" @click="update">Update</v-btn>
              </v-form>
                  </v-col>
    </v-row>
@@ -92,12 +92,13 @@ export default {
     return {
         valid: true,
         avatar: null,
-        updateForm: {
+        editForm: {
         user_id: null,
         first_name: '',
         last_name: '',
         email: '',
         user_image: '',
+        role_id: 2,
         },
        FnameRules: [
         v => !!v || 'First name is required',
@@ -116,17 +117,7 @@ export default {
     };
   },
     created() {
-    const currentUser = JSON.parse(localStorage.getItem("currentUser"))
-    this.user_id = currentUser.data.user.id;
-    this.user_image = currentUser.data.user.image;
-    if(currentUser.data.user.image){
-        this.avatar = currentUser.data.user.image;
-    }else{
         this.avatar = '/images/avatar.png';
-    }
-    this.first_name = currentUser.data.user.first_name;
-    this.last_name = currentUser.data.user.last_name;
-    this.email = currentUser.data.user.email;
   },
   methods: {
       GetImage(e){
@@ -137,12 +128,13 @@ export default {
       },
        update () {
           if( this.$refs.form.validate() ){
-            this.updateForm.user_id = this.user_id;
-            this.updateForm.first_name = this.first_name;
-            this.updateForm.last_name = this.last_name;
-            this.updateForm.email = this.email;
-            this.updateForm.user_image = this.user_image;
-            console.log(this.updateForm);
+            this.editForm.user_id = this.user_id;
+            this.editForm.first_name = this.first_name;
+            this.editForm.last_name = this.last_name;
+            this.editForm.email = this.email;
+            this.editForm.user_image = this.user_image;
+            this.editForm.role_id = 2;
+            console.log(this.editForm);
           }
       }
     }
