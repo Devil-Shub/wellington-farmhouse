@@ -17,6 +17,11 @@ import ListPage from "../components/admin/manager/ListPage";
 import AddPage from "../components/admin/manager/AddPage";
 import EditPage from "../components/admin/manager/EditPage";
 
+//serivce
+import SerivcesListPage from "../components/admin/services/ListPage";
+import SerivcesAddPage from "../components/admin/services/AddPage";
+import SerivcesEditPage from "../components/admin/services/EditPage";
+
 import LoginPage from "../components/login/LoginPage";
 import RegisterPage from "../components/register/RegisterPage";
 
@@ -39,6 +44,9 @@ export const router = new Router({
         { path: 'manager', component: ListPage, name: 'Manager' },
         { path: 'manager/add', component: AddPage, name: 'Add' },
         { path: 'manager/edit/:id', component: EditPage, name: 'Edit' },
+        { path: 'services', component: SerivcesListPage, name: 'Services' },
+        { path: 'service/add', component: SerivcesAddPage, name: 'ServiceAdd' },
+        { path: 'service/edit/:id', component: SerivcesEditPage, name: 'ServiceEdit' },
       ]
     },
 

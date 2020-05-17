@@ -6,7 +6,7 @@
           cols="12"
           md="12"
         >
-          <router-link to="/admin/manager/add" class="nav-item nav-link"><user-plus-icon size="1.5x" class="custom-class"></user-plus-icon></router-link>
+          <router-link to="/admin/service/add" class="nav-item nav-link"><user-plus-icon size="1.5x" class="custom-class"></user-plus-icon></router-link>
             
             </v-col>
       <v-col
@@ -17,10 +17,9 @@
     <template v-slot:default>
       <thead>
         <tr>
-          <th class="text-left">Image</th>
+            <th class="text-left">Image</th>
           <th class="text-left">Name</th>
           <th class="text-left">Email</th>
-           <th class="text-left">Active</th>
           <th class="text-left">Action</th>
         </tr>
       </thead>
@@ -33,24 +32,8 @@
             </td>
           <td>{{ item.name }}</td>
           <td>{{ item.email }}</td>
-          <td>
-               <v-chip v-if="!item.is_active"
-              class="ma-2"
-              color="red"
-              text-color="white"
-            >
-              Deactivate
-            </v-chip>
-            <v-chip v-if="item.is_active"
-              class="ma-2"
-              color="green"
-              text-color="white"
-            >
-              Activate
-            </v-chip>
-            </td>
           <td> 
-            <router-link to="/admin/manager/edit/4" class="nav-item nav-link"><edit-icon size="1.5x" class="custom-class"></edit-icon></router-link>
+            <router-link to="/admin/service/edit/4" class="nav-item nav-link"><edit-icon size="1.5x" class="custom-class"></edit-icon></router-link>
               <v-menu
                 bottom
                 origin="center center"
@@ -66,9 +49,7 @@
               </v-btn>
             </template>
             <v-list>
-              <v-list-item>
-                <v-list-item-title @click="Action()"  v-if="!item.is_active">Activate</v-list-item-title>
-                <v-list-item-title @click="Action()"  v-if="item.is_active">Deactivate</v-list-item-title>
+              <v-list-item>  
                 <v-list-item-title v-on="on">
                 <v-row justify="center">
                     <v-dialog v-model="dialog" persistent max-width="600px">
@@ -82,7 +63,7 @@
                         <v-card-text>
                           <v-container>
                             <v-row>
-                                Are you sure you want delete this user?
+                                Are you sure you want delete this service?
                             </v-row>
                           </v-container>
                         </v-card-text>
@@ -113,7 +94,7 @@
 
 <script>
  import { required } from "vuelidate/lib/validators";
- import { managerService } from "../../../_services/manager.service";
+ import { jobService } from "../../../_services/job.service";
  import { UserPlusIcon, EditIcon } from 'vue-feather-icons'
  import { router } from "../../../_helpers/router";
   export default {
@@ -127,14 +108,8 @@
           on: false,
         managers: [
           {
-            name: 'Fake Admin',
-            email: 'fake@admin.com',
-            is_active: 0,
-          },
-          {
-            name: 'Admin',
-            email: 'admin@admin.com',
-            is_active: 1,
+            name: 'Frozen Yogurt',
+            email: 159,
           },
         ],
       }
@@ -145,7 +120,7 @@
         },
         Delete(e){
            if(e){
-            managerService.Delete(e).then(response => {
+            jobService.Delete(e).then(response => {
               //handle response
               if(response.status) {
                   this.$toast.open({
@@ -155,7 +130,7 @@
                   });
                //redirect to login
                this.dialog = false 
-               router.push("/admin/manager");
+               router.push("/admin/service");
               } else {
                   this.dialog = false 
                   this.$toast.open({

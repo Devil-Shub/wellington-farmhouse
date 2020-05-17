@@ -45,6 +45,12 @@
           </template>
         </v-list-group>
       </v-list-group>
+          <v-list-item>
+        <v-list-item-icon>
+          <v-icon>mdi-home</v-icon>
+        </v-list-item-icon>
+        <v-list-item-title><router-link to="/admin/services" class="nav-item nav-link">Services</router-link></v-list-item-title>
+      </v-list-item>
             <v-list-item>
         <v-list-item-icon>
           <v-icon>mdi-home</v-icon>
@@ -91,7 +97,7 @@
       </v-row>
     </v-app-bar>
 
-      <div class="addHereHtml" style="width: 600px;margin-left: 257px;margin-top: 85px;">
+      <div class="addHereHtml" style="width: 900px;margin-left: 257px;margin-top: 85px;">
       <router-view></router-view>
     </div>
   </v-app>
