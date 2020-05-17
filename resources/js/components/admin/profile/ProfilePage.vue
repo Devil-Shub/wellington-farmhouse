@@ -152,7 +152,7 @@ export default {
                     position: 'top-right'
                   });
                //redirect to login
-               router.push("/admin/profile");
+//               router.push("/admin/profile");
               } else {
                   this.$toast.open({
                     message: response.message,
