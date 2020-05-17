@@ -18,7 +18,7 @@ class CreateServicesTimeSlotsTable extends Migration
 
             $table->unsignedBigInteger('services_id');
 
-            $table->foreign('services_id')->references('id')->on('services');
+            $table->foreign('services_id')->references('id')->on('services')->onDelete('cascade');
 
             $table->tinyInteger("slot_type")->nullable()->comment("1: Morning, 2: Afternoon, 3: Evening");
             $table->dateTime("slot_start")->nullable();

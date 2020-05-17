@@ -178,4 +178,60 @@ class ServicesController extends Controller
             ], 500);
         }
     }
+
+    /**
+     * list services
+     */
+    public function listServices() {
+        return response()->json([
+            'status' => true,
+            'message' => 'Service Listing.',
+            'data' => Service::get()
+        ], 200);
+    }
+
+    /**
+     * get service
+     */
+    public function getService(Request $request) {
+        $fetchService = Service::whereId($request->service_id)->first();
+        //check if exist
+        if($fetchService != null) {
+            $status = true;
+            $message = "Service Found.";
+            $statusCode = 200;
+        } else {
+            $status = false;
+            $message = "Service not found.";
+            $statusCode = 400;
+        }
+        
+        return response()->json([
+            'status' => $status,
+            'message' => $message,
+            'data' => $fetchService
+        ], $statusCode);
+    }
+
+    /**
+     * get service
+     */
+    public function deleteService(Request $request) {
+        //check if exist
+        if(Service::whereId($request->service_id)->delete()) {
+            $status = true;
+            $message = "Service deleted successfully.";
+            $statusCode = 200;
+        } else {
+            $status = false;
+            $message = "Service not found.";
+            $statusCode = 400;
+        }
+        
+        return response()->json([
+            'status' => $status,
+            'message' => $message,
+            'data' => []
+        ], $statusCode);
+    }
 }
