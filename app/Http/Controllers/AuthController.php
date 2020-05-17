@@ -210,8 +210,7 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(), [
             'first_name' => 'required|string',
             'last_name' => 'required|string',
-            'email' => 'required|string|email|unique:users,email,' . $request->user()->id,
-            'password' => 'required|confirmed'
+            'email' => 'required|string|email|unique:users,email,' . $request->user()->id
         ]);
 
         if ($validator->fails()) {
@@ -252,7 +251,6 @@ class AuthController extends Controller
             $loggedInUser->last_name = $request->last_name;
             $loggedInUser->email = $request->email;
             $loggedInUser->phone = $request->phone;
-            $loggedInUser->password = bcrypt($request->password);
 
             $loggedInUser->save();
             //return success response
