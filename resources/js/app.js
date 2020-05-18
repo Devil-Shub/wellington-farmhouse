@@ -9,10 +9,9 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueToast from 'vue-toast-notification';
 import VueFeatherIcon from 'vue-feather-icon'
-
-
 import { router } from "./_helpers/router";
 import App from "./app/App";
+
 
 // setup fake backend
 import { configureFakeBackend } from "./_helpers/fake-backend";
@@ -23,10 +22,6 @@ Vue.use(Vuelidate);
 Vue.use(Vuetify);
 Vue.use(VueToast);
 Vue.use(VueFeatherIcon)
-global.jQuery = require('jquery');
-var $ = global.jQuery;
-window.$ = $;
-
 new Vue({
   vuetify : new Vuetify({
       defaultAssets: {

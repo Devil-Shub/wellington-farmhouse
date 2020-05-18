@@ -22,7 +22,7 @@
         <div class="v-avatar v-list-item__avatar" style="height: 40px; min-width: 40px; width: 40px;">
           <img :src="avatar" alt="John">
       </div>
-    <input type="file" v-on:change="onFileChange" class="form-control">
+      <FilePond></FilePond>
       <v-file-input 
         :rules="rules"
         placeholder="Pick an avatar"  
@@ -81,9 +81,11 @@
 </template>
 
 <script>
+
  import { required } from "vuelidate/lib/validators";
  import { authenticationService } from "../../../_services/authentication.service";
  import { router } from "../../../_helpers/router";
+ import FilePond from '../../../filepond';
 //import { imageVUE } from '../../image'
 export default {
    components: {
@@ -133,20 +135,6 @@ export default {
       GetImage(e){
          this.avatar = URL.createObjectURL(e);
       },
-       onFileChange(e) {
-                let files = e.target.files || e.dataTransfer.files;
-                if (!files.length)
-                    return;
-                this.createImage(files[0]);
-            },
-            createImage(file) {
-                let reader = new FileReader();
-                
-                reader.onload = (e) => {
-                    this.updateForm.user_image = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            },
        update () {
           if( this.$refs.form.validate() ){
            console.log(this.updateForm.user_image)
