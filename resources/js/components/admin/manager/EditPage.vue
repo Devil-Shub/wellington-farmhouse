@@ -2,10 +2,10 @@
       <v-app>
              <v-container>
       <v-row>
-              <v-col
+          <v-col
           cols="12"
           md="12"
-          ><h2>Edit Manager</h2></v-col>
+          ><h2>Admin Profile</h2></v-col>
              <v-col
           cols="12"
           md="12"
@@ -23,6 +23,16 @@
           <img :src="avatar" alt="John">
       </div>
   
+    <file-pond
+        name="test"
+        ref="pond"
+        label-idle="Drop files here..."
+        allow-multiple="false"
+        v-bind:server="serverOptions"
+        v-bind:files="myFiles"
+         v-on:updatefiles="handleFilePondUpdateFile"
+       
+        />
       <v-file-input 
         :rules="rules"
         placeholder="Pick an avatar"  
@@ -30,7 +40,7 @@
         show-size accept="image/*" 
         label="Avatar"
         @change="GetImage"
-        v-model="editForm.user_image"
+        v-model="addForm.user_image"
         >
       </v-file-input>
     
@@ -40,19 +50,18 @@
           md="12"
         >
           <v-text-field
-            v-model="editForm.first_name"
+            v-model="addForm.first_name"
             :rules="FnameRules"
             label="First name"
             required
           ></v-text-field>
         </v-col>
-
         <v-col
           cols="12"
           md="12"
         >
           <v-text-field
-            v-model="editForm.last_name"
+            v-model="addForm.last_name"
             :rules="LnameRules"
             label="Last name"
             required
@@ -64,14 +73,14 @@
           md="12"
         >
           <v-text-field
-            v-model="editForm.email"
+            v-model="addForm.email"
             :rules="emailRules"
             name="email"
             label="E-mail"
             required
           ></v-text-field>
         </v-col>
-           <v-btn color="success" class="mr-4" @click="update">Update</v-btn>
+           <v-btn color="success" class="mr-4" @click="update">Submit</v-btn>
              </v-form>
                  </v-col>
    </v-row>
@@ -80,9 +89,11 @@
 </template>
 
 <script>
-    import { required } from "vuelidate/lib/validators";
+ import { required } from "vuelidate/lib/validators";
  import { managerService } from "../../../_services/manager.service";
+ import { router } from "../../../_helpers/router";
 //import { imageVUE } from '../../image'
+
 export default {
    components: {
 //      'image-component': imageVUE,
@@ -91,13 +102,12 @@ export default {
     return {
         valid: true,
         avatar: null,
-        editForm: {
-            user_id: null,
-            first_name: '',
-            last_name: '',
-            email: '',
-            user_image: null,
-            phone: '',
+        addForm: {
+        first_name: '',
+        last_name: '',
+        email: '',
+         user_image: null,
+         phone: '',
         },
        FnameRules: [
         v => !!v || 'First name is required',
@@ -112,41 +122,100 @@ export default {
      rules: [
         value => !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',
       ],
+      myFiles: [],
+        props: ['file', 'fieldName', 'value'],
+   
+    
+//          myServer: {
+//            process: (fieldName, file, metadata, load) => {
+//              // simulates uploading a file
+//              setTimeout(() => {
+//                load(Date.now())
+//              }, 1500);
+//            },
+//            load: (source, load) => {
+//              // simulates loading a file from the server
+//              console.log(source)
+//              fetch(source).then(res => res.blob()).then(load);
+//            }
+//          },
+      
     };
   },
-   mounted: function() {
-         managerService.getManager(this.$route.params.id).then(response => {
-              //handle response
-              if(response.status) {
-                   this.editForm.user_id = response.data.id;
-                this.editForm.user_image = response.data.user_image;
-                if(response.data.user_image){
-                    this.avatar = response.data.user_image;
-                }else{
-                    this.avatar = '/images/avatar.png';
-                }
-                this.editForm.first_name = response.data.first_name;
-                this.editForm.last_name = response.data.last_name;
-                this.editForm.email = response.data.email;
-                this.editForm.phone = response.data.phone;
-              } else {
-                  router.push("/admin/manager"); 
-                  this.$toast.open({
-                    message: response.message,
-                    type: 'error',
-                    position: 'top-right'
-                  })
-              }
-            });
+  computed: {
+        serverOptions () {
+               const currentUser =   JSON.parse(localStorage.getItem("currentUser"))
+      return {
+        url: 'http://klk.leagueofclicks.com/api/auth/',
+        withCredentials: false,
+        process: {
+          url: './imageupload/',
+          headers: {
+            'Authorization': "Bearer " + currentUser.data.access_token,
+          },
+        
+        },
+        revert: './revert/',
+        restore: './restore/',
+        load: './load/',
+        fetch: './fetch/',
+      }
     },
+      url () {
+      if (this.file) {
+        let parsedUrl = new URL(this.file)
+        return [parsedUrl.pathname]
+      } else {
+        return null
+      }
+    },
+  },
+  created() {
+        managerService.getManager(this.$route.params.id).then(response => { 
+          if(response.status) {
+              this.addForm.user_id = response.data.id; 
+              if(response.data.user_image){
+                this.addForm.user_image = response.data.user_image; 
+               }
+              if(response.data.user_image){  
+                  this.avatar = response.data.user_image; 
+              }else{        
+                  this.avatar = '/images/avatar.png';   
+              }        
+              this.addForm.first_name = response.data.first_name;   
+              this.addForm.last_name = response.data.last_name;    
+              this.addForm.email = response.data.email;       
+              this.addForm.phone = response.data.phone;     
+          } else {              
+              router.push("/admin/manager");    
+              this.$toast.open({     
+                  message: response.message, 
+                  type: 'error',      
+                  position: 'top-right'   
+              })       
+          }        
+      });
+
+  },
   methods: {
+   
       GetImage(e){
+           console.log(e)
          this.avatar = URL.createObjectURL(e);
-        this.editForm.user_image = e;
+         this.addForm.user_image = e;
       },
+        handleFilePondUpdateFile(files){
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                console.log(e.target.result)
+            }
+          this.myFiles = files.map(files => files.file);
+        },
+      
        update () {
+           this.addForm.user_image = this.myFiles[0];
           if( this.$refs.form.validate() ){
-              managerService.edit(this.editForm).then(response => {
+             managerService.add(this.addForm).then(response => {
               //handle response
               if(response.status) {
                   this.$toast.open({

@@ -234,4 +234,9 @@ class ServicesController extends Controller
             'data' => []
         ], $statusCode);
     }
+    
+    
+    public function imageUpload(Request $request){
+        dd($request->all());
+    }
 }

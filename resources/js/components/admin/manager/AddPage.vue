@@ -23,6 +23,16 @@
           <img :src="avatar" alt="John">
       </div>
   
+    <file-pond
+        name="test"
+        ref="pond"
+        label-idle="Drop files here..."
+        allow-multiple="false"
+        v-bind:server="myServer"
+        v-bind:files="myFiles"
+         v-on:updatefiles="handleFilePondUpdateFile"
+       
+        />
       <v-file-input 
         :rules="rules"
         placeholder="Pick an avatar"  
@@ -46,7 +56,6 @@
             required
           ></v-text-field>
         </v-col>
-
         <v-col
           cols="12"
           md="12"
@@ -112,6 +121,21 @@ export default {
      rules: [
         value => !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',
       ],
+      myFiles: [],
+          myServer: {
+            process: (fieldName, file, metadata, load) => {
+              // simulates uploading a file
+              setTimeout(() => {
+                load(Date.now())
+              }, 1500);
+            },
+            load: (source, load) => {
+              // simulates loading a file from the server
+              console.log(source)
+              fetch(source).then(res => res.blob()).then(load);
+            }
+          },
+      
     };
   },
   created() {
@@ -119,13 +143,16 @@ export default {
   },
   methods: {
       GetImage(e){
+         
          this.avatar = URL.createObjectURL(e);
          this.addForm.user_image = e;
       },
-      upload(){
-          
-      },
+        handleFilePondUpdateFile(files){
+          this.myFiles = files.map(files => files.file);
+        },
+      
        update () {
+           this.addForm.user_image = this.myFiles[0];
           if( this.$refs.form.validate() ){
              managerService.add(this.addForm).then(response => {
               //handle response
