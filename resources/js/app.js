@@ -4,7 +4,8 @@ import 'vuetify/dist/vuetify.min.css';
 import 'vue-toast-notification/dist/theme-default.css';
 import Vue from "vue";
 import Vuelidate from "vuelidate";
-import Vuetify from 'vuetify'
+import Vuetify from 'vuetify';
+import VueSocialauth from 'vue-social-auth';
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueToast from 'vue-toast-notification';
@@ -36,7 +37,19 @@ const FilePond = vueFilePond(
 import { configureFakeBackend } from "./_helpers/fake-backend";
 configureFakeBackend();
 
-Vue.use(VueAxios, axios)
+Vue.use(VueAxios, axios);
+Vue.use(VueSocialauth, {
+  providers: {
+    google: {
+      clientId: '1016499886624-ukbs4u4khrer8mv1fi20foo348rkb3kr.apps.googleusercontent.com',
+      redirectUri: 'http://klk.leagueofclicks.com/auth/google/callback' // Your client app URL
+    },
+    facebook: {
+      clientId: '802496520156159',
+      redirectUri: 'http://127.0.0.1:8000/auth/facebook/callback' // Your client app URL
+    }
+  }
+});
 Vue.use(Vuelidate);
 Vue.use(Vuetify);
 Vue.use(VueToast);
