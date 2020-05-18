@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use App\Service;
+use Illuminate\Support\Str;
 use App\ServicesTimeSlot;
 
 class ServicesController extends Controller
@@ -237,6 +238,19 @@ class ServicesController extends Controller
     
     
     public function imageUpload(Request $request){
-        dd($request->all());
+         if ($request->test != null && $request->test != '') {
+
+                $extension = $request->file('test')->extension();
+                $file = $request->file('test')->storeAs('images', Str::random() . '.' . $extension);
+         }
+           $status = true;
+            $message = "image uploaded successfully.";
+            $statusCode = 200;
+             return response()->json([
+            'status' => $status,
+            'message' => $message,
+            'data' => []
+        ], $statusCode);
+       
     }
 }

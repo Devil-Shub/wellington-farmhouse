@@ -5,7 +5,7 @@
           <v-col
           cols="12"
           md="12"
-          ><h2>Admin Profile</h2></v-col>
+          ><h2>Edit Manager Profile</h2></v-col>
              <v-col
           cols="12"
           md="12"
@@ -146,10 +146,10 @@ export default {
         serverOptions () {
                const currentUser =   JSON.parse(localStorage.getItem("currentUser"))
       return {
-        url: 'http://klk.leagueofclicks.com/api/auth/',
+        url: 'http://klk.leagueofclicks.com/api/auth/admin/',
         withCredentials: false,
         process: {
-          url: './imageupload/',
+          url: './imageupload',
           headers: {
             'Authorization': "Bearer " + currentUser.data.access_token,
           },
