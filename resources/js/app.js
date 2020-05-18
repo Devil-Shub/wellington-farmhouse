@@ -12,6 +12,25 @@ import VueFeatherIcon from 'vue-feather-icon'
 import { router } from "./_helpers/router";
 import App from "./app/App";
 
+// Import Vue FilePond
+import vueFilePond from 'vue-filepond';
+// Import FilePond styles
+import 'filepond/dist/filepond.min.css';
+// Import FilePond plugins
+// Please note that you need to install these plugins separately
+// `npm i filepond-plugin-image-preview filepond-plugin-image-exif-orientation --save`
+import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation';
+import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
+import FilePondPluginImageCrop from 'filepond-plugin-image-crop';
+import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
+import FilePondPluginFileEncode from 'filepond-plugin-file-encode';
+// Create component
+const FilePond = vueFilePond(
+  FilePondPluginImageExifOrientation,
+  FilePondPluginImagePreview,
+  FilePondPluginImageCrop,
+  FilePondPluginFileEncode
+);
 
 // setup fake backend
 import { configureFakeBackend } from "./_helpers/fake-backend";

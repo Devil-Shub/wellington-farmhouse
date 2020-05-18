@@ -10,19 +10,29 @@
           cols="12"
           md="12"
           >
+                 
            <v-form
-    ref="form"
-    v-model="valid"
-    lazy-validation
-  >
+            ref="form"
+            v-model="valid"
+            enctype="multipart/form-data"
+            lazy-validation
+          >
             <v-col
           cols="12"
           md="12"
         >
-        <div class="v-avatar v-list-item__avatar" style="height: 40px; min-width: 40px; width: 40px;">
-          <img :src="avatar" alt="John">
-      </div>
-      <FilePond></FilePond>
+        <div class="v-avatar v-list-item__avatar" style="height: 40px; min-width: 40px; width: 40px;"> 
+          <img :src="avatar" alt="John"></div>
+            <file-pond
+            ref="pond"
+            name="test"
+            label-idle="Drop files here"
+            allow-multiple="false"
+            instant-upload="false"
+            v-on:updatefiles="handleFilePondUpdateFile"
+          />
+     
+<!--      <FilePond></FilePond>-->
       <v-file-input 
         :rules="rules"
         placeholder="Pick an avatar"  
@@ -93,8 +103,10 @@ export default {
   },
   data() {
     return {
+        myFiles:'',
         valid: true,
         avatar: null,
+        test:'',
         updateForm: {
         user_id: null,
         first_name: '',
@@ -132,12 +144,16 @@ export default {
 
   },
   methods: {
-      GetImage(e){
-         this.avatar = URL.createObjectURL(e);
-      },
+        handleFilePondUpdateFile(files) {
+            console.log(files[0].file)
+//               this.updateForm.user_imag = files[0].file;
+               // FilePond instance methods are available on `this.$refs.pond`
+            },
+            GetImage(e){
+               this.avatar = URL.createObjectURL(e);
+            },
        update () {
           if( this.$refs.form.validate() ){
-           console.log(this.updateForm.user_image)
              authenticationService.updateProfile(this.updateForm).then(response => {
               //handle response
               if(response.status) {
