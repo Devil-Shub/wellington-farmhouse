@@ -49,24 +49,13 @@ export const router = new Router({
         { path: 'service/edit/:id', component: SerivcesEditPage, name: 'ServiceEdit' },
       ]
     },
+    { path: "/login", component: LoginPage },
+    { path: "/register", component: RegisterPage },
 
-    // {
-    //   path: "/admin/dashboard",
-    //   component: AdminPage,
-    //   meta: { authorize: [Role.Admin] }
-    // },
-    // {
-    //   path: "/admin/profile",
-    //   component: ProfilePage,
-    //   meta: { authorize: [Role.Admin] }
-    // },
-    {
-      path: "/login",
-      component: LoginPage
-    },
-    {
-      path: "/register",
-      component: RegisterPage
+    { path: '/auth/:provider/callback',
+      component: {
+        template: '<div class="auth-component"></div>'
+      }
     },
 
     // otherwise redirect to home

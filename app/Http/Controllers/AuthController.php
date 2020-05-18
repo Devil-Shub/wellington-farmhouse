@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
+use Socialite;
 use Mail;
 use App\User;
 
@@ -318,5 +319,53 @@ class AuthController extends Controller
             'message' => $message,
             'data' => []
         ], $errCode);
+    }
+
+    /**
+     * social login
+     */
+    public function SocialSignup($provider)
+    {
+        try {
+            // Socialite will pick response data automatic 
+            $user = Socialite::driver($provider)->stateless()->user();
+
+            $checkIfExist = User::whereEmail($user->user['email'])->first();
+
+            if($checkIfExist == null) {
+                //create new user
+                $user = new User([
+                    'first_name' => $user->user['given_name'],
+                    'last_name' => $user->user['family_name'],
+                    'email' => $user->user['email'],
+                    'role_id' => 4,
+                    'is_active' => 1,
+                    'is_confirmed' => 1,
+                    'user_image' => $user->avatar,
+                    'provider' => $provider,
+                    'token' => $user->token
+                ]);
+
+                $user->save();
+            } else {
+                $user = $checkIfExist;
+            }
+
+            //return success response
+            return response()->json([
+                'status' => true,
+                'message' => 'Logged In Successfully.',
+                'data' => $user
+            ], 200);
+        } catch (\Exception $e) {
+            //make log of errors
+            Log::error(json_encode($e->getMessage()));
+            //return with error
+            return response()->json([
+                'status' => false,
+                'message' => 'Internal server error!',
+                'data' => []
+            ], 500);
+        }
     }
 }
