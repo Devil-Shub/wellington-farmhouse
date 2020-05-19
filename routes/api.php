@@ -23,11 +23,11 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('login', 'AuthController@login');
     Route::post('signup', 'AuthController@signup');
     Route::get('confirm-email/{decode_code}', 'AuthController@confirmEmail');
-    
+
     //Auth full routes
-    Route::group(['middleware' => 'auth:api'], function() {
+    Route::group(['middleware' => 'auth:api'], function () {
         Route::get('logout', 'AuthController@logout');
-        
+
         Route::get('user', 'AuthController@user');
 
         Route::group(['prefix' => 'admin'], function () {
@@ -48,9 +48,9 @@ Route::group(['prefix' => 'auth'], function () {
             Route::get('list-services', 'ServicesController@listServices');
             Route::get('get-service/{service_id}', 'ServicesController@getService');
             Route::delete('delete-service/{service_id}', 'ServicesController@deleteService');
-            
-            Route::post('managerimage', 'ImageController@managerImage');
         });
 
+        //upload image
+        Route::post('uploadImage', 'ImageController@uploadImage');
     });
 });

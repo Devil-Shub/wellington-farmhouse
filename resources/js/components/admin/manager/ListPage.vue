@@ -28,7 +28,7 @@
         <tr v-for="item in managers" :key="item.name">
             <td>   
                 <div class="v-avatar v-list-item__avatar" style="height: 40px; min-width: 40px; width: 40px;">
-                    <img :src="`/images/avatar.png`" alt="John">
+                    <img :src="'../'+item.user_image" alt="John">
                 </div>
             </td>
           <td>{{ item.first_name }} {{ item.last_name }}</td>
