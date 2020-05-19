@@ -12,7 +12,7 @@
                 class="v-avatar v-list-item__avatar"
                 style="height: 40px; min-width: 40px; width: 40px;"
               >
-                <img :src="'../../../'+addForm.user_image" alt="John" />
+                <img :src="avatar" alt="John" />
               </div>
 
               <file-pond
@@ -20,6 +20,7 @@
                 ref="pond"
                 label-idle="Drop files here..."
                 allow-multiple="false"
+                accepted-file-types="image/jpeg, image/png"
                 v-bind:server="serverOptions"
                 v-bind:files="myFiles"
                 v-on:updatefiles="handleFilePondUpdateFile"
@@ -128,7 +129,7 @@ export default {
           this.addForm.user_image = response.data.user_image;
         }
         if (response.data.user_image) {
-          this.avatar = response.data.user_image;
+          this.avatar = '../../../'+response.data.user_image;
         } else {
           this.avatar = "/images/avatar.png";
         }
