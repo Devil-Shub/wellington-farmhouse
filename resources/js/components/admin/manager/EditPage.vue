@@ -153,7 +153,6 @@ export default {
       this.addForm.user_image = e;
     },
     handleProcessFile: function(error, file) {
-      console.log(file);
       this.addForm.user_image = file.serverId;
     },
     handleFilePondUpdateFile(files) {

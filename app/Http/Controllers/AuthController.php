@@ -225,41 +225,18 @@ class AuthController extends Controller
 
         try {
             $loggedInUser = $request->user();
-            //if admin changes profile image
-            if ($request->user_image != null && $request->user_image != '') {
 
-               // $extension = $request->file('user_image')->extension();
-                //$file = $request->file('user_image')->storeAs('images', Str::random() . '.' . $extension);
-
-                //base64 image upload
-                //upload path
-                // $folderPath = "images/";
-                // //get base64 image
-                // $img = $request->user_image;
-                // //decode base64
-                // $image_parts = explode(";base64,", $img);
-                // $image_type_aux = explode("image/", $image_parts[0]);
-                // $image_type = $image_type_aux[1];
-                // $image_base64 = base64_decode($image_parts[1]);
-                // $file = $folderPath . uniqid() . '. ' . $image_type;
-
-                // //check if directory exist if not create one
-                // $path = public_path() . '/images';
-                // if (!file_exists($path)) {
-                //     mkdir($path, 0777, true);
-                // }
-                // //upload image
-                // file_put_contents($file, $image_base64);
-
-                $loggedInUser->user_image = $request->user_image;
-            }
+            Log::info($request->user_image);
 
             $loggedInUser->first_name = $request->first_name;
             $loggedInUser->last_name = $request->last_name;
             $loggedInUser->email = $request->email;
             $loggedInUser->phone = $request->phone;
+            $loggedInUser->user_image = $request->user_image;
 
             $loggedInUser->save();
+
+            Log::info($loggedInUser);
             //return success response
             return response()->json([
                 'status' => true,
