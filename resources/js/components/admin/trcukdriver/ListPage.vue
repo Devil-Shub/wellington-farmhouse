@@ -6,7 +6,7 @@
           cols="12"
           md="12"
         >
-          <router-link to="/admin/service/add" class="nav-item nav-link"> <plus-circle-icon size="1.5x" class="custom-class"></plus-circle-icon></router-link>
+          <router-link to="/admin/truckdriver/add" class="nav-item nav-link"> <plus-circle-icon size="1.5x" class="custom-class"></plus-circle-icon></router-link>
             
             </v-col>
       <v-col
@@ -29,8 +29,8 @@
           <td>${{ item.price }}</td>
            <td>${{ item.description }}</td>
           <td> 
-        <router-link :to="'/admin/service/view/' + item.id" class="nav-item nav-link"><user-icon size="1.5x" class="custom-class"></user-icon></router-link>
-              <router-link :to="'/admin/service/edit/' + item.id" class="nav-item nav-link"><edit-icon size="1.5x" class="custom-class"></edit-icon></router-link>
+        <router-link :to="'/admin/truckdriver/view/' + item.id" class="nav-item nav-link"><user-icon size="1.5x" class="custom-class"></user-icon></router-link>
+              <router-link :to="'/admin/truckdriver/edit/' + item.id" class="nav-item nav-link"><edit-icon size="1.5x" class="custom-class"></edit-icon></router-link>
             <v-btn color="blue darken-1" text @click="Delete(item.id)"><trash-icon size="1.5x" class="custom-class"></trash-icon></v-btn>
 
           </td>
@@ -48,7 +48,7 @@
 
 <script>
  import { required } from "vuelidate/lib/validators";
- import { jobService } from "../../../_services/job.service";
+ import { truckService } from "../../../_services/truck.service";
  import { UserIcon, EditIcon, TrashIcon, PlusCircleIcon } from 'vue-feather-icons'
  import { router } from "../../../_helpers/router";
   export default {
@@ -67,7 +67,7 @@
      
     },
     mounted: function()  {
-          jobService.listService().then(response => {
+          truckService.listService().then(response => {
             //handle response
             if(response.status) {
              this.managers = response.data;
@@ -88,7 +88,7 @@
         Delete(e){
            if(e){
               
-            jobService.Delete(e).then(response => {
+            truckService.Delete(e).then(response => {
               //handle response
               if(response.status) {
                   this.$toast.open({

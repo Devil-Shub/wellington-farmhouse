@@ -6,7 +6,7 @@
           cols="12"
           md="12"
         >
-          <router-link to="/admin/manager/add" class="nav-item nav-link"><user-plus-icon size="1.5x" class="custom-class"></user-plus-icon></router-link>
+          <router-link to="/admin/manager/add" class="nav-item nav-link"> <plus-circle-icon size="1.5x" class="custom-class"></plus-circle-icon></router-link>
             
             </v-col>
       <v-col
@@ -50,8 +50,9 @@
             </v-chip>
             </td>
           <td> 
-            <router-link :to="'/admin/manager/edit/' + item.id" class="nav-item nav-link"><edit-icon size="1.5x" class="custom-class"></edit-icon></router-link>
-            <v-btn color="blue darken-1" text @click="Delete(item.id)">Delete</v-btn>
+            <router-link :to="'/admin/manager/view/' + item.id" class="nav-item nav-link"><user-icon size="1.5x" class="custom-class"></user-icon></router-link>
+              <router-link :to="'/admin/manager/edit/' + item.id" class="nav-item nav-link"><edit-icon size="1.5x" class="custom-class"></edit-icon></router-link>
+            <v-btn color="blue darken-1" text @click="Delete(item.id)"><trash-icon size="1.5x" class="custom-class"></trash-icon></v-btn>
 <!--              <v-menu
                 bottom
                 origin="center center"
@@ -115,12 +116,12 @@
 <script>
  import { required } from "vuelidate/lib/validators";
  import { managerService } from "../../../_services/manager.service";
- import { UserPlusIcon, EditIcon } from 'vue-feather-icons'
+ import { UserIcon, EditIcon, TrashIcon, PlusCircleIcon } from 'vue-feather-icons'
  import { router } from "../../../_helpers/router";
   export default {
       components: {
-       UserPlusIcon,
-       EditIcon
+       UserIcon,
+       EditIcon, TrashIcon, PlusCircleIcon
       },
     data () {
       return {

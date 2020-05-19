@@ -16,11 +16,20 @@ import ProfilePage from "../components/admin/profile/ProfilePage";
 import ListPage from "../components/admin/manager/ListPage";
 import AddPage from "../components/admin/manager/AddPage";
 import EditPage from "../components/admin/manager/EditPage";
+import ViewPage from "../components/admin/manager/ViewPage";
 
 //serivce
 import SerivcesListPage from "../components/admin/services/ListPage";
 import SerivcesAddPage from "../components/admin/services/AddPage";
 import SerivcesEditPage from "../components/admin/services/EditPage";
+import SerivcesViewPage from "../components/admin/services/ViewPage";
+
+
+//serivce
+import TruckDriverListPage from "../components/admin/trcukdriver/ListPage";
+import TruckDriverAddPage from "../components/admin/trcukdriver/AddPage";
+import TruckDriverEditPage from "../components/admin/trcukdriver/EditPage";
+import TruckDriverViewPage from "../components/admin/trcukdriver/ViewPage";
 
 import LoginPage from "../components/login/LoginPage";
 import RegisterPage from "../components/register/RegisterPage";
@@ -44,9 +53,15 @@ export const router = new Router({
         { path: 'manager', component: ListPage, name: 'Manager' },
         { path: 'manager/add', component: AddPage, name: 'Add' },
         { path: 'manager/edit/:id', component: EditPage, name: 'Edit' },
+        { path: 'manager/view/:id', component: ViewPage, name: 'View' },
         { path: 'services', component: SerivcesListPage, name: 'Services' },
         { path: 'service/add', component: SerivcesAddPage, name: 'ServiceAdd' },
         { path: 'service/edit/:id', component: SerivcesEditPage, name: 'ServiceEdit' },
+        { path: 'service/view/:id', component: SerivcesViewPage, name: 'ServiceView' },
+        { path: 'truckdrivers', component: TruckDriverListPage, name: 'Truckdrivers' },
+        { path: 'truckdriver/add', component: TruckDriverAddPage, name: 'TruckdriverAdd' },
+        { path: 'truckdriver/edit/:id', component: TruckDriverEditPage, name: 'TruckdriverEdit' },
+        { path: 'truckdriver/view/:id', component: TruckDriverViewPage, name: 'TruckdriverView' },
       ]
     },
     { path: "/login", component: LoginPage },
