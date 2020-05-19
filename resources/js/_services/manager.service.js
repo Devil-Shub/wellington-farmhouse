@@ -37,9 +37,9 @@ function add(data) {
     });
 }
 
-function edit(data) {
+function edit(data, managerId) {
   return fetch(
-    this.apiUrl+`admin/update-manager/`+data.user_id,
+    this.apiUrl+`admin/update-manager/`+managerId,
     requestOptions.post(data)
   )
     .then(handleResponse)

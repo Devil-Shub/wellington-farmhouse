@@ -19,12 +19,9 @@
           cols="12"
           md="12"
         >
-        <div class="v-avatar v-list-item__avatar" style="height: 40px; min-width: 40px; width: 40px;">
-          <img :src="avatar" alt="John">
-      </div>
   
         <file-pond
-        name="test"
+        name="uploadImage"
         ref="pond"
         label-idle="Drop files here..."
         allow-multiple="false"
@@ -80,7 +77,8 @@
  import { required } from "vuelidate/lib/validators";
  import { managerService } from "../../../_services/manager.service";
  import { router } from "../../../_helpers/router";
-//import { imageVUE } from '../../image'
+ import { environment } from "../../../config/test.env";
+
 export default {
    components: {
 //      'image-component': imageVUE,
@@ -89,6 +87,7 @@ export default {
     return {
         valid: true,
         avatar: null,
+        apiUrl: environment.apiUrl,
         addForm: {
         first_name: '',
         last_name: '',
@@ -116,10 +115,10 @@ export default {
         serverOptions () {
            const currentUser =   JSON.parse(localStorage.getItem("currentUser"))
            return {
-             url: 'http://klk.leagueofclicks.com/api/auth/admin/',
+             url: this.apiUrl,
              withCredentials: false,
              process: {
-               url: './managerimage',
+               url: 'uploadImage',
                headers: {
                  'Authorization': "Bearer " + currentUser.data.access_token,
                },
@@ -145,10 +144,10 @@ export default {
          this.addForm.user_image = e;
       },
        handleProcessFile: function(error, file) {
+         console.log(file);
             this.addForm.user_image = file.serverId;
         },
        update () {
-           this.addForm.user_image = this.myFiles[0];
           if( this.$refs.form.validate() ){
              managerService.add(this.addForm).then(response => {
               //handle response
