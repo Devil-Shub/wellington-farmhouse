@@ -57,6 +57,12 @@
         </v-list-item-icon>
         <v-list-item-title><router-link to="/admin/truckdrivers" class="nav-item nav-link">Truck Drivers</router-link></v-list-item-title>
       </v-list-item>
+             <v-list-item>
+        <v-list-item-icon>
+          <v-icon>mdi-home</v-icon>
+        </v-list-item-icon>
+        <v-list-item-title><router-link to="/admin/trucks" class="nav-item nav-link">Trucks</router-link></v-list-item-title>
+      </v-list-item>
             <v-list-item>
         <v-list-item-icon>
           <v-icon>mdi-home</v-icon>

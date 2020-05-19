@@ -25,11 +25,17 @@ import SerivcesEditPage from "../components/admin/services/EditPage";
 import SerivcesViewPage from "../components/admin/services/ViewPage";
 
 
-//serivce
+//truck driver
 import TruckDriverListPage from "../components/admin/trcukdriver/ListPage";
 import TruckDriverAddPage from "../components/admin/trcukdriver/AddPage";
 import TruckDriverEditPage from "../components/admin/trcukdriver/EditPage";
 import TruckDriverViewPage from "../components/admin/trcukdriver/ViewPage";
+
+//truck
+import TruckListPage from "../components/admin/trcuk/ListPage";
+import TruckAddPage from "../components/admin/trcuk/AddPage";
+import TruckEditPage from "../components/admin/trcuk/EditPage";
+import TruckViewPage from "../components/admin/trcuk/ViewPage";
 
 import LoginPage from "../components/login/LoginPage";
 import RegisterPage from "../components/register/RegisterPage";
@@ -62,6 +68,10 @@ export const router = new Router({
         { path: 'truckdriver/add', component: TruckDriverAddPage, name: 'TruckdriverAdd' },
         { path: 'truckdriver/edit/:id', component: TruckDriverEditPage, name: 'TruckdriverEdit' },
         { path: 'truckdriver/view/:id', component: TruckDriverViewPage, name: 'TruckdriverView' },
+        { path: 'trucks', component: TruckListPage, name: 'Trucks' },
+        { path: 'truck/add', component: TruckAddPage, name: 'TruckAdd' },
+        { path: 'truck/edit/:id', component: TruckEditPage, name: 'TruckEdit' },
+        { path: 'truck/view/:id', component: TruckViewPage, name: 'TruckView' },
       ]
     },
     { path: "/login", component: LoginPage },
