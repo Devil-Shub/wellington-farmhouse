@@ -86,20 +86,20 @@
             required
           ></v-text-field>
         </v-col>
-<v-col
-    cols="12"
-    md="12"
-    >
-       <v-radio-group>
-      <v-radio label="Option 1" value="radio-1"></v-radio>
-      <v-radio label="Option 2" value="radio-2"></v-radio>
-    </v-radio-group>
-</v-col>
+        <v-col
+            cols="12"
+            md="12"
+            >
+            <v-radio-group>
+              <v-radio label="Per Hour" value="0"></v-radio>
+              <v-radio label="Per Load" value="1"></v-radio>
+            </v-radio-group>
+        </v-col>
         <v-col
           cols="12"
           md="12"
         >
-      <v-text-field
+       <v-text-field
             v-model="addForm.driver_name"
             :rules="nameRules"
             label="Driver Salary"
@@ -107,21 +107,6 @@
           ></v-text-field>
         </v-col>
       
- 
-                  <v-col
-            cols="12"
-            md="12"
-            >          
-         <file-pond
-        name="test"
-        ref="pond"
-        label-idle="Upload Doccument"
-        allow-multiple="false"
-        v-bind:server="serverOptions"
-        v-bind:files="myFiles"
-       v-on:processfile="handleProcessFile"
-        />
-                  </v-col>
     
              </v-col>       
                
@@ -198,6 +183,21 @@
         ></v-text-field>
       </v-col>      
  
+ 
+                  <v-col
+            cols="12"
+            md="12"
+            >          
+         <file-pond
+        name="test"
+        ref="pond"
+        label-idle="Upload Doccument"
+        allow-multiple="false"
+        v-bind:server="serverOptions"
+        v-bind:files="myFiles"
+       v-on:processfile="handleProcessFile"
+        />
+                  </v-col>
                 
              </v-col>    
                

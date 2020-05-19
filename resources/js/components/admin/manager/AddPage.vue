@@ -27,6 +27,7 @@
         allow-multiple="false"
         v-bind:server="serverOptions"
         v-bind:files="myFiles"
+        accepted-file-types="image/jpeg, image/png"
        v-on:processfile="handleProcessFile"
         />  
      </v-col>
@@ -144,7 +145,6 @@ export default {
          this.addForm.user_image = e;
       },
        handleProcessFile: function(error, file) {
-         console.log(file);
             this.addForm.user_image = file.serverId;
         },
        update () {
