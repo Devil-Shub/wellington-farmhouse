@@ -48,7 +48,7 @@ class ServicesController extends Controller
                 'service_name' => $request->service_name,
                 'price' => $request->price,
                 'description' => $request->description,
-                 'service_image' => $request->service_image,
+                'service_image' => $request->service_image,
             ]);
            
             //save service
