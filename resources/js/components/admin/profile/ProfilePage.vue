@@ -23,27 +23,15 @@
         >
         <div class="v-avatar v-list-item__avatar" style="height: 40px; min-width: 40px; width: 40px;"> 
           <img :src="avatar" alt="John"></div>
-            <file-pond
-            ref="pond"
-            name="test"
-            label-idle="Drop files here"
-            allow-multiple="false"
-            instant-upload="false"
-            v-on:updatefiles="handleFilePondUpdateFile"
-          />
-     
-<!--      <FilePond></FilePond>-->
-      <v-file-input 
-        :rules="rules"
-        placeholder="Pick an avatar"  
-        prepend-icon="mdi-camera"
-        show-size accept="image/*" 
-        label="Avatar"
-        @change="GetImage"
-        type="file"
-        v-model="updateForm.user_image"
-        >
-      </v-file-input>
+          <file-pond
+        name="test"
+        ref="pond"
+        label-idle="Drop files here..."
+        allow-multiple="false"
+        v-bind:server="serverOptions"
+        v-bind:files="myFiles"
+       v-on:processfile="handleProcessFile"
+        />
     
      </v-col>
           <v-col
@@ -127,7 +115,31 @@ export default {
      rules: [
         value => !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',
       ],
+      myFiles: [],
     };
+  },
+    computed: {
+        serverOptions () {
+           const currentUser =   JSON.parse(localStorage.getItem("currentUser"))
+           return {
+             url: 'http://klk.leagueofclicks.com/api/auth/admin/',
+             withCredentials: false,
+             process: {
+               url: './managerimage',
+               headers: {
+                 'Authorization': "Bearer " + currentUser.data.access_token,
+               },
+             }
+           }
+      },
+      url () {
+      if (this.file) {
+        let parsedUrl = new URL(this.file)
+        return [parsedUrl.pathname]
+      } else {
+        return null
+      }
+    },
   },
     created() {
         const currentUser = JSON.parse(localStorage.getItem("currentUser"))
@@ -144,14 +156,12 @@ export default {
 
   },
   methods: {
-        handleFilePondUpdateFile(files) {
-            console.log(files[0].file)
-//               this.updateForm.user_imag = files[0].file;
-               // FilePond instance methods are available on `this.$refs.pond`
-            },
-            GetImage(e){
-               this.avatar = URL.createObjectURL(e);
-            },
+        handleProcessFile: function(error, file) {
+            this.updateForm.user_image = file.serverId;
+        },
+        GetImage(e){
+           this.avatar = URL.createObjectURL(e);
+        },
        update () {
           if( this.$refs.form.validate() ){
              authenticationService.updateProfile(this.updateForm).then(response => {

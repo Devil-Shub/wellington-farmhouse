@@ -11,10 +11,24 @@
           md="12"
           >
            <v-form
-    ref="form"
-    v-model="valid"
-    lazy-validation
-  >
+            ref="form"
+            v-model="valid"
+            lazy-validation
+          >
+       <v-col
+          cols="12"
+          md="12"
+>          
+         <file-pond
+        name="test"
+        ref="pond"
+        label-idle="Drop files here..."
+        allow-multiple="false"
+        v-bind:server="serverOptions"
+        v-bind:files="myFiles"
+       v-on:processfile="handleProcessFile"
+        />
+       </v-col>  
           <v-col
           cols="12"
           md="12"
@@ -77,9 +91,10 @@ export default {
         avatar: null,
         editForm: {
             id: '',
-        service_name:'',
-        price:'',
-        description:''
+            service_name:'',
+            price:'',
+            description:'',
+            service_image:'',
         },
        nameRules: [
         v => !!v || 'Service name is required',
@@ -90,7 +105,31 @@ export default {
       descRules: [
         v => !!v || 'Service description is required',
       ],
+      myFiles: [],
     };
+  },
+    computed: {
+        serverOptions () {
+           const currentUser =   JSON.parse(localStorage.getItem("currentUser"))
+           return {
+             url: 'http://klk.leagueofclicks.com/api/auth/admin/',
+             withCredentials: false,
+             process: {
+               url: './managerimage',
+               headers: {
+                 'Authorization': "Bearer " + currentUser.data.access_token,
+               },
+             }
+           }
+      },
+      url () {
+      if (this.file) {
+        let parsedUrl = new URL(this.file)
+        return [parsedUrl.pathname]
+      } else {
+        return null
+      }
+    },
   },
    mounted: function() {
          jobService.getService(this.$route.params.id).then(response => {
@@ -114,6 +153,9 @@ export default {
       GetImage(e){
          this.avatar = URL.createObjectURL(e);
       },
+      handleProcessFile: function(error, file) {
+            this.editForm.service_image = file.serverId;
+        },
        update () {
           if( this.$refs.form.validate() ){
               jobService.edit(this.editForm).then(response => {
@@ -125,7 +167,7 @@ export default {
                     position: 'top-right'
                   });
                //redirect to login
-               router.push("/admin/service");
+               router.push("/admin/services");
               } else {
                   this.$toast.open({
                     message: response.message,

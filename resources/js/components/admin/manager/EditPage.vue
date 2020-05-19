@@ -31,18 +31,8 @@
         v-bind:server="serverOptions"
         v-bind:files="myFiles"
          v-on:updatefiles="handleFilePondUpdateFile"
-       
+       v-on:processfile="handleProcessFile"
         />
-      <v-file-input 
-        :rules="rules"
-        placeholder="Pick an avatar"  
-        prepend-icon="mdi-camera"
-        show-size accept="image/*" 
-        label="Avatar"
-        @change="GetImage"
-        v-model="addForm.user_image"
-        >
-      </v-file-input>
     
      </v-col>
           <v-col
@@ -122,45 +112,23 @@ export default {
      rules: [
         value => !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',
       ],
-      myFiles: [],
-        props: ['file', 'fieldName', 'value'],
-   
-    
-//          myServer: {
-//            process: (fieldName, file, metadata, load) => {
-//              // simulates uploading a file
-//              setTimeout(() => {
-//                load(Date.now())
-//              }, 1500);
-//            },
-//            load: (source, load) => {
-//              // simulates loading a file from the server
-//              console.log(source)
-//              fetch(source).then(res => res.blob()).then(load);
-//            }
-//          },
-      
+      myFiles: [],      
     };
   },
   computed: {
         serverOptions () {
-               const currentUser =   JSON.parse(localStorage.getItem("currentUser"))
-      return {
-        url: 'http://klk.leagueofclicks.com/api/auth/admin/',
-        withCredentials: false,
-        process: {
-          url: './imageupload',
-          headers: {
-            'Authorization': "Bearer " + currentUser.data.access_token,
-          },
-        
-        },
-        revert: './revert/',
-        restore: './restore/',
-        load: './load/',
-        fetch: './fetch/',
-      }
-    },
+           const currentUser =   JSON.parse(localStorage.getItem("currentUser"))
+           return {
+             url: 'http://klk.leagueofclicks.com/api/auth/admin/',
+             withCredentials: false,
+             process: {
+               url: './managerimage',
+               headers: {
+                 'Authorization': "Bearer " + currentUser.data.access_token,
+               },
+             }
+           }
+      },
       url () {
       if (this.file) {
         let parsedUrl = new URL(this.file)
@@ -198,12 +166,13 @@ export default {
 
   },
   methods: {
-   
       GetImage(e){
-           console.log(e)
          this.avatar = URL.createObjectURL(e);
          this.addForm.user_image = e;
       },
+       handleProcessFile: function(error, file) {
+            this.addForm.user_image = file.serverId;
+        },
         handleFilePondUpdateFile(files){
             const reader = new FileReader();
             reader.onload = (e) => {

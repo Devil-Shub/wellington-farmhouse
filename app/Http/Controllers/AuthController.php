@@ -228,8 +228,8 @@ class AuthController extends Controller
             //if admin changes profile image
             if ($request->user_image != null && $request->user_image != '') {
 
-                $extension = $request->file('user_image')->extension();
-                $file = $request->file('user_image')->storeAs('images', Str::random() . '.' . $extension);
+               // $extension = $request->file('user_image')->extension();
+                //$file = $request->file('user_image')->storeAs('images', Str::random() . '.' . $extension);
 
                 //base64 image upload
                 //upload path
@@ -251,7 +251,7 @@ class AuthController extends Controller
                 // //upload image
                 // file_put_contents($file, $image_base64);
 
-                $loggedInUser->user_image = $file;
+                $loggedInUser->user_image = $request->user_image;
             }
 
             $loggedInUser->first_name = $request->first_name;

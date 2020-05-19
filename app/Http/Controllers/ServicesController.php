@@ -47,8 +47,10 @@ class ServicesController extends Controller
             $service = new Service([
                 'service_name' => $request->service_name,
                 'price' => $request->price,
-                'description' => $request->description
+                'description' => $request->description,
+                 'service_image' => $request->service_image,
             ]);
+           
             //save service
             $service->save();
             // if ($service->save()) {
@@ -113,7 +115,8 @@ class ServicesController extends Controller
             Service::whereId($request->service_id)->update([
                 'service_name' => $request->service_name,
                 'price' => $request->price,
-                'description' => $request->description
+                'description' => $request->description,
+                 'service_image' => $request->service_image
             ]);
 
             //return success response
@@ -234,23 +237,5 @@ class ServicesController extends Controller
             'message' => $message,
             'data' => []
         ], $statusCode);
-    }
-    
-    
-    public function imageUpload(Request $request){
-         if ($request->test != null && $request->test != '') {
-
-                $extension = $request->file('test')->extension();
-                $file = $request->file('test')->storeAs('images', Str::random() . '.' . $extension);
-         }
-           $status = true;
-            $message = "image uploaded successfully.";
-            $statusCode = 200;
-             return response()->json([
-            'status' => $status,
-            'message' => $message,
-            'data' => []
-        ], $statusCode);
-       
     }
 }

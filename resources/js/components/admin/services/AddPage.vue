@@ -1,20 +1,36 @@
 <template>
-      <v-app>
-             <v-container>
-      <v-row>
+    <v-app>
+        <v-container>
+            <v-row>
+                <v-col
+              cols="12"
+              md="12"
+              ><h2>Add Service</h2>
+                </v-col>
+
           <v-col
-          cols="12"
-          md="12"
-          ><h2>Add Service</h2></v-col>
-             <v-col
           cols="12"
           md="12"
           >
            <v-form
-    ref="form"
-    v-model="valid"
-    lazy-validation
-  >
+            ref="form"
+            v-model="valid"
+            lazy-validation
+          >
+              <v-col
+          cols="12"
+          md="12"
+>          
+         <file-pond
+        name="test"
+        ref="pond"
+        label-idle="Drop files here..."
+        allow-multiple="false"
+        v-bind:server="serverOptions"
+        v-bind:files="myFiles"
+       v-on:processfile="handleProcessFile"
+        />
+                  </v-col>           
           <v-col
           cols="12"
           md="12"
@@ -54,13 +70,15 @@
             label="Description"
             required
     ></v-textarea>
-       
         </v-col>
-           <v-btn color="success" class="mr-4" @click="save">Submit</v-btn>
-             </v-form>
-                 </v-col>
-   </v-row>
-    </v-container>
+               
+       <v-btn color="success" class="mr-4" @click="save">Submit</v-btn>
+       
+      </v-form>
+          </v-col>
+                
+          </v-row>
+        </v-container>
     </v-app>
 </template>
 
@@ -81,6 +99,7 @@ export default {
         service_name: '',
         price: '',
         description: '',
+        service_image: '',
         },
        nameRules: [
         v => !!v || 'Service name is required',
@@ -92,12 +111,39 @@ export default {
       descriptionRules: [
         v => !!v || 'Service description is required',
       ],
+       myFiles: [], 
     };
+  },
+    computed: {
+        serverOptions () {
+           const currentUser =   JSON.parse(localStorage.getItem("currentUser"))
+           return {
+             url: 'http://klk.leagueofclicks.com/api/auth/admin/',
+             withCredentials: false,
+             process: {
+               url: './managerimage',
+               headers: {
+                 'Authorization': "Bearer " + currentUser.data.access_token,
+               },
+             }
+           }
+      },
+      url () {
+      if (this.file) {
+        let parsedUrl = new URL(this.file)
+        return [parsedUrl.pathname]
+      } else {
+        return null
+      }
+    },
   },
   created() {
       
   },
   methods: {
+       handleProcessFile: function(error, file) {
+            this.addForm.service_image = file.serverId;
+        },
        save () {
           if( this.$refs.form.validate() ){
               console.log(this.addForm)

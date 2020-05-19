@@ -36,24 +36,25 @@ class ManagerController extends Controller
 
         try {
             if($request->user_image != '' && $request->user_image != null) {
-                //upload path
-                $folderPath = "images/";
-                //get base64 image
-                $img = $request->user_image;
-                //decode base64
-                $image_parts = explode(";base64,", $img);
-                $image_type_aux = explode("image/", $image_parts[0]);
-                $image_type = $image_type_aux[1];
-                $image_base64 = base64_decode($image_parts[1]);
-                $file = $folderPath . uniqid() . '. '.$image_type;
-                
-                //check if directory exist if not create one
-                $path = public_path().'/images';
-                if (!file_exists($path)) {
-                    mkdir($path, 0777, true);
-                }
-                //upload image
-                file_put_contents($file, $image_base64);
+//                //upload path
+//                $folderPath = "images/";
+//                //get base64 image
+//                $img = $request->user_image;
+//                //decode base64
+//                $image_parts = explode(";base64,", $img);
+//                $image_type_aux = explode("image/", $image_parts[0]);
+//                $image_type = $image_type_aux[1];
+//                $image_base64 = base64_decode($image_parts[1]);
+//                $file = $folderPath . uniqid() . '. '.$image_type;
+//                
+//                //check if directory exist if not create one
+//                $path = public_path().'/images';
+//                if (!file_exists($path)) {
+//                    mkdir($path, 0777, true);
+//                }
+//                //upload image
+//                file_put_contents($file, $image_base64);
+                $file= $request->user_image;
             } else {
                 $file = '';
             }
@@ -122,25 +123,25 @@ class ManagerController extends Controller
             //if admin changes profile image
             if($request->user_image != null && $request->user_image != '') {
                 //upload path
-                $folderPath = "images/";
-                //get base64 image
-                $img = $request->user_image;
-                //decode base64
-                $image_parts = explode(";base64,", $img);
-                $image_type_aux = explode("image/", $image_parts[0]);
-                $image_type = $image_type_aux[1];
-                $image_base64 = base64_decode($image_parts[1]);
-                $file = $folderPath . uniqid() . '. '.$image_type;
-                
-                //check if directory exist if not create one
-                $path = public_path().'/images';
-                if (!file_exists($path)) {
-                    mkdir($path, 0777, true);
-                }
-                //upload image
-                file_put_contents($file, $image_base64);
+//                $folderPath = "images/";
+//                //get base64 image
+//                $img = $request->user_image;
+//                //decode base64
+//                $image_parts = explode(";base64,", $img);
+//                $image_type_aux = explode("image/", $image_parts[0]);
+//                $image_type = $image_type_aux[1];
+//                $image_base64 = base64_decode($image_parts[1]);
+//                $file = $folderPath . uniqid() . '. '.$image_type;
+//                
+//                //check if directory exist if not create one
+//                $path = public_path().'/images';
+//                if (!file_exists($path)) {
+//                    mkdir($path, 0777, true);
+//                }
+//                //upload image
+//                file_put_contents($file, $image_base64);
 
-                $managerDetails->user_image = $file;
+                $managerDetails->user_image = $request->user_image;
             }
             //if password request submitted
             if($request->password != '' && $request->password != null) {

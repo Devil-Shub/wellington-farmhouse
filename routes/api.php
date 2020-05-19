@@ -49,7 +49,7 @@ Route::group(['prefix' => 'auth'], function () {
             Route::get('get-service/{service_id}', 'ServicesController@getService');
             Route::delete('delete-service/{service_id}', 'ServicesController@deleteService');
             
-            Route::post('imageupload', 'ServicesController@imageUpload');
+            Route::post('managerimage', 'ImageController@managerImage');
         });
 
     });
