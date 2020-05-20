@@ -55,6 +55,13 @@ Route::group(['prefix' => 'auth'], function () {
             Route::get('list-drivers', 'DriverController@listDrivers');
             Route::get('get-driver/{driver_id}', 'DriverController@getDriver');
             Route::delete('delete-driver/{driver_id}', 'DriverController@deleteDriver');
+
+            //truck
+            Route::post('create-vehicle', 'VehicleController@createVehicle');
+            Route::post('edit-vehicle/{vehicle_id}', 'VehicleController@editVehicle');
+            Route::get('list-vehicle', 'VehicleController@listVehicle');
+            Route::get('get-vehicle/{vehicle_id}', 'VehicleController@getVehicle');
+            Route::delete('delete-vehicle/{vehicle_id}', 'VehicleController@deleteVehicle');
         });
 
         //upload image
