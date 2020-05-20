@@ -48,6 +48,13 @@ Route::group(['prefix' => 'auth'], function () {
             Route::get('list-services', 'ServicesController@listServices');
             Route::get('get-service/{service_id}', 'ServicesController@getService');
             Route::delete('delete-service/{service_id}', 'ServicesController@deleteService');
+
+            //driver
+            Route::post('create-driver', 'DriverController@createDriver');
+            Route::post('edit-driver/{driver_id}', 'DriverController@editDriver');
+            Route::get('list-drivers', 'DriverController@listDrivers');
+            Route::get('get-driver/{driver_id}', 'DriverController@getDriver');
+            Route::delete('delete-driver/{driver_id}', 'DriverController@deleteDriver');
         });
 
         //upload image
