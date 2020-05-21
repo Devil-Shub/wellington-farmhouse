@@ -155,13 +155,24 @@ class VehicleController extends Controller
     }
 
     /**
-     * list vehicle
+     * list trucks
      */
     public function listVehicle() {
         return response()->json([
             'status' => true,
-            'message' => 'Vehicle Details',
-            'data' => Vehicle::with("user", "vehicle_service", "vehicle_insurance")->get()
+            'message' => 'Truck Details',
+            'data' => Vehicle::with("user", "vehicle_service", "vehicle_insurance")->whereVehicleType(config("constant.vehicle_type.truck"))->get()
+        ], 200);    
+    }
+
+    /**
+     * list skidsteer
+     */
+    public function listSkidsteer() {
+        return response()->json([
+            'status' => true,
+            'message' => 'Skidsteer Details',
+            'data' => Vehicle::with("user", "vehicle_service", "vehicle_insurance")->whereVehicleType(config("constant.vehicle_type.skidsteer"))->get()
         ], 200);    
     }
 

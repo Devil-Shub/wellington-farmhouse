@@ -60,6 +60,7 @@ Route::group(['prefix' => 'auth'], function () {
             Route::post('create-vehicle', 'VehicleController@createVehicle');
             Route::post('edit-vehicle/{vehicle_id}', 'VehicleController@editVehicle');
             Route::get('list-vehicle', 'VehicleController@listVehicle');
+            Route::get('list-skidsteer', 'VehicleController@listSkidsteer');
             Route::get('get-vehicle/{vehicle_id}', 'VehicleController@getVehicle');
             Route::delete('delete-vehicle/{vehicle_id}', 'VehicleController@deleteVehicle');
         });
