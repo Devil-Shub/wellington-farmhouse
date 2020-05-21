@@ -8,5 +8,9 @@ return [
         'Customer' => 4,
         'Customer_Manager' => 5,
         'Company' => 6
+    ],
+    'vehicle_type' => [
+        'truck' => 1,
+        'skidsteer' => 2
     ]
 ];
