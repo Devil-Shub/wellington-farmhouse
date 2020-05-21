@@ -124,7 +124,7 @@
 
 <script>
 import { required } from "vuelidate/lib/validators";
-import { jobService } from "../../../_services/job.service";
+import { truckService } from "../../../_services/truck.service";
 import { router } from "../../../_helpers/router";
 import { environment } from "../../../config/test.env";
 export default {
@@ -150,6 +150,7 @@ export default {
         insurance_number: "",
         insurance_date: "",
         document: "",
+        total_killometer: "",
         insurance_expiry: ""
       },
 
@@ -187,26 +188,25 @@ export default {
     save() {
       this.addForm.insurance_date = this.date;
       this.addForm.insurance_expiry = this.date1;
-      console.log(this.addForm);
       if (this.$refs.form.validate()) {
-        //             jobService.add(this.addForm).then(response => {
-        //              //handle response
-        //              if(response.status) {
-        //                  this.$toast.open({
-        //                    message: response.message,
-        //                    type: 'success',
-        //                    position: 'top-right'
-        //                  });
-        //               //redirect to login
-        //               router.push("/admin/services");
-        //              } else {
-        //                  this.$toast.open({
-        //                    message: response.message,
-        //                    type: 'error',
-        //                    position: 'top-right'
-        //                  })
-        //              }
-        //            });
+        truckService.add(this.addForm).then(response => {
+         //handle response
+         if(response.status) {
+             this.$toast.open({
+               message: response.message,
+               type: 'success',
+               position: 'top-right'
+             });
+          //redirect to login
+          router.push("/admin/trucks");
+         } else {
+             this.$toast.open({
+               message: response.message,
+               type: 'error',
+               position: 'top-right'
+             })
+         }
+       });
       }
     }
   }

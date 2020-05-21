@@ -1,70 +1,84 @@
 <template>
-      <v-app>
-             <v-container>
-      <v-row>
-     
-        
-      <v-subheader>Service</v-subheader>     
-        <v-list-item>
-            <v-list-item-content>
-              <v-list-item-title>Name</v-list-item-title>
-              <v-list-item-subtitle>{{editForm.service_name}}</v-list-item-subtitle>
-            </v-list-item-content>
-          </v-list-item>
-      
-         <v-list-item>
-        <v-list-item-content>
-          <v-list-item-title>Price</v-list-item-title>
-          <v-list-item-subtitle>{{editForm.price}}</v-list-item-subtitle>
-        </v-list-item-content>
-      </v-list-item>
-        <v-list-item>
-        <v-list-item-content>
-          <v-list-item-title>Description</v-list-item-title>
-          <p>{{editForm.description}}</p>
-        </v-list-item-content>
-      </v-list-item>
-         
-   </v-row>
-    </v-container>
-    </v-app>
+  <v-app>
+   
+  </v-app>
 </template>
 
 <script>
- import { jobService } from "../../../_services/job.service";
+import { required } from "vuelidate/lib/validators";
+import { driverService } from "../../../_services/driver.service";
+import { router } from "../../../_helpers/router";
+import { environment } from "../../../config/test.env";
 export default {
+  components: {
+    //      'image-component': imageVUE,
+  },
+
   data() {
     return {
-        avatar: null,
-        editForm: {
-            id: '',
-            service_name:'',
-            price:'',
-            description:'',
-            service_image:'',
-        },
+      menu2: false,
+      valid: true,
+      apiUrl: environment.apiUrl,
+      avatar: null,
+      date: "",
+      user_image: "",
+      active:0,
+      addForm: {
+        driver_name: "",
+        email: "",
+        driver_licence: "",
+        expiry_date: "",
+        salary_type: "",
+        document: "",
+        user_image: "",
+        driver_address: "",
+        driver_city: "",
+        driver_state: "",
+        driver_country: "",
+        driver_zipcode: "",
+        driver_phone: ""
+        
+      },
     };
   },
-   mounted: function() {
-         jobService.getService(this.$route.params.id).then(response => {
-              //handle response
-              if(response.status) {
-                  this.editForm.id = response.data.id;
-                this.editForm.service_name = response.data.service_name;
-                this.editForm.price = response.data.price;
-                this.editForm.description = response.data.description;
-              } else {
-                  router.push("/admin/services"); 
-                  this.$toast.open({
-                    message: response.message,
-                    type: 'error',
-                    position: 'top-right'
-                  })
-              }
-            });
-    },
+  computed: {
+
+  },
+  created() {
+     driverService.getDriver(this.$route.params.id).then(response => {
+      if (response.status) {
+        this.addForm.user_id = response.data.user.id;
+        if (response.data.user.user_image) {
+          this.addForm.user_image = response.data.user.user_image;
+        }
+        if (response.data.user_image) {
+          this.avatar = '../../../'+response.data.user.user_image;
+        } else {
+          this.avatar = "/images/avatar.png";
+        }
+        this.addForm.driver_name = response.data.user.first_name;
+        this.addForm.email = response.data.user.email;
+        this.addForm.phone = response.data.user.phone;
+        this.active = response.data.salary_type;
+        this.addForm.driver_licence = response.data.driver_licence;
+        this.date = response.data.expiry_date;
+        this.addForm.salary_type = response.data.salary_type;
+        this.addForm.document = response.data.document;
+        this.addForm.phone = response.data.user.phone;
+      
+        
+      } else {
+        router.push("/admin/drivers");
+        this.$toast.open({
+          message: response.message,
+          type: "error",
+          position: "top-right"
+        });
+      }
+    });
+  },
   methods: {
-    
-    }
+
+  }
 };
 </script>

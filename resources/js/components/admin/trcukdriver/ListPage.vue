@@ -17,21 +17,50 @@
     <template v-slot:default>
       <thead>
         <tr>
-            <th class="text-left">Service Name</th>
-          <th class="text-left">Price</th>
-          <th class="text-left">Descriptions</th>
-          <th class="text-left">Action</th>
+           <th class="text-left"></th>
+           <th class="text-left">Driver Name</th>
+          <th class="text-left">Email</th>
+           <th class="text-left">Active</th>
+          <th class="text-left">Licence</th>
+          <th class="text-left">expiry_date</th>
+          <th class="text-left">salary_type</th>
+        
         </tr>
       </thead>
       <tbody>
-        <tr v-for="item in managers" :key="item.name">
-          <td>{{ item.service_name }}</td>
-          <td>${{ item.price }}</td>
-           <td>${{ item.description }}</td>
+        <tr v-for="item in drivers" :key="item.name">
+            <td> 
+             <div class="v-avatar v-list-item__avatar" style="height: 40px; min-width: 40px; width: 40px;">
+                    <img v-if="item.user_image" :src="'../'+item.user_image" alt="John">
+                         <img v-if="!item.user_image" src="/images/avatar.png" alt="driver">
+             </div>
+            </td>
+          <td>{{ item.user.first_name }}</td>
+          <td>{{ item.user.email }}</td>
+          <td>
+               <v-chip v-if="!item.is_active"
+              class="ma-2"
+              color="red"
+              text-color="white"
+            >
+              Deactivate
+            </v-chip>
+            <v-chip v-if="item.is_active"
+              class="ma-2"
+              color="green"
+              text-color="white"
+            >
+              Activate
+            </v-chip>
+            </td>
+
+           <td>{{ item.driver_licence }}</td>
+           <td>{{ item.expiry_date }}</td>
+           <td>{{ item.salary_type }}</td>
           <td> 
-        <router-link :to="'/admin/truckdriver/view/' + item.id" class="nav-item nav-link"><user-icon size="1.5x" class="custom-class"></user-icon></router-link>
-              <router-link :to="'/admin/truckdriver/edit/' + item.id" class="nav-item nav-link"><edit-icon size="1.5x" class="custom-class"></edit-icon></router-link>
-            <v-btn color="blue darken-1" text @click="Delete(item.id)"><trash-icon size="1.5x" class="custom-class"></trash-icon></v-btn>
+        <router-link :to="'/admin/truckdriver/view/' + item.user.id" class="nav-item nav-link"><user-icon size="1.5x" class="custom-class"></user-icon></router-link>
+              <router-link :to="'/admin/truckdriver/edit/' + item.user.id" class="nav-item nav-link"><edit-icon size="1.5x" class="custom-class"></edit-icon></router-link>
+            <v-btn color="blue darken-1" text @click="Delete(item.user.id)"><trash-icon size="1.5x" class="custom-class"></trash-icon></v-btn>
 
           </td>
         </tr>
@@ -48,7 +77,7 @@
 
 <script>
  import { required } from "vuelidate/lib/validators";
- import { truckService } from "../../../_services/truck.service";
+ import { driverService } from "../../../_services/driver.service";
  import { UserIcon, EditIcon, TrashIcon, PlusCircleIcon } from 'vue-feather-icons'
  import { router } from "../../../_helpers/router";
   export default {
@@ -60,17 +89,18 @@
       return {
           dialog: false,
           on: false,
-        managers: [],
+        drivers: [],
       }
     },
     getList(){
      
     },
     mounted: function()  {
-          truckService.listService().then(response => {
+          driverService.listDrivers().then(response => {
             //handle response
             if(response.status) {
-             this.managers = response.data;
+                console.log(response.data)
+             this.drivers = response.data;
             } else {
 
                 this.$toast.open({
@@ -88,7 +118,7 @@
         Delete(e){
            if(e){
               
-            truckService.Delete(e).then(response => {
+            driverService.Delete(e).then(response => {
               //handle response
               if(response.status) {
                   this.$toast.open({

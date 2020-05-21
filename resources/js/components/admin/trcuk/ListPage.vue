@@ -17,17 +17,21 @@
     <template v-slot:default>
       <thead>
         <tr>
-            <th class="text-left">Truck Name</th>
-          <th class="text-left">Price</th>
-          <th class="text-left">Descriptions</th>
-          <th class="text-left">Action</th>
+        <th class="text-left">Company Name</th>
+        <th class="text-left">truck_number</th>
+        <th class="text-left">chaase_number</th>
+        <th class="text-left">insurance_number</th>
+        <th class="text-left">Action</th>
+          
+        
         </tr>
       </thead>
       <tbody>
-        <tr v-for="item in managers" :key="item.name">
-          <td>{{ item.service_name }}</td>
-          <td>${{ item.price }}</td>
-           <td>${{ item.description }}</td>
+        <tr v-for="item in trucks" :key="item.name">
+            <td>{{item.company_name}}</td>
+            <td>{{item.truck_number}}</td>
+            <td>{{item.chaase_number}}</td>
+            <td>{{item.insurance_number}}</td>
           <td> 
         <router-link :to="'/admin/truck/view/' + item.id" class="nav-item nav-link"><user-icon size="1.5x" class="custom-class"></user-icon></router-link>
               <router-link :to="'/admin/truck/edit/' + item.id" class="nav-item nav-link"><edit-icon size="1.5x" class="custom-class"></edit-icon></router-link>
@@ -60,17 +64,17 @@
       return {
           dialog: false,
           on: false,
-        managers: [],
+          trucks: [],
       }
     },
     getList(){
      
     },
     mounted: function()  {
-          truckService.listService().then(response => {
+          truckService.listTrucks().then(response => {
             //handle response
             if(response.status) {
-             this.managers = response.data;
+             this.trucks = response.data;
             } else {
 
                 this.$toast.open({
@@ -87,7 +91,6 @@
         },
         Delete(e){
            if(e){
-              
             truckService.Delete(e).then(response => {
               //handle response
               if(response.status) {

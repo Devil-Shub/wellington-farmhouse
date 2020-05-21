@@ -9,12 +9,12 @@ const currentUserSubject = new BehaviorSubject(
   JSON.parse(localStorage.getItem("currentUser"))
 );
 
-export const truckService = {
+export const driverService = {
   add,
   edit,
   Delete,
-  getTruck,
-  listTrucks,
+  getDriver,
+  listDrivers,
   apiUrl: environment.apiUrl,
   currentUrl: '',
   currentUser: currentUserSubject.asObservable(),
@@ -26,7 +26,7 @@ export const truckService = {
 function add(data) {
 
   return fetch(
-    this.apiUrl+`admin/create-vehicle`,
+    this.apiUrl+`admin/create-driver`,
     requestOptions.post(data)
   )
     .then(handleResponse)
@@ -39,7 +39,7 @@ function add(data) {
 
 function edit(data) {
   return fetch(
-    this.apiUrl+`admin/edit-vehicle/`+data.id,
+    this.apiUrl+`admin/edit-driver/`+data.id,
     requestOptions.post(data)
   )
     .then(handleResponse)
@@ -51,7 +51,7 @@ function edit(data) {
 }
 function Delete(data) {
   return fetch(
-    this.apiUrl+`admin/delete-vehicle/`+data,
+    this.apiUrl+`admin/delete-driver/`+data,
     requestOptions.delete()
   )
     .then(handleResponse)
@@ -62,9 +62,9 @@ function Delete(data) {
     });
 }
 
-function getTruck(data) {
+function getDriver(data) {
   return fetch(
-    this.apiUrl+`admin/get-vehicle/`+data,
+    this.apiUrl+`admin/get-driver/`+data,
     requestOptions.get()
   )
     .then(handleResponse)
@@ -75,9 +75,9 @@ function getTruck(data) {
     });
 }
 
-function listTrucks() {
+function listDrivers() {
   return fetch(
-    this.apiUrl+`admin/list-vehicle`,
+    this.apiUrl+`admin/list-drivers`,
     requestOptions.get()
   )
     .then(handleResponse)

@@ -111,7 +111,7 @@
                   <v-text-field
                     v-model="addForm.driver_state"
                     :rules="[v => !!v || 'State is required']"
-                    label="Country"
+                    label="State"
                     required
                   ></v-text-field>
                 </v-col>
@@ -120,7 +120,7 @@
                   <v-text-field
                     v-model="addForm.driver_country"
                     :rules="[v => !!v || 'Country is required']"
-                    label="State"
+                    label="Country"
                     required
                   ></v-text-field>
                 </v-col>
@@ -168,7 +168,7 @@
 
 <script>
 import { required } from "vuelidate/lib/validators";
-import { jobService } from "../../../_services/job.service";
+import { driverService } from "../../../_services/driver.service";
 import { router } from "../../../_helpers/router";
 import { environment } from "../../../config/test.env";
 export default {
@@ -191,7 +191,14 @@ export default {
         expiry_date: "",
         salary_type: "",
         document: "",
-        user_image: ""
+        user_image: "",
+        driver_address: "",
+        driver_city: "",
+        driver_state: "",
+        driver_country: "",
+        driver_zipcode: "",
+        driver_phone: ""
+        
       },
       emailRules: [
         v => !!v || "E-mail is required",
@@ -234,24 +241,24 @@ export default {
     save() {
       this.addForm.expiry_date = this.date;
       if (this.$refs.form.validate()) {
-        //             jobService.add(this.addForm).then(response => {
-        //              //handle response
-        //              if(response.status) {
-        //                  this.$toast.open({
-        //                    message: response.message,
-        //                    type: 'success',
-        //                    position: 'top-right'
-        //                  });
-        //               //redirect to login
-        //               router.push("/admin/services");
-        //              } else {
-        //                  this.$toast.open({
-        //                    message: response.message,
-        //                    type: 'error',
-        //                    position: 'top-right'
-        //                  })
-        //              }
-        //            });
+                     driverService.add(this.addForm).then(response => {
+                      //handle response
+                      if(response.status) {
+                          this.$toast.open({
+                            message: response.message,
+                            type: 'success',
+                            position: 'top-right'
+                          });
+                       //redirect to login
+                       router.push("/admin/truckdrivers");
+                      } else {
+                          this.$toast.open({
+                            message: response.message,
+                            type: 'error',
+                            position: 'top-right'
+                          })
+                      }
+                    });
       }
     }
   }

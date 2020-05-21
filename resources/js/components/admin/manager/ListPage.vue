@@ -26,10 +26,11 @@
       </thead>
       <tbody>
         <tr v-for="item in managers" :key="item.name">
-            <td>   
-                <div class="v-avatar v-list-item__avatar" style="height: 40px; min-width: 40px; width: 40px;">
-                    <img :src="'../'+item.user_image" alt="John">
-                </div>
+           <td> 
+             <div class="v-avatar v-list-item__avatar" style="height: 40px; min-width: 40px; width: 40px;">
+                    <img v-if="item.user_image" :src="'../'+item.user_image" alt="John">
+                         <img v-if="!item.user_image" src="/images/avatar.png" alt="driver">
+             </div>
             </td>
           <td>{{ item.first_name }} {{ item.last_name }}</td>
           <td>{{ item.email }}</td>
