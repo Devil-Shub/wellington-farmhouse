@@ -2,41 +2,6 @@
       <v-app>
              <v-container>
       <v-row>
-     
-        
-      <v-subheader>Service</v-subheader>     
-        <v-list-item>
-            <v-list-item-content>
-              <v-list-item-title>Name</v-list-item-title>
-              <v-list-item-subtitle>{{addForm.first_name}}  {{addForm.last_name}}</v-list-item-subtitle>
-            </v-list-item-content>
-          </v-list-item>
-      
-         <v-list-item>
-        <v-list-item-content>
-          <v-list-item-title>Email</v-list-item-title>
-          <v-list-item-subtitle>{{addForm.email}}</v-list-item-subtitle>
-        </v-list-item-content>
-      </v-list-item>
-        <v-list-item>
-        <v-list-item-content>
-          <v-list-item-title>Active</v-list-item-title>
-          <v-list-item-subtitle>   <v-chip v-if="!addForm.is_active"
-              class="ma-2"
-              color="red"
-              text-color="white"
-            >
-              Deactivate
-            </v-chip>
-            <v-chip v-if="addForm.is_active"
-              class="ma-2"
-              color="green"
-              text-color="white"
-            >
-              Activate
-            </v-chip></v-list-item-subtitle>
-        </v-list-item-content>
-      </v-list-item>
          
    </v-row>
     </v-container>
