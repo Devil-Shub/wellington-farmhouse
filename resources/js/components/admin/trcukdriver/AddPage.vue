@@ -197,7 +197,8 @@ export default {
         driver_state: "",
         driver_country: "",
         driver_zipcode: "",
-        driver_phone: ""
+        driver_phone: "",
+        driver_type: 1
         
       },
       emailRules: [

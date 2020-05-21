@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
@@ -45,8 +44,14 @@ class DriverController extends Controller
             $user = new User([
                 'first_name' => $request->driver_name,
                 'email' => $request->email,
-                'role_id' => config('constant.roles.Truck_Driver'),
-                'user_image' => $request->email,
+                'role_id' => config('constant.roles.Driver'),
+                'phone' => $request->driver_phone,
+                'address' => $request->driver_address,
+                'city' => $request->driver_city,
+                'state' => $request->driver_state,
+                'country' => $request->driver_country,
+                'zip_code' => $request->driver_zipcode,
+                'user_image' => $request->user_image,
                 'is_confirmed' => 1,
                 'is_active' => 1,
                 'password' => bcrypt($newPassword)
@@ -56,9 +61,11 @@ class DriverController extends Controller
                 //add driver details
                 $driverDetails = new Driver([
                     'user_id' => $user->id,
+                    'driver_type' => $request->driver_type,
                     'driver_licence' => $request->driver_licence,
                     'expiry_date' => $request->expiry_date,
                     'salary_type' => $request->salary_type,
+                    'driver_salary' => $request->driver_salary,
                     'document' => $request->document
                 ]);
 
@@ -114,18 +121,37 @@ class DriverController extends Controller
             //use of db transactions
             DB::beginTransaction();
             //update user table
+
             User::whereId($request->driver_id)->update([
                 'first_name' => $request->driver_name,
                 'email' => $request->email,
-                'user_image' => $request->user_image
+                'phone' => $request->driver_phone,
+                'address' => $request->driver_address,
+                'city' => $request->driver_city,
+                'state' => $request->driver_state,
+                'country' => $request->driver_country,
+                'zip_code' => $request->driver_zipcode,
             ]);
+            //if image uploaded    
+            if($request->user_image != '' && $request->user_image != null) {
+                User::whereId($request->driver_id)->update([
+                    'user_image' => $request->user_image
+                ]);
+            }
             //update driver table
             Driver::whereUserId($request->driver_id)->update([
                 'driver_licence' => $request->driver_licence,
                 'expiry_date' => $request->expiry_date,
                 'salary_type' => $request->salary_type,
-                'document' => $request->document
+                'driver_salary' => $request->driver_salary,
+                'driver_type' => $request->driver_type
             ]);
+            //if document uploaded
+            if($request->document != '' && $request->document != null) {
+                Driver::whereUserId($request->driver_id)->update([
+                    'document' => $request->document
+                ]);
+            }
 
             //commit all transactions now
             DB::commit();
@@ -176,7 +202,8 @@ class DriverController extends Controller
      */
     public function deleteDriver(Request $request) {
         try {
-            Driver::whereId($request->driver_id)->delete();
+            
+            User::whereId($request->driver_id)->delete();
 
             return response()->json([
                 'status' => true,

@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\DB;
 use Validator;
 use App\User;
 use App\Vehicle;
+use App\VehicleService;
+use App\VehicleInsurance;
 
 class VehicleController extends Controller
 {
@@ -39,20 +41,28 @@ class VehicleController extends Controller
             //use of db transactions
             DB::beginTransaction();
 
-            //create new user
+            //create new vehicle
             $vechicle = new Vehicle([
                 'created_by' => $request->user()->id,
                 'vehicle_type' => $request->vehicle_type,
                 'company_name' => $request->company_name,
                 'truck_number' => $request->truck_number,
                 'chaase_number' => $request->chaase_number,
-                'insurance_number' => $request->insurance_number,
-                'insurance_date' => $request->insurance_date,
-                'document' => $request->document,
-                'insurance_expiry' => $request->insurance_expiry
+                'killometer' => $request->total_killometer,
+                // 'capacity' => $request->insurance_date,
+                'document' => $request->document
             ]);
             //save vehicle
-            $vechicle->save();
+            if($vechicle->save()) {
+                $vechicleInsurance = new VehicleInsurance([
+                    'vehicle_id' => $vechicle->id,
+                    'insurance_number' => $request->insurance_number,
+                    'insurance_date' => $request->insurance_date,
+                    'insurance_expiry' => $request->insurance_expiry
+                ]);
+
+                $vechicleInsurance->save();
+            }
             //commit all transactions now
             DB::commit();
             //return success response
@@ -101,20 +111,26 @@ class VehicleController extends Controller
         try {
             //use of db transactions
             DB::beginTransaction();
+
             //update vehicle table
             $updateVehicle = Vehicle::whereId($request->vehicle_id)->update([
                 'company_name' => $request->company_name,
                 'truck_number' => $request->truck_number,
                 'chaase_number' => $request->chaase_number,
-                'insurance_number' => $request->insurance_number,
-                'insurance_date' => $request->insurance_date,
-                'insurance_expiry' => $request->insurance_expiry
+                'killometer' => $request->total_killometer
             ]);
             //check if document is also uploaded    
             if($request->document != '' && $request->document != null) {
                 $updateVehicle->document = $request->document;
                 $updateVehicle->save();
             }
+
+            //save insurance details
+            VehicleInsurance::whereVehicleId($request->vehicle_id)->update([
+                'insurance_number' => $request->insurance_number,
+                'insurance_date' => $request->insurance_date,
+                'insurance_expiry' => $request->insurance_expiry
+            ]);
 
             //commit all transactions now
             DB::commit();
@@ -145,7 +161,7 @@ class VehicleController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'Vehicle Details',
-            'data' => Vehicle::with("user")->get()
+            'data' => Vehicle::with("user", "vehicle_service", "vehicle_insurance")->get()
         ], 200);    
     }
 
@@ -156,7 +172,7 @@ class VehicleController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'Vehicle Details',
-            'data' => Vehicle::with("user")->whereId($request->vehicle_id)->first()
+            'data' => Vehicle::with("user", "vehicle_service", "vehicle_insurance")->whereId($request->vehicle_id)->first()
         ], 200);    
     }
 

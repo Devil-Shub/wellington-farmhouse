@@ -37,9 +37,9 @@ function add(data) {
     });
 }
 
-function edit(data) {
+function edit(data, driverId) {
   return fetch(
-    this.apiUrl+`admin/edit-driver/`+data.id,
+    this.apiUrl+`admin/edit-driver/`+driverId,
     requestOptions.post(data)
   )
     .then(handleResponse)

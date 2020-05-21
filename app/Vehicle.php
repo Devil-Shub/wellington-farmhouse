@@ -12,12 +12,22 @@ class Vehicle extends Model
      * @var array
      */
     protected $fillable = [
-        'created_by', 'vehicle_type', 'company_name', 'truck_number', 'chaase_number', 'insurance_number', 'insurance_date', 'insurance_expiry',
+        'created_by', 'vehicle_type', 'company_name', 'truck_number', 'chaase_number', 'killometer', 'capacity',
         'document'
     ];
 
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\User', 'created_by', 'id');
+    }
+
+    public function vehicle_service()
+    {
+        return $this->hasOne('App\VehicleService');
+    }
+
+    public function vehicle_insurance()
+    {
+        return $this->hasOne('App\VehicleInsurance');
     }
 }

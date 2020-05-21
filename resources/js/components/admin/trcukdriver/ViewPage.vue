@@ -1,7 +1,5 @@
 <template>
-  <v-app>
-   
-  </v-app>
+  <v-app></v-app>
 </template>
 
 <script>
@@ -22,7 +20,7 @@ export default {
       avatar: null,
       date: "",
       user_image: "",
-      active:0,
+      active: 0,
       addForm: {
         driver_name: "",
         email: "",
@@ -37,22 +35,19 @@ export default {
         driver_country: "",
         driver_zipcode: "",
         driver_phone: ""
-        
-      },
+      }
     };
   },
-  computed: {
-
-  },
+  computed: {},
   created() {
-     driverService.getDriver(this.$route.params.id).then(response => {
+    driverService.getDriver(this.$route.params.id).then(response => {
       if (response.status) {
         this.addForm.user_id = response.data.user.id;
         if (response.data.user.user_image) {
           this.addForm.user_image = response.data.user.user_image;
         }
         if (response.data.user_image) {
-          this.avatar = '../../../'+response.data.user.user_image;
+          this.avatar = "../../../" + response.data.user.user_image;
         } else {
           this.avatar = "/images/avatar.png";
         }
@@ -65,8 +60,6 @@ export default {
         this.addForm.salary_type = response.data.salary_type;
         this.addForm.document = response.data.document;
         this.addForm.phone = response.data.user.phone;
-      
-        
       } else {
         router.push("/admin/drivers");
         this.$toast.open({
@@ -77,8 +70,6 @@ export default {
       }
     });
   },
-  methods: {
-
-  }
+  methods: {}
 };
 </script>

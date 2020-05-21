@@ -31,7 +31,7 @@
             <td>{{item.company_name}}</td>
             <td>{{item.truck_number}}</td>
             <td>{{item.chaase_number}}</td>
-            <td>{{item.insurance_number}}</td>
+            <td>{{item.vehicle_insurance.insurance_number}}</td>
           <td> 
         <router-link :to="'/admin/truck/view/' + item.id" class="nav-item nav-link"><user-icon size="1.5x" class="custom-class"></user-icon></router-link>
               <router-link :to="'/admin/truck/edit/' + item.id" class="nav-item nav-link"><edit-icon size="1.5x" class="custom-class"></edit-icon></router-link>

@@ -109,11 +109,11 @@
                     :rules="[v => !!v || 'Document is required']"
                   />
                 </v-col>
-                  <v-col cols="12" md="12">
+                <v-col cols="12" md="12">
                   <div v-if="avatar" style="height:200px; width:200px">
-                     <img :src="avatar" alt="John" style="height:200px;"/>
+                    <img :src="avatar" alt="John" style="height:200px;" />
                   </div>
-                       </v-col>
+                </v-col>
               </v-col>
 
               <v-col cols="12" md="12">
@@ -193,12 +193,12 @@ export default {
         this.addForm.company_name = response.data.company_name;
         this.addForm.truck_number = response.data.truck_number;
         this.addForm.chaase_number = response.data.chaase_number;
-        this.addForm.insurance_number = response.data.insurance_number;
-        this.addForm.total_killometer = response.data.total_killometer;
-        this.date = response.data.insurance_date;
-        this.date1 = response.data.insurance_expiry;
-        if(response.data.document){
-            this.avatar = '../../../'+response.data.document;
+        this.addForm.insurance_number = response.data.vehicle_insurance.insurance_number;
+        this.addForm.total_killometer = response.data.killometer;
+        this.date = response.data.vehicle_insurance.insurance_date;
+        this.date1 = response.data.vehicle_insurance.insurance_expiry;
+        if (response.data.document) {
+          this.avatar = "../../../" + response.data.document;
         }
       } else {
         router.push("/admin/trucks");
@@ -213,30 +213,30 @@ export default {
   methods: {
     handleProcessFile1: function(error, file) {
       this.addForm.document = file.serverId;
-      this.avatar = '../../../'+file.serverId;
+      this.avatar = "../../../" + file.serverId;
     },
     save() {
       this.addForm.insurance_date = this.date;
       this.addForm.insurance_expiry = this.date1;
       if (this.$refs.form.validate()) {
         truckService.edit(this.addForm).then(response => {
-         //handle response
-         if(response.status) {
-             this.$toast.open({
-               message: response.message,
-               type: 'success',
-               position: 'top-right'
-             });
-          //redirect to login
-          router.push("/admin/trucks");
-         } else {
-             this.$toast.open({
-               message: response.message,
-               type: 'error',
-               position: 'top-right'
-             })
-         }
-       });
+          //handle response
+          if (response.status) {
+            this.$toast.open({
+              message: response.message,
+              type: "success",
+              position: "top-right"
+            });
+            //redirect to login
+            router.push("/admin/trucks");
+          } else {
+            this.$toast.open({
+              message: response.message,
+              type: "error",
+              position: "top-right"
+            });
+          }
+        });
       }
     }
   }

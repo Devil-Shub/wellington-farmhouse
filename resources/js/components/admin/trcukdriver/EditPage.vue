@@ -10,12 +10,12 @@
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-row>
               <v-col cols="5" md="5">
-                   <div
-                class="v-avatar v-list-item__avatar"
-                style="height: 40px; min-width: 40px; width: 40px;"
-              >
-                <img :src="avatar" alt="John" />
-              </div>
+                <div
+                  class="v-avatar v-list-item__avatar"
+                  style="height: 40px; min-width: 40px; width: 40px;"
+                >
+                  <img :src="'../../../../'+addForm.user_image" alt="John" />
+                </div>
                 <v-col cols="12" md="12">
                   <file-pond
                     name="uploadImage"
@@ -190,13 +190,14 @@ export default {
       avatar: null,
       date: "",
       user_image: "",
-      active:0,
+      active: 0,
       addForm: {
         driver_name: "",
         email: "",
         driver_licence: "",
         expiry_date: "",
         salary_type: "",
+        driver_salary: "",
         document: "",
         user_image: "",
         driver_address: "",
@@ -204,8 +205,8 @@ export default {
         driver_state: "",
         driver_country: "",
         driver_zipcode: "",
-        driver_phone: ""
-        
+        driver_phone: "",
+        driver_type: 1
       },
       emailRules: [
         v => !!v || "E-mail is required",
@@ -238,28 +239,32 @@ export default {
     }
   },
   created() {
-     driverService.getDriver(this.$route.params.id).then(response => {
+    driverService.getDriver(this.$route.params.id).then(response => {
       if (response.status) {
         this.addForm.user_id = response.data.user.id;
         if (response.data.user.user_image) {
           this.addForm.user_image = response.data.user.user_image;
         }
         if (response.data.user_image) {
-          this.avatar = '../../../'+response.data.user.user_image;
+          this.avatar = "../../../" + response.data.user.user_image;
         } else {
           this.avatar = "/images/avatar.png";
         }
         this.addForm.driver_name = response.data.user.first_name;
         this.addForm.email = response.data.user.email;
-        this.addForm.phone = response.data.user.phone;
+        this.addForm.driver_phone = response.data.user.phone;
+        this.addForm.user_image = response.data.user.user_image;
+        this.addForm.driver_address = response.data.user.address;
+        this.addForm.driver_city = response.data.user.city;
+        this.addForm.driver_state = response.data.user.state;
+        this.addForm.driver_country = response.data.user.country;
+        this.addForm.driver_zipcode = response.data.user.zip_code;
         this.active = response.data.salary_type;
         this.addForm.driver_licence = response.data.driver_licence;
         this.date = response.data.expiry_date;
         this.addForm.salary_type = response.data.salary_type;
         this.addForm.document = response.data.document;
-        this.addForm.phone = response.data.user.phone;
-      
-        
+        this.addForm.driver_salary = response.data.driver_salary;
       } else {
         router.push("/admin/drivers");
         this.$toast.open({
@@ -280,24 +285,26 @@ export default {
     save() {
       this.addForm.expiry_date = this.date;
       if (this.$refs.form.validate()) {
-        driverService.edit(this.addForm).then(response => {
-         //handle response
-         if(response.status) {
-             this.$toast.open({
-               message: response.message,
-               type: 'success',
-               position: 'top-right'
-             });
-          //redirect to login
-          router.push("/admin/truckdrivers");
-         } else {
-             this.$toast.open({
-               message: response.message,
-               type: 'error',
-               position: 'top-right'
-             })
-         }
-       });
+        driverService
+          .edit(this.addForm, this.$route.params.id)
+          .then(response => {
+            //handle response
+            if (response.status) {
+              this.$toast.open({
+                message: response.message,
+                type: "success",
+                position: "top-right"
+              });
+              //redirect to login
+              router.push("/admin/truckdrivers");
+            } else {
+              this.$toast.open({
+                message: response.message,
+                type: "error",
+                position: "top-right"
+              });
+            }
+          });
       }
     }
   }
