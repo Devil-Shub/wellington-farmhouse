@@ -37,6 +37,12 @@ import TruckAddPage from "../components/admin/trcuk/AddPage";
 import TruckEditPage from "../components/admin/trcuk/EditPage";
 import TruckViewPage from "../components/admin/trcuk/ViewPage";
 
+//skidsteer
+import SkidsteerListPage from "../components/admin/skidsteer/ListPage";
+import SkidsteerAddPage from "../components/admin/skidsteer/AddPage";
+import SkidsteerEditPage from "../components/admin/skidsteer/EditPage";
+import SkidsteerViewPage from "../components/admin/skidsteer/ViewPage";
+
 import LoginPage from "../components/login/LoginPage";
 import RegisterPage from "../components/register/RegisterPage";
 
@@ -72,6 +78,10 @@ export const router = new Router({
         { path: 'truck/add', component: TruckAddPage, name: 'TruckAdd' },
         { path: 'truck/edit/:id', component: TruckEditPage, name: 'TruckEdit' },
         { path: 'truck/view/:id', component: TruckViewPage, name: 'TruckView' },
+        { path: 'skidsteers', component: SkidsteerListPage, name: 'Skidsteers' },
+        { path: 'skidsteer/add', component: SkidsteerAddPage, name: 'SkidsteerAdd' },
+        { path: 'skidsteer/edit/:id', component: SkidsteerEditPage, name: 'SkidsteerEdit' },
+        { path: 'skidsteer/view/:id', component: SkidsteerViewPage, name: 'SkidsteerView' },
       ]
     },
     { path: "/login", component: LoginPage },

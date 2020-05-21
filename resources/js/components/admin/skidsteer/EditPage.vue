@@ -3,7 +3,7 @@
     <v-container>
       <v-row>
         <v-col cols="12" md="12">
-          <h2>Edit Truck</h2>
+          <h2>Edit skidsteer</h2>
         </v-col>
 
         <v-col cols="12" md="12">
@@ -129,7 +129,7 @@
 
 <script>
 import { required } from "vuelidate/lib/validators";
-import { truckService } from "../../../_services/truck.service";
+import { skidsteerService } from "../../../_services/skidsteer.service";
 import { router } from "../../../_helpers/router";
 import { environment } from "../../../config/test.env";
 export default {
@@ -148,7 +148,7 @@ export default {
       date1: "",
       user_image: "",
       addForm: {
-        vehicle_type: 1,
+        vehicle_type: 2,
         company_name: "",
         truck_number: "",
         chaase_number: "",
@@ -186,7 +186,7 @@ export default {
     }
   },
   mounted: function() {
-    truckService.getTruck(this.$route.params.id).then(response => {
+    skidsteerService.getSkidsteer(this.$route.params.id).then(response => {
       //handle response
       if (response.status) {
         this.addForm.id = response.data.id;
@@ -219,7 +219,7 @@ export default {
       this.addForm.insurance_date = this.date;
       this.addForm.insurance_expiry = this.date1;
       if (this.$refs.form.validate()) {
-        truckService.edit(this.addForm).then(response => {
+        skidsteerService.edit(this.addForm).then(response => {
          //handle response
          if(response.status) {
              this.$toast.open({
@@ -228,7 +228,7 @@ export default {
                position: 'top-right'
              });
           //redirect to login
-          router.push("/admin/trucks");
+          router.push("/admin/skidsteers");
          } else {
              this.$toast.open({
                message: response.message,
