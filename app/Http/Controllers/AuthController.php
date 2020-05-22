@@ -325,6 +325,13 @@ class AuthController extends Controller
 
                 $user->save();
             } else {
+                if($checkIfExist->provider == null) {
+                    //save provider and token if not saved earier or if any existing account now login with social account
+                    $checkIfExist->provider == $provider;
+                    $checkIfExist->token == $user->token;
+
+                    $checkIfExist->save();
+                }
                 $user = $checkIfExist;
             }
 
