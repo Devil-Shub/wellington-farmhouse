@@ -345,4 +345,43 @@ class AuthController extends Controller
             ], 500);
         }
     }
+
+    /**
+     * social login
+     */
+    public function changePassword(Request $request) {
+        //validate request
+        $validator = Validator::make($request->all(), [
+            'password' => 'required|confirmed'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'The given data was invalid.',
+                'data' => $validator->errors()
+            ], 422);
+        }
+
+        $user = $request->user();
+
+        $user->password = bcrypt($request->password);
+        $user->password_changed_at = Carbon::now();
+
+        if ($user->save()) {
+            $message = "Password changed successfully.";
+            $status = true;
+            $errCode = 200;
+        } else {
+            $status = false;
+            $message = "Something went wrong.";
+            $errCode = 400;
+        }
+
+        return response()->json([
+            'status' => $status,
+            'message' => $message,
+            'data' => []
+        ], $errCode);
+    }
 }
