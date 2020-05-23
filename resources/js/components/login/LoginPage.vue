@@ -81,7 +81,9 @@ export default {
 
         this.loading = true;
         authenticationService.login(this.email, this.password).then(
-          user => router.push(user),
+          response => {
+              router.push(response);
+          },
           error => {
             // Can accept an Object of options
             this.$toast.open({

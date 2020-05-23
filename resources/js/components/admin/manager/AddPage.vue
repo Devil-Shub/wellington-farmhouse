@@ -95,6 +95,7 @@ export default {
         email: '',
          user_image: null,
          phone: '',
+         role_id: 2,
         },
        FnameRules: [
         v => !!v || 'First name is required',

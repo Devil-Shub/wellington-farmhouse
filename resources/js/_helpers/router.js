@@ -52,6 +52,7 @@ import SkidsteerViewPage from "../components/admin/skidsteer/ViewPage";
 
 import LoginPage from "../components/login/LoginPage";
 import RegisterPage from "../components/register/RegisterPage";
+import ChangePassword from "../components/ChangePasswordPage";
 
 Vue.use(Router);
 
@@ -99,6 +100,7 @@ export const router = new Router({
     },
     { path: "/login", component: LoginPage },
     { path: "/register", component: RegisterPage },
+    { path: "/change-passowrd", component: ChangePassword },
 
     { path: '/auth/:provider/callback',
       component: {
