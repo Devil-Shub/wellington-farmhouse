@@ -20,7 +20,7 @@
               <template v-slot:activator>
                 <v-list-item-content>
                   <v-list-item-title>
-                    <router-link to="/admin/manager" class="nav-item nav-link">Admin</router-link>
+                    <router-link to="/admin/admin" class="nav-item nav-link">Admin</router-link>
                   </v-list-item-title>
                 </v-list-item-content>
               </template>
@@ -100,12 +100,13 @@
               <v-list>
                 <v-list-item>
                   <v-list-item-title>
-                    <!-- <a href="/admin/profile" class="nav-item nav-link">Profile</a> -->
                     <router-link to="/admin/profile" class="nav-item nav-link">Profile</router-link>
+                  </v-list-item-title>
+                     <v-list-item-title>
+                  <router-link to="/admin/changepassword" class="nav-item nav-link">Change Password</router-link>
                   </v-list-item-title>
                   <v-list-item-title>
                     <button type="button" @click="logout" class="nav-item nav-link">Logout</button>
-                    <!-- <router-link @click="logout" to="" class="nav-item nav-link">Logout</router-link> -->
                   </v-list-item-title>
                 </v-list-item>
               </v-list>

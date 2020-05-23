@@ -77,7 +77,7 @@ function getSkidsteer(data) {
 
 function listSkidsteers() {
   return fetch(
-    this.apiUrl+`admin/list-vehicle`,
+    this.apiUrl+`admin/list-skidsteer`,
     requestOptions.get()
   )
     .then(handleResponse)

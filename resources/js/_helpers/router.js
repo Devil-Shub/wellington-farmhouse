@@ -11,6 +11,13 @@ import AdminLayout from "../components/layout/AdminLayout";
 import Dashboard from "../components/admin/Dashboard";
 import Settings from "../components/admin/Settings";
 import ProfilePage from "../components/admin/profile/ProfilePage";
+import ChnagePasswordPage from "../components/admin/profile/ChangePasswordPage"
+
+//add new admin
+import AdminListPage from "../components/admin/admin/ListPage";
+import AdminAddPage from "../components/admin/admin/AddPage";
+import AdminEditPage from "../components/admin/admin/EditPage";
+import AdminViewPage from "../components/admin/admin/ViewPage";
 
 //manager
 import ListPage from "../components/admin/manager/ListPage";
@@ -62,6 +69,12 @@ export const router = new Router({
         { path: 'dashboard', component: Dashboard, name: 'Dashboard' },
         { path: 'settings', component: Settings, name: 'Settings' },
         { path: 'profile', component: ProfilePage, name: 'Profile' },
+        { path: 'changepassword', component: ChnagePasswordPage, name: 'Changepassword' },
+        { path: 'admin', component: AdminListPage, name: 'Admin' },
+        { path: 'admin/add', component: AdminAddPage, name: 'AdminAdd' },
+        { path: 'admin/edit/:id', component: AdminEditPage, name: 'AdminEdit' },
+        { path: 'admin/view/:id', component: AdminViewPage, name: 'AdminView' },
+        
         { path: 'manager', component: ListPage, name: 'Manager' },
         { path: 'manager/add', component: AddPage, name: 'Add' },
         { path: 'manager/edit/:id', component: EditPage, name: 'Edit' },
