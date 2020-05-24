@@ -66,7 +66,7 @@ export const router = new Router({
     {
       path: '/admin',
       component: AdminLayout,
-      name: 'Admin',
+      name: 'SuperAdmin',
       meta: { requiresAuth: Role.admin},
       children: [
         { path: 'dashboard', component: Dashboard, name: 'Dashboard', meta: { requiresAuth: Role.Admin} },
@@ -105,38 +105,11 @@ export const router = new Router({
     {
       path: '/manager',
       component: AdminLayout,
-      name: 'Manager',
+      name: 'ManagerDashboard',
       meta: { requiresAuth: Role.Admin_Manager},
       children: [
-        { path: 'dashboard', component: Dashboard, name: 'Dashboard', meta: { requiresAuth: Role.Admin_Manager} },
-        { path: 'settings', component: Settings, name: 'Settings', meta: { requiresAuth: Role.Admin_Manager} },
-        { path: 'profile', component: ProfilePage, name: 'Profile' },
-        { path: 'changepassword', component: ChnagePasswordPage, name: 'Changepassword', meta: { requiresAuth: Role.Admin_Manager} },
-        { path: 'admin', component: AdminListPage, name: 'Admin', meta: { requiresAuth: Role.Admin_Manager} },
-        { path: 'admin/add', component: AdminAddPage, name: 'AdminAdd', meta: { requiresAuth: Role.Admin_Manager} },
-        { path: 'admin/edit/:id', component: AdminEditPage, name: 'AdminEdit', meta: { requiresAuth: Role.Admin_Manager} },
-        { path: 'admin/view/:id', component: AdminViewPage, name: 'AdminView', meta: { requiresAuth: Role.Admin_Manager} },
-        
-        { path: 'manager', component: ListPage, name: 'Manager', meta: { requiresAuth: Role.Admin_Manager} },
-        { path: 'manager/add', component: AddPage, name: 'Add', meta: { requiresAuth: Role.Admin_Manager} },
-        { path: 'manager/edit/:id', component: EditPage, name: 'Edit', meta: { requiresAuth: Role.Admin_Manager} },
-        { path: 'manager/view/:id', component: ViewPage, name: 'View', meta: { requiresAuth: Role.Admin_Manager} },
-        { path: 'services', component: SerivcesListPage, name: 'Services', meta: { requiresAuth: Role.Admin_Manager} },
-        { path: 'service/add', component: SerivcesAddPage, name: 'ServiceAdd' },
-        { path: 'service/edit/:id', component: SerivcesEditPage, name: 'ServiceEdit' },
-        { path: 'service/view/:id', component: SerivcesViewPage, name: 'ServiceView' },
-        { path: 'truckdrivers', component: TruckDriverListPage, name: 'Truckdrivers' },
-        { path: 'truckdriver/add', component: TruckDriverAddPage, name: 'TruckdriverAdd' },
-        { path: 'truckdriver/edit/:id', component: TruckDriverEditPage, name: 'TruckdriverEdit' },
-        { path: 'truckdriver/view/:id', component: TruckDriverViewPage, name: 'TruckdriverView' },
-        { path: 'trucks', component: TruckListPage, name: 'Trucks' },
-        { path: 'truck/add', component: TruckAddPage, name: 'TruckAdd' },
-        { path: 'truck/edit/:id', component: TruckEditPage, name: 'TruckEdit' },
-        { path: 'truck/view/:id', component: TruckViewPage, name: 'TruckView' },
-        { path: 'skidsteers', component: SkidsteerListPage, name: 'Skidsteers' },
-        { path: 'skidsteer/add', component: SkidsteerAddPage, name: 'SkidsteerAdd' },
-        { path: 'skidsteer/edit/:id', component: SkidsteerEditPage, name: 'SkidsteerEdit' },
-        { path: 'skidsteer/view/:id', component: SkidsteerViewPage, name: 'SkidsteerView' },
+        { path: 'dashboard', component: Dashboard, name: 'Manager_Dashboard', meta: { requiresAuth: Role.Admin_Manager} },
+        { path: 'settings', component: Settings, name: 'Manager_Settings', meta: { requiresAuth: Role.Admin_Manager} },
       ]
     },
     { path: "/login", component: LoginPage },
@@ -162,24 +135,25 @@ router.beforeEach((to, from, next) => {
 
   if (authorize) {
     if (!currentUser) {
+	console.log('login')
       // not logged in so redirect to login page with the return url
-      return next({ path: "/login", query: { returnUrl: to.path } });
+      return next({
+        path: '/login',
+      });
+      //return next({ path: "/login", query: { returnUrl: to.path } });
     }
-alert(currentUser.data.user.role_id)
     // check if route is restricted by role
     if ((authorize.length) && (authorize.requiresAuth === currentUser.data.user.role_id) ) {
-	alert("ddd");
 	if(!currentUser.data.user.password_changed_at){
 	   return next({ path: "/change-passowrd", query: { returnUrl: to.path } });
 	}
-      // role not authorised so redirect to home page
-      return next({ path: "/" });
     }
 
     // check if route is restricted by role
     if ((authorize.length) && (!authorize.requiresAuth === currentUser.data.user.role_id) ) {
+	console.log(authorize)
       // role not authorised so redirect to home page
-      return next({ path: "/" });
+       return next({ path: "/login", query: { returnUrl: to.path } });
     }
   }
 
