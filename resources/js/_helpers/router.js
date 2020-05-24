@@ -11,7 +11,7 @@ import AdminLayout from "../components/layout/AdminLayout";
 import Dashboard from "../components/admin/Dashboard";
 import Settings from "../components/admin/Settings";
 import ProfilePage from "../components/admin/profile/ProfilePage";
-import ChnagePasswordPage from "../components/admin/profile/ChangePasswordPage"
+import ChangePasswordPage from "../components/admin/profile/ChangePasswordPage"
 
 //add new admin
 import AdminListPage from "../components/admin/admin/ListPage";
@@ -72,7 +72,7 @@ export const router = new Router({
         { path: 'dashboard', component: Dashboard, name: 'Dashboard', meta: { requiresAuth: Role.Admin} },
         { path: 'settings', component: Settings, name: 'Settings', meta: { requiresAuth: Role.Admin} },
         { path: 'profile', component: ProfilePage, name: 'Profile' },
-        { path: 'changepassword', component: ChnagePasswordPage, name: 'Changepassword', meta: { requiresAuth: Role.Admin} },
+        { path: 'changepassword', component: ChangePasswordPage, name: 'Changepassword', meta: { requiresAuth: Role.Admin} },
         { path: 'admin', component: AdminListPage, name: 'Admin', meta: { requiresAuth: Role.Admin} },
         { path: 'admin/add', component: AdminAddPage, name: 'AdminAdd', meta: { requiresAuth: Role.Admin} },
         { path: 'admin/edit/:id', component: AdminEditPage, name: 'AdminEdit', meta: { requiresAuth: Role.Admin} },
@@ -100,8 +100,8 @@ export const router = new Router({
         { path: 'skidsteer/view/:id', component: SkidsteerViewPage, name: 'SkidsteerView' },
       ]
     },
-
-	 //admin routes
+   
+//admin routes
     {
       path: '/manager',
       component: AdminLayout,
@@ -110,6 +110,7 @@ export const router = new Router({
       children: [
         { path: 'dashboard', component: Dashboard, name: 'Manager_Dashboard', meta: { requiresAuth: Role.Admin_Manager} },
         { path: 'settings', component: Settings, name: 'Manager_Settings', meta: { requiresAuth: Role.Admin_Manager} },
+ 	{ path: 'changepassword', component: ChangePasswordPage, name: 'MChangepassword', meta: { requiresAuth: Role.Admin_Manager} },
       ]
     },
     { path: "/login", component: LoginPage },
@@ -134,19 +135,20 @@ router.beforeEach((to, from, next) => {
   const currentUser = authenticationService.currentUserValue;
 
   if (authorize) {
-    if (!currentUser) {
-	console.log('login')
-      // not logged in so redirect to login page with the return url
-      return next({
-        path: '/login',
-      });
-      //return next({ path: "/login", query: { returnUrl: to.path } });
-    }
+	console.log()
     // check if route is restricted by role
-    if ((authorize.length) && (authorize.requiresAuth === currentUser.data.user.role_id) ) {
+   if(currentUser){
+    if ((authorize) && (authorize.requiresAuth === currentUser.data.user.role_id) ) {
+console.log("login success")
 	if(!currentUser.data.user.password_changed_at){
-	   return next({ path: "/change-passowrd", query: { returnUrl: to.path } });
+		if(currentUser.data.user.role_id === 1){
+		    return next({ path: "admin/changepassword", query: { returnUrl: to.path } });
+		}
+		if(currentUser.data.user.role_id === 2){
+		    return next({ path: "manager/changepassword", query: { returnUrl: to.path } });
+		}
 	}
+    }
     }
 
     // check if route is restricted by role
