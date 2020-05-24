@@ -45,6 +45,7 @@ import { router } from "../../_helpers/router";
 import { authenticationService } from "../../_services/authentication.service";
 
 export default {
+name: "login",
   data() {
     return {
       valid: true,
