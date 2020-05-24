@@ -77,6 +77,7 @@ class AuthController extends Controller
                 'is_active' => 1,
                 'phone' => $request->phone,
                 'user_image' => $file,
+		'password_changed_at' => Carbon::now(),
                 'password' => bcrypt($request->password)
             ]);
 

@@ -61,7 +61,7 @@
                     <template v-slot:activator="{ on }">
                       <v-text-field
                         v-model="date"
-                        label="Picker without buttons"
+                        label="Licence Expiry Date"
                         prepend-icon="event"
                         readonly
                         v-on="on"

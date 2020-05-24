@@ -67,7 +67,7 @@ export const router = new Router({
       path: '/admin',
       component: AdminLayout,
       name: 'SuperAdmin',
-      meta: { requiresAuth: Role.admin},
+      meta: { requiresAuth: [Role.admin]},
       children: [
         { path: 'dashboard', component: Dashboard, name: 'Dashboard', meta: { requiresAuth: Role.Admin} },
         { path: 'settings', component: Settings, name: 'Settings', meta: { requiresAuth: Role.Admin} },
@@ -101,16 +101,28 @@ export const router = new Router({
       ]
     },
    
-//admin routes
+    //manager routes
     {
       path: '/manager',
       component: AdminLayout,
       name: 'ManagerDashboard',
       meta: { requiresAuth: Role.Admin_Manager},
       children: [
-        { path: 'dashboard', component: Dashboard, name: 'Manager_Dashboard', meta: { requiresAuth: Role.Admin_Manager} },
-        { path: 'settings', component: Settings, name: 'Manager_Settings', meta: { requiresAuth: Role.Admin_Manager} },
- 	{ path: 'changepassword', component: ChangePasswordPage, name: 'MChangepassword', meta: { requiresAuth: Role.Admin_Manager} },
+        { path: 'dashboard', component: Dashboard, name: 'Manager_Dashboard', meta: { requiresAuth: [Role.Admin_Manager]} },
+        { path: 'settings', component: Settings, name: 'Manager_Settings', meta: { requiresAuth: [Role.Admin_Manager]} },
+ 	{ path: 'changepassword', component: ChangePasswordPage, name: 'MChangepassword', meta: { requiresAuth: [Role.Admin_Manager]} },
+      ]
+    },
+    //driver routes
+    {
+      path: '/driver',
+      component: AdminLayout,
+      name: 'DriverDashboard',
+      meta: { requiresAuth: Role.Truck_Driver},
+      children: [
+        { path: 'dashboard', component: Dashboard, name: 'driver_Dashboard', meta: { requiresAuth: [Role.Truck_Driver]} },
+        { path: 'settings', component: Settings, name: 'Driver_Settings', meta: { requiresAuth: [Role.Truck_Driver]} },
+ 	{ path: 'changepassword', component: ChangePasswordPage, name: 'DChangepassword', meta: { requiresAuth: [Role.Truck_Driver]} },
       ]
     },
     { path: "/login", component: LoginPage },
@@ -129,34 +141,30 @@ export const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-	
   // redirect to login page if not logged in and trying to access a restricted page
-  const authorize  = to.meta;
+  const { requiresAuth } = to.meta;
   const currentUser = authenticationService.currentUserValue;
 
-  if (authorize) {
-	console.log()
-    // check if route is restricted by role
-   if(currentUser){
-    if ((authorize) && (authorize.requiresAuth === currentUser.data.user.role_id) ) {
+  if (requiresAuth) {
+    if (!currentUser) {
+      // not logged in so redirect to login page with the return url
+      return next({ path: "/login", query: { returnUrl: to.path } });
+    }
 
+    // check if route is restricted by role
+    if (requiresAuth.length && requiresAuth.includes(currentUser.data.user.role_id)) {
 	if(!currentUser.data.user.password_changed_at){
-    //for admin and manager roler if there is first time login then force them to change password first
-		if(currentUser.data.user.role_id === 1 || currentUser.data.user.role_id === 2){
-		    return next({ path: "/change-passowrd", query: { returnUrl: to.path } });
-		}
+	  return next({ path: "/change-passowrd", query: { returnUrl: to.path } });
 	}
+      return next({ path: "/" });
     }
-    }
-
+ 
     // check if route is restricted by role
-    if ((authorize.length) && (!authorize.requiresAuth === currentUser.data.user.role_id) ) {
-	console.log(authorize)
+    if (requiresAuth.length && !requiresAuth.includes(currentUser.data.user.role_id)) {
       // role not authorised so redirect to home page
-       return next({ path: "/login", query: { returnUrl: to.path } });
+      return next({ path: "/" });
     }
   }
 
   next();
 });
-

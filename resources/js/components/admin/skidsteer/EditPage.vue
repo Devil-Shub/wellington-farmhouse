@@ -193,10 +193,10 @@ export default {
         this.addForm.company_name = response.data.company_name;
         this.addForm.truck_number = response.data.truck_number;
         this.addForm.chaase_number = response.data.chaase_number;
-        this.addForm.insurance_number = response.data.insurance_number;
-        this.addForm.total_killometer = response.data.total_killometer;
-        this.date = response.data.insurance_date;
-        this.date1 = response.data.insurance_expiry;
+        this.addForm.insurance_number = response.data.vehicle_insurance.insurance_number;
+        this.addForm.total_killometer = response.data.killometer;
+        this.date = response.data.vehicle_insurance.insurance_date;
+        this.date1 = response.data.vehicle_insurance.insurance_expiry;
         if(response.data.document){
             this.avatar = '../../../'+response.data.document;
         }

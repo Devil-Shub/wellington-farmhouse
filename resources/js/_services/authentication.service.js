@@ -68,6 +68,9 @@ function login(email, password) {
       if(user.data.user.role_id === 2 ){
         this.currentUrl = "/manager/dashboard";
       }
+      if(user.data.user.role_id === 3 ){
+        this.currentUrl = "/driver/dashboard";
+      }
       if(user.data.user.role_id === 4){
         this.currentUrl = "/"; 
       }
