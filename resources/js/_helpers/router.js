@@ -139,13 +139,11 @@ router.beforeEach((to, from, next) => {
     // check if route is restricted by role
    if(currentUser){
     if ((authorize) && (authorize.requiresAuth === currentUser.data.user.role_id) ) {
-console.log("login success")
+
 	if(!currentUser.data.user.password_changed_at){
-		if(currentUser.data.user.role_id === 1){
-		    return next({ path: "admin/changepassword", query: { returnUrl: to.path } });
-		}
-		if(currentUser.data.user.role_id === 2){
-		    return next({ path: "manager/changepassword", query: { returnUrl: to.path } });
+    //for admin and manager roler if there is first time login then force them to change password first
+		if(currentUser.data.user.role_id === 1 || currentUser.data.user.role_id === 2){
+		    return next({ path: "/change-passowrd", query: { returnUrl: to.path } });
 		}
 	}
     }
