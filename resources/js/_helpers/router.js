@@ -54,33 +54,74 @@ import LoginPage from "../components/login/LoginPage";
 import RegisterPage from "../components/register/RegisterPage";
 import ChangePassword from "../components/ChangePasswordPage";
 
+
 Vue.use(Router);
 
 export const router = new Router({
   mode: "history",
   routes: [
-    { path: "/", component: HomePage, meta: { authorize: [Role.Customer] } },
+    { path: "/", component: HomePage, meta: { requiresAuth: [Role.Customer] } },
     { path: "/confirm-email", component: HomePage },
     //admin routes
     {
       path: '/admin',
       component: AdminLayout,
-      meta: { authorize: [Role.Admin] },
+      name: 'Admin',
+      meta: { requiresAuth: Role.admin},
       children: [
-        { path: 'dashboard', component: Dashboard, name: 'Dashboard' },
-        { path: 'settings', component: Settings, name: 'Settings' },
+        { path: 'dashboard', component: Dashboard, name: 'Dashboard', meta: { requiresAuth: Role.Admin} },
+        { path: 'settings', component: Settings, name: 'Settings', meta: { requiresAuth: Role.Admin} },
         { path: 'profile', component: ProfilePage, name: 'Profile' },
-        { path: 'changepassword', component: ChnagePasswordPage, name: 'Changepassword' },
-        { path: 'admin', component: AdminListPage, name: 'Admin' },
-        { path: 'admin/add', component: AdminAddPage, name: 'AdminAdd' },
-        { path: 'admin/edit/:id', component: AdminEditPage, name: 'AdminEdit' },
-        { path: 'admin/view/:id', component: AdminViewPage, name: 'AdminView' },
+        { path: 'changepassword', component: ChnagePasswordPage, name: 'Changepassword', meta: { requiresAuth: Role.Admin} },
+        { path: 'admin', component: AdminListPage, name: 'Admin', meta: { requiresAuth: Role.Admin} },
+        { path: 'admin/add', component: AdminAddPage, name: 'AdminAdd', meta: { requiresAuth: Role.Admin} },
+        { path: 'admin/edit/:id', component: AdminEditPage, name: 'AdminEdit', meta: { requiresAuth: Role.Admin} },
+        { path: 'admin/view/:id', component: AdminViewPage, name: 'AdminView', meta: { requiresAuth: Role.Admin} },
         
-        { path: 'manager', component: ListPage, name: 'Manager' },
-        { path: 'manager/add', component: AddPage, name: 'Add' },
-        { path: 'manager/edit/:id', component: EditPage, name: 'Edit' },
-        { path: 'manager/view/:id', component: ViewPage, name: 'View' },
-        { path: 'services', component: SerivcesListPage, name: 'Services' },
+        { path: 'manager', component: ListPage, name: 'Manager', meta: { requiresAuth: Role.Admin} },
+        { path: 'manager/add', component: AddPage, name: 'Add', meta: { requiresAuth: Role.Admin} },
+        { path: 'manager/edit/:id', component: EditPage, name: 'Edit', meta: { requiresAuth: Role.Admin} },
+        { path: 'manager/view/:id', component: ViewPage, name: 'View', meta: { requiresAuth: Role.Admin} },
+        { path: 'services', component: SerivcesListPage, name: 'Services', meta: { requiresAuth: Role.Admin} },
+        { path: 'service/add', component: SerivcesAddPage, name: 'ServiceAdd' },
+        { path: 'service/edit/:id', component: SerivcesEditPage, name: 'ServiceEdit' },
+        { path: 'service/view/:id', component: SerivcesViewPage, name: 'ServiceView' },
+        { path: 'truckdrivers', component: TruckDriverListPage, name: 'Truckdrivers' },
+        { path: 'truckdriver/add', component: TruckDriverAddPage, name: 'TruckdriverAdd' },
+        { path: 'truckdriver/edit/:id', component: TruckDriverEditPage, name: 'TruckdriverEdit' },
+        { path: 'truckdriver/view/:id', component: TruckDriverViewPage, name: 'TruckdriverView' },
+        { path: 'trucks', component: TruckListPage, name: 'Trucks' },
+        { path: 'truck/add', component: TruckAddPage, name: 'TruckAdd' },
+        { path: 'truck/edit/:id', component: TruckEditPage, name: 'TruckEdit' },
+        { path: 'truck/view/:id', component: TruckViewPage, name: 'TruckView' },
+        { path: 'skidsteers', component: SkidsteerListPage, name: 'Skidsteers' },
+        { path: 'skidsteer/add', component: SkidsteerAddPage, name: 'SkidsteerAdd' },
+        { path: 'skidsteer/edit/:id', component: SkidsteerEditPage, name: 'SkidsteerEdit' },
+        { path: 'skidsteer/view/:id', component: SkidsteerViewPage, name: 'SkidsteerView' },
+      ]
+    },
+
+	 //admin routes
+    {
+      path: '/manager',
+      component: AdminLayout,
+      name: 'Manager',
+      meta: { requiresAuth: Role.Admin_Manager},
+      children: [
+        { path: 'dashboard', component: Dashboard, name: 'Dashboard', meta: { requiresAuth: Role.Admin_Manager} },
+        { path: 'settings', component: Settings, name: 'Settings', meta: { requiresAuth: Role.Admin_Manager} },
+        { path: 'profile', component: ProfilePage, name: 'Profile' },
+        { path: 'changepassword', component: ChnagePasswordPage, name: 'Changepassword', meta: { requiresAuth: Role.Admin_Manager} },
+        { path: 'admin', component: AdminListPage, name: 'Admin', meta: { requiresAuth: Role.Admin_Manager} },
+        { path: 'admin/add', component: AdminAddPage, name: 'AdminAdd', meta: { requiresAuth: Role.Admin_Manager} },
+        { path: 'admin/edit/:id', component: AdminEditPage, name: 'AdminEdit', meta: { requiresAuth: Role.Admin_Manager} },
+        { path: 'admin/view/:id', component: AdminViewPage, name: 'AdminView', meta: { requiresAuth: Role.Admin_Manager} },
+        
+        { path: 'manager', component: ListPage, name: 'Manager', meta: { requiresAuth: Role.Admin_Manager} },
+        { path: 'manager/add', component: AddPage, name: 'Add', meta: { requiresAuth: Role.Admin_Manager} },
+        { path: 'manager/edit/:id', component: EditPage, name: 'Edit', meta: { requiresAuth: Role.Admin_Manager} },
+        { path: 'manager/view/:id', component: ViewPage, name: 'View', meta: { requiresAuth: Role.Admin_Manager} },
+        { path: 'services', component: SerivcesListPage, name: 'Services', meta: { requiresAuth: Role.Admin_Manager} },
         { path: 'service/add', component: SerivcesAddPage, name: 'ServiceAdd' },
         { path: 'service/edit/:id', component: SerivcesEditPage, name: 'ServiceEdit' },
         { path: 'service/view/:id', component: SerivcesViewPage, name: 'ServiceView' },
@@ -114,8 +155,9 @@ export const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
+	
   // redirect to login page if not logged in and trying to access a restricted page
-  const { authorize } = to.meta;
+  const authorize  = to.meta;
   const currentUser = authenticationService.currentUserValue;
 
   if (authorize) {
@@ -123,9 +165,19 @@ router.beforeEach((to, from, next) => {
       // not logged in so redirect to login page with the return url
       return next({ path: "/login", query: { returnUrl: to.path } });
     }
+alert(currentUser.data.user.role_id)
+    // check if route is restricted by role
+    if ((authorize.length) && (authorize.requiresAuth === currentUser.data.user.role_id) ) {
+	alert("ddd");
+	if(!currentUser.data.user.password_changed_at){
+	   return next({ path: "/change-passowrd", query: { returnUrl: to.path } });
+	}
+      // role not authorised so redirect to home page
+      return next({ path: "/" });
+    }
 
     // check if route is restricted by role
-    if (authorize.length && !authorize.includes(currentUser.data.user.role_id)) {
+    if ((authorize.length) && (!authorize.requiresAuth === currentUser.data.user.role_id) ) {
       // role not authorised so redirect to home page
       return next({ path: "/" });
     }
