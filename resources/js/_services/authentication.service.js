@@ -63,14 +63,15 @@ function login(email, password) {
         localStorage.setItem("currentUser", JSON.stringify(user));
         currentUserSubject.next(user);
       if((user.data.user.role_id === 1) || (user.data.user.role_id === 2)){
-        if(user.data.user.password_changed_at){
+
+        if(!user.data.user.password_changed_at){
           this.currentUrl = "/change-passowrd"; 
         }else{
           this.currentUrl = "/admin/dashboard";
         }
       }
       if(user.data.user.role_id === 4){
-          if(user.data.user.password_changed_at){
+          if(!user.data.user.password_changed_at){
               this.currentUrl = "/change-passowrd"; 
           }else{
              this.currentUrl = "/"; 

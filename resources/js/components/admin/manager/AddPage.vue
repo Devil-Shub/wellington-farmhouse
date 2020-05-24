@@ -5,7 +5,7 @@
           <v-col
           cols="12"
           md="12"
-          ><h2>Admin Profile</h2></v-col>
+          ><h2>Add manager</h2></v-col>
              <v-col
           cols="12"
           md="12"
