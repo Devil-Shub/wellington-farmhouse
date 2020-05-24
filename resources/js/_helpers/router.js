@@ -136,7 +136,7 @@ export const router = new Router({
     },
 
     // otherwise redirect to home
-    { path: "*", redirect: "/" }
+    { path: "*", redirect: "/login" }
   ]
 });
 
@@ -156,13 +156,14 @@ router.beforeEach((to, from, next) => {
 	if(!currentUser.data.user.password_changed_at){
 	  return next({ path: "/change-passowrd", query: { returnUrl: to.path } });
 	}
-      return next({ path: "/" });
     }
- 
+ 	
+	
     // check if route is restricted by role
     if (requiresAuth.length && !requiresAuth.includes(currentUser.data.user.role_id)) {
+	 localStorage.removeItem("currentUser");
       // role not authorised so redirect to home page
-      return next({ path: "/" });
+      return next({ path: "/login" });
     }
   }
 
