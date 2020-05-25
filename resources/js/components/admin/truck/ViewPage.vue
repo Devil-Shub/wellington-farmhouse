@@ -3,7 +3,13 @@
              <v-container>
       <v-row>
      
-        
+           <v-col
+          cols="12"
+          md="12"
+        >
+          <router-link :to="'/admin/truck/service/' + truck.id" class="nav-item nav-link"> <plus-circle-icon size="1.5x" class="custom-class"></plus-circle-icon>Add Service</router-link>
+            
+            </v-col>
       <v-subheader>Truck</v-subheader>     
         <v-list-item>
             <v-list-item-content>
@@ -18,7 +24,11 @@
 
 <script>
  import { truckService } from "../../../_services/truck.service";
+import { PlusCircleIcon } from 'vue-feather-icons'
 export default {
+components: {
+      PlusCircleIcon
+      },
   data() {
     return {
         avatar: null,

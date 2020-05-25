@@ -15,6 +15,7 @@ export const truckService = {
   Delete,
   getTruck,
   listTrucks,
+  addService,
   apiUrl: environment.apiUrl,
   currentUrl: '',
   currentUser: currentUserSubject.asObservable(),
@@ -79,6 +80,20 @@ function listTrucks() {
   return fetch(
     this.apiUrl+`admin/list-vehicle`,
     requestOptions.get()
+  )
+    .then(handleResponse)
+    .then(user => {
+      // store user details and passport token in local storage to keep user logged in between page refreshes
+
+      return user;
+    });
+}
+
+function addService(data) {
+
+  return fetch(
+    this.apiUrl+`admin/create-vehicleservice`,
+    requestOptions.post(data)
   )
     .then(handleResponse)
     .then(user => {

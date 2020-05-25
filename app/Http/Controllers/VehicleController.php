@@ -210,4 +210,58 @@ class VehicleController extends Controller
             ], 500);
         }    
     }
+
+    /**
+     * create vehicle service
+     */
+    public function createVehicleService(Request $request)
+    {
+        //validate request
+        $validator = Validator::make($request->all(), [
+            'total_killometer' => 'required',
+            'service_date' => 'required',
+            'service_expiry' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'The given data was invalid.',
+                'data' => $validator->errors()
+            ], 422);
+        }
+
+        try {
+            //use of db transactions
+            DB::beginTransaction();
+
+            //create new vehicle serive
+            $vechicle = new VehicleService([
+                'vehicle_id' => $request->vehicle_id,
+                'service_date' => $request->service_date,
+                'service_expiry' => $request->service_expiry,
+                'service_killometer' => $request->total_killometer,
+            ]);
+	    $vechicle->Save();
+            //commit all transactions now
+            DB::commit();
+            //return success response
+            return response()->json([
+                'status' => true,
+                'message' => 'Successfully created Vehicle service!',
+                'data' => []
+            ], 200);
+        } catch (\Exception $e) {
+            //rollback transactions
+            DB::rollBack();
+            //make log of errors
+            Log::error(json_encode($e->getMessage()));
+            //return with error
+            return response()->json([
+                'status' => false,
+                'message' => 'Internal server error!',
+                'data' => []
+            ], 500);
+        }
+    }
 }

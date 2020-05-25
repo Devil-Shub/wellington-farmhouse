@@ -64,6 +64,7 @@ Route::group(['prefix' => 'auth'], function () {
             Route::get('list-skidsteer', 'VehicleController@listSkidsteer');
             Route::get('get-vehicle/{vehicle_id}', 'VehicleController@getVehicle');
             Route::delete('delete-vehicle/{vehicle_id}', 'VehicleController@deleteVehicle');
+ 	    Route::post('create-vehicleservice', 'VehicleController@createVehicleService');
         });
 
         //upload image

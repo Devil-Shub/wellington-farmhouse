@@ -61,6 +61,8 @@
                         prepend-icon="event"
                         readonly
                         v-on="on"
+			required
+                      :rules="[v => !!v || 'Insurance date is required']"
                       ></v-text-field>
                     </template>
                     <v-date-picker v-model="date" @input="menu2 = false"></v-date-picker>
@@ -82,6 +84,8 @@
                         prepend-icon="event"
                         readonly
                         v-on="on"
+			required
+                      :rules="[v => !!v || 'Insurance expiry date is required']"
                       ></v-text-field>
                     </template>
                     <v-date-picker v-model="date1" @input="menu1 = false" :min="setDate"></v-date-picker>

@@ -128,7 +128,7 @@
 
 <script>
 import { required } from "vuelidate/lib/validators";
-import { skidsteerService } from "../../../_services/skidsteer.service";
+import { truckService } from "../../../_services/truck.service";
 import { router } from "../../../_helpers/router";
 import { environment } from "../../../config/test.env";
 export default {
@@ -148,7 +148,7 @@ export default {
       setDate:new Date().toISOString().substr(0, 10),
       user_image: "",
       addForm: {
-        vehicle_type: 2,
+        vehicle_type: 1,
         company_name: "",
         truck_number: "",
         chaase_number: "",
@@ -194,7 +194,7 @@ export default {
       this.addForm.insurance_date = this.date;
       this.addForm.insurance_expiry = this.date1;
       if (this.$refs.form.validate()) {
-        skidsteerService.add(this.addForm).then(response => {
+        truckService.add(this.addForm).then(response => {
          //handle response
          if(response.status) {
              this.$toast.open({
@@ -203,7 +203,7 @@ export default {
                position: 'top-right'
              });
           //redirect to login
-          router.push("/admin/skidsteers");
+          router.push("/admin/trucks");
          } else {
              this.$toast.open({
                message: response.message,
