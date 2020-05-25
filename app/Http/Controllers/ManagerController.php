@@ -10,6 +10,7 @@ use Mail;
 use Carbon\Carbon;
 use Validator;
 use App\User;
+use App\ManagerDetails;
 
 class ManagerController extends Controller
 {
