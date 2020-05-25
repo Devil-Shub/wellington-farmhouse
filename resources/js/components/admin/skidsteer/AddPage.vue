@@ -3,7 +3,7 @@
     <v-container>
       <v-row>
         <v-col cols="12" md="12">
-          <h2>Add Truck</h2>
+          <h2>Add Skidsteer</h2>
         </v-col>
 
         <v-col cols="12" md="12">
@@ -21,8 +21,8 @@
                 <v-col cols="12" md="12">
                   <v-text-field
                     v-model="addForm.truck_number"
-                    :rules="[v => !!v || 'Truck number is required']"
-                    label="Truck Number"
+                    :rules="[v => !!v || 'Skidsteer number is required']"
+                    label="Skidsteer Number"
                     required
                   ></v-text-field>
                 </v-col>
@@ -30,8 +30,8 @@
                 <v-col cols="12" md="12">
                   <v-text-field
                     v-model="addForm.chaase_number"
-                    :rules="[v => !!v || 'Chaase number is required']"
-                    label="Chaase Number"
+                    :rules="[v => !!v || 'Chassis number is required']"
+                    label="Chassis Number"
                     required
                   ></v-text-field>
                 </v-col>
@@ -95,9 +95,9 @@
                 <v-col cols="12" md="12">
                   <v-text-field
                     v-model="addForm.total_killometer"
-                    label="Total Killometer"
+                    label="Total Kilometer"
                     required
-                    :rules="[v => !!v || 'Truck Total killometer is required']"
+                    :rules="killometerRules"
                   ></v-text-field>
                 </v-col>
 
@@ -110,6 +110,8 @@
                     v-bind:server="serverOptions"
                     v-bind:files="myFiles"
                     v-on:processfile="handleProcessFile1"
+        allow-file-type-validation="true"
+        accepted-file-types="image/jpeg, image/png"
                     :rules="[v => !!v || 'Document is required']"
                   />
                 </v-col>
@@ -158,7 +160,10 @@ export default {
         total_killometer: "",
         insurance_expiry: ""
       },
-
+      killometerRules: [
+        v => !!v || "Skidsteer kilometer is required",
+        v => /^\d*$/.test(v) || "Enter valid number",
+      ],
       myFiles: []
     };
   },

@@ -31,14 +31,14 @@
             </v-col>
 	<v-col cols="12" md="12">
              <header>Service Time Period</header>
-	   <v-radio-group  row v-model="addForm.service_type" @change="getTime()" :mandatory="false" required :rules="[v => !!v || 'Service time period is required']">
+	   <v-radio-group  row v-model="addForm.slot_type" @change="getTime()" :mandatory="false" required :rules="[v => !!v || 'Service time period is required']">
 	      <v-radio label="Morning" value="1" ></v-radio>
 	      <v-radio label="Afternoon" value="2"></v-radio>
 	    </v-radio-group>
 	</v-col>
 	<v-col cols="12" md="12" v-if="timeSlots.length">
 	<template v-for="timeSlot in timeSlots">
-      <v-checkbox  v-model="addForm.time_slots" :value="timeSlot.id" class="mx-2" :label="timeSlot.slot_start+'-'+timeSlot.slot_end"></v-checkbox>
+      <v-checkbox row  v-model="addForm.slot_time" :value="timeSlot.id" class="mx-2" :label="timeSlot.slot_start+'-'+timeSlot.slot_end"></v-checkbox>
 </template>
     
 	</v-col>
@@ -94,13 +94,12 @@ export default {
         price: "",
         description: "",
         service_image: "",
-        service_type: '',
-        time_slots:[],
+        slot_type: '',
+        slot_time:[],
       },
       timeSlots: [],
       priceRules: [
         v => !!v || "Service price is invalid/required"
-        //        v => v > 100 || 'Password Min 8 characters',
       ],
       descriptionRules: [v => !!v || "Service description is required"],
       myFiles: []
@@ -132,7 +131,7 @@ export default {
   created() {},
   methods: {
     getTime(){
-     jobService.getTimeSlots(this.addForm.service_type).then(response => {
+     jobService.getTimeSlots(this.addForm.slot_type).then(response => {
           //handle response
           if (response.status) {
            this.timeSlots = response.data;
