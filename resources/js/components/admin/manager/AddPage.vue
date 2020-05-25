@@ -62,6 +62,17 @@
             required
           ></v-text-field>
         </v-col>
+  <v-col
+          cols="12"
+          md="12"
+        >
+          <v-text-field
+            v-model="addForm.addrees"
+            label="City"
+            required
+           :rules="[v => !!v || 'address is required']"
+          ></v-text-field>
+        </v-col>
      <v-col
           cols="12"
           md="12"
@@ -252,6 +263,7 @@ export default {
         salary: '',
         manager_phone: '',
        manager_zipcode: '',
+        address: '',
         },
       emailRules: [
         v => !!v || 'E-mail is required',

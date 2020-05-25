@@ -18,7 +18,7 @@ class CreateManagerDetailsTable extends Migration
 
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-
+            $table->double("salary")->nullable();
             $table->string("identification_number")->nullable();
             $table->dateTime("joining_date")->nullable();
             $table->dateTime("releaving_date")->nullable();

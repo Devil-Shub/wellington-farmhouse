@@ -48,10 +48,16 @@ class ManagerController extends Controller
             //create new user
             $user = new User([
                 'first_name' => $request->first_name,
-                'last_name' => $request->last_name,
                 'email' => $request->email,
                 'role_id' => config('constant.roles.Admin_Manager'),
                 'phone' => $request->phone,
+                'user_image' => $file,
+                'phone' => $request->manager_phone,
+                'address' => $request->address,
+                'city' => $request->city,
+                'state' => $request->state,
+                'country' => $request->country,
+                'zip_code' => $request->manager_zipcode,
                 'user_image' => $file,
                 'is_confirmed' => 1,
 		'is_active' => 1,
