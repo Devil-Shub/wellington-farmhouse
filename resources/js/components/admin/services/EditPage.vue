@@ -22,6 +22,8 @@
                 v-bind:server="serverOptions"
                 v-bind:files="myFiles"
                 v-on:processfile="handleProcessFile"
+        allow-file-type-validation="true"
+        accepted-file-types="image/jpeg, image/png"
               />
             </v-col>
             <v-col cols="12" md="12">
@@ -32,7 +34,19 @@
                 required
               ></v-text-field>
             </v-col>
-
+			<v-col cols="12" md="12">
+             <header>Service Time Period</header>
+	   <v-radio-group  row v-model="editForm.slot_type" @change="getTime()" :mandatory="false" required :rules="[v => !!v || 'Service time period is required']">
+	      <v-radio label="Morning" value="morning" ></v-radio>
+	      <v-radio label="Afternoon" value="afternoon"></v-radio>
+	    </v-radio-group>
+	</v-col>
+	<v-col cols="12" md="12" v-if="timeSlots.length">
+	<template v-for="timeSlot in timeSlots">
+      <v-checkbox row  v-model="editForm.slot_time" :value="timeSlot.id" class="mx-2" :label="timeSlot.slot_start+'-'+timeSlot.slot_end"></v-checkbox>
+</template>
+    
+	</v-col>
             <v-col cols="12" md="12">
               <v-text-field
                 type="number"
@@ -83,8 +97,11 @@ export default {
         service_name: "",
         price: "",
         description: "",
-        service_image: ""
+        service_image: "",
+        slot_type: '',
+        slot_time:[],
       },
+      timeSlots: [],
       nameRules: [v => !!v || "Service name is required"],
       priceRules: [v => !!v || "Service price is invalid/required"],
       descRules: [v => !!v || "Service description is required"],
@@ -123,6 +140,12 @@ export default {
         this.editForm.price = response.data.price;
         this.editForm.description = response.data.description;
         this.editForm.service_image = response.data.service_image;
+        if(response.data.slot_type == 1){
+	this.editForm.slot_type = 'morning';
+        }else{
+	this.editForm.slot_type = 'afternoon';
+        }
+	this.getTime();
       } else {
         router.push("/admin/services");
         this.$toast.open({
@@ -134,8 +157,24 @@ export default {
     });
   },
   methods: {
-    GetImage(e) {
-      this.avatar = URL.createObjectURL(e);
+     getTime(){
+	if(this.editForm.slot_type == 'morning'){ 
+	var type = 1;
+	}else{
+	var type = 2;
+	}
+     jobService.getTimeSlots(type).then(response => {
+          //handle response
+          if (response.status) {
+           this.timeSlots = response.data;
+          } else {
+            this.$toast.open({
+              message: response.message,
+              type: "error",
+              position: "top-right"
+            });
+          }
+        });
     },
     handleProcessFile: function(error, file) {
       this.editForm.service_image = file.serverId;

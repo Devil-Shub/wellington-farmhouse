@@ -30,8 +30,8 @@
                 <v-col cols="12" md="12">
                   <v-text-field
                     v-model="addForm.chaase_number"
-                    :rules="[v => !!v || 'Chaase number is required']"
-                    label="Chaase Number"
+                    :rules="[v => !!v || 'Chassis number is required']"
+                    label="Chassis Number"
                     required
                   ></v-text-field>
                 </v-col>
@@ -95,9 +95,9 @@
                 <v-col cols="12" md="12">
                   <v-text-field
                     v-model="addForm.total_killometer"
-                    label="Total Killometer"
+                    label="Total Kilometer"
                     required
-                    :rules="[v => !!v || 'Truck Total killometer is required']"
+                   :rules="killometerRules"
                   ></v-text-field>
                 </v-col>
 
@@ -111,6 +111,8 @@
                     v-bind:files="myFiles"
                     v-on:processfile="handleProcessFile1"
                     :rules="[v => !!v || 'Document is required']"
+        allow-file-type-validation="true"
+        accepted-file-types="image/jpeg, image/png"
                   />
                 </v-col>
                 <v-col cols="12" md="12">
@@ -163,7 +165,10 @@ export default {
         total_killometer: "",
         insurance_expiry: ""
       },
-
+          killometerRules: [
+        v => !!v || "Truck kilometer is required",
+        v => /^\d*$/.test(v) || "Enter valid number",
+      ],
       myFiles: []
     };
   },

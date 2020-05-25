@@ -23,13 +23,9 @@ class ServicesController extends Controller
         $validator = Validator::make($request->all(), [
             'service_name' => 'required|string',
             'price' => 'required',
-            'description' => 'required'
-            
-            // 'time_slots' => 'required',
-            // 'time_slots' => [
-            //     'required',
-            //     Rule::in(['slot_type', 'slot_start', 'slot_end']),
-            // ],
+            'description' => 'required',
+	    'slot_type' => 'required',
+	    'slot_time' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -41,6 +37,7 @@ class ServicesController extends Controller
         }
 
         try {
+
             //use of db transactions
             // DB::beginTransaction();
 
@@ -50,25 +47,13 @@ class ServicesController extends Controller
                 'price' => $request->price,
                 'description' => $request->description,
                 'service_image' => $request->service_image,
+                'slot_type' => $request->slot_type,
+                'slot_time' => json_encode($request->slot_time),
             ]);
-           
+         
             //save service
             $service->save();
-            // if ($service->save()) {
-            //     foreach ($request->time_slots as $slots) {
-            //         $serviceSlots = new ServicesTimeSlot([
-            //             'services_id' => $service->id,
-            //             'slot_type' => $slots['slot_type'],
-            //             'slot_start' => $slots['slot_start'],
-            //             'slot_end' => $slots['slot_end']
-            //         ]);
-
-            //         //save service slots
-            //         $serviceSlots->save();
-            //     }
-            // }
-
-            //commit all transactions now
+         
             // DB::commit();
 
             //return success response

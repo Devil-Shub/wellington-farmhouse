@@ -12,9 +12,11 @@
             <template v-slot:default>
               <thead>
                 <tr>
-                  <th class="text-left"></th>
+                  <th class="text-left">Image</th>
                   <th class="text-left">Service Name</th>
                   <th class="text-left">Price</th>
+  <th class="text-left">type</th>
+<th class="text-left">time</th>
                   <th class="text-left">Descriptions</th>
                   <th class="text-left">Action</th>
                 </tr>
@@ -28,7 +30,10 @@
                   </td>
                   <td>{{ item.service_name }}</td>
                   <td>${{ item.price }}</td>
-                  <td>${{ item.description }}</td>
+		<td v-if="item.slot_type == 1">Morning</td>
+                <td v-if="item.slot_type == 2">Afternoon</td>
+		<td>{{ item.slot_time }}</td>
+                  <td>{{ item.description }}</td>
                   <td>
                     <router-link :to="'/admin/service/view/' + item.id" class="nav-item nav-link">
                       <user-icon size="1.5x" class="custom-class"></user-icon>
