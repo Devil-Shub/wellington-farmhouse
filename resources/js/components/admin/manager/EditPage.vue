@@ -9,6 +9,11 @@
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-row>
               <v-col cols="6" md="6">
+  <div class="v-avatar v-list-item__avatar" style="height: 40px; min-width: 40px; width: 40px;">
+                    <img v-if="addForm.user_image" :src="'/../'+addForm.user_image" alt="John">
+                         <img v-if="!addForm.user_image" src="/images/avatar.png" alt="driver">
+             </div>
+
                 <v-col cols="12" md="12">
                   <file-pond
                     name="uploadImage"
@@ -91,6 +96,7 @@
                     :rules="phoneRules"
                     label="Mobile Number"
                     required
+		    maxlength="10"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" md="12">
@@ -98,7 +104,7 @@
                     v-model="addForm.identification_number"
                     label="Identification number"
                     required
-                    :rules="[v => !!v || 'Country is required']"
+                    :rules="[v => !!v || 'Identification number is required']"
                   ></v-text-field>
                 </v-col>
 
@@ -168,6 +174,10 @@
                     v-on:processfile="handleProcessFile1"
                   />
                 </v-col>
+<div class="" style="height: 200px; min-width: 200px; width: 200px;">
+                    <img style="width:100%" v-if="addForm.document" :src="'/../'+addForm.document" alt="John">
+                        
+             </div>
               </v-col>
 
               <v-btn color="success" class="mr-4" @click="update">Submit</v-btn>

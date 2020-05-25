@@ -89,6 +89,7 @@
                     :rules="phoneRules"
                     label="Mobile Number"
                     required
+                    maxlength="10"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" md="12">
@@ -96,7 +97,7 @@
                     v-model="addForm.identification_number"
                     label="Identification number"
                     required
-                    :rules="[v => !!v || 'Country is required']"
+                    :rules="[v => !!v || 'Identification number is required']"
                   ></v-text-field>
                 </v-col>
 
