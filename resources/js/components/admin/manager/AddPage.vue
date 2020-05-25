@@ -96,12 +96,30 @@
            :rules="[v => !!v || 'Country is required']"
           ></v-text-field>
         </v-col>
+
 </v-col>
 
   <v-col
           cols="6"
           md="6"
         >
+  <v-col cols="12" md="12">
+                  <v-text-field
+                    v-model="addForm.manager_zipcode"
+                    :rules="[v => !!v || 'Zip code is required']"
+                    label="zipcode"
+                    required
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12" md="12">
+                  <v-text-field
+                    v-model="addForm.manager_phone"
+                     :rules="phoneRules"
+                    label="Mobile Number"
+                    required
+
+                  ></v-text-field>
+                </v-col>
           <v-col
           cols="12"
           md="12"
@@ -165,7 +183,7 @@
         >
           <v-text-field
             v-model="addForm.slaray"
-            label="Country"
+            label="Manager Salary"
             required
            :rules="[v => !!v || 'Manager salary is required']"
           ></v-text-field>
@@ -174,7 +192,7 @@
           cols="12"
           md="12"
         >
-  
+   
         <file-pond
         name="uploadImage"
         ref="pond"
@@ -232,10 +250,17 @@ export default {
         releaving_date: '',
         identification_number: '',
         salary: '',
+        manager_phone: '',
+       manager_zipcode: '',
         },
       emailRules: [
         v => !!v || 'E-mail is required',
         v => /.+@.+/.test(v) || 'E-mail must be valid',
+      ],
+    phoneRules: [
+        v => !!v || "Phone number is required",
+        v => /^\d*$/.test(v) || "Enter valid number",
+	v => v.length >= 10 || "Enter valid number length"
       ],
      rules: [
         value => !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',
