@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use App\Service;
+use App\TimeSlots;
 use Illuminate\Support\Str;
 use App\ServicesTimeSlot;
 
@@ -218,7 +219,7 @@ class ServicesController extends Controller
     }
 
     /**
-     * get service
+     * delete service
      */
     public function deleteService(Request $request) {
         //check if exist
@@ -238,4 +239,29 @@ class ServicesController extends Controller
             'data' => []
         ], $statusCode);
     }
+
+    /**
+     * get time slots
+     * @param time slots type(morning, afternoon)
+     * return array()
+     */
+    public function getTimeSlots(Request $request){
+
+	     $getTime = TimeSlots::where('slot_type', $request->slot_type)->get();
+	     if($getTime->count()){
+            return response()->json([
+                'status' => true,
+                'message' => 'success',
+                'data' => $getTime
+            ], 200);  
+	     }else {
+            return response()->json([
+                'status' => false,
+                'message' => 'no time slots found',
+                'data' => $getTime
+            ], 200);
+	     }
+	     
+    }
+  
 }

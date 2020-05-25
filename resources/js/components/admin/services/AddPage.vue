@@ -17,16 +17,31 @@
                 v-bind:server="serverOptions"
                 v-bind:files="myFiles"
                 v-on:processfile="handleProcessFile"
+        allow-file-type-validation="true"
+        accepted-file-types="image/jpeg, image/png"
               />
             </v-col>
             <v-col cols="12" md="12">
               <v-text-field
                 v-model="addForm.service_name"
-                :rules="nameRules"
                 label="Service name"
                 required
+		:rules="[v => !!v || 'Service name is required']"
               ></v-text-field>
             </v-col>
+	<v-col cols="12" md="12">
+             <header>Service Time Period</header>
+	   <v-radio-group  row v-model="addForm.service_type" @change="getTime()" :mandatory="false" required :rules="[v => !!v || 'Service time period is required']">
+	      <v-radio label="Morning" value="1" ></v-radio>
+	      <v-radio label="Afternoon" value="2"></v-radio>
+	    </v-radio-group>
+	</v-col>
+	<v-col cols="12" md="12" v-if="timeSlots.length">
+	<template v-for="timeSlot in timeSlots">
+      <v-checkbox  v-model="addForm.time_slots" :value="timeSlot.id" class="mx-2" :label="timeSlot.slot_start+'-'+timeSlot.slot_end"></v-checkbox>
+</template>
+    
+	</v-col>
 
             <v-col cols="12" md="12">
               <v-text-field
@@ -78,9 +93,11 @@ export default {
         service_name: "",
         price: "",
         description: "",
-        service_image: ""
+        service_image: "",
+        service_type: '',
+        time_slots:[],
       },
-      nameRules: [v => !!v || "Service name is required"],
+      timeSlots: [],
       priceRules: [
         v => !!v || "Service price is invalid/required"
         //        v => v > 100 || 'Password Min 8 characters',
@@ -114,10 +131,25 @@ export default {
   },
   created() {},
   methods: {
+    getTime(){
+     jobService.getTimeSlots(this.addForm.service_type).then(response => {
+          //handle response
+          if (response.status) {
+           this.timeSlots = response.data;
+          } else {
+            this.$toast.open({
+              message: response.message,
+              type: "error",
+              position: "top-right"
+            });
+          }
+        });
+    },
     handleProcessFile: function(error, file) {
       this.addForm.service_image = file.serverId;
     },
     save() {
+      console.log(this.addForm)
       if (this.$refs.form.validate()) {
         jobService.add(this.addForm).then(response => {
           //handle response
