@@ -25,12 +25,15 @@ import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 import FilePondPluginImageCrop from 'filepond-plugin-image-crop';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
 import FilePondPluginFileEncode from 'filepond-plugin-file-encode';
+import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
+
 // Create component
 const FilePond = vueFilePond(
   FilePondPluginImageExifOrientation,
   FilePondPluginImagePreview,
   FilePondPluginImageCrop,
-  FilePondPluginFileEncode
+  FilePondPluginFileEncode,
+FilePondPluginFileValidateType
 );
 
 // setup fake backend

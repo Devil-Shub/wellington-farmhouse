@@ -134,8 +134,12 @@
     getList(){
         
     },
-    mounted: function()  {
-         managerService.listService().then(response => {
+    mounted()  {
+	this.getResults();
+    },
+    methods: {
+        getResults(){
+                     managerService.listService().then(response => {
               //handle response
               if(response.status) {
                this.managers = response.data;
@@ -148,10 +152,6 @@
                   })
               }
             }); 
-    },
-    methods: {
-        Action(){
-            
         },
         Delete(e){
            if(e){

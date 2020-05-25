@@ -1,191 +1,306 @@
 <template>
-  <v-app>
-    <v-container>
+      <v-app>
+             <v-container>
       <v-row>
-        <v-col cols="12" md="12">
-          <h2>Edit Manager Profile</h2>
-        </v-col>
-        <v-col cols="12" md="12">
-          <v-form ref="form" v-model="valid" lazy-validation>
-            <v-col cols="12" md="12">
-              <div
-                class="v-avatar v-list-item__avatar"
-                style="height: 40px; min-width: 40px; width: 40px;"
-              >
-                <img :src="avatar" alt="John" />
-              </div>
+          <v-col
+          cols="12"
+          md="12"
+          ><h2>Add manager</h2></v-col>
+             <v-col
+          cols="12"
+          md="12"
+          >
+           <v-form
+    ref="form"
+    v-model="valid"
+    lazy-validation
+  >
 
-              <file-pond
-                name="uploadImage"
-                ref="pond"
-                label-idle="Drop files here..."
-                allow-multiple="false"
-                accepted-file-types="image/jpeg, image/png"
-                v-bind:server="serverOptions"
-                v-bind:files="myFiles"
-                v-on:updatefiles="handleFilePondUpdateFile"
-                v-on:processfile="handleProcessFile"
-              />
-            </v-col>
-            <v-col cols="12" md="12">
-              <v-text-field
-                v-model="addForm.first_name"
-                :rules="FnameRules"
-                label="First name"
-                required
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" md="12">
-              <v-text-field
-                v-model="addForm.last_name"
-                :rules="LnameRules"
-                label="Last name"
-                required
-              ></v-text-field>
-            </v-col>
-
-            <v-col cols="12" md="12">
-              <v-text-field
-                v-model="addForm.email"
-                :rules="emailRules"
-                name="email"
-                label="E-mail"
-                required
-              ></v-text-field>
-            </v-col>
-            <v-btn color="success" class="mr-4" @click="update">Submit</v-btn>
-          </v-form>
+<v-row>
+  <v-col
+          cols="6"
+          md="6"
+        >
+  
+            <v-col
+          cols="12"
+          md="12"
+        >
+  
+        <file-pond
+        name="uploadImage"
+        ref="pond"
+        label-idle="Drop files here..."
+        allow-multiple="false"
+        v-bind:server="serverOptions"
+        v-bind:files="myFiles"
+        allow-file-type-validation="true"
+        accepted-file-types="image/jpeg, image/png"
+       v-on:processfile="handleProcessFile"
+        />  
+     </v-col>
+          <v-col
+          cols="12"
+          md="12"
+        >
+          <v-text-field
+            v-model="addForm.first_name"
+            label="Manager name"
+            required
+           :rules="[v => !!v || 'Manager name is required']"
+          ></v-text-field>
         </v-col>
-      </v-row>
+        <v-col
+          cols="12"
+          md="12"
+        >
+          <v-text-field
+            v-model="addForm.email"
+            :rules="emailRules"
+            name="email"
+            label="E-mail"
+            required
+          ></v-text-field>
+        </v-col>
+     <v-col
+          cols="12"
+          md="12"
+        >
+          <v-text-field
+            v-model="addForm.city"
+            label="City"
+            required
+           :rules="[v => !!v || 'City is required']"
+          ></v-text-field>
+        </v-col>
+  <v-col
+          cols="12"
+          md="12"
+        >
+          <v-text-field
+            v-model="addForm.state"
+            label="State"
+            required
+           :rules="[v => !!v || 'State is required']"
+          ></v-text-field>
+        </v-col>
+
+  <v-col
+          cols="12"
+          md="12"
+        >
+          <v-text-field
+            v-model="addForm.country"
+            label="Country"
+            required
+           :rules="[v => !!v || 'Country is required']"
+          ></v-text-field>
+        </v-col>
+</v-col>
+
+  <v-col
+          cols="6"
+          md="6"
+        >
+          <v-col
+          cols="12"
+          md="12"
+        >
+          <v-text-field
+            v-model="addForm.identification_number"
+            label="Identification number"
+ 	    required
+           :rules="[v => !!v || 'Country is required']"
+          ></v-text-field>
+        </v-col>
+     
+ <v-col cols="12" md="12">
+                  <v-menu
+                    v-model="menu1"
+                    :close-on-content-click="false"
+                    :nudge-right="40"
+                    transition="scale-transition"
+                    offset-y
+                    min-width="290px"
+                  >
+                    <template v-slot:activator="{ on }">
+                      <v-text-field
+                        v-model="date"
+                        label="Joining Date"
+                        prepend-icon="event"
+                        readonly
+                        v-on="on"
+			required
+                      :rules="[v => !!v || 'Joining date is required']"
+                      ></v-text-field>
+                    </template>
+                    <v-date-picker v-model="date" @input="menu1 = false"></v-date-picker>
+                  </v-menu>
+                </v-col>
+
+ <v-col cols="12" md="12">
+                  <v-menu
+                    v-model="menu2"
+                    :close-on-content-click="false"
+                    :nudge-right="40"
+                    transition="scale-transition"
+                    offset-y
+                    min-width="290px"
+                  >
+                    <template v-slot:activator="{ on }">
+                      <v-text-field
+                        v-model="date1"
+                        label="Releaving date(if required)"
+                        prepend-icon="event"
+                        readonly
+                        v-on="on"
+                      ></v-text-field>
+                    </template>
+                    <v-date-picker v-model="date1" @input="menu2 = false" ></v-date-picker>
+                  </v-menu>
+                </v-col>
+  <v-col
+          cols="12"
+          md="12"
+        >
+          <v-text-field
+            v-model="addForm.slaray"
+            label="Country"
+            required
+           :rules="[v => !!v || 'Manager salary is required']"
+          ></v-text-field>
+        </v-col>
+           <v-col
+          cols="12"
+          md="12"
+        >
+  
+        <file-pond
+        name="uploadImage"
+        ref="pond"
+        label-idle="Identification Document..."
+        allow-multiple="false"
+        v-bind:server="serverOptions"
+        v-bind:files="myFiles"
+        allow-file-type-validation="true"
+        accepted-file-types="image/jpeg, image/png"
+       v-on:processfile="handleProcessFile1"
+        />  
+     </v-col>
+</v-col>
+
+
+<v-btn color="success" class="mr-4" @click="update">Submit</v-btn>
+ </v-row>
+             </v-form>
+                 </v-col>
+   </v-row>
     </v-container>
-  </v-app>
+    </v-app>
 </template>
 
 <script>
-import { required } from "vuelidate/lib/validators";
-import { managerService } from "../../../_services/manager.service";
-import { router } from "../../../_helpers/router";
-import { environment } from "../../../config/test.env";
+ import { required } from "vuelidate/lib/validators";
+ import { managerService } from "../../../_services/manager.service";
+ import { router } from "../../../_helpers/router";
+ import { environment } from "../../../config/test.env";
 
 export default {
-  components: {
-    //      'image-component': imageVUE,
+   components: {
+//      'image-component': imageVUE,
   },
   data() {
     return {
-      valid: true,
-      avatar: null,
-      apiUrl: environment.apiUrl,
-      addForm: {
-        first_name: "",
-        last_name: "",
-        email: "",
-        user_image: null,
-        phone: ""
-      },
-      FnameRules: [v => !!v || "First name is required"],
-      LnameRules: [v => !!v || "Last name is required"],
+        valid: true,
+        avatar: null,
+        menu2: false,
+        menu1: false,
+        date:'',
+        date1: '',
+        apiUrl: environment.apiUrl,
+        addForm: {
+        first_name: '',
+        city: '',
+        email: '',
+        state: '',
+        country: '',
+	user_image: null,
+	phone: '',
+	role_id: 2,
+        document: '',
+        joining_date: '',
+        releaving_date: '',
+        identification_number: '',
+        salary: '',
+        },
       emailRules: [
-        v => !!v || "E-mail is required",
-        v => /.+@.+/.test(v) || "E-mail must be valid"
+        v => !!v || 'E-mail is required',
+        v => /.+@.+/.test(v) || 'E-mail must be valid',
       ],
-      rules: [
-        value =>
-          !value ||
-          value.size < 2000000 ||
-          "Avatar size should be less than 2 MB!"
+     rules: [
+        value => !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',
       ],
-      myFiles: []
+      myFiles: [],      
     };
   },
   computed: {
-    serverOptions() {
-      const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-      return {
-        url: this.apiUrl,
-        withCredentials: false,
-        process: {
-          url: 'uploadImage',
-          headers: {
-            Authorization: "Bearer " + currentUser.data.access_token
-          }
-        }
-      };
-    },
-    url() {
+        serverOptions () {
+           const currentUser =   JSON.parse(localStorage.getItem("currentUser"))
+           return {
+             url: this.apiUrl,
+             withCredentials: false,
+             process: {
+               url: 'uploadImage',
+               headers: {
+                 'Authorization': "Bearer " + currentUser.data.access_token,
+               },
+             }
+           }
+      },
+      url () {
       if (this.file) {
-        let parsedUrl = new URL(this.file);
-        return [parsedUrl.pathname];
+        let parsedUrl = new URL(this.file)
+        return [parsedUrl.pathname]
       } else {
-        return null;
+        return null
       }
-    }
+    },
   },
   created() {
-    managerService.getManager(this.$route.params.id).then(response => {
-      if (response.status) {
-        this.addForm.user_id = response.data.id;
-        if (response.data.user_image) {
-          this.addForm.user_image = response.data.user_image;
-        }
-        if (response.data.user_image) {
-          this.avatar = '../../../'+response.data.user_image;
-        } else {
-          this.avatar = "/images/avatar.png";
-        }
-        this.addForm.first_name = response.data.first_name;
-        this.addForm.last_name = response.data.last_name;
-        this.addForm.email = response.data.email;
-        this.addForm.phone = response.data.phone;
-        this.addForm.user_image = response.data.user_image;
-      } else {
-        router.push("/admin/manager");
-        this.$toast.open({
-          message: response.message,
-          type: "error",
-          position: "top-right"
-        });
-      }
-    });
+        this.avatar = '/images/avatar.png';
   },
   methods: {
-    GetImage(e) {
-      this.avatar = URL.createObjectURL(e);
-      this.addForm.user_image = e;
-    },
     handleProcessFile: function(error, file) {
       this.addForm.user_image = file.serverId;
     },
-    handleFilePondUpdateFile(files) {
-      const reader = new FileReader();
-      reader.onload = e => {
-        console.log(e.target.result);
-      };
-      this.myFiles = files.map(files => files.file);
+    handleProcessFile1: function(error, file) {
+      this.addForm.document = file.serverId;
     },
-
-    update() {
-      if (this.$refs.form.validate()) {
-        managerService.edit(this.addForm, this.$route.params.id).then(response => {
-          //handle response
-          if (response.status) {
-            this.$toast.open({
-              message: response.message,
-              type: "success",
-              position: "top-right"
-            });
-            //redirect to login
-            router.push("/admin/manager");
-          } else {
-            this.$toast.open({
-              message: response.message,
-              type: "error",
-              position: "top-right"
+       update () { 
+          this.addForm.joining_date = this.date;
+          this.addForm.releaving_date = this.date1;
+           console.log(this.addForm)
+          if( this.$refs.form.validate() ){
+             managerService.edit(this.addForm).then(response => {
+              //handle response
+              if(response.status) {
+                  this.$toast.open({
+                    message: response.message,
+                    type: 'success',
+                    position: 'top-right'
+                  });
+               //redirect to login
+               router.push("/admin/manager");
+              } else {
+                  this.$toast.open({
+                    message: response.message,
+                    type: 'error',
+                    position: 'top-right'
+                  })
+              }
             });
           }
-        });
       }
     }
-  }
 };
 </script>
