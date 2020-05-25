@@ -9,14 +9,16 @@
               <v-list-item-title>Name</v-list-item-title>
               <v-list-item-subtitle>{{truck}}</v-list-item-subtitle>
             </v-list-item-content>
-          </v-list-item>    
+          </v-list-item> 
+
+  <router-link :to="'/admin/skidsteer/addservice/' +vehicle_id" class="nav-item nav-link">Add Service</router-link>   
    </v-row>
     </v-container>
     </v-app>
 </template>
 
 <script>
- import { truckService } from "../../../_services/truck.service";
+ import { skidsteerService } from "../../../_services/skidsteer.service";
 import { PlusCircleIcon } from 'vue-feather-icons'
 export default {
 components: {
@@ -26,10 +28,12 @@ components: {
     return {
         avatar: null,
         truck: [],
+        vehicle_id: '',
     };
   },
    mounted: function() {
-         truckService.getTruck(this.$route.params.id).then(response => {
+this.vehicle_id = this.$route.params.id;
+         skidsteerService.getTruckService(this.$route.params.id).then(response => {
               //handle response
               if(response.status) {
                   this.truck = response.data;

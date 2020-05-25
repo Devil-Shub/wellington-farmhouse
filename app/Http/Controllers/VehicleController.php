@@ -212,6 +212,19 @@ class VehicleController extends Controller
     }
 
     /**
+    * get vehivle service details
+    * param @vehicle_id
+    * return array
+    */
+    public function getVehicleService(Request $request)
+    {
+         return response()->json([
+            'status' => true,
+            'message' => 'Vehicle Details',
+            'data' => VehicleService::where('vehicle_id', $request->vehicle_id)->get()
+        ], 200);
+    } 
+    /**
      * create vehicle service
      */
     public function createVehicleService(Request $request)
@@ -219,8 +232,7 @@ class VehicleController extends Controller
         //validate request
         $validator = Validator::make($request->all(), [
             'total_killometer' => 'required',
-            'service_date' => 'required',
-            'service_expiry' => 'required'
+            'service_date' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -239,7 +251,6 @@ class VehicleController extends Controller
             $vechicle = new VehicleService([
                 'vehicle_id' => $request->vehicle_id,
                 'service_date' => $request->service_date,
-                'service_expiry' => $request->service_expiry,
                 'service_killometer' => $request->total_killometer,
             ]);
 	    $vechicle->Save();

@@ -43,14 +43,16 @@ import TruckListPage from "../components/admin/truck/ListPage";
 import TruckAddPage from "../components/admin/truck/AddPage";
 import TruckEditPage from "../components/admin/truck/EditPage";
 import TruckViewPage from "../components/admin/truck/ViewPage";
-import TruckServicePage from "../components/admin/truck/AddServicePage";
+import TruckViewServicePage from "../components/admin/truck/ViewServicePage";
+import TruckAddServicePage from "../components/admin/truck/AddServicePage";
 
 //skidsteer
 import SkidsteerListPage from "../components/admin/skidsteer/ListPage";
 import SkidsteerAddPage from "../components/admin/skidsteer/AddPage";
 import SkidsteerEditPage from "../components/admin/skidsteer/EditPage";
 import SkidsteerViewPage from "../components/admin/skidsteer/ViewPage";
-import SkidsteerServicePage from "../components/admin/skidsteer/AddServicePage";
+import SkidsteerViewServicePage from "../components/admin/skidsteer/ViewServicePage";
+import SkidsteerAddServicePage from "../components/admin/skidsteer/AddServicePage";
 
 import LoginPage from "../components/login/LoginPage";
 import RegisterPage from "../components/register/RegisterPage";
@@ -96,12 +98,14 @@ export const router = new Router({
         { path: 'truck/add', component: TruckAddPage, name: 'TruckAdd' },
         { path: 'truck/edit/:id', component: TruckEditPage, name: 'TruckEdit' },
         { path: 'truck/view/:id', component: TruckViewPage, name: 'TruckView' },
-	{ path: 'truck/service/:id', component: TruckServicePage, name: 'TruckService' },
+	{ path: 'truck/service/:id', component: TruckViewServicePage, name: 'TruckViewService' },
+        { path: 'truck/addservice/:id', component: TruckAddServicePage, name: 'TruckAddService' },
         { path: 'skidsteers', component: SkidsteerListPage, name: 'Skidsteers' },
         { path: 'skidsteer/add', component: SkidsteerAddPage, name: 'SkidsteerAdd' },
         { path: 'skidsteer/edit/:id', component: SkidsteerEditPage, name: 'SkidsteerEdit' },
         { path: 'skidsteer/view/:id', component: SkidsteerViewPage, name: 'SkidsteerView' },
-	{ path: 'Skidsteer/service/:id', component: SkidsteerServicePage, name: 'SkidsteerService' },
+	{ path: 'Skidsteer/service/:id', component: SkidsteerViewServicePage, name: 'SkidsteerViewService' },
+       { path: 'Skidsteer/addservice/:id', component: SkidsteerAddServicePage, name: 'SkidsteerAddService' },
       ]
     },
    

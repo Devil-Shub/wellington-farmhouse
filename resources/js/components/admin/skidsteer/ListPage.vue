@@ -21,6 +21,7 @@
         <th class="text-left">truck_number</th>
         <th class="text-left">chaase_number</th>
         <th class="text-left">insurance_number</th>
+ 	<th class="text-left">View Service</th>
         <th class="text-left">Action</th>
           
         
@@ -32,6 +33,9 @@
             <td>{{item.truck_number}}</td>
             <td>{{item.chaase_number}}</td>
             <td>{{item.insurance_number}}</td>
+<td>
+    <router-link :to="'/admin/skidsteer/service/' + item.id" class="nav-item nav-link">View Service</router-link>
+</td>
           <td> 
         <router-link :to="'/admin/skidsteer/view/' + item.id" class="nav-item nav-link"><user-icon size="1.5x" class="custom-class"></user-icon></router-link>
               <router-link :to="'/admin/skidsteer/edit/' + item.id" class="nav-item nav-link"><edit-icon size="1.5x" class="custom-class"></edit-icon></router-link>

@@ -9,7 +9,9 @@
               <v-list-item-title>Name</v-list-item-title>
               <v-list-item-subtitle>{{truck}}</v-list-item-subtitle>
             </v-list-item-content>
-          </v-list-item>    
+          </v-list-item> 
+
+  <router-link :to="'/admin/truck/addservice/' +vehicle_id" class="nav-item nav-link">Add Service</router-link>   
    </v-row>
     </v-container>
     </v-app>
@@ -26,10 +28,12 @@ components: {
     return {
         avatar: null,
         truck: [],
+        vehicle_id: '',
     };
   },
    mounted: function() {
-         truckService.getTruck(this.$route.params.id).then(response => {
+this.vehicle_id = this.$route.params.id;
+         truckService.getTruckService(this.$route.params.id).then(response => {
               //handle response
               if(response.status) {
                   this.truck = response.data;

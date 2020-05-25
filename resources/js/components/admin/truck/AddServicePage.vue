@@ -35,30 +35,6 @@
                   </v-menu>
                 </v-col>
                 <v-col cols="12" md="12">
-                  <v-menu
-                    v-model="menu1"
-                    :close-on-content-click="false"
-                    :nudge-right="40"
-                    transition="scale-transition"
-                    offset-y
-                    min-width="290px"
-                  >
-                    <template v-slot:activator="{ on }">
-                      <v-text-field
-                        v-model="date1"
-                        label="Service expiry date"
-                        prepend-icon="event"
-                        readonly
-                        v-on="on"
-			required
-                      :rules="[v => !!v || 'Service expiry date is required']"
-                      ></v-text-field>
-                    </template>
-                    <v-date-picker v-model="date1" @input="menu1 = false" :min="setDate"></v-date-picker>
-                  </v-menu>
-                </v-col>
-
-                <v-col cols="12" md="12">
                   <v-text-field
                     v-model="addForm.total_killometer"
                     label="Total Killometer"
@@ -93,14 +69,12 @@ export default {
       apiUrl: environment.apiUrl,
       avatar: null,
       date: "",
-      date1: "",
       setDate:new Date().toISOString().substr(0, 10),
       user_image: "",
       addForm: {
         vehicle_id: "",
         service_date: "",
         total_killometer: "",
-        service_expiry: ""
       },
     };
   },
@@ -108,7 +82,6 @@ export default {
     save() {
       this.addForm.vehicle_id = this.$route.params.id;
       this.addForm.service_date = this.date;
-      this.addForm.service_expiry = this.date1;
       if (this.$refs.form.validate()) {
         truckService.addService(this.addForm).then(response => {
          //handle response
@@ -119,7 +92,7 @@ export default {
                position: 'top-right'
              });
           //redirect to login
-	const url = "/admin/truck/view/"+this.$route.params.id;
+	const url = "/admin/truck/service/"+this.$route.params.id;
           router.push(url);
          } else {
              this.$toast.open({
