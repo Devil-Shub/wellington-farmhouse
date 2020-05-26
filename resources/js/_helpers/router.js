@@ -45,7 +45,7 @@ import TruckEditPage from "../components/admin/truck/EditPage";
 import TruckViewPage from "../components/admin/truck/ViewPage";
 import TruckViewServicePage from "../components/admin/truck/ViewServicePage";
 import TruckAddServicePage from "../components/admin/truck/AddServicePage";
-
+import TruckInsuranceServicePage from "../components/admin/truck/InsuranceServicePage";
 //skidsteer
 import SkidsteerListPage from "../components/admin/skidsteer/ListPage";
 import SkidsteerAddPage from "../components/admin/skidsteer/AddPage";
@@ -100,6 +100,7 @@ export const router = new Router({
         { path: 'truck/view/:id', component: TruckViewPage, name: 'TruckView' },
 	{ path: 'truck/service/:id', component: TruckViewServicePage, name: 'TruckViewService' },
         { path: 'truck/addservice/:id', component: TruckAddServicePage, name: 'TruckAddService' },
+	{ path: 'truck/addinsurance/:id', component: TruckInsuranceServicePage, name: 'TruckAddInsurance' },
         { path: 'skidsteers', component: SkidsteerListPage, name: 'Skidsteers' },
         { path: 'skidsteer/add', component: SkidsteerAddPage, name: 'SkidsteerAdd' },
         { path: 'skidsteer/edit/:id', component: SkidsteerEditPage, name: 'SkidsteerEdit' },

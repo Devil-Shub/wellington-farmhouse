@@ -275,4 +275,73 @@ class VehicleController extends Controller
             ], 500);
         }
     }
+    
+    /**
+    * get vehivle service details
+    * param @vehicle_id
+    * return array
+    */
+    public function getVehicleInsurance(Request $request)
+    {
+         return response()->json([
+            'status' => true,
+            'message' => 'Vehicle Details',
+            'data' => VehicleInsurance::where('vehicle_id', $request->vehicle_id)->get()
+        ], 200);
+    } 
+
+    /**
+     * create vehicle insurance
+     */
+    public function createVehicleInsurance(Request $request)
+    {
+        //validate request
+        $validator = Validator::make($request->all(), [
+            'insurance_number' => 'required',
+            'insurance_date' => 'required',
+            'insurance_expiry' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'The given data was invalid.',
+                'data' => $validator->errors()
+            ], 422);
+        }
+
+        try {
+            //use of db transactions
+            DB::beginTransaction();
+
+            //create new vehicle insurance
+            $vechicle = new VehicleInsurance([
+                'vehicle_id' => $request->vehicle_id,
+                'insurance_date' => $request->insurance_date,
+                'insurance_expiry' => $request->insurance_expiry,
+                'insurance_number' => $request->insurance_number,
+            ]);
+
+	    $vechicle->Save();
+            //commit all transactions now
+            DB::commit();
+            //return success response
+            return response()->json([
+                'status' => true,
+                'message' => 'Successfully created Vehicle insurance!',
+                'data' => []
+            ], 200);
+        } catch (\Exception $e) {
+            //rollback transactions
+            DB::rollBack();
+            //make log of errors
+            Log::error(json_encode($e->getMessage()));
+            //return with error
+            return response()->json([
+                'status' => false,
+                'message' => 'Internal server error!',
+                'data' => []
+            ], 500);
+        }
+    }
 }

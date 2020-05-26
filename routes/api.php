@@ -67,6 +67,8 @@ Route::group(['prefix' => 'auth'], function () {
             Route::delete('delete-vehicle/{vehicle_id}', 'VehicleController@deleteVehicle');
 	    Route::get('get-vehicleservice/{vehicle_id}', 'VehicleController@getVehicleService');
  	    Route::post('create-vehicleservice', 'VehicleController@createVehicleService');
+            Route::post('create-vehicleinsurance', 'VehicleController@createVehicleInsurance');
+            Route::get('get-vehicleinsurance/{vehicle_id}', 'VehicleController@getVehicleInsurance');
         });
 
         //upload image
