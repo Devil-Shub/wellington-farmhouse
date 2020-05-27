@@ -10,7 +10,7 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueToast from 'vue-toast-notification';
 import VueFeatherIcon from 'vue-feather-icon'
-import VueGoogleMap from 'vuejs-google-maps'
+import * as VueGoogleMaps from "vue2-google-maps";
 import { router } from "./_helpers/router";
 import App from "./app/App";
 
@@ -54,9 +54,10 @@ Vue.use(VueSocialauth, {
     }
   }
 });
-Vue.use(VueGoogleMap, {
+Vue.use(VueGoogleMaps, {
   load: {
     apiKey: 'AIzaSyAQEbFYBxoq9qSepomK_1KEM7TxU3vSOyw',
+    libraries: "places" // necessary for places input
   }
 })
 Vue.use(Vuelidate);
