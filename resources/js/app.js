@@ -10,6 +10,7 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueToast from 'vue-toast-notification';
 import VueFeatherIcon from 'vue-feather-icon'
+import VueGoogleMap from 'vuejs-google-maps'
 import { router } from "./_helpers/router";
 import App from "./app/App";
 
@@ -53,6 +54,11 @@ Vue.use(VueSocialauth, {
     }
   }
 });
+Vue.use(VueGoogleMap, {
+  load: {
+    apiKey: 'AIzaSyAQEbFYBxoq9qSepomK_1KEM7TxU3vSOyw',
+  }
+})
 Vue.use(Vuelidate);
 Vue.use(Vuetify);
 Vue.use(VueToast);

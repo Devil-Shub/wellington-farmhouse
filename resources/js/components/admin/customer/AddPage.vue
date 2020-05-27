@@ -1,0 +1,451 @@
+<template>
+  <v-app>
+    <v-container>
+      <v-row>
+        <v-col cols="12" md="12">
+          <h2>Add Customer</h2>
+        </v-col>
+        <v-col cols="12" md="12">
+          <v-form ref="form" v-model="valid" lazy-validation>
+            <v-row>
+              <v-col cols="12" md="12">
+               <v-row>
+                <v-col cols="4" md="4">
+                  <file-pond
+                    name="uploadImage"
+                    ref="pond"
+                    label-idle="Customer Profile image..."
+                    allow-multiple="false"
+                    v-bind:server="serverOptions"
+                    v-bind:files="myFiles"
+                    allow-file-type-validation="true"
+                    accepted-file-types="image/jpeg, image/png"
+                    v-on:processfile="handleProcessFile"
+                  />
+                </v-col>
+                <v-col cols="4" md="4">
+                  <v-text-field
+                    v-model="addForm.customer_name"
+                    label="Customer name"
+                    required
+                    :rules="[v => !!v || 'Customer name is required']"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="4" md="4">
+                  <v-text-field
+                    v-model="addForm.email"
+                    :rules="emailRules"
+                    name="email"
+                    label="E-mail"
+                    required
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="4" md="4">
+                  <v-text-field
+                    v-model="addForm.address"
+                    label="Address"
+                    required
+                    :rules="[v => !!v || 'address is required']"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="4" md="4">
+                  <v-text-field
+                    v-model="addForm.city"
+                    label="City"
+                    required
+                    :rules="[v => !!v || 'City is required']"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="4" md="4">
+                  <v-text-field
+                    v-model="addForm.state"
+                    label="State"
+                    required
+                    :rules="[v => !!v || 'State is required']"
+                  ></v-text-field>
+                </v-col>
+
+                <v-col cols="4" md="4">
+                  <v-text-field
+                    v-model="addForm.country"
+                    label="Country"
+                    required
+                    :rules="[v => !!v || 'Country is required']"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="4" md="4">
+                  <v-text-field
+                    v-model="addForm.manager_zipcode"
+                    :rules="[v => !!v || 'Zip code is required']"
+                    label="zipcode"
+                    required
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="4" md="4">
+                  <v-text-field
+                    v-model="addForm.manager_phone"
+                    :rules="phoneRules"
+                    label="Mobile Number"
+                    required
+                    maxlength="10"
+                  ></v-text-field>
+                </v-col>
+               </v-row>
+
+              </v-col>
+
+              <v-col cols="12" md="12">
+              <h3>Manager Details</h3>
+		 <v-row>
+                <v-col cols="4" md="4">
+                  <file-pond
+                    name="uploadImage"
+                    ref="pond"
+                    label-idle="Manager Profile image..."
+                    allow-multiple="false"
+                    v-bind:server="serverOptions"
+                    v-bind:files="myFiles"
+                    allow-file-type-validation="true"
+                    accepted-file-types="image/jpeg, image/png"
+                    v-on:processfile="handleProcessFile"
+                  />
+                </v-col>
+                <v-col cols="4" md="4">
+                  <v-text-field
+                    v-model="addForm.customer_name"
+                    label="Manager name"
+                    required
+                    :rules="[v => !!v || 'Customer name is required']"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="4" md="4">
+                  <v-text-field
+                    v-model="addForm.email"
+                    :rules="emailRules"
+                    name="email"
+                    label="E-mail"
+                    required
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="4" md="4">
+                  <v-text-field
+                    v-model="addForm.address"
+                    label="Address"
+                    required
+                    :rules="[v => !!v || 'address is required']"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="4" md="4">
+                  <v-text-field
+                    v-model="addForm.city"
+                    label="City"
+                    required
+                    :rules="[v => !!v || 'City is required']"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="4" md="4">
+                  <v-text-field
+                    v-model="addForm.state"
+                    label="State"
+                    required
+                    :rules="[v => !!v || 'State is required']"
+                  ></v-text-field>
+                </v-col>
+
+                <v-col cols="4" md="4">
+                  <v-text-field
+                    v-model="addForm.country"
+                    label="Country"
+                    required
+                    :rules="[v => !!v || 'Country is required']"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="4" md="4">
+                  <v-text-field
+                    v-model="addForm.manager_zipcode"
+                    :rules="[v => !!v || 'Zip code is required']"
+                    label="zipcode"
+                    required
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="4" md="4">
+                  <v-text-field
+                    v-model="addForm.manager_phone"
+                    :rules="phoneRules"
+                    label="Mobile Number"
+                    required
+                    maxlength="10"
+                  ></v-text-field>
+                </v-col>
+               <v-col cols="4" md="4">
+                  <v-text-field
+                    v-model="addForm.identification_number"
+                    label="Identification number"
+                    required
+                    :rules="[v => !!v || 'Identification number is required']"
+                  ></v-text-field>
+                </v-col>
+       <v-col cols="4" md="4">
+                  <v-menu
+                    v-model="menu1"
+                    :close-on-content-click="false"
+                    :nudge-right="40"
+                    transition="scale-transition"
+                    offset-y
+                    min-width="290px"
+                  >
+                    <template v-slot:activator="{ on }">
+                      <v-text-field
+                        v-model="date"
+                        label="Joining Date"
+                        prepend-icon="event"
+                        readonly
+                        v-on="on"
+                        required
+                        :rules="[v => !!v || 'Joining date is required']"
+                      ></v-text-field>
+                    </template>
+                    <v-date-picker v-model="date" @input="menu1 = false"></v-date-picker>
+                  </v-menu>
+                </v-col>
+
+                <v-col cols="4" md="4">
+                  <v-menu
+                    v-model="menu2"
+                    :close-on-content-click="false"
+                    :nudge-right="40"
+                    transition="scale-transition"
+                    offset-y
+                    min-width="290px"
+                  >
+                    <template v-slot:activator="{ on }">
+                      <v-text-field
+                        v-model="date1"
+                        label="Releaving date(if required)"
+                        prepend-icon="event"
+                        readonly
+                        v-on="on"
+                      ></v-text-field>
+                    </template>
+                    <v-date-picker v-model="date1" @input="menu2 = false"></v-date-picker>
+                  </v-menu>
+                </v-col>
+                <v-col cols="4" md="4">
+                  <v-text-field
+                    v-model="addForm.salary"
+                    label="Manager Salary"
+                    required
+                    :rules="[v => !!v || 'Manager salary is required']"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="4" md="4">
+                  <file-pond
+                    name="uploadImage"
+                    ref="pond"
+                    label-idle="Identification Document..."
+                    allow-multiple="false"
+                    v-bind:server="serverOptions"
+                    v-bind:files="myFiles"
+                    allow-file-type-validation="true"
+                    accepted-file-types="image/jpeg, image/png"
+                    v-on:processfile="handleProcessFile1"
+                  />
+                </v-col>
+               </v-row>            
+              </v-col>
+
+ <v-autocomplete
+        v-model="model"
+        :items="items"
+        :loading="isLoading"
+        :search-input.sync="search"
+        chips
+        clearable
+        hide-details
+        hide-selected
+        item-text="name"
+        item-value="symbol"
+        label="Search for a place..."
+        solo
+      >
+       <template slot="no-data">
+          <v-list-title>
+            <v-list-title>
+              Search for a <strong>Place</strong>
+            </v-list-title>
+          </v-list-title>
+        </template>
+        <template slot="selection" slot-scope="{ item, selected }">
+          <v-chip :selected="selected" color="blue-grey" class="white--text">
+            <v-icon left>mdi-map-marker</v-icon>
+            <span v-text="item.name"></span>
+          </v-chip>
+        </template>
+        <template slot="item" slot-scope="{ item, tile }">
+          <v-list-title-avatar
+            color="indigo"
+            class="headline font-weight-light white--text"
+          >
+            {{ item.name.charAt(0) }}
+          </v-list-title-avatar>
+          <v-list-title-content>
+            <v-list-title-title v-text="item.name"></v-list-title-title>
+            <v-list-title-sub-title v-text="item.symbol"></v-list-title-sub-title>
+          </v-list-title-content>
+          <v-list-title-action> <v-icon>mdi-map-marker</v-icon> </v-list-title-action>
+        </template>
+      </v-autocomplete>
+
+              <v-btn color="success" class="mr-4" @click="update">Submit</v-btn>
+            </v-row>
+          </v-form>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-app>
+</template>
+
+<script>
+import { required } from "vuelidate/lib/validators";
+import { managerService } from "../../../_services/manager.service";
+import { router } from "../../../_helpers/router";
+import { environment } from "../../../config/test.env";
+
+export default {
+  components: {
+    //      'image-component': imageVUE,
+  },
+  data() {
+    return {
+ isLoading: false,
+    items: [],
+    model: null,
+    search: null,
+      valid: true,
+      avatar: null,
+      menu2: false,
+      menu1: false,
+      date: "",
+      date1: "",
+      apiUrl: environment.apiUrl,
+      addForm: {
+        first_name: "",
+        city: "",
+        email: "",
+        state: "",
+        country: "",
+        user_image: null,
+        phone: "",
+        role_id: 2,
+        document: "",
+        joining_date: "",
+        releaving_date: "",
+        identification_number: "",
+        salary: "",
+        manager_phone: "",
+        manager_zipcode: "",
+        address: ""
+      },
+      emailRules: [
+        v => !!v || "E-mail is required",
+        v => /.+@.+/.test(v) || "E-mail must be valid"
+      ],
+      phoneRules: [
+        v => !!v || "Phone number is required",
+        v => /^\d*$/.test(v) || "Enter valid number",
+        v => v.length >= 10 || "Enter valid number length"
+      ],
+      rules: [
+        value =>
+          !value ||
+          value.size < 2000000 ||
+          "Avatar size should be less than 2 MB!"
+      ],
+      myFiles: []
+    };
+  },
+watch: {
+    search(val) {
+      if (!val) {
+          return;
+      }
+
+      this.isLoading = true;
+
+      const service = new google.maps.places.AutocompleteService();
+      service.getQueryPredictions({ input: val }, (predictions, status) => {
+        if (status != google.maps.places.PlacesServiceStatus.OK) {
+          return;
+        }
+
+        this.items = predictions.map(prediction => {
+          return {
+            id: prediction.id,
+            name: prediction.description,
+          };
+        });
+
+        this.isLoading = false;
+      });
+    }
+  },
+  computed: {
+    serverOptions() {
+      const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+      return {
+        url: this.apiUrl,
+        withCredentials: false,
+        process: {
+          url: "uploadImage",
+          headers: {
+            Authorization: "Bearer " + currentUser.data.access_token
+          }
+        }
+      };
+    },
+    url() {
+      if (this.file) {
+        let parsedUrl = new URL(this.file);
+        return [parsedUrl.pathname];
+      } else {
+        return null;
+      }
+    }
+  },
+  created() {
+    this.avatar = "/images/avatar.png";
+  },
+  methods: {
+    handleProcessFile: function(error, file) {
+      this.addForm.user_image = file.serverId;
+    },
+    handleProcessFile1: function(error, file) {
+      this.addForm.document = file.serverId;
+    },
+    update() {
+      this.addForm.joining_date = this.date;
+      this.addForm.releaving_date = this.date1;
+      if (this.$refs.form.validate()) {
+        managerService.add(this.addForm).then(response => {
+          //handle response
+          if (response.status) {
+            this.$toast.open({
+              message: response.message,
+              type: "success",
+              position: "top-right"
+            });
+            //redirect to login
+            router.push("/admin/manager");
+          } else {
+            this.$toast.open({
+              message: response.message,
+              type: "error",
+              position: "top-right"
+            });
+          }
+        });
+      }
+    }
+  }
+};
+</script>

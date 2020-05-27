@@ -12,6 +12,8 @@
         <div id="app">
           <example-component></example-component>
         </div>
+<script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyAQEbFYBxoq9qSepomK_1KEM7TxU3vSOyw"></script>
+
         <script src="{{ mix('js/app.js') }}" type="text/javascript"></script>
     </body>
 </html>

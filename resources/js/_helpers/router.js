@@ -25,6 +25,12 @@ import AddPage from "../components/admin/manager/AddPage";
 import EditPage from "../components/admin/manager/EditPage";
 import ViewPage from "../components/admin/manager/ViewPage";
 
+//customer listing
+import CustomerListPage from "../components/admin/customer/ListPage";
+import CustomerAddPage from "../components/admin/customer/AddPage";
+import CustomerEditPage from "../components/admin/customer/EditPage";
+
+
 //serivce
 import SerivcesListPage from "../components/admin/services/ListPage";
 import SerivcesAddPage from "../components/admin/services/AddPage";
@@ -81,11 +87,16 @@ export const router = new Router({
         { path: 'admin/add', component: AdminAddPage, name: 'AdminAdd', meta: { requiresAuth: Role.Admin} },
         { path: 'admin/edit/:id', component: AdminEditPage, name: 'AdminEdit', meta: { requiresAuth: Role.Admin} },
         { path: 'admin/view/:id', component: AdminViewPage, name: 'AdminView', meta: { requiresAuth: Role.Admin} },
+
+        { path: 'customer', component: CustomerListPage, name: 'Customer', meta: { requiresAuth: Role.Admin} },
+        { path: 'customer/add', component: CustomerAddPage, name: 'CustomerAdd', meta: { requiresAuth: Role.Admin} },
+        { path: 'customer/edit/:id', component: CustomerEditPage, name: 'CustomerEdit', meta: { requiresAuth: Role.Admin} },
         
         { path: 'manager', component: ListPage, name: 'Manager', meta: { requiresAuth: Role.Admin} },
         { path: 'manager/add', component: AddPage, name: 'Add', meta: { requiresAuth: Role.Admin} },
         { path: 'manager/edit/:id', component: EditPage, name: 'Edit', meta: { requiresAuth: Role.Admin} },
         { path: 'manager/view/:id', component: ViewPage, name: 'View', meta: { requiresAuth: Role.Admin} },
+
         { path: 'services', component: SerivcesListPage, name: 'Services', meta: { requiresAuth: Role.Admin} },
         { path: 'service/add', component: SerivcesAddPage, name: 'ServiceAdd' },
         { path: 'service/edit/:id', component: SerivcesEditPage, name: 'ServiceEdit' },

@@ -12,7 +12,40 @@
             </v-list-item-title>
           </v-list-item>
 
-          <v-list-group prepend-icon="account_circle" value="false">
+          <v-list-group 
+	   prepend-icon="account_circle" 
+	   value="false"
+           no-action
+           key="Customer"
+          >
+            <template v-slot:activator>
+              <v-list-item-title>Customer</v-list-item-title>
+            </template>
+          
+            <v-list-group no-action sub-group value="true">
+              <template v-slot:activator>
+                <v-list-item-content>
+                  <v-list-item-title>
+                    <router-link to="/admin/customer" class="nav-item nav-link">List</router-link>
+                  </v-list-item-title>
+               
+                  <v-list-item-title>
+                    <router-link to="/admin/customer/add" class="nav-item nav-link">Add Customer</router-link>
+                  </v-list-item-title>
+                </v-list-item-content>
+              </template>
+            </v-list-group>
+          </v-list-group>
+
+	
+	
+
+          <v-list-group 
+	   prepend-icon="account_circle" 
+	   value="false"
+           no-action
+           key="User"
+          >
             <template v-slot:activator>
               <v-list-item-title>Users</v-list-item-title>
             </template>
@@ -27,6 +60,7 @@
               </template>
             </v-list-group>
           </v-list-group>
+
           <v-list-item>
             <v-list-item-icon>
               <v-icon>mdi-home</v-icon>
@@ -130,7 +164,7 @@ export default {
   data: () => ({
     drawer: null,
     profileImage: '',
-    baseUrl: environment.baseUrl
+    baseUrl: environment.baseUrl,
   }),
 
   created() {
