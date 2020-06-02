@@ -254,48 +254,15 @@
                </v-row>            
               </v-col>
 
- <v-autocomplete
-        v-model="model"
-        :items="items"
-        :loading="isLoading"
-        :search-input.sync="search"
-        chips
-        clearable
-        hide-details
-        hide-selected
-        item-text="name"
-        item-value="symbol"
-        label="Search for a place..."
-        solo
-      >
-       <template slot="no-data">
-          <v-list-title>
-            <v-list-title>
-              Search for a <strong>Place</strong>
-            </v-list-title>
-          </v-list-title>
-        </template>
-        <template slot="selection" slot-scope="{ item, selected }">
-          <v-chip :selected="selected" color="blue-grey" class="white--text">
-            <v-icon left>mdi-map-marker</v-icon>
-            <span v-text="item.name"></span>
-          </v-chip>
-        </template>
-        <template slot="item" slot-scope="{ item, tile }">
-          <v-list-title-avatar
-            color="indigo"
-            class="headline font-weight-light white--text"
-          >
-            {{ item.name.charAt(0) }}
-          </v-list-title-avatar>
-          <v-list-title-content>
-            <v-list-title-title v-text="item.name"></v-list-title-title>
-            <v-list-title-sub-title v-text="item.symbol"></v-list-title-sub-title>
-          </v-list-title-content>
-          <v-list-title-action> <v-icon>mdi-map-marker</v-icon> </v-list-title-action>
-        </template>
-      </v-autocomplete>
-
+	       <vue-google-autocomplete
+		    ref="address"
+		    id="map"
+		    classname="form-control"
+		    placeholder="Please type your address"
+		    v-on:placechanged="getAddressData"
+		    country="us"
+		>
+        </vue-google-autocomplete>
               <v-btn color="success" class="mr-4" @click="update">Submit</v-btn>
             </v-row>
           </v-form>
@@ -310,10 +277,10 @@ import { required } from "vuelidate/lib/validators";
 import { managerService } from "../../../_services/manager.service";
 import { router } from "../../../_helpers/router";
 import { environment } from "../../../config/test.env";
-
+import VueGoogleAutocomplete from 'vue-google-autocomplete'
 export default {
   components: {
-    //      'image-component': imageVUE,
+   VueGoogleAutocomplete
   },
   data() {
     return {
@@ -321,6 +288,7 @@ export default {
     items: [],
     model: null,
     search: null,
+address: '',
       valid: true,
       avatar: null,
       menu2: false,
@@ -364,31 +332,9 @@ export default {
       myFiles: []
     };
   },
-watch: {
-    search(val) {
-      if (!val) {
-          return;
-      }
-
-      this.isLoading = true;
-
-      const service = new google.maps.places.AutocompleteService();
-      service.getQueryPredictions({ input: val }, (predictions, status) => {
-        if (status != google.maps.places.PlacesServiceStatus.OK) {
-          return;
-        }
-
-        this.items = predictions.map(prediction => {
-          return {
-            id: prediction.id,
-            name: prediction.description,
-          };
-        });
-
-        this.isLoading = false;
-      });
-    }
-  },
+mounted(){
+this.$refs.address.focus();
+},
   computed: {
     serverOptions() {
       const currentUser = JSON.parse(localStorage.getItem("currentUser"));
@@ -416,6 +362,9 @@ watch: {
     this.avatar = "/images/avatar.png";
   },
   methods: {
+   getAddressData: function (addressData, placeResultData, id) {
+                this.address = addressData;
+            },
     handleProcessFile: function(error, file) {
       this.addForm.user_image = file.serverId;
     },
