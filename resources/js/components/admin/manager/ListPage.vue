@@ -15,7 +15,7 @@
                   <th class="text-left">Image</th>
                   <th class="text-left">Name</th>
                   <th class="text-left">Email</th>
-                  <th class="text-left">Active</th>
+                  <!-- <th class="text-left">Active</th> -->
                   <th class="text-left">Action</th>
                 </tr>
               </thead>
@@ -32,7 +32,7 @@
                   </td>
                   <td>{{ item.first_name }} {{ item.last_name }}</td>
                   <td>{{ item.email }}</td>
-                  <td>
+                  <!-- <td>
                     <v-chip
                       v-if="!item.is_active"
                       class="ma-2"
@@ -45,7 +45,7 @@
                       color="green"
                       text-color="white"
                     >Activate</v-chip>
-                  </td>
+                  </td> -->
                   <td>
                     <router-link :to="'/admin/manager/view/' + item.id" class="nav-item nav-link">
                       <user-icon size="1.5x" class="custom-class"></user-icon>

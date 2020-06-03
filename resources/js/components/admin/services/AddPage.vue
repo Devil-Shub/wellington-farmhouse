@@ -38,7 +38,7 @@
 	</v-col>
 	<v-col cols="12" md="12" v-if="timeSlots.length">
 	<template v-for="timeSlot in timeSlots">
-      <v-checkbox row  v-model="addForm.slot_time" :value="timeSlot.id" class="mx-2" :label="timeSlot.slot_start+'-'+timeSlot.slot_end"></v-checkbox>
+      <v-checkbox v-model="addForm.slot_time" :value="timeSlot.id" class="mx-2" :label="timeSlot.slot_start+'-'+timeSlot.slot_end"></v-checkbox>
 </template>
     
 	</v-col>
@@ -131,10 +131,11 @@ export default {
   created() {},
   methods: {
     getTime(){
+      this.timeSlots = [];
      jobService.getTimeSlots(this.addForm.slot_type).then(response => {
           //handle response
           if (response.status) {
-           this.timeSlots = response.data;
+            this.timeSlots = response.data; 
           } else {
             this.$toast.open({
               message: response.message,
@@ -148,7 +149,6 @@ export default {
       this.addForm.service_image = file.serverId;
     },
     save() {
-      console.log(this.addForm)
       if (this.$refs.form.validate()) {
         jobService.add(this.addForm).then(response => {
           //handle response

@@ -161,7 +161,7 @@ export default {
         insurance_expiry: ""
       },
      killometerRules: [
-        v => !!v || "truck kilometer is required",
+        v => !!v || "Truck kilometer is required",
         v => /^\d*$/.test(v) || "Enter valid number",
       ],
       myFiles: []

@@ -1,8 +1,5 @@
 <template>
   <v-app>
-
-<google-map />
-
     <v-container>
       <v-row>
         <v-col cols="12" md="12">
@@ -127,7 +124,6 @@ import {
   PlusCircleIcon
 } from "vue-feather-icons";
 import { router } from "../../../_helpers/router";
-import GoogleMap from "../../core/GoogleMap";
 
 export default {
   components: {

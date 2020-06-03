@@ -151,7 +151,7 @@
                     v-model="addForm.salary"
                     label="Manager Salary"
                     required
-                    :rules="[v => !!v || 'Manager salary is required']"
+                    :rules="salaryRules"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" md="12">
@@ -222,7 +222,11 @@ export default {
       phoneRules: [
         v => !!v || "Phone number is required",
         v => /^\d*$/.test(v) || "Enter valid number",
-        v => v.length >= 10 || "Enter valid number length"
+        v => v.length >= 20 || "Enter valid number length"
+      ],
+      salaryRules: [
+        v => !!v || "Manager salary is required",
+        v => /^\d*$/.test(v) || "Enter valid number"
       ],
       rules: [
         value =>

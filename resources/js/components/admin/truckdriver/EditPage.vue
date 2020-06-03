@@ -90,7 +90,7 @@
                     v-model="addForm.driver_salary"
                     label="Driver Salary"
                     required
-                    :rules="[v => !!v || 'Driver salary is required']"
+                    :rules="salaryRules"
                   ></v-text-field>
                 </v-col>
               </v-col>
@@ -143,7 +143,7 @@
                     v-model="addForm.driver_phone"
                     label="Mobile Number"
                     required
-		     :rules="phoneRules"
+		                :rules="phoneRules"
                   ></v-text-field>
                 </v-col>
 
@@ -217,6 +217,10 @@ export default {
         v => !!v || "Phone number is required",
         v => /^\d*$/.test(v) || "Enter valid number",
 	v => v.length >= 10 || "Enter valid number length"
+      ],
+      salaryRules: [
+        v => !!v || "Driver salary is required",
+        v => /^\d*$/.test(v) || "Enter valid number"
       ],
       myFiles: []
     };
