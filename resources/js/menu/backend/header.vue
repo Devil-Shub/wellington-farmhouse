@@ -45,6 +45,7 @@
       bottom
       origin="center center"
       transition="scale-transition"
+      class="abcd"
     >
       <template v-slot:activator="{ on }">
                <v-list-item-avatar v-on="on">

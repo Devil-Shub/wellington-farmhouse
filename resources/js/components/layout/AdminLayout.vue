@@ -1,6 +1,6 @@
 <template>
-  <v-app id="inspire">
-    <v-navigation-drawer v-model="drawer" app clipped>
+  <v-app id="inspire" class="my-app">
+    <v-navigation-drawer class="side-nav" v-model="drawer" app clipped>
       <v-card class="mx-auto" width="300">
         <v-list>
           <v-list-item>
@@ -123,7 +123,7 @@
                   <img :src="profileImage" id="userImage"/>
                 </v-list-item-avatar>
               </template>
-              <v-list>
+              <v-list class="header-right-menu">
                 <v-list-item>
                   <v-list-item-title>
                     <router-link to="/admin/profile" class="nav-item nav-link">Profile</router-link>

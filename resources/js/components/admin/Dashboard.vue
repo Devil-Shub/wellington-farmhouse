@@ -1,41 +1,6 @@
 <template>
-  <div>
-    <h1>Admin</h1>
-    <p>This page can only be accessed by administrators.</p>
-
-    <h1>Admin</h1>
-    <p>This page can only be accessed by administrators.</p>
-
-    <h1>Admin</h1>
-    <p>This page can only be accessed by administrators.</p>
-
-    <h1>Admin</h1>
-    <p>This page can only be accessed by administrators.</p>
-
-    <h1>Admin</h1>
-    <p>This page can only be accessed by administrators.</p>
-
-    <h1>Admin</h1>
-    <p>This page can only be accessed by administrators.</p>
-
-    <h1>Admin</h1>
-    <p>This page can only be accessed by administrators.</p>
-
-    <h1>Admin</h1>
-    <p>This page can only be accessed by administrators.</p>
-
-    <h1>Admin</h1>
-    <p>This page can only be accessed by administrators.</p>
-
-    <h1>Admin</h1>
-    <p>This page can only be accessed by administrators.</p>
-
-    <h1>Admin</h1>
-    <p>This page can only be accessed by administrators.</p>
-
-    <h1>Admin</h1>
-    <p>This page can only be accessed by administrators.</p>
-    
+  <div class="dashboard">
+    <h3>Welcome to Dashboard</h3>
   </div>
 </template>
 

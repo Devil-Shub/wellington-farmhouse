@@ -7,6 +7,9 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+// $overall-color: #49b3a2;
+$overall-color: #405f6e;
+$hover-white: #fff;
 
 #snackbar {
     visibility: hidden;
@@ -49,4 +52,99 @@
   @keyframes fadeout {
     from {bottom: 30px; opacity: 1;}
     to {bottom: 0; opacity: 0;}
+  }
+
+  // overall
+  .my-app {
+    &.v-application {
+      a {
+        color: $overall-color;
+      }
+      .v-icon {
+        color: $overall-color;
+      }
+      header {
+        background-color: #5e8395 !important;
+        .float-left {
+          .v-app-bar__nav-icon {
+            .v-icon {
+              color: #fff;
+            }
+          }
+        }
+      }
+      .side-nav {
+        .v-card {
+          box-shadow: none;
+        }
+        .v-list {
+          .v-list-item {
+            &:hover {
+              background-color: #0ac59d;
+              .v-list-item__title {
+                color: $hover-white;
+              }
+              a {
+                color: $hover-white;
+              }
+              .v-icon {
+                color: $hover-white;
+              }
+              .v-list-item__icon {
+                color: $hover-white;
+              }
+            }
+            .v-list-item__title {
+              color: $overall-color;
+              padding: 0.5rem 1rem;
+              a {
+                padding: 0;
+              }
+            }
+            .v-list-item__icon {
+              color: $overall-color;
+              margin-right: 0;
+            }
+          }
+        }
+      }
+      .addHereHtml {
+        padding-left: 15px;
+        button {
+          &.success {
+            background-color: #0ac59d !important;
+            box-shadow: none;
+          }
+        }
+      }
+    }
+  }
+
+  // header top nav 
+  .v-menu__content {
+    top: 57px !important;
+    left: 1075px !important;
+    .header-right-menu {
+      padding: 0;
+      .v-list-item {
+        display: block;
+        padding: 15px;
+        a {
+          border: 1px solid #5e8395;
+          margin-bottom: 5px;
+          color: $overall-color;
+          text-align: center;
+          min-width: 170px;
+          &:hover {
+            background-color: $overall-color;
+            color: #fff;
+          }
+        }
+        button {
+          margin: 10px auto 0;
+          padding: 0;
+          color: $overall-color;
+        }
+      }
+    }
   }

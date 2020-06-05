@@ -37,7 +37,7 @@
             @click:append="show2 = !show2"
           ></v-text-field>
         </v-col>
-           <v-btn color="success" class="mr-4" @click="validate">Update</v-btn>
+           <v-btn color="success" class="mr-4 ml-3" @click="validate">Update</v-btn>
    
   </v-form>
        </v-col>
