@@ -123,7 +123,8 @@ $hover-white: #fff;
   // header top nav 
   .v-menu__content {
     top: 57px !important;
-    left: 1075px !important;
+    left: auto !important;
+    right: 20px;
     .header-right-menu {
       padding: 0;
       .v-list-item {

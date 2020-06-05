@@ -11016,7 +11016,8 @@ a.text-dark:focus {
 
 .v-menu__content {
   top: 57px !important;
-  left: 1075px !important;
+  left: auto !important;
+  right: 20px;
 }
 
 .v-menu__content .header-right-menu {
