@@ -122,9 +122,9 @@ $hover-white: #fff;
 
   // header top nav 
   .v-menu__content {
-    top: 57px !important;
-    left: auto !important;
-    right: 20px;
+    // top: 57px !important;
+    // left: auto !important;
+    // right: 20px;
     .header-right-menu {
       padding: 0;
       .v-list-item {
@@ -145,6 +145,82 @@ $hover-white: #fff;
           margin: 10px auto 0;
           padding: 0;
           color: $overall-color;
+        }
+      }
+    }
+  }
+
+  // june 6th
+  #app {
+    a {
+      color: #333;
+    }
+    .sidebar-nav {
+      background-color: #ebebeb;
+      .v-list {
+        padding-right: 0;
+        .v-list-item {
+          margin-bottom: 0;
+          &.v-list-group__header {
+            .v-list-item {
+              // margin-bottom: 0;
+            }
+            .v-list-item__title {
+              font-weight: 500;
+              padding-left: 5px;
+            }
+          }
+        }
+        .v-list-group__header.v-list-item--active:before {
+          opacity: 0;
+        }
+        .v-list-item__icon {
+          display: none;
+        }
+        .v-list-group--no-action > .v-list-group__items > .v-list-item {
+          padding-left: 15px;
+          padding-right: 0;
+          min-height: auto;
+          cursor: default;
+          border-radius: 0;
+          &:hover, &:focus {
+            &:before {
+              opacity: 0;
+            }
+          }
+          .v-list-item__content {
+            cursor: pointer;
+            &:hover {
+              .v-list-item__title {
+                a {
+                  background-color: #fff;
+                  border-top-left-radius: 20px;
+                  border-bottom-left-radius: 20px;
+                }
+              }
+            }
+          }
+          .v-list-item__title {
+            a {
+              padding-top: 10px;
+              padding-bottom: 10px;
+              padding-left: 25px;
+            }
+          }
+          .v-ripple__container {
+            display: none;
+          }
+        }
+        .v-list-item:not(.v-list-item--active):not(.v-list-item--disabled) {
+          color: #333 !important;
+        }
+        .v-list-group__items {
+          .v-list-item__content {
+            padding: 0;
+          }
+          .v-list-item__action {
+            display: none;
+          }
         }
       }
     }

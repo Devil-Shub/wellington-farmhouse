@@ -2,9 +2,7 @@
   <v-app>
     <v-container>
       <v-row>
-        <v-col cols="12" md="12">
-          <h2>Edit Manager Profile</h2>
-        </v-col>
+     
         <v-col cols="12" md="12">
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-col cols="12" md="12">
