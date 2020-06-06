@@ -103,24 +103,24 @@ export default {
       drivers: []
     };
   },
-  getList() {},
-  mounted: function() {
-    driverService.listDrivers().then(response => {
-      //handle response
-      if (response.status) {
-        console.log(response.data);
-        this.drivers = response.data;
-      } else {
-        this.$toast.open({
-          message: response.message,
-          type: "error",
-          position: "top-right"
-        });
-      }
-    });
+  mounted() {
+    this.getResults();
   },
   methods: {
-    Action() {},
+       getResults() {
+      driverService.listDrivers().then(response => {
+        //handle response
+        if (response.status) {
+          this.drivers = response.data;
+        } else {
+          this.$toast.open({
+            message: response.message,
+            type: "error",
+            position: "top-right"
+          });
+        }
+      });
+    },
     Delete(e) {
       if (e) {
         driverService.Delete(e).then(response => {
@@ -131,6 +131,7 @@ export default {
               type: "success",
               position: "top-right"
             });
+            this.getResults();
             //redirect to login
             this.dialog = false;
             //               router.push("/admin/service");

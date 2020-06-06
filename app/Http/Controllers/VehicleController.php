@@ -117,14 +117,10 @@ class VehicleController extends Controller
                 'company_name' => $request->company_name,
                 'truck_number' => $request->truck_number,
                 'chaase_number' => $request->chaase_number,
-                'killometer' => $request->total_killometer
+                'killometer' => $request->total_killometer,
+                'document' => $request->document
             ]);
-            //check if document is also uploaded    
-            if($request->document != '' && $request->document != null) {
-                $updateVehicle->document = $request->document;
-                $updateVehicle->save();
-            }
-
+           
             //save insurance details
             VehicleInsurance::whereVehicleId($request->vehicle_id)->update([
                 'insurance_number' => $request->insurance_number,

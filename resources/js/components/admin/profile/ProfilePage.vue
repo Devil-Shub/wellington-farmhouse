@@ -12,7 +12,7 @@
                 class="v-avatar v-list-item__avatar"
                 style="height: 40px; min-width: 40px; width: 40px;"
               >
-                <img :src="'../../'+updateForm.user_image" />
+                <img :src="avatar" />
               </div>
               <file-pond
                 name="uploadImage"
@@ -21,6 +21,8 @@
                 allow-multiple="false"
                 v-bind:server="serverOptions"
                 v-bind:files="myFiles"
+                allow-file-type-validation="true"
+                accepted-file-types="image/jpeg, image/png"
                 v-on:processfile="handleProcessFile"
               />
             </v-col>
@@ -127,8 +129,8 @@ export default {
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
     this.updateForm.user_id = currentUser.data.user.id;
     this.updateForm.user_image = currentUser.data.user.user_image;
-    if (currentUser.data.user.image) {
-      this.avatar = currentUser.data.user.image;
+    if(currentUser.data.user.user_image) { 
+      this.avatar = "../../"+currentUser.data.user.user_image;
     } else {
       this.avatar = "/images/avatar.png";
     }
@@ -139,9 +141,9 @@ export default {
   methods: {
     handleProcessFile: function(error, file) {
       this.updateForm.user_image = file.serverId;
-    },
-    GetImage(e) {
-      this.avatar = URL.createObjectURL(e);
+      this.avatar = "../../"+file.serverId;
+      //change header image
+      document.getElementById("userImage").src =  "../../"+file.serverId;
     },
     update() {
       if (this.$refs.form.validate()) {
@@ -152,11 +154,12 @@ export default {
             var getStorage = JSON.parse(localStorage.getItem("currentUser"));
             getStorage.data.user.user_image = this.updateForm.user_image;
             //remove from local storage
+            getStorage.data.user = response.data;
             localStorage.removeItem("currentUser");
             //add again to local storage
             localStorage.setItem("currentUser", JSON.stringify(getStorage));
             //change header image
-            document.getElementById("userImage").src = this.baseUrl+this.updateForm.user_image;
+            document.getElementById("userImage").src = "../../"+this.updateForm.user_image;
 
             this.$toast.open({
               message: response.message,
@@ -164,7 +167,7 @@ export default {
               position: "top-right"
             });
             //redirect to login
-            //               router.push("/admin/profile");
+            //router.push("/admin/profile");
           } else {
             this.$toast.open({
               message: response.message,

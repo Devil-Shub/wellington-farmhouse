@@ -111,8 +111,8 @@
                     v-bind:files="myFiles"
                     v-on:processfile="handleProcessFile1"
                     :rules="[v => !!v || 'Document is required']"
-        allow-file-type-validation="true"
-        accepted-file-types="image/jpeg, image/png"
+		allow-file-type-validation="true"
+		accepted-file-types="image/jpeg, image/png"
                   />
                 </v-col>
                 <v-col cols="12" md="12">
@@ -205,6 +205,7 @@ export default {
         this.addForm.chaase_number = response.data.chaase_number;
         this.addForm.insurance_number = response.data.vehicle_insurance.insurance_number;
         this.addForm.total_killometer = response.data.killometer;
+        this.addForm.document = response.data.document;
         this.date = new Date(response.data.vehicle_insurance.insurance_date).toISOString().substr(0, 10);
         this.date1 = new Date(response.data.vehicle_insurance.insurance_expiry).toISOString().substr(0, 10);
         if (response.data.document) {

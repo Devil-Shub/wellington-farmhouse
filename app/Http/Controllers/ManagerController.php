@@ -50,7 +50,7 @@ class ManagerController extends Controller
             $user = new User([
                 'first_name' => $request->first_name,
                 'email' => $request->email,
-                'role_id' => config('constant.roles.Admin_Manager'),
+                'role_id' => $request->role_id,
                 'phone' => $request->phone,
                 'user_image' => $file,
                 'phone' => $request->manager_phone,

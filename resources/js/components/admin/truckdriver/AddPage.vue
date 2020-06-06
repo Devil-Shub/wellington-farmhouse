@@ -18,6 +18,8 @@
                     allow-multiple="false"
                     v-bind:server="serverOptions"
                     v-bind:files="user_image"
+                    allow-file-type-validation="true"
+                    accepted-file-types="image/jpeg, image/png"
                     v-on:processfile="handleProcessFile"
                   />
                 </v-col>
@@ -139,6 +141,7 @@
                      :rules="phoneRules"
                     label="Mobile Number"
                     required
+                    maxlength=10
 
                   ></v-text-field>
                 </v-col>

@@ -24,6 +24,8 @@
                     allow-multiple="false"
                     v-bind:server="serverOptions"
                     v-bind:files="user_image"
+                    allow-file-type-validation="true"
+                    accepted-file-types="image/jpeg, image/png"
                     v-on:processfile="handleProcessFile"
                   />
                 </v-col>
@@ -143,7 +145,8 @@
                     v-model="addForm.driver_phone"
                     label="Mobile Number"
                     required
-		                :rules="phoneRules"
+		   :rules="phoneRules"
+		   maxlenght=10
                   ></v-text-field>
                 </v-col>
 
@@ -159,6 +162,10 @@
                     :rules="[v => !!v || 'Document is required']"
                   />
                 </v-col>
+<div class="" style="height: 200px; min-width: 200px; width: 200px;">
+                    <img style="width:100%" v-if="addForm.document" :src="'/../'+addForm.document" alt="John">
+                        
+             </div>
               </v-col>
 
               <v-col cols="12" md="12">

@@ -241,11 +241,11 @@ class AuthController extends Controller
 
             Log::info($loggedInUser);
             //return success response
-            return response()->json([
+             return response()->json([
                 'status' => true,
-                'message' => 'Information Updated Successfully!',
-                'data' => []
-            ], 200);
+                'message' => 'User Profile edit successfully.',
+                'data' => $loggedInUser
+            ]);
         } catch (\Exception $e) {
             //make log of errors
             Log::error(json_encode($e->getMessage()));

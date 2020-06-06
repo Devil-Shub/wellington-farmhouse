@@ -71,28 +71,25 @@
           trucks: [],
       }
     },
-    getList(){
-     
-    },
-    mounted: function()  {
-          skidsteerService.listSkidsteers().then(response => {
-            //handle response
-            if(response.status) {
-             this.trucks = response.data;
-            } else {
+    mounted() {
+    this.getResults();
+   },
 
-                this.$toast.open({
-                  message: response.message,
-                  type: 'error',
-                  position: 'top-right'
-                })
-            }
-          });
-    },
     methods: {
-        Action(){
-            
-        },
+          getResults() {
+      skidsteerService.listSkidsteers().then(response => {
+        //handle response
+        if (response.status) {
+          this.trucks = response.data;
+        } else {
+          this.$toast.open({
+            message: response.message,
+            type: "error",
+            position: "top-right"
+          });
+        }
+      });
+    },
         Delete(e){
            if(e){
             skidsteerService.Delete(e).then(response => {
@@ -104,6 +101,7 @@
                     position: 'top-right'
                   });
                //redirect to login
+this.getResults();
                this.dialog = false 
 //               router.push("/admin/service");
               } else {

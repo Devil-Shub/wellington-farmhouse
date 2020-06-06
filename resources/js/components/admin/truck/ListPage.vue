@@ -71,28 +71,25 @@
           trucks: [],
       }
     },
-    getList(){
-     
-    },
-    mounted: function()  {
-          truckService.listTrucks().then(response => {
-            //handle response
-            if(response.status) {
-             this.trucks = response.data;
-            } else {
-
-                this.$toast.open({
-                  message: response.message,
-                  type: 'error',
-                  position: 'top-right'
-                })
-            }
-          });
-    },
+    mounted() {
+    this.getResults();
+   },
+ 
     methods: {
-        Action(){
-            
-        },
+           getResults() {
+      truckService.listTrucks().then(response => {
+        //handle response
+        if (response.status) {
+          this.trucks = response.data;
+        } else {
+          this.$toast.open({
+            message: response.message,
+            type: "error",
+            position: "top-right"
+          });
+        }
+      });
+    },
         Delete(e){
            if(e){
             truckService.Delete(e).then(response => {
@@ -105,7 +102,8 @@
                   });
                //redirect to login
                this.dialog = false 
-//               router.push("/admin/service");
+               this.getResults();
+               //router.push("/admin/service");
               } else {
                   this.dialog = false 
                   this.$toast.open({

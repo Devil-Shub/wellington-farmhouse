@@ -138,7 +138,6 @@ export default {
       managers: []
     };
   },
-  getList() {},
   mounted() {
     this.getResults();
   },
