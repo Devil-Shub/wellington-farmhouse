@@ -13,8 +13,10 @@
               <thead>
                 <tr>
                   <th class="text-left">Image</th>
-                  <th class="text-left">Name</th>
-                  <th class="text-left">Email</th>
+                  <th class="text-left">Manager Name</th>
+                  <th class="text-left">Address</th>
+                  <th class="text-left">Contact Number</th>
+                  <th class="text-left">Email Address</th>
                   <!-- <th class="text-left">Active</th> -->
                   <th class="text-left">Action</th>
                 </tr>
@@ -31,6 +33,8 @@
                     </div>
                   </td>
                   <td>{{ item.first_name }} {{ item.last_name }}</td>
+                  <td>{{ item.address }}</td>
+                  <td>{{ item.phone }}</td>
                   <td>{{ item.email }}</td>
                   <!-- <td>
                     <v-chip
