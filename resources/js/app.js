@@ -12,6 +12,7 @@ import VueToast from 'vue-toast-notification';
 import VueFeatherIcon from 'vue-feather-icon'
 import * as VueGoogleMaps from "vue2-google-maps";
 import { router } from "./_helpers/router";
+import store from './store';
 import App from "./app/App";
 
 // Import Vue FilePond
@@ -60,6 +61,7 @@ Vue.use(VueGoogleMaps, {
     libraries: "places" // necessary for places input
   }
 })
+
 Vue.use(Vuelidate);
 Vue.use(Vuetify);
 Vue.use(VueToast);
@@ -76,5 +78,6 @@ new Vue({
     }),
   el: "#app",
   router,
+  store,
   render: h => h(App)
 });
