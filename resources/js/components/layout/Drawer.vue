@@ -86,42 +86,42 @@
             title: 'Main',
             active: true,
             items: [
-              { title: 'Overview', url: 'dashboard' },
-              { title: 'Jobs', url: 'dashboard'  },
-              { title: 'Dispatches', url: 'dashboard'  },
-              { title: 'Services', url: 'services'  }
+              { title: 'Overview', url: '/admin/dashboard' },
+              { title: 'Jobs', url: '/admin/dashboard'  },
+              { title: 'Dispatches', url: '/admin/dashboard'  },
+              { title: 'Services', url: '/admin/services'  }
             ]
           },
           {
             action: 'local_activity',
             title: 'Customer',
             items: [
-              { title: 'Customer', url: 'customer'  },
-              { title: 'Customer Compnay', url: 'dashboard'  }
+              { title: 'Customer', url: '/admin/customer'  },
+              { title: 'Customer Compnay', url: '/admin/dashboard'  }
             ]
           },
           {
             action: 'local_activity',
             title: 'Employee',
             items: [
-              { title: 'Managers', url: 'manager' },
-	      { title: 'Drivers', url: 'driver' }
+              { title: 'Managers', url: '/admin/manager' },
+	      { title: 'Drivers', url: '/admin/driver' }
             ]
           },
           {
             action: 'local_activity',
             title: 'Fleet',
             items: [
-              { title: 'Truck', url: 'trucks' },
-	      { title: 'Skid', url: 'skidsteers' }
+              { title: 'Truck', url: '/admin/trucks' },
+	      { title: 'Skid', url: '/admin/skidsteers' }
             ]
           },
           {
             action: 'local_activity',
             title: 'Accounts',
             items: [
-              { title: 'Accountings',url: 'dashboard' },
-              { title: 'Reports', url: 'dashboard' }
+              { title: 'Accountings',url: '/admin/dashboard' },
+              { title: 'Reports', url: '/admin/dashboard' }
             ]
           }
         ]

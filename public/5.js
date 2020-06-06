@@ -15,15 +15,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'DashboardCoreView',
-  components: {
-    DashboardCoreFooter: function DashboardCoreFooter() {
-      return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ./Footer */ "./resources/js/components/layout/Footer.vue"));
-    }
-  }
+  name: 'DashboardCoreView'
 });
 
 /***/ }),
@@ -43,11 +36,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "v-content",
-    [_c("router-view"), _vm._v(" "), _c("dashboard-core-footer")],
-    1
-  )
+  return _c("v-content", [_c("router-view")], 1)
 }
 var staticRenderFns = []
 render._withStripped = true

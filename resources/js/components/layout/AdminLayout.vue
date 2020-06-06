@@ -15,7 +15,6 @@
     components: {
       DashboardCoreAppBar: () => import('./AppBar'),
       DashboardCoreDrawer: () => import('./Drawer'),
-      DashboardCoreSettings: () => import('./Settings'),
       DashboardCoreView: () => import('./View'),
     },
 

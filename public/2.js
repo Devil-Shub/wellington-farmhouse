@@ -102,56 +102,56 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         active: true,
         items: [{
           title: 'Overview',
-          url: 'dashboard'
+          url: '/admin/dashboard'
         }, {
           title: 'Jobs',
-          url: 'dashboard'
+          url: '/admin/dashboard'
         }, {
           title: 'Dispatches',
-          url: 'dashboard'
+          url: '/admin/dashboard'
         }, {
           title: 'Services',
-          url: 'services'
+          url: '/admin/services'
         }]
       }, {
         action: 'local_activity',
         title: 'Customer',
         items: [{
           title: 'Customer',
-          url: 'customer'
+          url: '/admin/customer'
         }, {
           title: 'Customer Compnay',
-          url: 'dashboard'
+          url: '/admin/dashboard'
         }]
       }, {
         action: 'local_activity',
         title: 'Employee',
         items: [{
           title: 'Managers',
-          url: 'manager'
+          url: '/admin/manager'
         }, {
           title: 'Drivers',
-          url: 'driver'
+          url: '/admin/driver'
         }]
       }, {
         action: 'local_activity',
         title: 'Fleet',
         items: [{
           title: 'Truck',
-          url: 'trucks'
+          url: '/admin/trucks'
         }, {
           title: 'Skid',
-          url: 'skidsteers'
+          url: '/admin/skidsteers'
         }]
       }, {
         action: 'local_activity',
         title: 'Accounts',
         items: [{
           title: 'Accountings',
-          url: 'dashboard'
+          url: '/admin/dashboard'
         }, {
           title: 'Reports',
-          url: 'dashboard'
+          url: '/admin/dashboard'
         }]
       }]
     };
