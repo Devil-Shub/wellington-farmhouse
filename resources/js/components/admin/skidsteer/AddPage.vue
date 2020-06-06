@@ -3,10 +3,6 @@
     <v-container>
       <v-row>
         <v-col cols="12" md="12">
-          <h2>Add Skidsteer</h2>
-        </v-col>
-
-        <v-col cols="12" md="12">
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-row>
               <v-col cols="8" md="8">

@@ -66,6 +66,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
  // Components
@@ -186,7 +187,7 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("v-toolbar-title", {
-        staticClass: "hidden-sm-and-down font-weight-normal",
+        staticClass: "hidden-sm-and-down font-weight-light",
         domProps: { textContent: _vm._s(_vm.$route.name) }
       }),
       _vm._v(" "),
@@ -281,9 +282,9 @@ var render = function() {
                                     "router-link",
                                     {
                                       staticClass: "nav-item nav-link",
-                                      attrs: { to: "/admin/admin/add" }
+                                      attrs: { to: "/admin/admin" }
                                     },
-                                    [_vm._v("Add Admin")]
+                                    [_vm._v("List Admin")]
                                   )
                                 ],
                                 1

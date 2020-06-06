@@ -106,7 +106,7 @@
             title: 'Employee',
             items: [
               { title: 'Managers', url: '/admin/manager' },
-	      { title: 'Drivers', url: '/admin/driver' }
+	      { title: 'Drivers', url: '/admin/truckdrivers' }
             ]
           },
           {

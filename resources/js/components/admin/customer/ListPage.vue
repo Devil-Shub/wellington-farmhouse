@@ -3,7 +3,7 @@
     <v-container>
       <v-row>
         <v-col cols="12" md="12">
-          <router-link to="/admin/manager/add" class="nav-item nav-link">
+          <router-link to="/admin/customer/add" class="nav-item nav-link">
             <plus-circle-icon size="1.5x" class="custom-class"></plus-circle-icon>
           </router-link>
         </v-col>
