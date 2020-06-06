@@ -49,6 +49,7 @@ class ManagerController extends Controller
             //create new user
             $user = new User([
                 'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
                 'email' => $request->email,
                 'role_id' => $request->role_id,
                 'phone' => $request->phone,
@@ -64,7 +65,7 @@ class ManagerController extends Controller
 		        'is_active' => 1,
                 'password' => bcrypt($newPassword)
             ]);
-            if($user->save()) {
+            if($user->save() && $request->role_id != config('constant.roles.Admin')) {
                 $managerDetails = new ManagerDetail([
                     'user_id' => $user->id,
                     'salary' => $request->salary,
@@ -75,9 +76,9 @@ class ManagerController extends Controller
                 ]);
 
                 $managerDetails->save();
-                //send email for new email and password
-                $this->_confirmPassword($user, $newPassword);
             }
+            //send email for new email and password
+            $this->_confirmPassword($user, $newPassword);
             DB::commit();
             //return success response
             return response()->json([
@@ -140,14 +141,16 @@ class ManagerController extends Controller
             $managerDetails->user_image = $request->user_image;
             
             $managerDetails->save();
-
-            ManagerDetail::whereUserId($request->manager_id)->update([
-                'salary' => $request->salary,
-                    'identification_number' => $request->identification_number,
-                    'joining_date' => $request->joining_date,
-                    'releaving_date' => $request->releaving_date,
-                    'document' => $request->document
-            ]);
+            //check if not admin
+            if($managerDetails->role_id != config('constant.roles.Admin')) {
+                ManagerDetail::whereUserId($request->manager_id)->update([
+                    'salary' => $request->salary,
+                        'identification_number' => $request->identification_number,
+                        'joining_date' => $request->joining_date,
+                        'releaving_date' => $request->releaving_date,
+                        'document' => $request->document
+                ]);
+            }
             DB::commit();
             //return success response
             return response()->json([
@@ -182,6 +185,19 @@ class ManagerController extends Controller
     }
 
     /**
+     * get admin details
+     */
+    public function getAdmin(Request $request)
+    {
+        return response()->json([
+            'status' => true,
+            'message' => 'Admin Details',
+            'data' => User::whereId($request->admin_id)->first()
+        ], 200);
+
+    }
+
+    /**
      * delete manager
      */
     public function deleteManager(Request $request)
@@ -191,7 +207,7 @@ class ManagerController extends Controller
 
             return response()->json([
                 'status' => true,
-                'message' => 'Manager deleted Successfully',
+                'message' => 'User deleted Successfully',
                 'data' => []
             ], 200);
         } catch (\Exception $e) {
@@ -216,6 +232,19 @@ class ManagerController extends Controller
             'status' => true,
             'message' => 'Manager List',
             'data' => User::whereRoleId(config('constant.roles.Admin_Manager'))->orderBy("created_at", 'DESC')->get()
+        ], 200);
+
+    }
+
+    /**
+     * list admin
+     */
+    public function listAdmin()
+    {
+        return response()->json([
+            'status' => true,
+            'message' => 'Admin List',
+            'data' => User::whereRoleId(config('constant.roles.Admin'))->orderBy("created_at", 'DESC')->get()
         ], 200);
 
     }

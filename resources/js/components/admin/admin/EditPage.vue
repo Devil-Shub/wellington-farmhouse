@@ -12,7 +12,7 @@
                 class="v-avatar v-list-item__avatar"
                 style="height: 40px; min-width: 40px; width: 40px;"
               >
-                <img :src="avatar" alt="John" />
+                <img :src="'../../../'+addForm.user_image" />
               </div>
 
               <file-pond
@@ -136,7 +136,6 @@ export default {
         this.addForm.first_name = response.data.first_name;
         this.addForm.last_name = response.data.last_name;
         this.addForm.email = response.data.email;
-        this.addForm.phone = response.data.phone;
         this.addForm.user_image = response.data.user_image;
       } else {
         router.push("/admin/manager");
