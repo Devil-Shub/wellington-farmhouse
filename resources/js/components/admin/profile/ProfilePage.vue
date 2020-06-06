@@ -63,7 +63,6 @@
 import { required } from "vuelidate/lib/validators";
 import { authenticationService } from "../../../_services/authentication.service";
 import { router } from "../../../_helpers/router";
-import FilePond from "../../../filepond";
 import { environment } from "../../../config/test.env";
 
 export default {
