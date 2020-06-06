@@ -1,68 +1,46 @@
 <template>
-  <v-app-bar
-    id="app-bar"
-    absolute
-    app
-    color="transparent"
-    flat
-    height="75"
-  >
-    <v-btn
-      class="mr-3"
-      elevation="1"
-      fab
-      small
-      @click="setDrawer(!drawer)"
-    >
-      <v-icon v-if="value">
-        mdi-view-quilt
-      </v-icon>
+  <v-app-bar id="app-bar" absolute app color="transparent" flat height="75">
+    <v-btn class="mr-3" elevation="1" fab small @click="setDrawer(!drawer)">
+      <v-icon v-if="value">mdi-view-quilt</v-icon>
 
-      <v-icon v-else>
-        mdi-dots-vertical
-      </v-icon>
+      <v-icon v-else>mdi-dots-vertical</v-icon>
     </v-btn>
 
-    <v-toolbar-title
-      class="hidden-sm-and-down font-weight-light"
-      v-text="$route.name"
-    />
+    <v-toolbar-title class="hidden-sm-and-down font-weight-light" v-text="$route.name" />
 
     <v-spacer />
 
+    <div class="mx-3" />
 
-
-    <div class="mx-3" /> 
-  
-     <v-row>
-        <v-col cols="12" md="12">
-          <v-row class="float-right" justify="space-around">
-            <v-menu bottom origin="center center" transition="scale-transition">
-              <template v-slot:activator="{ on }">
-                <v-list-item-avatar v-on="on">
-                  <img :src="profileImage" id="userImage"/>
-                </v-list-item-avatar>
-              </template>
-              <v-list class="header-right-menu">
-                <v-list-item>
-                  <v-list-item-title>
-                    <router-link to="/admin/profile" class="nav-item nav-link">Profile</router-link>
-                  </v-list-item-title>
-                     <v-list-item-title>
+    <v-row>
+      <v-col cols="12" md="12">
+        <v-row class="float-right" justify="space-around">
+          <v-menu bottom origin="center center" transition="scale-transition">
+            <template v-slot:activator="{ on }">
+              <v-list-item-avatar v-on="on">
+                <img :src="profileImage" id="userImage" />
+              </v-list-item-avatar>
+            </template>
+            <v-list class="header-right-menu">
+              <v-list-item>
+                <v-list-item-title>
+                  <router-link to="/admin/profile" class="nav-item nav-link">Profile</router-link>
+                </v-list-item-title>
+                <v-list-item-title>
                   <router-link to="/admin/changepassword" class="nav-item nav-link">Change Password</router-link>
-                  </v-list-item-title>
-                     <v-list-item-title>
+                </v-list-item-title>
+                <v-list-item-title>
                   <router-link to="/admin/admin/add" class="nav-item nav-link">Add Admin</router-link>
-                  </v-list-item-title>
-                  <v-list-item-title>
-                    <button type="button" @click="logout" class="nav-item nav-link">Logout</button>
-                  </v-list-item-title>
-                </v-list-item>
-              </v-list>
-            </v-menu>
-          </v-row>
-        </v-col>
-      </v-row>
+                </v-list-item-title>
+                <v-list-item-title>
+                  <button type="button" @click="logout" class="nav-item nav-link">Logout</button>
+                </v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </v-row>
+      </v-col>
+    </v-row>
   </v-app-bar>
 </template>
 
@@ -70,76 +48,79 @@
 import { authenticationService } from "../../_services/authentication.service";
 import { router } from "../../_helpers/router";
 import { environment } from "../../config/test.env";
-  // Components
-  import { VHover, VListItem } from 'vuetify/lib'
+// Components
+import { VHover, VListItem } from "vuetify/lib";
 
-  // Utilities
-  import { mapState, mapMutations } from 'vuex'
+// Utilities
+import { mapState, mapMutations } from "vuex";
 
-  export default {
-    name: 'DashboardCoreAppBar',
+export default {
+  name: "DashboardCoreAppBar",
 
-    components: {
-      AppBarItem: {
-        render (h) {
-          return h(VHover, {
-            scopedSlots: {
-              default: ({ hover }) => {
-                return h(VListItem, {
+  components: {
+    AppBarItem: {
+      render(h) {
+        return h(VHover, {
+          scopedSlots: {
+            default: ({ hover }) => {
+              return h(
+                VListItem,
+                {
                   attrs: this.$attrs,
                   class: {
-                    'black--text': !hover,
-                    'white--text secondary elevation-12': hover,
+                    "black--text": !hover,
+                    "white--text secondary elevation-12": hover
                   },
                   props: {
-                    activeClass: '',
+                    activeClass: "",
                     dark: hover,
                     link: true,
-                    ...this.$attrs,
-                  },
-                }, this.$slots.default)
-              },
-            },
-          })
-        },
-      },
-    },
+                    ...this.$attrs
+                  }
+                },
+                this.$slots.default
+              );
+            }
+          }
+        });
+      }
+    }
+  },
 
-    props: {
-      value: {
-        type: Boolean,
-        default: false,
-      },
-    },
+  props: {
+    value: {
+      type: Boolean,
+      default: false
+    }
+  },
 
-    data: () => ({
-     profileImage: '',
-    }),
+  data: () => ({
+    profileImage: ""
+  }),
 
   created() {
     this.loadProfileImage();
   },
-    computed: {
-      ...mapState(['drawer']),
-    },
+  computed: {
+    ...mapState(["drawer"])
+  },
 
-    methods: {
-      ...mapMutations({
-        setDrawer: 'SET_DRAWER',
-      }),
-  loadProfileImage() {
+  methods: {
+    ...mapMutations({
+      setDrawer: "SET_DRAWER"
+    }),
+    loadProfileImage() {
       const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-	if(currentUser.data.user.user_image){
-      	    this.profileImage = "../../"+currentUser.data.user.user_image;
-	}else{
-          this.profileImage = "/images/avatar.png";
-	}
+      if (currentUser.data.user.user_image) {
+        this.profileImage = "../../" + currentUser.data.user.user_image;
+      } else {
+        this.profileImage = "/images/avatar.png";
+      }
     },
     logout() {
       authenticationService.logout();
       router.push("/login");
-    },
-    },
-
+    }
   }
+};
 </script>
