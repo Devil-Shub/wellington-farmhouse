@@ -66,28 +66,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
  // Components
@@ -96,7 +74,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'DashboardCoreAppBar',
+  name: "DashboardCoreAppBar",
   components: {
     AppBarItem: {
       render: function render(h) {
@@ -109,11 +87,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               return h(vuetify_lib__WEBPACK_IMPORTED_MODULE_3__["VListItem"], {
                 attrs: _this.$attrs,
                 "class": {
-                  'black--text': !hover,
-                  'white--text secondary elevation-12': hover
+                  "black--text": !hover,
+                  "white--text secondary elevation-12": hover
                 },
                 props: _objectSpread({
-                  activeClass: '',
+                  activeClass: "",
                   dark: hover,
                   link: true
                 }, _this.$attrs)
@@ -132,15 +110,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
-      profileImage: ''
+      profileImage: ""
     };
   },
   created: function created() {
     this.loadProfileImage();
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_4__["mapState"])(['drawer'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_4__["mapState"])(["drawer"])),
   methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_4__["mapMutations"])({
-    setDrawer: 'SET_DRAWER'
+    setDrawer: "SET_DRAWER"
   })), {}, {
     loadProfileImage: function loadProfileImage() {
       var currentUser = JSON.parse(localStorage.getItem("currentUser"));
@@ -201,8 +179,8 @@ var render = function() {
         },
         [
           _vm.value
-            ? _c("v-icon", [_vm._v("\n      mdi-view-quilt\n    ")])
-            : _c("v-icon", [_vm._v("\n      mdi-dots-vertical\n    ")])
+            ? _c("v-icon", [_vm._v("mdi-view-quilt")])
+            : _c("v-icon", [_vm._v("mdi-dots-vertical")])
         ],
         1
       ),

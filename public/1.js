@@ -84,6 +84,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 // Utilities
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -255,6 +256,7 @@ var render = function() {
     "v-navigation-drawer",
     _vm._b(
       {
+        staticClass: "sidebar-nav",
         attrs: {
           id: "core-navigation-drawer",
           dark:
@@ -296,8 +298,6 @@ var render = function() {
       false
     ),
     [
-      _vm._v(" "),
-      _c("v-divider", { staticClass: "mb-2" }),
       _vm._v(" "),
       _c(
         "v-list",

@@ -1,6 +1,7 @@
 <template>
   <v-navigation-drawer
     id="core-navigation-drawer"
+    class="sidebar-nav"
     v-model="drawer"
     :dark="barColor !== 'rgba(228, 226, 226, 1), rgba(255, 255, 255, 0.7)'"
     :expand-on-hover="expandOnHover"
@@ -19,7 +20,7 @@
       </v-list-item>
     </v-list>
 
-    <v-divider class="mb-2" />
+    <!-- <v-divider class="mb-2" /> -->
 
     <v-list
       expand

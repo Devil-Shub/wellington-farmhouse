@@ -186,7 +186,7 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("v-toolbar-title", {
-        staticClass: "hidden-sm-and-down font-weight-light",
+        staticClass: "hidden-sm-and-down font-weight-normal",
         domProps: { textContent: _vm._s(_vm.$route.name) }
       }),
       _vm._v(" "),
