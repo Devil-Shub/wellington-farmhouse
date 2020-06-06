@@ -11014,12 +11014,6 @@ a.text-dark:focus {
   box-shadow: none;
 }
 
-.v-menu__content {
-  top: 57px !important;
-  left: auto !important;
-  right: 20px;
-}
-
 .v-menu__content .header-right-menu {
   padding: 0;
 }
@@ -11046,5 +11040,79 @@ a.text-dark:focus {
   margin: 10px auto 0;
   padding: 0;
   color: #405f6e;
+}
+
+#app a {
+  color: #333;
+}
+
+#app .sidebar-nav {
+  background-color: #ebebeb;
+}
+
+#app .sidebar-nav .v-list {
+  padding-right: 0;
+}
+
+#app .sidebar-nav .v-list .v-list-item {
+  margin-bottom: 0;
+}
+
+#app .sidebar-nav .v-list .v-list-item.v-list-group__header .v-list-item__title {
+  font-weight: 500;
+  padding-left: 5px;
+}
+
+#app .sidebar-nav .v-list .v-list-group__header.v-list-item--active:before {
+  opacity: 0;
+}
+
+#app .sidebar-nav .v-list .v-list-item__icon {
+  display: none;
+}
+
+#app .sidebar-nav .v-list .v-list-group--no-action > .v-list-group__items > .v-list-item {
+  padding-left: 15px;
+  padding-right: 0;
+  min-height: auto;
+  cursor: default;
+  border-radius: 0;
+}
+
+#app .sidebar-nav .v-list .v-list-group--no-action > .v-list-group__items > .v-list-item:hover:before,
+#app .sidebar-nav .v-list .v-list-group--no-action > .v-list-group__items > .v-list-item:focus:before {
+  opacity: 0;
+}
+
+#app .sidebar-nav .v-list .v-list-group--no-action > .v-list-group__items > .v-list-item .v-list-item__content {
+  cursor: pointer;
+}
+
+#app .sidebar-nav .v-list .v-list-group--no-action > .v-list-group__items > .v-list-item .v-list-item__content:hover .v-list-item__title a {
+  background-color: #fff;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+
+#app .sidebar-nav .v-list .v-list-group--no-action > .v-list-group__items > .v-list-item .v-list-item__title a {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 25px;
+}
+
+#app .sidebar-nav .v-list .v-list-group--no-action > .v-list-group__items > .v-list-item .v-ripple__container {
+  display: none;
+}
+
+#app .sidebar-nav .v-list .v-list-item:not(.v-list-item--active):not(.v-list-item--disabled) {
+  color: #333 !important;
+}
+
+#app .sidebar-nav .v-list .v-list-group__items .v-list-item__content {
+  padding: 0;
+}
+
+#app .sidebar-nav .v-list .v-list-group__items .v-list-item__action {
+  display: none;
 }
 
