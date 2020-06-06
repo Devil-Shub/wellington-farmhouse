@@ -2,106 +2,39 @@
   <v-app id="inspire" class="my-app">
     <v-navigation-drawer class="side-nav" v-model="drawer" app clipped>
       <v-card class="mx-auto" width="300">
-        <v-list>
-          <v-list-item>
-            <v-list-item-icon>
-              <v-icon>mdi-home</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title>
-              <router-link to="/admin/dashboard" class="nav-item nav-link">Dashboard</router-link>
-            </v-list-item-title>
-          </v-list-item>
-
-          <v-list-group 
-	   prepend-icon="account_circle" 
-	   value="false"
-           no-action
-           key="Customer"
+	 <v-list>
+          <v-list-group
+            v-for="item in items"
+            :key="item.title"
+            v-model="item.active"
+            :prepend-icon="item.action"
+            no-action
           >
             <template v-slot:activator>
-              <v-list-item-title>Customer</v-list-item-title>
-            </template>
-          
-            <v-list-group no-action sub-group value="true">
-              <template v-slot:activator>
+              <v-list-item>
                 <v-list-item-content>
-                  <v-list-item-title>
-                    <router-link to="/admin/customer" class="nav-item nav-link">List</router-link>
-                  </v-list-item-title>
-               
-                  <v-list-item-title>
-                    <router-link to="/admin/customer/add" class="nav-item nav-link">Add Customer</router-link>
-                  </v-list-item-title>
+                  <v-list-item-title>{{ item.title }}</v-list-item-title>
                 </v-list-item-content>
-              </template>
-            </v-list-group>
-          </v-list-group>
-
-	
-	
-
-          <v-list-group 
-	   prepend-icon="account_circle" 
-	   value="false"
-           no-action
-           key="User"
-          >
-            <template v-slot:activator>
-              <v-list-item-title>Users</v-list-item-title>
+              </v-list-item>
             </template>
-          
-            <v-list-group no-action sub-group value="true">
-              <template v-slot:activator>
-                <v-list-item-content>
-                  <v-list-item-title>
-                    <router-link to="/admin/manager" class="nav-item nav-link">Manager</router-link>
-                  </v-list-item-title>
-                </v-list-item-content>
-              </template>
-            </v-list-group>
-          </v-list-group>
 
-          <v-list-item>
-            <v-list-item-icon>
-              <v-icon>mdi-home</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title>
-              <router-link to="/admin/services" class="nav-item nav-link">Services</router-link>
-            </v-list-item-title>
-          </v-list-item>
-          <v-list-item>
-            <v-list-item-icon>
-              <v-icon>mdi-home</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title>
-              <router-link to="/admin/truckdrivers" class="nav-item nav-link">Truck Drivers</router-link>
-            </v-list-item-title>
-          </v-list-item>
-               <v-list-item>
-            <v-list-item-icon>
-              <v-icon>mdi-home</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title>
-              <router-link to="/admin/trucks" class="nav-item nav-link">Trucks</router-link>
-            </v-list-item-title>
-          </v-list-item>
-                <v-list-item>
-            <v-list-item-icon>
-              <v-icon>mdi-home</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title>
-              <router-link to="/admin/skidsteers" class="nav-item nav-link">Skidsteer</router-link>
-            </v-list-item-title>
-          </v-list-item>
-          <v-list-item>
-            <v-list-item-icon>
-              <v-icon>mdi-home</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title>
-              <router-link to="/admin/settings" class="nav-item nav-link">Settings</router-link>
-            </v-list-item-title>
-          </v-list-item>
-        </v-list>
+            <v-list-item
+              v-for="subItem in item.items"
+              :key="subItem.title"
+              @click=""
+            >
+              <v-list-item-content>
+                <v-list-item-title>
+		<router-link :to="subItem.url" class="nav-item nav-link">{{ subItem.title }}</router-link>
+		</v-list-item-title>
+              </v-list-item-content>
+
+              <v-list-item-action>
+                <v-icon>{{ subItem.action }}</v-icon>
+              </v-list-item-action>
+            </v-list-item>
+          </v-list-group>
+        </v-list>	
       </v-card>
     </v-navigation-drawer>
 
@@ -165,6 +98,51 @@ export default {
     drawer: null,
     profileImage: '',
     baseUrl: environment.baseUrl,
+    items: [
+          {
+            action: 'local_activity',
+            title: 'Main',
+            active: true,
+            items: [
+              { title: 'Overview', url: 'dashboard' },
+              { title: 'Jobs', url: 'dashboard'  },
+              { title: 'Dispatches', url: 'dashboard'  },
+              { title: 'Services', url: 'services'  }
+            ]
+          },
+          {
+            action: 'local_activity',
+            title: 'Customer',
+            items: [
+              { title: 'Customer', url: 'customer'  },
+              { title: 'Customer Compnay', url: 'dashboard'  }
+            ]
+          },
+          {
+            action: 'local_activity',
+            title: 'Employee',
+            items: [
+              { title: 'Managers', url: 'manager' },
+	      { title: 'Drivers', url: 'driver' }
+            ]
+          },
+          {
+            action: 'local_activity',
+            title: 'Fleet',
+            items: [
+              { title: 'Truck', url: 'trucks' },
+	      { title: 'Skid', url: 'skidsteers' }
+            ]
+          },
+          {
+            action: 'local_activity',
+            title: 'Accounts',
+            items: [
+              { title: 'Accountings',url: 'dashboard' },
+              { title: 'Reports', url: 'dashboard' }
+            ]
+          }
+        ]
   }),
 
   created() {
