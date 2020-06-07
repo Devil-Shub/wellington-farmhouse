@@ -10,6 +10,8 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+var _name$props$data$data;
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -87,7 +89,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 // Utilities
 
-/* harmony default export */ __webpack_exports__["default"] = ({
+/* harmony default export */ __webpack_exports__["default"] = (_name$props$data$data = {
   name: 'DashboardCoreDrawer',
   props: {
     expandOnHover: {
@@ -97,94 +99,99 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
+      activeClass: 'active'
+    };
+  }
+}, _defineProperty(_name$props$data$data, "data", function data() {
+  return {
+    items: [{
+      action: 'local_activity',
+      title: 'Main',
+      active: true,
       items: [{
-        action: 'local_activity',
-        title: 'Main',
-        active: true,
-        items: [{
-          title: 'Overview',
-          url: '/admin/dashboard'
-        }, {
-          title: 'Jobs',
-          url: '/admin/dashboard'
-        }, {
-          title: 'Dispatches',
-          url: '/admin/dashboard'
-        }, {
-          title: 'Services',
-          url: '/admin/services'
-        }]
+        title: 'Overview',
+        url: '/admin/dashboard'
       }, {
-        action: 'local_activity',
-        title: 'Customer',
-        items: [{
-          title: 'Customer',
-          url: '/admin/customer'
-        }, {
-          title: 'Customer Compnay',
-          url: '/admin/dashboard'
-        }]
+        title: 'Jobs',
+        url: '/admin/dashboard'
       }, {
-        action: 'local_activity',
-        title: 'Employee',
-        items: [{
-          title: 'Managers',
-          url: '/admin/manager'
-        }, {
-          title: 'Drivers',
-          url: '/admin/truckdrivers'
-        }]
+        title: 'Dispatches',
+        url: '/admin/dashboard'
       }, {
-        action: 'local_activity',
-        title: 'Fleet',
-        items: [{
-          title: 'Truck',
-          url: '/admin/trucks'
-        }, {
-          title: 'Skid',
-          url: '/admin/skidsteers'
-        }]
-      }, {
-        action: 'local_activity',
-        title: 'Accounts',
-        items: [{
-          title: 'Accountings',
-          url: '/admin/dashboard'
-        }, {
-          title: 'Reports',
-          url: '/admin/dashboard'
-        }]
+        title: 'Services',
+        url: '/admin/services'
       }]
+    }, {
+      action: 'local_activity',
+      title: 'Customer',
+      items: [{
+        title: 'Customer',
+        url: '/admin/customer'
+      }, {
+        title: 'Customer Compnay',
+        url: '/admin/dashboard'
+      }]
+    }, {
+      action: 'local_activity',
+      title: 'Employee',
+      items: [{
+        title: 'Managers',
+        url: '/admin/manager'
+      }, {
+        title: 'Drivers',
+        url: '/admin/truckdrivers'
+      }]
+    }, {
+      action: 'local_activity',
+      title: 'Fleet',
+      items: [{
+        title: 'Truck',
+        url: '/admin/trucks'
+      }, {
+        title: 'Skid',
+        url: '/admin/skidsteers'
+      }]
+    }, {
+      action: 'local_activity',
+      title: 'Accounts',
+      items: [{
+        title: 'Accountings',
+        url: '/admin/dashboard'
+      }, {
+        title: 'Reports',
+        url: '/admin/dashboard'
+      }]
+    }]
+  };
+}), _defineProperty(_name$props$data$data, "computed", _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['barColor', 'barImage'])), {}, {
+  drawer: {
+    get: function get() {
+      return this.$store.state.drawer;
+    },
+    set: function set(val) {
+      this.$store.commit('SET_DRAWER', val);
+    }
+  },
+  computedItems: function computedItems() {
+    return this.items.map(this.mapItem);
+  },
+  profile: function profile() {
+    return {
+      avatar: true // title: this.$t('avatar'),
+
     };
   },
-  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['barColor', 'barImage'])), {}, {
-    drawer: {
-      get: function get() {
-        return this.$store.state.drawer;
-      },
-      set: function set(val) {
-        this.$store.commit('SET_DRAWER', val);
-      }
-    },
-    computedItems: function computedItems() {
-      return this.items.map(this.mapItem);
-    },
-    profile: function profile() {
-      return {
-        avatar: true // title: this.$t('avatar'),
-
-      };
-    }
-  }),
-  methods: {
-    mapItem: function mapItem(item) {
-      return _objectSpread(_objectSpread({}, item), {}, {
-        children: item.children ? item.children.map(this.mapItem) : undefined //title: this.$t(item.title),
-
-      });
-    }
+  currentPage: function currentPage() {
+    return this.$route.path;
   }
-});
+})), _defineProperty(_name$props$data$data, "methods", {
+  mapItem: function mapItem(item) {
+    return _objectSpread(_objectSpread({}, item), {}, {
+      children: item.children ? item.children.map(this.mapItem) : undefined //title: this.$t(item.title),
+
+    });
+  }
+}), _name$props$data$data);
 
 /***/ }),
 
@@ -365,6 +372,14 @@ var render = function() {
                           [
                             _c(
                               "v-list-item-title",
+                              {
+                                class: [
+                                  _vm.currentPage.includes("dashboard")
+                                    ? _vm.activeClass
+                                    : "",
+                                  "nav-item-added"
+                                ]
+                              },
                               [
                                 _c(
                                   "router-link",
