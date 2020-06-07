@@ -14,9 +14,10 @@
                 <tr>
                   <th class="text-left">Image</th>
                   <th class="text-left">Service Name</th>
+                  <th class="text-left">Service Rate</th>
                   <th class="text-left">Price</th>
-  <th class="text-left">type</th>
-<th class="text-left">time</th>
+		<th class="text-left">type</th>
+		<th class="text-left">time</th>
                   <th class="text-left">Descriptions</th>
                   <th class="text-left">Action</th>
                 </tr>
@@ -29,6 +30,8 @@
                     </div>
                   </td>
                   <td>{{ item.service_name }}</td>
+                  <td v-if="item.service_rate == 1">Per Load</td>
+                <td v-if="item.service_rate == 2">Round</td>
                   <td>${{ item.price }}</td>
 		<td v-if="item.slot_type == 1">Morning</td>
                 <td v-if="item.slot_type == 2">Afternoon</td>
@@ -95,7 +98,6 @@ export default {
     });
   },
   methods: {
-    Action() {},
     Delete(e) {
       if (e) {
         jobService.Delete(e).then(response => {

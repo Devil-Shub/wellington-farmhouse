@@ -47,10 +47,10 @@ class ServicesController extends Controller
                 'price' => $request->price,
                 'description' => $request->description,
                 'service_image' => $request->service_image,
+                'service_rate' => $request->service_rate,
                 'slot_type' => $request->slot_type,
                 'slot_time' => json_encode($request->slot_time),
             ]);
-         
             //save service
             $service->save();
          
@@ -97,12 +97,15 @@ class ServicesController extends Controller
         }
 
         try {
-            //create new user
+            //update service
             Service::whereId($request->service_id)->update([
                 'service_name' => $request->service_name,
                 'price' => $request->price,
                 'description' => $request->description,
-                 'service_image' => $request->service_image
+		'service_rate' => $request->service_rate,
+                'slot_type' => $request->slot_type,
+                'slot_time' => json_encode($request->slot_time),
+                'service_image' => $request->service_image
             ]);
 
             //return success response

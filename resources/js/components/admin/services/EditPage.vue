@@ -59,14 +59,8 @@
                 ></v-checkbox>
               </template>
             </v-col>
-          </v-form>
-        </v-col>
-      </v-row>
-    </v-container>
-  </v-app>
-</template>
+      
     
-	</v-col>
             <v-col cols="12" md="12">
               <v-text-field
                 type="number"
@@ -89,6 +83,13 @@
                 required
               ></v-textarea>
             </v-col>
+	<v-col cols="12" md="12">
+             <header>Service Rate</header>
+	   <v-radio-group  row v-model="editForm.service_rate"  :mandatory="false" required :rules="[v => !!v || 'Service rate is required']">
+	      <v-radio label="per Load" value="perload" ></v-radio>
+	      <v-radio label="Round" value="round"></v-radio>
+	    </v-radio-group>
+	</v-col>
             <v-btn color="success" class="mr-4" @click="update">Update</v-btn>
           </v-form>
         </v-col>
@@ -118,6 +119,7 @@ export default {
         price: "",
         description: "",
         service_image: "",
+	service_rate: "",
         slot_type: "",
         slot_time: []
       },
@@ -166,6 +168,13 @@ export default {
         } else {
           this.editForm.slot_type = "afternoon";
         }
+
+       if (response.data.service_rate == 1) {
+          this.editForm.service_rate = "perload";
+        } else {
+          this.editForm.service_rate = "round";
+        }
+
         this.getTime();
       } else {
         router.push("/admin/services");
@@ -203,6 +212,16 @@ export default {
       this.editForm.service_image = file.serverId;
     },
     update() {
+     if (this.editForm.slot_type == "morning") {
+        this.editForm.service_rate = 1;
+      } else {
+        this.editForm.service_rate = 2;
+      }
+      if (this.editForm.service_rate == "perload") {
+        this.editForm.service_rate = 1;
+      } else {
+        this.editForm.service_rate = 2;
+      }
       if (this.$refs.form.validate()) {
         jobService.edit(this.editForm).then(response => {
           //handle response
