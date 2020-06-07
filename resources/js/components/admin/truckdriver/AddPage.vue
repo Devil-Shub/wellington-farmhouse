@@ -37,8 +37,63 @@
                     required
                   ></v-text-field>
                 </v-col>
+	    <v-col cols="12" md="12">
+                  <v-text-field
+                    v-model="addForm.driver_address"
+                    :rules="[v => !!v || 'Address is required']"
+                    label="Address"
+                    required
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12" md="12">
+                  <v-text-field
+                    v-model="addForm.driver_city"
+                    :rules="[v => !!v || 'City is required']"
+                    label="City"
+                    required
+                  ></v-text-field>
+                </v-col>
 
                 <v-col cols="12" md="12">
+                  <v-text-field
+                    v-model="addForm.driver_state"
+                    :rules="[v => !!v || 'State is required']"
+                    label="State"
+                    required
+                  ></v-text-field>
+                </v-col>
+ <v-col cols="12" md="12">
+                  <v-text-field
+                    v-model="addForm.driver_country"
+                    :rules="[v => !!v || 'Country is required']"
+                    label="Country"
+                    required
+                  ></v-text-field>
+                </v-col>
+             
+             
+              </v-col>
+
+              <v-col cols="5" md="5">
+   <v-col cols="12" md="12">
+                  <v-text-field
+                    v-model="addForm.driver_zipcode"
+                    :rules="[v => !!v || 'Zip code is required']"
+                    label="zipcode"
+                    required
+                  ></v-text-field>
+                </v-col>
+              <v-col cols="12" md="12">
+                  <v-text-field
+                    v-model="addForm.driver_phone"
+                     :rules="phoneRules"
+                    label="Mobile Number"
+                    required
+                    maxlength=10
+
+                  ></v-text-field>
+                </v-col>
+              <v-col cols="12" md="12">
                   <v-text-field
                     v-model="addForm.driver_licence"
                     :rules="[v => !!v || 'driver licence number is required']"
@@ -74,7 +129,7 @@
                     v-model="addForm.salary_type"
                     :rules="[v => !!v || 'Field is required']"
                   >
-                    <v-radio label="Per Hour" value="0"></v-radio>
+                    <v-radio label="Per Hours" value="0"></v-radio>
                     <v-radio label="Per Load" value="1"></v-radio>
                   </v-radio-group>
                 </v-col>
@@ -86,62 +141,6 @@
                     :rules="salaryRules"
                   ></v-text-field>
                 </v-col>
-              </v-col>
-
-              <v-col cols="5" md="5">
-                <v-col cols="12" md="12">
-                  <v-text-field
-                    v-model="addForm.driver_address"
-                    :rules="[v => !!v || 'Address is required']"
-                    label="Address"
-                    required
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12" md="12">
-                  <v-text-field
-                    v-model="addForm.driver_city"
-                    :rules="[v => !!v || 'City is required']"
-                    label="City"
-                    required
-                  ></v-text-field>
-                </v-col>
-
-                <v-col cols="12" md="12">
-                  <v-text-field
-                    v-model="addForm.driver_state"
-                    :rules="[v => !!v || 'State is required']"
-                    label="State"
-                    required
-                  ></v-text-field>
-                </v-col>
-
-                <v-col cols="12" md="12">
-                  <v-text-field
-                    v-model="addForm.driver_country"
-                    :rules="[v => !!v || 'Country is required']"
-                    label="Country"
-                    required
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12" md="12">
-                  <v-text-field
-                    v-model="addForm.driver_zipcode"
-                    :rules="[v => !!v || 'Zip code is required']"
-                    label="zipcode"
-                    required
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12" md="12">
-                  <v-text-field
-                    v-model="addForm.driver_phone"
-                     :rules="phoneRules"
-                    label="Mobile Number"
-                    required
-                    maxlength=10
-
-                  ></v-text-field>
-                </v-col>
-
                 <v-col cols="12" md="12">
                   <file-pond
                     name="uploadImage"

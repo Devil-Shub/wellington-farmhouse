@@ -50,13 +50,7 @@
             </v-col>
             <v-col cols="12" md="12" v-if="timeSlots.length">
               <template v-for="timeSlot in timeSlots">
-                <v-checkbox
-                  row
-                  v-model="editForm.slot_time"
-                  :value="timeSlot.id"
-                  class="mx-2"
-                  :label="timeSlot.slot_start+'-'+timeSlot.slot_end"
-                ></v-checkbox>
+               <v-checkbox v-model="editForm.slot_time" :value="timeSlot.id" class="mx-2" :label="timeSlot.slot_start+'-'+timeSlot.slot_end"></v-checkbox>
               </template>
             </v-col>
       

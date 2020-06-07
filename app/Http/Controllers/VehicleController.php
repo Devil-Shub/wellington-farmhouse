@@ -50,7 +50,8 @@ class VehicleController extends Controller
                 'chaase_number' => $request->chaase_number,
                 'killometer' => $request->total_killometer,
                 // 'capacity' => $request->insurance_date,
-                'document' => $request->document
+                'document' => $request->document,
+		'status' => $request->is_active
             ]);
             //save vehicle
             if($vechicle->save()) {
@@ -118,7 +119,8 @@ class VehicleController extends Controller
                 'truck_number' => $request->truck_number,
                 'chaase_number' => $request->chaase_number,
                 'killometer' => $request->total_killometer,
-                'document' => $request->document
+                'document' => $request->document,
+		'status' => $request->is_active
             ]);
            
             //save insurance details

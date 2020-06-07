@@ -17,7 +17,7 @@
                   <th class="text-left">Address</th>
                   <th class="text-left">Contact Number</th>
                   <th class="text-left">Email Address</th>
-                  <!-- <th class="text-left">Active</th> -->
+                  <th class="text-left">Active</th>
                   <th class="text-left">Action</th>
                 </tr>
               </thead>
@@ -32,31 +32,33 @@
                       <img v-if="!item.user_image" src="/images/avatar.png" alt="driver" />
                     </div>
                   </td>
-                  <td>{{ item.first_name }} {{ item.last_name }}</td>
-                  <td>{{ item.address }}</td>
+                  <td>
+                   <router-link :to="'/admin/manager/view/' + item.id" class="nav-item nav-link">
+                     {{ item.first_name }} {{ item.last_name }}
+                    </router-link>
+	           </td>
+                  <td>{{ item.address }} {{ item.city }} {{ item.state }} {{ item.country }} {{ item.zip_code }}</td>
                   <td>{{ item.phone }}</td>
                   <td>{{ item.email }}</td>
-                  <!-- <td>
+                   <td>
                     <v-chip
                       v-if="!item.is_active"
                       class="ma-2"
                       color="red"
                       text-color="white"
-                    >Deactivate</v-chip>
+                    >No</v-chip>
                     <v-chip
                       v-if="item.is_active"
                       class="ma-2"
                       color="green"
                       text-color="white"
-                    >Activate</v-chip>
-                  </td> -->
+                    >Yes</v-chip>
+                  </td>
                   <td>
-                    <router-link :to="'/admin/manager/view/' + item.id" class="nav-item nav-link">
+                    <router-link :to="'/admin/manager/edit/' + item.id" class="nav-item nav-link">
                       <user-icon size="1.5x" class="custom-class"></user-icon>
                     </router-link>
-                    <router-link :to="'/admin/manager/edit/' + item.id" class="nav-item nav-link">
-                      <edit-icon size="1.5x" class="custom-class"></edit-icon>
-                    </router-link>
+                  
                     <v-btn color="blue darken-1" text @click="Delete(item.id)">
                       <trash-icon size="1.5x" class="custom-class"></trash-icon>
                     </v-btn>

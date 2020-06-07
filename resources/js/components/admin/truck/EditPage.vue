@@ -116,6 +116,12 @@
                     <img :src="avatar" alt="John" style="height:200px;" />
                   </div>
                 </v-col>
+ <v-col cols="12" md="12">
+		 <v-switch
+		      v-model="addForm.is_active"
+		      label="Truck Available"
+		    ></v-switch>
+		</v-col>
               </v-col>
 
               <v-col cols="12" md="12">
@@ -202,6 +208,7 @@ export default {
         this.addForm.insurance_number = response.data.vehicle_insurance.insurance_number;
         this.addForm.total_killometer = response.data.killometer;
         this.addForm.document = response.data.document;
+        this.addForm.is_active = response.data.status;
         this.date = new Date(response.data.vehicle_insurance.insurance_date).toISOString().substr(0, 10);
         this.date1 = new Date(response.data.vehicle_insurance.insurance_expiry).toISOString().substr(0, 10);
         if (response.data.document) {
