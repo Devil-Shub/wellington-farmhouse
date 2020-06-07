@@ -50,7 +50,13 @@
             </v-col>
             <v-col cols="12" md="12" v-if="timeSlots.length">
               <template v-for="timeSlot in timeSlots">
-               <v-checkbox v-model="editForm.slot_time" :value="timeSlot.id" class="mx-2" :label="timeSlot.slot_start+'-'+timeSlot.slot_end"></v-checkbox>
+                <input 
+                type="checkbox"
+                @click="setTimeSlot(timeSlot.id)"
+                :value="timeSlot.id" 
+                :checked="editForm.slot_time.includes(timeSlot.id) ? true:false"
+                class="mx-2">{{timeSlot.slot_start+'-'+timeSlot.slot_end}}
+               <!-- <v-checkbox v-model="editForm.slot_time" :value="timeSlot.id" class="mx-2" :label="timeSlot.slot_start+'-'+timeSlot.slot_end"></v-checkbox> -->
               </template>
             </v-col>
       
@@ -156,7 +162,7 @@ export default {
         this.editForm.price = response.data.price;
         this.editForm.description = response.data.description;
         this.editForm.service_image = response.data.service_image;
-        this.editForm.slot_time = response.data.slot_time;
+        this.editForm.slot_time = JSON.parse(response.data.slot_time);
         if (response.data.slot_type == 1) {
           this.editForm.slot_type = "morning";
         } else {
@@ -182,6 +188,10 @@ export default {
   },
   methods: {
     getTime() {
+      //make previous selection blank if tab changed
+      if(this.timeSlots.length > 0) {
+        this.editForm.slot_time = [];
+      }
       //make empty initially
       this.timeSlots = [];
       if (this.editForm.slot_type == "morning") {
@@ -202,14 +212,24 @@ export default {
         }
       });
     },
+    //set time slow
+    setTimeSlot(timeSlotId){
+      console.log(this.editForm.slot_time);
+      var findIndex = this.editForm.slot_time.indexOf(timeSlotId);
+      if(findIndex > -1) {
+        this.editForm.slot_time.splice(findIndex, 1);
+      } else {
+        this.editForm.slot_time.push(timeSlotId);
+      }
+    },
     handleProcessFile: function(error, file) {
       this.editForm.service_image = file.serverId;
     },
     update() {
      if (this.editForm.slot_type == "morning") {
-        this.editForm.service_rate = 1;
+        this.editForm.slot_type = 1;
       } else {
-        this.editForm.service_rate = 2;
+        this.editForm.slot_type = 2;
       }
       if (this.editForm.service_rate == "perload") {
         this.editForm.service_rate = 1;

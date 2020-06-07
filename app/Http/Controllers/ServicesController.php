@@ -24,8 +24,8 @@ class ServicesController extends Controller
             'service_name' => 'required|string',
             'price' => 'required',
             'description' => 'required',
-	    'slot_type' => 'required',
-	    'slot_time' => 'required',
+            'slot_type' => 'required',
+            'slot_time' => 'required',
         ]);
 
         if ($validator->fails()) {
