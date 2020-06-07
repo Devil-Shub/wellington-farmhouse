@@ -23,15 +23,8 @@
                   <th class="text-left">Salary Rate</th>
                   <th class="text-left">Total Amount</th>
                   <th class="text-left">Active</th>
-<<<<<<< HEAD
-                  <th class="text-left">Licence</th>
-                  <th class="text-left">expiry_date</th>
-                  <th class="text-left">salary_type</th>
-                  <th class="text-left">Action</th>
-=======
                   <th class="text-left">Edit Driver</th>
                   <th class="text-left">Delete Driver</th>
->>>>>>> 58195e84cb4d442d823617cb34d95f0cdaeba0b8
                 </tr>
               </thead>
               <tbody>
