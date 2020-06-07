@@ -23,9 +23,15 @@
 	           <v-radio label="Afternoon" value="2"></v-radio>
 	           </v-radio-group>
 	          </v-col>
+
 	          <v-col class="time-slots pt-0" cols="12" md="12" v-if="timeSlots.length">
-              <template v-for="timeSlot in timeSlots">
-              <v-checkbox v-model="addForm.slot_time" :value="timeSlot.id" class="mx-2" :label="timeSlot.slot_start+'-'+timeSlot.slot_end"></v-checkbox>
+              <template v-for="(timeSlot, index) in timeSlots">
+                <input 
+                type="checkbox"
+                @click="setTimeSlot(timeSlot.id, index)"
+                :value="timeSlot.id" 
+                class="mx-2">{{timeSlot.slot_start+'-'+timeSlot.slot_end}}
+              <!-- <v-checkbox v-model="addForm.slot_time" :value="timeSlot.id" class="mx-2" :label="timeSlot.slot_start+'-'+timeSlot.slot_end"></v-checkbox> -->
               </template>
 	          </v-col>
             <v-col cols="12" md="12">
@@ -66,7 +72,7 @@
 		<v-col cols="12" md="12">
              <header>Service Rate</header>
 	   <v-radio-group  row v-model="addForm.service_rate"  :mandatory="false" required :rules="[v => !!v || 'Service rate is required']">
-	      <v-radio label="per Load" value="1" ></v-radio>
+	      <v-radio label="Per Load" value="1" ></v-radio>
 	      <v-radio label="Round" value="2"></v-radio>
 	    </v-radio-group>
 	</v-col>
@@ -99,7 +105,7 @@ export default {
         description: "",
         service_image: "",
         service_rate: '',
-	slot_type: '',
+	      slot_type: '',
         slot_time:[],
       },
       timeSlots: [],
@@ -136,6 +142,10 @@ export default {
   created() {},
   methods: {
     getTime(){
+      //make previous selection blank if tab changed
+      if(this.timeSlots.length > 0) {
+        this.addForm.slot_time = [];
+      }
       this.timeSlots = [];
      jobService.getTimeSlots(this.addForm.slot_type).then(response => {
           //handle response
@@ -149,6 +159,15 @@ export default {
             });
           }
         });
+    },
+    //set time slow
+    setTimeSlot(timeSlotId, index){
+      var findIndex = this.addForm.slot_time.indexOf(timeSlotId);
+      if(findIndex > -1) {
+        this.addForm.slot_time.splice(findIndex, 1);
+      } else {
+        this.addForm.slot_time.push(timeSlotId);
+      }
     },
     handleProcessFile: function(error, file) {
       this.addForm.service_image = file.serverId;
