@@ -67,6 +67,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
  // Components
@@ -281,6 +284,21 @@ var render = function() {
                                       attrs: { to: "/admin/admin/add" }
                                     },
                                     [_vm._v("Add Admin")]
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-list-item-title",
+                                [
+                                  _c(
+                                    "router-link",
+                                    {
+                                      staticClass: "nav-item nav-link",
+                                      attrs: { to: "/admin/admin" }
+                                    },
+                                    [_vm._v("List Admin")]
                                   )
                                 ],
                                 1

@@ -31,6 +31,9 @@
                   <router-link to="/admin/admin/add" class="nav-item nav-link">Add Admin</router-link>
                 </v-list-item-title>
                 <v-list-item-title>
+                  <router-link to="/admin/admin" class="nav-item nav-link">List Admin</router-link>
+                </v-list-item-title>
+                <v-list-item-title>
                   <button type="button" @click="logout" class="nav-item nav-link">Logout</button>
                 </v-list-item-title>
               </v-list-item>
