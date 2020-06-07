@@ -26,7 +26,7 @@
 
 	          <v-col class="time-slots pt-0" cols="12" md="12" v-if="timeSlots.length">
               <template v-for="(timeSlot, index) in timeSlots">
-              <span class="checkbox">
+              <span class="checkbox" v-bind:class="[addForm.slot_time.includes(timeSlot.id) ? 'activeClass' : '']">
                 <input 
                 type="checkbox"
                 @click="setTimeSlot(timeSlot.id, index)"
