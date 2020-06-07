@@ -407,6 +407,11 @@ $hover-white: #fff;
             border: 1px solid #ccc;
             padding: 4px 6px;
             margin-right: 15px;
+            cursor: pointer;
+            &.activeClass {
+              background-color: #b9b9b9;
+              color: #fff;
+            }
             input[type="checkbox"] {
               opacity: 0;
               width: 0;
@@ -419,12 +424,13 @@ $hover-white: #fff;
             }
             label {
               position: relative;
-              padding-left: 22px;
+              padding-left: 0;
               display: inline-block;
+              cursor: pointer;
               &:before, &:after {
                 content: "";
                 position: absolute;
-                display: inline-block;
+                display: none;
               }
               &:before {
                 height: 16px;

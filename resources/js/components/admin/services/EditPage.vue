@@ -48,14 +48,17 @@
                 <v-radio label="Afternoon" value="afternoon"></v-radio>
               </v-radio-group>
             </v-col>
-            <v-col cols="12" md="12" v-if="timeSlots.length">
+            <v-col class="time-slots pt-0" cols="12" md="12" v-if="timeSlots.length">
               <template v-for="timeSlot in timeSlots">
+              <span class="checkbox" v-bind:class="[editForm.slot_time.includes(timeSlot.id) ? 'activeClass' : '']">
                 <input 
                 type="checkbox"
                 @click="setTimeSlot(timeSlot.id)"
-                :value="timeSlot.id" 
-                :checked="editForm.slot_time.includes(timeSlot.id) ? true:false"
-                class="mx-2">{{timeSlot.slot_start+'-'+timeSlot.slot_end}}
+                :value="timeSlot.id"
+                :id="timeSlot.id"
+                :checked="editForm.slot_time.includes(timeSlot.id) ? true:false">
+                <label v-bind:for="timeSlot.id">{{timeSlot.slot_start+'-'+timeSlot.slot_end}}</label>
+              </span>
                <!-- <v-checkbox v-model="editForm.slot_time" :value="timeSlot.id" class="mx-2" :label="timeSlot.slot_start+'-'+timeSlot.slot_end"></v-checkbox> -->
               </template>
             </v-col>
