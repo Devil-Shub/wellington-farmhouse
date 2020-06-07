@@ -50,7 +50,7 @@
               @click=""
             >
               <v-list-item-content>
-                <v-list-item-title :class="[currentPage.includes('dashboard') ? activeClass: '','nav-item-added']">
+                <v-list-item-title>
 		<router-link :to="subItem.url" class="nav-item nav-link">{{ subItem.title }}</router-link>
 		</v-list-item-title>
               </v-list-item-content>
@@ -78,11 +78,6 @@
         type: Boolean,
         default: false,
       },
-    },
-    data(){
-      return {
-        activeClass: 'active',
-      };
     },
 
     data: () => ({
@@ -151,9 +146,6 @@
           avatar: true,
          // title: this.$t('avatar'),
         }
-      },
-      currentPage(){
-        return this.$route.path;
       },
     },
 

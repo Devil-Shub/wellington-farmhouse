@@ -26,11 +26,13 @@
 
 	          <v-col class="time-slots pt-0" cols="12" md="12" v-if="timeSlots.length">
               <template v-for="(timeSlot, index) in timeSlots">
+              <span class="checkbox">
                 <input 
                 type="checkbox"
                 @click="setTimeSlot(timeSlot.id, index)"
-                :value="timeSlot.id" 
-                class="mx-2">{{timeSlot.slot_start+'-'+timeSlot.slot_end}}
+                :value="timeSlot.id"
+                :id="timeSlot.id"><label v-bind:for="timeSlot.id">{{timeSlot.slot_start+'-'+timeSlot.slot_end}}</label>
+              </span>
               <!-- <v-checkbox v-model="addForm.slot_time" :value="timeSlot.id" class="mx-2" :label="timeSlot.slot_start+'-'+timeSlot.slot_end"></v-checkbox> -->
               </template>
 	          </v-col>

@@ -11272,43 +11272,53 @@ a.text-dark:focus {
   min-height: auto;
 }
 
-#app main.v-content form .time-slots .v-input {
-  width: 105px;
-  flex: none;
-  display: inline-block;
+#app main.v-content form .time-slots .checkbox {
   border: 1px solid #ccc;
-  padding-top: 3px;
+  padding: 4px 6px;
+  margin-right: 15px;
 }
 
-#app main.v-content form .time-slots .v-input.v-input--is-label-active {
-  background-color: #b9b9b9;
+#app main.v-content form .time-slots .checkbox input[type=checkbox] {
+  opacity: 0;
+  width: 0;
 }
 
-#app main.v-content form .time-slots .v-input.v-input--is-label-active .v-input__slot .v-label {
-  color: #fff;
+#app main.v-content form .time-slots .checkbox input[type=checkbox] + label::after {
+  content: none;
 }
 
-#app main.v-content form .time-slots .v-input:first-of-type {
-  margin-left: 0 !important;
+#app main.v-content form .time-slots .checkbox input[type=checkbox]:checked + label::after {
+  content: "";
 }
 
-#app main.v-content form .time-slots .v-input .v-input__slot {
-  margin-bottom: 0;
-  text-align: center;
+#app main.v-content form .time-slots .checkbox label {
+  position: relative;
+  padding-left: 22px;
+  display: inline-block;
 }
 
-#app main.v-content form .time-slots .v-input .v-input__slot .v-label {
-  margin-bottom: 0;
-  padding: 0 5px;
-  display: block;
+#app main.v-content form .time-slots .checkbox label:before,
+#app main.v-content form .time-slots .checkbox label:after {
+  content: "";
+  position: absolute;
+  display: inline-block;
 }
 
-#app main.v-content form .time-slots .v-input .v-icon,
-#app main.v-content form .time-slots .v-input input[role=checkbox],
-#app main.v-content form .time-slots .v-input .v-input--selection-controls__ripple,
-#app main.v-content form .time-slots .v-input .v-input--selection-controls__input {
-  visibility: hidden;
-  width: 0 !important;
-  margin: 0;
+#app main.v-content form .time-slots .checkbox label:before {
+  height: 16px;
+  width: 16px;
+  border: 1px solid;
+  left: 0px;
+  top: 3px;
+}
+
+#app main.v-content form .time-slots .checkbox label:after {
+  height: 5px;
+  width: 9px;
+  border-left: 2px solid;
+  border-bottom: 2px solid;
+  transform: rotate(-45deg);
+  left: 4px;
+  top: 7px;
 }
 
