@@ -30,7 +30,7 @@
 
             <button type="button" @click="AuthProvider('google')">Google</button>
 
-            <button type="button" @click="AuthProvider('facebook')">Facebook</button>
+            <!-- <button type="button" @click="AuthProvider('facebook')">Facebook</button> -->
           </v-form>
         </v-col>
       </v-row>
@@ -125,6 +125,9 @@ name: "login",
               // all other options may go here
             });
 
+            //store into local storage
+            localStorage.setItem("currentUser", JSON.stringify(response.data));
+            //redirect now
             router.push("/admin/dashboard");
           }
         })

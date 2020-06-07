@@ -14,8 +14,8 @@
       <thead>
         <tr>
         <th class="text-left">Company</th>
-        <th class="text-left">truck number</th>
-        <th class="text-left">chassis number</th>
+        <th class="text-left">Truck number</th>
+        <th class="text-left">Chassis number</th>
         <th class="text-left">Total Km</th>
         <th class="text-left">Service Details</th>
         <th class="text-left">Documents</th>
