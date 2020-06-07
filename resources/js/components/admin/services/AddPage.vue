@@ -3,46 +3,31 @@
     <v-container>
       <v-row>
         <v-col cols="12" md="12">
-          <h2>Add Service</h2>
+          <h4>Add Service</h4>
         </v-col>
 
-        <v-col cols="12" md="12">
+        <v-col cols="12" md="12" class="pl-0">
           <v-form ref="form" v-model="valid" lazy-validation>
-            <v-col cols="12" md="12">
-              <file-pond
-                name="uploadImage"
-                ref="pond"
-                label-idle="Drop files here..."
-                allow-multiple="false"
-                v-bind:server="serverOptions"
-                v-bind:files="myFiles"
-                v-on:processfile="handleProcessFile"
-        allow-file-type-validation="true"
-        accepted-file-types="image/jpeg, image/png"
-              />
-            </v-col>
             <v-col cols="12" md="12">
               <v-text-field
                 v-model="addForm.service_name"
                 label="Service name"
                 required
-		:rules="[v => !!v || 'Service name is required']"
-              ></v-text-field>
+		            :rules="[v => !!v || 'Service name is required']">
+              </v-text-field>
             </v-col>
-	<v-col cols="12" md="12">
+	          <v-col cols="12" md="12">
              <header>Service Time Period</header>
-	   <v-radio-group  row v-model="addForm.slot_type" @change="getTime()" :mandatory="false" required :rules="[v => !!v || 'Service time period is required']">
-	      <v-radio label="Morning" value="1" ></v-radio>
-	      <v-radio label="Afternoon" value="2"></v-radio>
-	    </v-radio-group>
-	</v-col>
-	<v-col cols="12" md="12" v-if="timeSlots.length">
-	<template v-for="timeSlot in timeSlots">
-      <v-checkbox v-model="addForm.slot_time" :value="timeSlot.id" class="mx-2" :label="timeSlot.slot_start+'-'+timeSlot.slot_end"></v-checkbox>
-</template>
-    
-	</v-col>
-
+	           <v-radio-group  row v-model="addForm.slot_type" @change="getTime()" :mandatory="false" required :rules="[v => !!v || 'Service time period is required']">
+	           <v-radio label="Morning" value="1" ></v-radio>
+	           <v-radio label="Afternoon" value="2"></v-radio>
+	           </v-radio-group>
+	          </v-col>
+	          <v-col class="time-slots pt-0" cols="12" md="12" v-if="timeSlots.length">
+              <template v-for="timeSlot in timeSlots">
+              <v-checkbox v-model="addForm.slot_time" :value="timeSlot.id" class="mx-2" :label="timeSlot.slot_start+'-'+timeSlot.slot_end"></v-checkbox>
+              </template>
+	          </v-col>
             <v-col cols="12" md="12">
               <v-text-field
                 type="number"
@@ -55,7 +40,7 @@
               ></v-text-field>
             </v-col>
 
-            <v-col cols="12" md="12">
+            <v-col cols="12" md="12" class="textarea-parent">
               <v-textarea
                 clearable
                 clear-icon="cancel"
@@ -64,6 +49,18 @@
                 label="Description"
                 required
               ></v-textarea>
+            </v-col>
+            <v-col cols="12" md="12">
+              <file-pond
+                name="uploadImage"
+                ref="pond"
+                label-idle="Drop files here..."
+                allow-multiple="false"
+                v-bind:server="serverOptions"
+                v-bind:files="myFiles"
+                v-on:processfile="handleProcessFile"
+                allow-file-type-validation="true"
+                accepted-file-types="image/jpeg, image/png"/>
             </v-col>
 
             <v-btn color="success" class="mr-4" @click="save">Submit</v-btn>
