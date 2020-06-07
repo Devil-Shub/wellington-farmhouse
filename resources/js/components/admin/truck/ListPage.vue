@@ -13,25 +13,27 @@
     <template v-slot:default>
       <thead>
         <tr>
-        <th class="text-left">Company Name</th>
-        <th class="text-left">truck_number</th>
-        <th class="text-left">chaase_number</th>
-        <th class="text-left">insurance_number</th>
-   <th class="text-left">Service Details</th>
-        <th class="text-left">Action</th>
-          
-        
+        <th class="text-left">Company</th>
+        <th class="text-left">truck number</th>
+        <th class="text-left">chassis number</th>
+        <th class="text-left">Total Km</th>
+        <th class="text-left">Service Details</th>
+        <th class="text-left">Documents</th>
+        <th class="text-left">Status</th>
+        <th class="text-left">Edit</th>
+        <th class="text-left">Delete</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="item in trucks" :key="item.name">
-          <td>{{item.company_name}}</td>
-          <td>{{item.truck_number}}</td>
-          <td>{{item.chaase_number}}</td>
-          <td>{{item.vehicle_insurance.insurance_number}}</td>
-          <td>
-              <router-link :to="'/admin/truck/service/' + item.id" class="nav-item nav-link">View Service</router-link>
-          </td>
+	<td><router-link :to="'/admin/truck/view/' + item.id" class="nav-item nav-link">{{item.company_name}}</router-link></td>
+	<td>{{item.truck_number}}</td>
+	<td>{{item.chaase_number}}</td>
+	<td>{{item.killometer}}</td>
+        <td> <router-link :to="'/admin/truck/service/' + item.id" class="nav-item nav-link">View Service</router-link></td>
+        <td>View Documents</td>
+	<td v-if="item.status == 1">Available</td>
+	<td v-if="item.status == 0">Unavailable</td>
           <td class="action-col"> 
             <!-- <router-link :to="'/admin/truck/view/' + item.id" class="nav-item nav-link"><user-icon size="1.5x" class="custom-class"></user-icon></router-link> -->
             <router-link :to="'/admin/truck/edit/' + item.id" class="nav-item nav-link">

@@ -3,22 +3,15 @@
     <v-container>
       <v-row>
         <v-col cols="12" md="12">
-          <h2>Edit manager</h2>
-        </v-col>
-        <v-col cols="12" md="12">
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-row>
-              <v-col cols="6" md="6">
-  <div class="v-avatar v-list-item__avatar" style="height: 40px; min-width: 40px; width: 40px;">
-                    <img v-if="addForm.user_image" :src="'/../'+addForm.user_image" alt="John">
-                         <img v-if="!addForm.user_image" src="/images/avatar.png" alt="driver">
-             </div>
-
+              <v-col cols="12" md="12">
+               <v-row>
                 <v-col cols="12" md="12">
                   <file-pond
                     name="uploadImage"
                     ref="pond"
-                    label-idle="Drop files here..."
+                    label-idle="Add Profile pic..."
                     allow-multiple="false"
                     v-bind:server="serverOptions"
                     v-bind:files="myFiles"
@@ -27,15 +20,23 @@
                     v-on:processfile="handleProcessFile"
                   />
                 </v-col>
-                <v-col cols="12" md="12">
+		<v-col cols="3" md="3">
+		 <v-select 
+		  v-model="addForm.prefix"
+		  :items="prefixs"
+		  label="Prefix"
+		  dense
+		></v-select>
+		</v-col>
+                <v-col cols="3" md="3">
                   <v-text-field
-                    v-model="addForm.first_name"
-                    label="Manager name"
+                    v-model="addForm.customer_name"
+                    label="Name"
                     required
-                    :rules="[v => !!v || 'Manager name is required']"
+                    :rules="[v => !!v || 'Customer name is required']"
                   ></v-text-field>
                 </v-col>
-                <v-col cols="12" md="12">
+                <v-col cols="3" md="3">
                   <v-text-field
                     v-model="addForm.email"
                     :rules="emailRules"
@@ -44,8 +45,16 @@
                     required
                   ></v-text-field>
                 </v-col>
-
-                <v-col cols="12" md="12">
+                 <v-col cols="3" md="3">
+                  <v-text-field
+                    v-model="addForm.phone"
+                    :rules="phoneRules"
+                    label="Phone"
+                    required
+                    maxlength="10"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="3" md="3">
                   <v-text-field
                     v-model="addForm.address"
                     label="Address"
@@ -53,8 +62,7 @@
                     :rules="[v => !!v || 'address is required']"
                   ></v-text-field>
                 </v-col>
-
-                <v-col cols="12" md="12">
+                <v-col cols="3" md="3">
                   <v-text-field
                     v-model="addForm.city"
                     label="City"
@@ -62,111 +70,38 @@
                     :rules="[v => !!v || 'City is required']"
                   ></v-text-field>
                 </v-col>
-                <v-col cols="12" md="12">
+                <v-col cols="3" md="3">
                   <v-text-field
-                    v-model="addForm.state"
-                    label="State"
+                    v-model="addForm.province"
+                    label="Province"
                     required
-                    :rules="[v => !!v || 'State is required']"
+                    :rules="[v => !!v || 'Province is required']"
                   ></v-text-field>
                 </v-col>
-
-                <v-col cols="12" md="12">
+                <v-col cols="3" md="3">
                   <v-text-field
-                    v-model="addForm.country"
-                    label="Country"
-                    required
-                    :rules="[v => !!v || 'Country is required']"
-                  ></v-text-field>
-                </v-col>
-              </v-col>
-
-              <v-col cols="6" md="6">
-                <v-col cols="12" md="12">
-                  <v-text-field
-                    v-model="addForm.manager_zipcode"
+                    v-model="addForm.zipcode"
                     :rules="[v => !!v || 'Zip code is required']"
                     label="zipcode"
                     required
                   ></v-text-field>
                 </v-col>
-                <v-col cols="12" md="12">
-                  <v-text-field
-                    v-model="addForm.manager_phone"
-                    :rules="phoneRules"
-                    label="Mobile Number"
-                    required
-		    maxlength="10"
-                  ></v-text-field>
+                <v-col cols="3" md="3">
+               <v-switch v-model="addForm.is_active" class="mx-2" label="Is Active"></v-switch>
                 </v-col>
-                <v-col cols="12" md="12">
-                  <v-text-field
-                    v-model="addForm.identification_number"
-                    label="Identification number"
-                    required
-                    :rules="[v => !!v || 'Identification number is required']"
-                  ></v-text-field>
-                </v-col>
+               </v-row>
+              </v-col>
 
-                <v-col cols="12" md="12">
-                  <v-menu
-                    v-model="menu1"
-                    :close-on-content-click="false"
-                    :nudge-right="40"
-                    transition="scale-transition"
-                    offset-y
-                    min-width="290px"
-                  >
-                    <template v-slot:activator="{ on }">
-                      <v-text-field
-                        v-model="date"
-                        label="Joining Date"
-                        prepend-icon="event"
-                        readonly
-                        v-on="on"
-                        required
-                        :rules="[v => !!v || 'Joining date is required']"
-                      ></v-text-field>
-                    </template>
-                    <v-date-picker v-model="date" @input="menu1 = false"></v-date-picker>
-                  </v-menu>
-                </v-col>
-
-                <v-col cols="12" md="12">
-                  <v-menu
-                    v-model="menu2"
-                    :close-on-content-click="false"
-                    :nudge-right="40"
-                    transition="scale-transition"
-                    offset-y
-                    min-width="290px"
-                  >
-                    <template v-slot:activator="{ on }">
-                      <v-text-field
-                        v-model="date1"
-                        label="Releaving date(if required)"
-                        prepend-icon="event"
-                        readonly
-                        v-on="on"
-                      ></v-text-field>
-                    </template>
-                    <v-date-picker v-model="date1" @input="menu2 = false"></v-date-picker>
-                  </v-menu>
-                </v-col>
-                <v-col cols="12" md="12">
-                  <v-text-field
-                    v-model="addForm.salary"
-                    label="Manager Salary"
-                    required
-                    :rules="[v => !!v || 'Manager salary is required']"
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12" md="12">
+              <v-col cols="12" md="12">
+              <h3>Farm Section</h3>
+		 <v-row>
+              
+             <v-col cols="12" md="12">
                   <file-pond
                     name="uploadImage"
                     ref="pond"
-                    label-idle="Identification Document..."
-                    allow-multiple="false"
+                    label-idle="Farm Images"
+                    allow-multiple="true"
                     v-bind:server="serverOptions"
                     v-bind:files="myFiles"
                     allow-file-type-validation="true"
@@ -174,10 +109,159 @@
                     v-on:processfile="handleProcessFile1"
                   />
                 </v-col>
-<div class="" style="height: 200px; min-width: 200px; width: 200px;">
-                    <img style="width:100%" v-if="addForm.document" :src="'/../'+addForm.document" alt="John">
-                        
-             </div>
+               <v-col cols="3" md="3">
+	       <vue-google-autocomplete
+		    ref="address"
+		    id="map"
+		    classname="form-control"
+		    placeholder="Please type your address"
+		    v-on:placechanged="getAddressData"
+		    country="us"
+		    v-model="addForm.farm_address"
+		>
+              </vue-google-autocomplete>
+             </v-col>
+	     <v-col cols="3" md="3">
+                  <v-text-field
+                    v-model="addForm.farm_unit"
+                    label="Apt/Unit"
+                    required
+                    :rules="[v => !!v || 'Farm apt/unit is required']"
+                  ></v-text-field>
+                </v-col>
+               <v-col cols="3" md="3">
+                  <v-text-field
+                    v-model="addForm.farm_city"
+                    label="City"
+                    required
+                    :rules="[v => !!v || 'Farm city is required']"
+                  ></v-text-field>
+                </v-col>
+               <v-col cols="3" md="3">
+                  <v-text-field
+                    v-model="addForm.farm_province"
+                    label="Province"
+                    required
+                    :rules="[v => !!v || 'Farm province is required']"
+                  ></v-text-field>
+                </v-col>
+               <v-col cols="3" md="3">
+                  <v-text-field
+                    v-model="addForm.farm_zipcode"
+                    label="Zip Code"
+                    required
+                    :rules="[v => !!v || 'Farm zip code is required']"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="3" md="3">
+               <v-switch v-model="addForm.farm_active" class="mx-2" label="Is Active"></v-switch>
+                </v-col>
+               </v-row>
+              </v-col>
+              <v-col cols="12" md="12">
+              <h3>Manager Details</h3>
+		 <v-row>
+                <v-col cols="12" md="12">
+                  <file-pond
+                    name="uploadImage"
+                    ref="pond"
+                    label-idle="Add Profile Pic"
+                    allow-multiple="false"
+                    v-bind:server="serverOptions"
+                    v-bind:files="myFiles"
+                    allow-file-type-validation="true"
+                    accepted-file-types="image/jpeg, image/png"
+                    v-on:processfile="handleProcessFile2"
+                  />
+                </v-col>
+                <v-col cols="3" md="3">
+		 <v-select 
+		  v-model="addForm.manager_prefix"
+		  :items="prefixs"
+		  label="Prefix"
+		  dense
+		></v-select>
+		</v-col>
+                <v-col cols="3" md="3">
+                  <v-text-field
+                    v-model="addForm.manager_name"
+                    label="Name"
+                    required
+                    :rules="[v => !!v || 'Manager name is required']"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="3" md="3">
+                  <v-text-field
+                    v-model="addForm.manager_email"
+                    :rules="emailRules"
+                    name="email"
+                    label="E-mail"
+                    required
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="3" md="3">
+                  <v-text-field
+                    v-model="addForm.manager_phone"
+                    :rules="phoneRules"
+                    label="Phone"
+                    required
+                    maxlength="10"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="3" md="3">
+                  <v-text-field
+                    v-model="addForm.manager_address"
+                    label="Address"
+                    required
+                    :rules="[v => !!v || 'address is required']"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="3" md="3">
+                  <v-text-field
+                    v-model="addForm.manager_city"
+                    label="City"
+                    required
+                    :rules="[v => !!v || 'City is required']"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="3" md="3">
+                  <v-text-field
+                    v-model="addForm.manager_province"
+                    label="State"
+                    required
+                    :rules="[v => !!v || 'Province is required']"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="3" md="3">
+                  <v-text-field
+                    v-model="addForm.manager_zipcode"
+                    :rules="[v => !!v || 'Zip code is required']"
+                    label="zipcode"
+                    required
+                  ></v-text-field>
+                </v-col>
+		<v-col cols="3" md="3">
+                  <v-text-field
+                    v-model="addForm.manager_id_card"
+                    :rules="[v => !!v || 'Card Id number is required']"
+                    label="Id CradNo"
+                    required
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="4" md="4">
+                  <file-pond
+                    name="uploadImage"
+                    ref="pond"
+                    label-idle="Upload Id Card Image"
+                    allow-multiple="false"
+                    v-bind:server="serverOptions"
+                    v-bind:files="myFiles"
+                    allow-file-type-validation="true"
+                    accepted-file-types="image/jpeg, image/png"
+                    v-on:processfile="handleProcessFile3"
+                  />
+                </v-col>
+               </v-row>            
               </v-col>
 
               <v-btn color="success" class="mr-4" @click="update">Submit</v-btn>
@@ -194,13 +278,17 @@ import { required } from "vuelidate/lib/validators";
 import { managerService } from "../../../_services/manager.service";
 import { router } from "../../../_helpers/router";
 import { environment } from "../../../config/test.env";
-
+import VueGoogleAutocomplete from 'vue-google-autocomplete'
 export default {
   components: {
-    //      'image-component': imageVUE,
+   VueGoogleAutocomplete
   },
   data() {
     return {
+    prefixs: ['Ms.', 'Mr.', 'Mrs.'],
+    isLoading: false,
+    items: [],
+    model: null,
       valid: true,
       avatar: null,
       menu2: false,
@@ -209,22 +297,36 @@ export default {
       date1: "",
       apiUrl: environment.apiUrl,
       addForm: {
+	prefix: '',
         first_name: "",
-        city: "",
         email: "",
-        state: "",
-        country: "",
-        user_image: null,
         phone: "",
-        role_id: 2,
-        document: "",
-        joining_date: "",
-        releaving_date: "",
-        identification_number: "",
-        salary: "",
-        manager_phone: "",
-        manager_zipcode: "",
-        address: ""
+        address: "",
+        city: "",
+        province: "",
+        user_image: null,
+        zipcode: '',
+        is_active: '',
+        farm_images: [],
+        latitude: '',
+	longitude: '',
+	farm_address: '',
+	farm_unit: '',
+	farm_city: '',
+	farm_province: '',
+	farm_zipcode: '',
+	farm_active: '',
+	manager_image: '',
+	manager_prefix: '',
+	manager_name: '',
+	manager_email: '',
+	manager_phone: '',
+	manager_address: '',
+	manager_city: '',
+	manager_province: '',
+	manager_zopcode: '',
+	manager_id_card: '',
+	manager_card_image: ''
       },
       emailRules: [
         v => !!v || "E-mail is required",
@@ -244,6 +346,10 @@ export default {
       myFiles: []
     };
   },
+mounted(){
+this.$refs.address.focus();
+console.log("dddd")
+},
   computed: {
     serverOptions() {
       const currentUser = JSON.parse(localStorage.getItem("currentUser"));
@@ -270,50 +376,31 @@ export default {
   created() {
     this.avatar = "/images/avatar.png";
   },
-  mounted: function() {
-    managerService.getManager(this.$route.params.id).then(response => {
-      //handle response
-      if (response.status) {
-        console.log(response.data.joining_date);
-        this.addForm = {
-            first_name: response.data.user.first_name,
-            city: response.data.user.city,
-            email: response.data.user.email,
-            state: response.data.user.state,
-            country: response.data.user.country,
-            user_image: response.data.user.user_image,
-            role_id: 2,
-            document: response.data.document,
-            identification_number: response.data.identification_number,
-            salary: response.data.salary,
-            manager_phone: response.data.user.phone,
-            manager_zipcode: response.data.user.zip_code,
-            address: response.data.user.address
-        }
-        this.date = response.data.joining_date;
-        this.date1 = response.data.releaving_date;
-      } else {
-        this.$toast.open({
-          message: response.message,
-          type: "error",
-          position: "top-right"
-        });
-      }
-    });
-  },
   methods: {
+   getAddressData: function (addressData, placeResultData, id) {
+                this.addForm.latitude = addressData.latitude
+                this.addForm.longitude = addressData.longitude
+                this.addForm.farm_address = addressData;
+            },
     handleProcessFile: function(error, file) {
       this.addForm.user_image = file.serverId;
     },
-    handleProcessFile1: function(error, file) {
-      this.addForm.document = file.serverId;
+  //farm images process
+   handleProcessFile1: function(error, file) {
+      this.addForm.farm_image = file.serverId;
+    },
+   //manager image process
+    handleProcessFile2: function(error, file) {
+      this.addForm.manager_image = file.serverId;
+    },
+   //manager id card image process
+    handleProcessFile3: function(error, file) {
+      this.addForm.manager_card_image = file.serverId;
     },
     update() {
-      this.addForm.joining_date = this.date;
-      this.addForm.releaving_date = this.date1;
-      console.log(this.addForm);
+      console.log(this.addForm)
       if (this.$refs.form.validate()) {
-        managerService.edit(this.addForm, this.$route.params.id).then(response => {
+        managerService.add(this.addForm).then(response => {
           //handle response
           if (response.status) {
             this.$toast.open({

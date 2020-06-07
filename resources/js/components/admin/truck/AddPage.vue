@@ -111,8 +111,14 @@
                     :rules="[v => !!v || 'Document is required']"
                   />
                 </v-col>
+		  <v-col cols="12" md="12">
+		 <v-switch
+		      v-model="addForm.is_active"
+		      label="Truck Available"
+		    ></v-switch>
+		</v-col>
               </v-col>
-
+		
               <v-col cols="12" md="12">
                 <v-btn color="success" class="mr-4" @click="save">Submit</v-btn>
               </v-col>
@@ -154,7 +160,8 @@ export default {
         insurance_date: "",
         document: "",
         total_killometer: "",
-        insurance_expiry: ""
+        insurance_expiry: "",
+	is_active: true
       },
      killometerRules: [
         v => !!v || "Truck kilometer is required",
@@ -192,6 +199,7 @@ export default {
       this.addForm.document = file.serverId;
     },
     save() {
+      console.log(this.addForm)
       this.addForm.insurance_date = this.date;
       this.addForm.insurance_expiry = this.date1;
       if (this.$refs.form.validate()) {

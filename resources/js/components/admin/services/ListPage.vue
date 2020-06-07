@@ -14,21 +14,24 @@
                 <tr>
                   <th class="text-left">Image</th>
                   <th class="text-left">Service Name</th>
+                  <th class="text-left">Service Rate</th>
                   <th class="text-left">Price</th>
-  <th class="text-left">type</th>
-<th class="text-left">time</th>
+		<th class="text-left">type</th>
+		<th class="text-left">time</th>
                   <th class="text-left">Descriptions</th>
                   <th class="text-left">Action</th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="item in managers" :key="item.name">
+                <tr v-for="item in services" :key="item.name">
                   <td>
                     <div class="v-avatar v-list-item__avatar" style="height: 40px; min-width: 40px; width: 40px;">
                       <img :src="'../../'+item.service_image" alt="John" />
                     </div>
                   </td>
                   <td>{{ item.service_name }}</td>
+                  <td v-if="item.service_rate == 1">Per Load</td>
+                <td v-if="item.service_rate == 2">Round</td>
                   <td>${{ item.price }}</td>
 		<td v-if="item.slot_type == 1">Morning</td>
                 <td v-if="item.slot_type == 2">Afternoon</td>
@@ -78,31 +81,34 @@ export default {
     return {
       dialog: false,
       on: false,
-      managers: []
+      services: []
     };
   },
-  getList() {},
-  mounted: function() {
-    jobService.listService().then(response => {
-      //handle response
-      if (response.status) {
-        this.managers = response.data;
-      } else {
-        this.$toast.open({
-          message: response.message,
-          type: "error",
-          position: "top-right"
-        });
-      }
-    });
+    mounted() {
+    this.getResults();
   },
+
   methods: {
-    Action() {},
+   getResults() {
+      jobService.listService().then(response => {
+        //handle response
+        if (response.status) {
+          this.services = response.data;
+        } else {
+          this.$toast.open({
+            message: response.message,
+            type: "error",
+            position: "top-right"
+          });
+        }
+      });
+    },
     Delete(e) {
       if (e) {
         jobService.Delete(e).then(response => {
           //handle response
           if (response.status) {
+            this.getResults();
             this.$toast.open({
               message: response.message,
               type: "success",

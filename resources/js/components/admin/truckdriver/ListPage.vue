@@ -14,12 +14,24 @@
                 <tr>
                   <th class="text-left">Image</th>
                   <th class="text-left">Driver Name</th>
-                  <th class="text-left">Email</th>
+                  <th class="text-left">Address</th>
+                  <th class="text-left">Contact Number</th>
+                  <th class="text-left">Email Address</th>
+                  <th class="text-left">Driver License Number</th>
+                  <th class="text-left">License Expiry Date</th>
+                  <th class="text-left">Total Km</th>
+                  <th class="text-left">Salary Rate</th>
+                  <th class="text-left">Total Amount</th>
                   <th class="text-left">Active</th>
+<<<<<<< HEAD
                   <th class="text-left">Licence</th>
                   <th class="text-left">expiry_date</th>
                   <th class="text-left">salary_type</th>
                   <th class="text-left">Action</th>
+=======
+                  <th class="text-left">Edit Driver</th>
+                  <th class="text-left">Delete Driver</th>
+>>>>>>> 58195e84cb4d442d823617cb34d95f0cdaeba0b8
                 </tr>
               </thead>
               <tbody>
@@ -33,21 +45,34 @@
                       <img v-if="!item.user.user_image" src="/images/avatar.png" alt="driver" />
                     </div>
                   </td>
-                  <td>{{ item.user.first_name }}</td>
+                  <td> <router-link
+                      :to="'/admin/truckdriver/view/' + item.user.id"
+                      class="nav-item nav-link"
+                    >
+                     {{ item.user.first_name }}
+                    </router-link></td>
+                  <td>{{ item.user.address }} {{ item.user.city }} {{ item.user.state }} {{ item.user.country }} {{ item.user.zip_code }}</td>
+                  <td>{{ item.user.phone }}</td>
                   <td>{{ item.user.email }}</td>
+                  <td>{{ item.driver_licence }}</td>
+                  <td>{{ item.expiry_date }}</td>
+		  <td>1000</td>
+                  <td v-if="item.salary_type  == 0">${{ item.driver_salary }}/hr</td>
+                  <td v-if="item.salary_type  == 1">${{ item.driver_salary }}/Per load</td>
+		<td>N/A</td>
                   <td>
                     <v-chip
                       v-if="!item.user.is_active"
                       class="ma-2"
                       color="red"
                       text-color="white"
-                    >Deactivate</v-chip>
+                    >Yes</v-chip>
                     <v-chip
                       v-if="item.user.is_active"
                       class="ma-2"
                       color="green"
                       text-color="white"
-                    >Activate</v-chip>
+                    >No</v-chip>
                   </td>
 
                   <td>{{ item.driver_licence }}</td>

@@ -100,13 +100,13 @@ components: {
           'Service', 'Insurance',
         ],
         headers: [
+          { text: 'Servicekm', value: 'service_killometer' },
           {
-            text: 'Service Date',
+            text: 'Date',
             align: 'start',
             sortable: false,
             value: 'service_date',
           },
-          { text: 'Service kilometer', value: 'service_killometer' },
          { text: 'Action', value: 'delete' },
         ],
         headers1: [

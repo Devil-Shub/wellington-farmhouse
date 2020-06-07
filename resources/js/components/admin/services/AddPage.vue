@@ -63,6 +63,13 @@
                 accepted-file-types="image/jpeg, image/png"/>
             </v-col>
 
+		<v-col cols="12" md="12">
+             <header>Service Rate</header>
+	   <v-radio-group  row v-model="addForm.service_rate"  :mandatory="false" required :rules="[v => !!v || 'Service rate is required']">
+	      <v-radio label="per Load" value="1" ></v-radio>
+	      <v-radio label="Round" value="2"></v-radio>
+	    </v-radio-group>
+	</v-col>
             <v-btn color="success" class="mr-4" @click="save">Submit</v-btn>
           </v-form>
         </v-col>
@@ -91,7 +98,8 @@ export default {
         price: "",
         description: "",
         service_image: "",
-        slot_type: '',
+        service_rate: '',
+	slot_type: '',
         slot_time:[],
       },
       timeSlots: [],
