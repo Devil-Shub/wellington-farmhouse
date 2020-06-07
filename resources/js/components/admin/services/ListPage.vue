@@ -23,7 +23,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="item in managers" :key="item.name">
+                <tr v-for="item in services" :key="item.name">
                   <td>
                     <div class="v-avatar v-list-item__avatar" style="height: 40px; min-width: 40px; width: 40px;">
                       <img :src="'../../'+item.service_image" alt="John" />
@@ -79,30 +79,34 @@ export default {
     return {
       dialog: false,
       on: false,
-      managers: []
+      services: []
     };
   },
-  getList() {},
-  mounted: function() {
-    jobService.listService().then(response => {
-      //handle response
-      if (response.status) {
-        this.managers = response.data;
-      } else {
-        this.$toast.open({
-          message: response.message,
-          type: "error",
-          position: "top-right"
-        });
-      }
-    });
+    mounted() {
+    this.getResults();
   },
+
   methods: {
+   getResults() {
+      jobService.listService().then(response => {
+        //handle response
+        if (response.status) {
+          this.services = response.data;
+        } else {
+          this.$toast.open({
+            message: response.message,
+            type: "error",
+            position: "top-right"
+          });
+        }
+      });
+    },
     Delete(e) {
       if (e) {
         jobService.Delete(e).then(response => {
           //handle response
           if (response.status) {
+            this.getResults();
             this.$toast.open({
               message: response.message,
               type: "success",
