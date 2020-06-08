@@ -3,29 +3,10 @@
     <v-container>
       <v-row>
         <v-col cols="12" md="12">
-          <h2>Edit Service</h2>
+          <h4 class="main-title">Edit Service</h4>
         </v-col>
         <v-col cols="12" md="12">
           <v-form ref="form" v-model="valid" lazy-validation>
-            <v-col cols="12" md="12">
-              <div
-                class="v-avatar v-list-item__avatar"
-                style="height: 40px; min-width: 40px; width: 40px;"
-              >
-                <img :src="'../../../'+editForm.service_image" alt="John" />
-              </div>
-              <file-pond
-                name="uploadImage"
-                ref="pond"
-                label-idle="Drop files here..."
-                allow-multiple="false"
-                v-bind:server="serverOptions"
-                v-bind:files="myFiles"
-                v-on:processfile="handleProcessFile"
-                allow-file-type-validation="true"
-                accepted-file-types="image/jpeg, image/png"
-              />
-            </v-col>
             <v-col cols="12" md="12">
               <v-text-field
                 v-model="editForm.service_name"
@@ -77,7 +58,8 @@
             </v-col>
 
             <v-col cols="12" md="12">
-              <v-textarea
+              <v-textarea rows="1"
+                auto-grow
                 clearable
                 clear-icon="cancel"
                 v-model="editForm.description"
@@ -86,6 +68,26 @@
                 required
               ></v-textarea>
             </v-col>
+            <v-col cols="12" md="12">
+              <div
+                class="v-avatar v-list-item__avatar"
+                style="height: 40px; min-width: 40px; width: 40px;"
+              >
+                <img :src="'../../../'+editForm.service_image" alt="John" />
+              </div>
+              <file-pond
+                name="uploadImage"
+                ref="pond"
+                label-idle="Drop files here..."
+                allow-multiple="false"
+                v-bind:server="serverOptions"
+                v-bind:files="myFiles"
+                v-on:processfile="handleProcessFile"
+                allow-file-type-validation="true"
+                accepted-file-types="image/jpeg, image/png"
+              />
+            </v-col>
+
 	<v-col cols="12" md="12">
              <header>Service Rate</header>
 	   <v-radio-group  row v-model="editForm.service_rate"  :mandatory="false" required :rules="[v => !!v || 'Service rate is required']">
@@ -93,7 +95,7 @@
 	      <v-radio label="Round" value="round"></v-radio>
 	    </v-radio-group>
 	</v-col>
-            <v-btn color="success" class="mr-4" @click="update">Update</v-btn>
+            <v-btn color="success" class="mr-4 custom-save-btn ml-4 mt-4" @click="update">Update</v-btn>
           </v-form>
         </v-col>
       </v-row>
