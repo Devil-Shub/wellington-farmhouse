@@ -17,8 +17,8 @@
 	          <v-col cols="12" md="12">
              <header>Service Time Period</header>
 	           <v-radio-group  row v-model="addForm.slot_type" @change="getTime()" :mandatory="false" required :rules="[v => !!v || 'Service time period is required']">
-	           <v-radio label="Morning" value="1" ></v-radio>
-	           <v-radio label="Afternoon" value="2"></v-radio>
+              <v-radio label="Morning" value="1" ></v-radio>
+              <v-radio label="Afternoon" value="2"></v-radio>
 	           </v-radio-group>
 	          </v-col>
 
@@ -105,8 +105,8 @@ export default {
         price: "",
         description: "",
         service_image: "",
-        service_rate: '',
-	      slot_type: '',
+        service_rate: '1',
+	      slot_type: '1',
         slot_time:[],
       },
       timeSlots: [],
@@ -141,6 +141,9 @@ export default {
     }
   },
   created() {},
+  mounted: function() {
+    this.getTime();
+  },
   methods: {
     getTime(){
       //make previous selection blank if tab changed
