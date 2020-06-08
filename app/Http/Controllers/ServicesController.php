@@ -176,10 +176,19 @@ class ServicesController extends Controller
      * list services
      */
     public function listServices() {
+        $getAllServices = Service::get();
+
+        foreach($getAllServices as $key => $service) {
+            //get timeSlots
+            $timeSlots = TimeSlots::whereIn('id', json_decode($service->slot_time))->get();
+            //set timeSlots
+            $getAllServices[$key]["timeSlots"] = $timeSlots;
+        }
+        
         return response()->json([
             'status' => true,
             'message' => 'Service Listing.',
-            'data' => Service::get()
+            'data' => $getAllServices
         ], 200);
     }
 
