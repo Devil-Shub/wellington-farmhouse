@@ -153,6 +153,9 @@
                     v-on:processfile="handleProcessFile1"
                     :rules="[v => !!v || 'Document is required']"
                   />
+<div class="v-messages theme--light error--text" role="alert" v-if="docError">
+		<div class="v-messages__wrapper"><div class="v-messages__message">Document upload is required</div></div>
+		</div>
                 </v-col>
               </v-col>
 
@@ -180,6 +183,7 @@ export default {
   data() {
     return {
       menu2: false,
+      docError: false,
       valid: true,
       apiUrl: environment.apiUrl,
       avatar: null,
@@ -250,8 +254,12 @@ export default {
     },
     handleProcessFile1: function(error, file) {
       this.addForm.document = file.serverId;
+	this.docError = false;
     },
     save() {
+	    if(this.addForm.document == ''){
+	this.docError = true;
+       }
       this.addForm.expiry_date = this.date;
       if (this.$refs.form.validate()) {
                      driverService.add(this.addForm).then(response => {

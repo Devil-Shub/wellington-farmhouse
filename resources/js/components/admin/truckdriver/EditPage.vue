@@ -158,6 +158,9 @@
                     v-on:processfile="handleProcessFile1"
                     :rules="[v => !!v || 'Document is required']"
                   />
+<div class="v-messages theme--light error--text" role="alert" v-if="docError">
+		<div class="v-messages__wrapper"><div class="v-messages__message">Document upload is required</div></div>
+		</div>
                 </v-col>
 <div class="" style="height: 200px; min-width: 200px; width: 200px;">
                     <img style="width:100%" v-if="addForm.document" :src="'/../'+addForm.document" alt="John">
@@ -188,6 +191,7 @@ export default {
 
   data() {
     return {
+     docError: false,
       menu2: false,
       valid: true,
       apiUrl: environment.apiUrl,
@@ -300,8 +304,12 @@ export default {
     },
     handleProcessFile1: function(error, file) {
       this.addForm.document = file.serverId;
+	this.docError = false;
     },
     save() {
+         if(this.addForm.document == ''){
+	this.docError = true;
+       }
       this.addForm.expiry_date = this.date;
       if( this.addForm.salary_type == 'per_hour'){
  	this.addForm.salary_type = 0;

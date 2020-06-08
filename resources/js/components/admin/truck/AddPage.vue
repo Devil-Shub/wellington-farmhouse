@@ -111,6 +111,9 @@
         accepted-file-types="image/jpeg, image/png"
                     :rules="[v => !!v || 'Document is required']"
                   />
+<div class="v-messages theme--light error--text" role="alert" v-if="docError">
+		<div class="v-messages__wrapper"><div class="v-messages__message">Document upload is required</div></div>
+		</div>
                 </v-col>
 		  <v-col cols="12" md="12">
 		 <v-switch
@@ -143,6 +146,7 @@ export default {
 
   data() {
     return {
+      docError: false,
       menu2: false,
       menu1: false,
       valid: true,
@@ -198,9 +202,10 @@ export default {
   methods: {
     handleProcessFile1: function(error, file) {
       this.addForm.document = file.serverId;
+      this.docError = false;
     },
     save() {
-      console.log(this.addForm)
+   
       this.addForm.insurance_date = this.date;
       this.addForm.insurance_expiry = this.date1;
       if (this.$refs.form.validate()) {

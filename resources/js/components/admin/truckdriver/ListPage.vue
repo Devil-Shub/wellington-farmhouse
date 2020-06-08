@@ -24,8 +24,8 @@
                   <th class="text-left">Salary Rate</th>
                   <th class="text-left">Total Amount</th>
                   <th class="text-left">Active</th>
-                  <th class="text-left">Edit Driver</th>
-                  <th class="text-left">Delete Driver</th>
+                  <th class="text-left">Action</th>
+                 
                 </tr>
               </thead>
               <tbody>
@@ -69,9 +69,8 @@
                     >No</v-chip>
                   </td>
 
-                  <td>{{ item.driver_licence }}</td>
-                  <td>{{ item.expiry_date }}</td>
-                  <td>{{ item.salary_type }}</td>
+                 
+                
                   <td class="action-col">
                     <!-- <router-link
                       :to="'/admin/truckdriver/view/' + item.user.id"
