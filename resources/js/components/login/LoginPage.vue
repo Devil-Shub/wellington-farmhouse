@@ -83,6 +83,7 @@ name: "login",
         this.loading = true;
         authenticationService.login(this.email, this.password).then(
           response => {
+alert(response)
               router.push(response);
           },
           error => {
@@ -128,7 +129,7 @@ name: "login",
             //store into local storage
             localStorage.setItem("currentUser", JSON.stringify(response.data));
             //redirect now
-            router.push("/admin/dashboard");
+            router.push("/");
           }
         })
         .catch(err => {
