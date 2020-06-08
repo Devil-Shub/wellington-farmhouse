@@ -136,8 +136,7 @@ name: "login",
             //store into local storage
             localStorage.setItem("currentUser", JSON.stringify(response.data));
             //redirect now
-            // this.$router.push(`/`);
-            // router.push("/");
+            this.$router.go('/home');
           }
         })
         .catch(err => {
