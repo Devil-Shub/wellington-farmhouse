@@ -11329,3 +11329,26 @@ a.text-dark:focus {
   top: 7px;
 }
 
+#app main.v-content .dashboard .v-card {
+  background-color: #ebebeb;
+  padding: 10px 15px;
+  border: 1px solid #b3b2b3;
+  box-shadow: none;
+  cursor: pointer;
+}
+
+#app main.v-content .dashboard .v-card:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+#app main.v-content .dashboard .v-card h5 {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 0;
+  font-weight: normal;
+}
+
+#app main.v-content .dashboard .v-card h5 span {
+  float: right;
+}
+
