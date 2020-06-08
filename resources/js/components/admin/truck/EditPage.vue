@@ -165,7 +165,8 @@ export default {
         insurance_date: "",
         document: "",
         total_killometer: "",
-        insurance_expiry: ""
+        insurance_expiry: "",
+	is_active: ''
       },
           killometerRules: [
         v => !!v || "Truck kilometer is required",

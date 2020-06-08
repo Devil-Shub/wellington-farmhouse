@@ -111,6 +111,12 @@
                     :rules="[v => !!v || 'Document is required']"
                   />
                 </v-col>
+  		<v-col cols="12" md="12">
+		 <v-switch
+		      v-model="addForm.is_active"
+		      label="Truck Available"
+		    ></v-switch>
+		</v-col>
               </v-col>
 
               <v-col cols="12" md="12">
@@ -154,7 +160,8 @@ export default {
         insurance_date: "",
         document: "",
         total_killometer: "",
-        insurance_expiry: ""
+        insurance_expiry: "",
+	is_active: true
       },
       killometerRules: [
         v => !!v || "Skidsteer kilometer is required",

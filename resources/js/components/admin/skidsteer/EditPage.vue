@@ -116,6 +116,12 @@
                      <img :src="avatar" alt="John" style="height:200px;"/>
                   </div>
                        </v-col>
+<v-col cols="12" md="12">
+		 <v-switch
+		      v-model="addForm.is_active"
+		      label="Truck Available"
+		    ></v-switch>
+		</v-col>
               </v-col>
 
               <v-col cols="12" md="12">
@@ -159,7 +165,8 @@ export default {
         insurance_date: "",
         document: "",
         total_killometer: "",
-        insurance_expiry: ""
+        insurance_expiry: "",
+	is_active: ''
       },
       killometerRules: [
         v => !!v || "Skidsteer kilometer is required",
@@ -201,7 +208,8 @@ export default {
         this.addForm.chaase_number = response.data.chaase_number;
         this.addForm.insurance_number = response.data.vehicle_insurance.insurance_number;
         this.addForm.total_killometer = response.data.killometer;
-	        this.date = new Date(response.data.vehicle_insurance.insurance_date).toISOString().substr(0, 10);
+        this.addForm.is_active = response.data.status;
+        this.date = new Date(response.data.vehicle_insurance.insurance_date).toISOString().substr(0, 10);
         this.date1 = new Date(response.data.vehicle_insurance.insurance_expiry).toISOString().substr(0, 10);
         if(response.data.document){
             this.avatar = '../../../'+response.data.document;
