@@ -101,19 +101,29 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         action: 'local_activity',
         title: 'Main',
         active: true,
-        items: [// { title: 'Overview', url: '/admin/dashboard' },
-        // { title: 'Jobs', url: '/admin/dashboard'  },
-        // { title: 'Dispatches', url: '/admin/dashboard'  },
-        {
+        items: [{
+          title: 'Overview',
+          url: '/admin/dashboard'
+        }, {
+          title: 'Jobs',
+          url: '/admin/dashboard'
+        }, {
+          title: 'Dispatches',
+          url: '/admin/dashboard'
+        }, {
           title: 'Services',
           url: '/admin/services'
         }]
       }, {
         action: 'local_activity',
         title: 'Customer',
-        items: [// { title: 'Customer', url: '/admin/customer'  },
-          // { title: 'Customer Compnay', url: '/admin/dashboard'  }
-        ]
+        items: [{
+          title: 'Customer',
+          url: '/admin/dashboard'
+        }, {
+          title: 'Customer Compnay',
+          url: '/admin/dashboard'
+        }]
       }, {
         action: 'local_activity',
         title: 'Employee',
@@ -137,9 +147,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }, {
         action: 'local_activity',
         title: 'Accounts',
-        items: [// { title: 'Accountings',url: '/admin/dashboard' },
-          // { title: 'Reports', url: '/admin/dashboard' }
-        ]
+        items: [{
+          title: 'Accountings',
+          url: '/admin/dashboard'
+        }, {
+          title: 'Reports',
+          url: '/admin/dashboard'
+        }]
       }]
     };
   },

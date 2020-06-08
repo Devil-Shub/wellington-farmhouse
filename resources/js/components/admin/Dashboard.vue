@@ -5,6 +5,7 @@
     tag="section"
   >
     <v-row>
+<h2>Dashboard</h2>
       <v-col
         cols="12"
         lg="12"

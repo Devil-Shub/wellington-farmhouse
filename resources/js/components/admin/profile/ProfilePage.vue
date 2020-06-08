@@ -2,8 +2,9 @@
   <v-app>
     <v-container>
       <v-row>
-      
+      <h2>Edit Profile</h2>
         <v-col cols="12" md="12">
+          
           <v-form ref="form" v-model="valid" enctype="multipart/form-data" lazy-validation>
             <v-col cols="12" md="12">
               <div
@@ -52,6 +53,8 @@
               ></v-text-field>
             </v-col>
             <v-btn color="success" class="mr-4" @click="update">Submit</v-btn>
+
+            <v-btn color="success" class="mr-4" @click="Delete(updateForm.user_id)">Delete Account</v-btn>
           </v-form>
         </v-col>
       </v-row>
@@ -67,7 +70,6 @@ import { environment } from "../../../config/test.env";
 
 export default {
   components: {
-    //      'image-component': imageVUE,
   },
   data() {
     return {
@@ -174,7 +176,36 @@ export default {
           }
         });
       }
-    }
+    },
+  Delete(e) {
+      if (e) {
+        authenticationService.Delete(e).then(response => {
+          //handle response
+          if (response.status) {
+            this.$toast.open({
+              message: response.message,
+              type: "success",
+              position: "top-right"
+            });
+            //redirect to login
+            this.dialog = false;
+
+            //reload table
+            // remove user from local storage to log user out
+            localStorage.removeItem("currentUser");
+	    router.push("/login");
+
+          } else {
+            this.dialog = false;
+            this.$toast.open({
+              message: response.message,
+              type: "error",
+              position: "top-right"
+            });
+          }
+        });
+      }
+    },
   }
 };
 </script>

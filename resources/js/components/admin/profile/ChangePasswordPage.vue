@@ -2,6 +2,7 @@
     <v-app>
              <v-container>
       <v-row>
+ 	<h2>Chanage Password</h2>
        <v-col
           cols="12"
           md="12"

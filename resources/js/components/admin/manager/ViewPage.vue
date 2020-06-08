@@ -2,6 +2,7 @@
       <v-app>
              <v-container>
       <v-row>
+<h2>View Manager</h2>
          {{manager}}
    </v-row>
     </v-container>

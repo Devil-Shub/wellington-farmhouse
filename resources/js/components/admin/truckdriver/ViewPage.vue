@@ -1,5 +1,8 @@
 <template>
-  <v-app>{{driver}}</v-app>
+
+  <v-app>
+<h2>View Driver</h2>
+{{driver}}</v-app>
 </template>
 
 <script>

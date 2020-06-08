@@ -2,7 +2,7 @@
       <v-app>
              <v-container>
       <v-row>
-    
+    <h2>View Skidsteer</h2>
       <v-subheader>skidsteer</v-subheader>     
         <v-list-item>
             <v-list-item-content>

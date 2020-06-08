@@ -2,7 +2,7 @@
       <v-app>
              <v-container>
       <v-row>
-   
+   <h2>View Truck</h2>
       <v-subheader>Truck</v-subheader>     
         <v-list-item>
             <v-list-item-content>

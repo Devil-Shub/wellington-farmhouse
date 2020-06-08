@@ -21,6 +21,7 @@
               </thead>
               <tbody>
                 <tr v-for="item in managers" :key="item.name">
+		<template v-if="currentUser.id != item.id">
                   <td>
                     <div
                       class="v-avatar v-list-item__avatar"
@@ -57,6 +58,7 @@
                       <trash-icon size="1.5x" class="custom-class"></trash-icon>
                     </v-btn>
                   </td>
+                 </template>
                 </tr>
               </tbody>
             </template>
@@ -70,6 +72,8 @@
 <script>
 import { required } from "vuelidate/lib/validators";
 import { adminService } from "../../../_services/admin.service";
+import { authenticationService } from "../../../_services/authentication.service";
+
 import {
   UserIcon,
   EditIcon,
@@ -88,11 +92,13 @@ export default {
     return {
       dialog: false,
       on: false,
-      managers: []
+      managers: [],
+      currentUser: ''
     };
   },
   getList() {},
   mounted: function() {
+  this.currentUser = authenticationService.currentUserValue.data.user;
     this.listAdmin();
   },
   methods: {

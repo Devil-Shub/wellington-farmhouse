@@ -43,7 +43,7 @@
       </v-col>
     </v-row>
 
-    <v-toolbar-title class="hidden-sm-and-down font-weight-normal main-title mt-5" v-text="$route.name" />
+    <!-- <v-toolbar-title class="hidden-sm-and-down font-weight-normal main-title mt-5" v-text="$route.name" />  -->
 
   </v-app-bar>
 </template>

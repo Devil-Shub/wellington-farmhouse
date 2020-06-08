@@ -2,6 +2,7 @@
   <v-app>
     <v-container>
       <v-row>
+<h2>Edit Truck</h2>
         <v-col cols="12" md="12">
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-row>
