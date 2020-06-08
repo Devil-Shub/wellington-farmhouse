@@ -2,6 +2,7 @@
   <v-app>
     <v-container>
       <v-row>
+<h2>Skidsteer List</h2>
         <div class="add-icon">
           <router-link to="/admin/skidsteer/add" class="nav-item nav-link">
             <plus-circle-icon size="1.5x" class="custom-class"></plus-circle-icon>

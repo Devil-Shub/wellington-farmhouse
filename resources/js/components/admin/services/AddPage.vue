@@ -3,7 +3,7 @@
     <v-container>
       <v-row>
         <v-col cols="12" md="12">
-          <h4>Add Service</h4>
+          <h2>Add Service</h2>
         </v-col>
 
         <v-col cols="12" md="12" class="pl-0">

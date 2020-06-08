@@ -332,12 +332,7 @@ var render = function() {
           )
         ],
         1
-      ),
-      _vm._v(" "),
-      _c("v-toolbar-title", {
-        staticClass: "hidden-sm-and-down font-weight-normal main-title mt-5",
-        domProps: { textContent: _vm._s(_vm.$route.name) }
-      })
+      )
     ],
     1
   )

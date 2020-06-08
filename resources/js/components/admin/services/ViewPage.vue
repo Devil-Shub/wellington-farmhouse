@@ -2,7 +2,7 @@
       <v-app>
              <v-container>
       <v-row>
-     
+      <h2>View Service</h2>
         
       <v-subheader>Service</v-subheader>     
         <v-list-item>

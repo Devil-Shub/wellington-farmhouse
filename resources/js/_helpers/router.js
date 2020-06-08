@@ -71,6 +71,7 @@ export const router = new Router({
   mode: "history",
   routes: [
     { path: "/", component: HomePage, meta: { requiresAuth: [Role.Customer] } },
+    { path: "home", component: HomePage, meta: { requiresAuth: [Role.Customer] } },
     { path: "/confirm-email", component: HomePage },
     //admin routes
     {
@@ -79,45 +80,45 @@ export const router = new Router({
       name: 'SuperAdmin',
       meta: { requiresAuth: [Role.admin]},
       children: [
-        { path: 'dashboard', component: Dashboard, name: 'Dashboard', meta: { requiresAuth: Role.Admin} },
-        { path: 'settings', component: Settings, name: 'Settings', meta: { requiresAuth: Role.Admin} },
+        { path: 'dashboard', component: Dashboard, name: 'Dashboard', meta: { requiresAuth: [Role.Admin]} },
+        { path: 'settings', component: Settings, name: 'Settings', meta: { requiresAuth: [Role.Admin]} },
         { path: 'profile', component: ProfilePage, name: 'Profile' },
-        { path: 'changepassword', component: ChangePasswordPage, name: 'Changepassword', meta: { requiresAuth: Role.Admin} },
-        { path: 'admin', component: AdminListPage, name: 'Admin', meta: { requiresAuth: Role.Admin} },
-        { path: 'admin/add', component: AdminAddPage, name: 'AdminAdd', meta: { requiresAuth: Role.Admin} },
-        { path: 'admin/edit/:id', component: AdminEditPage, name: 'AdminEdit', meta: { requiresAuth: Role.Admin} },
-        { path: 'admin/view/:id', component: AdminViewPage, name: 'AdminView', meta: { requiresAuth: Role.Admin} },
+        { path: 'changepassword', component: ChangePasswordPage, name: 'Changepassword', meta: { requiresAuth: [Role.Admin]} },
+        { path: 'admin', component: AdminListPage, name: 'Admin', meta: { requiresAuth: [Role.Admin]} },
+        { path: 'admin/add', component: AdminAddPage, name: 'AdminAdd', meta: { requiresAuth: [Role.Admin]} },
+        { path: 'admin/edit/:id', component: AdminEditPage, name: 'AdminEdit', meta: { requiresAuth: [Role.Admin]} },
+        { path: 'admin/view/:id', component: AdminViewPage, name: 'AdminView', meta: { requiresAuth: [Role.Admin]} },
 
-        { path: 'customer', component: CustomerListPage, name: 'Customer', meta: { requiresAuth: Role.Admin} },
-        { path: 'customer/add', component: CustomerAddPage, name: 'CustomerAdd', meta: { requiresAuth: Role.Admin} },
-        { path: 'customer/edit/:id', component: CustomerEditPage, name: 'CustomerEdit', meta: { requiresAuth: Role.Admin} },
+        { path: 'customer', component: CustomerListPage, name: 'Customer', meta: { requiresAuth: [Role.Admin]} },
+        { path: 'customer/add', component: CustomerAddPage, name: 'CustomerAdd', meta: { requiresAuth: [Role.Admin]} },
+        { path: 'customer/edit/:id', component: CustomerEditPage, name: 'CustomerEdit', meta: { requiresAuth: [Role.Admin]} },
         
-        { path: 'manager', component: ListPage, name: 'Manager', meta: { requiresAuth: Role.Admin} },
-        { path: 'manager/add', component: AddPage, name: 'Add', meta: { requiresAuth: Role.Admin} },
-        { path: 'manager/edit/:id', component: EditPage, name: 'Edit', meta: { requiresAuth: Role.Admin} },
-        { path: 'manager/view/:id', component: ViewPage, name: 'View', meta: { requiresAuth: Role.Admin} },
+        { path: 'manager', component: ListPage, name: 'Manager', meta: { requiresAuth: [Role.Admin]} },
+        { path: 'manager/add', component: AddPage, name: 'Add', meta: { requiresAuth: [Role.Admin]} },
+        { path: 'manager/edit/:id', component: EditPage, name: 'Edit', meta: { requiresAuth: [Role.Admin]} },
+        { path: 'manager/view/:id', component: ViewPage, name: 'View', meta: { requiresAuth: [Role.Admin]} },
 
-        { path: 'services', component: SerivcesListPage, name: 'Services', meta: { requiresAuth: Role.Admin} },
+        { path: 'services', component: SerivcesListPage, name: 'Services', meta: { requiresAuth: [Role.Admin]} },
         { path: 'service/add', component: SerivcesAddPage, name: 'ServiceAdd' },
-        { path: 'service/edit/:id', component: SerivcesEditPage, name: 'ServiceEdit' },
-        { path: 'service/view/:id', component: SerivcesViewPage, name: 'ServiceView' },
-        { path: 'truckdrivers', component: TruckDriverListPage, name: 'Truckdrivers' },
-        { path: 'truckdriver/add', component: TruckDriverAddPage, name: 'TruckdriverAdd' },
-        { path: 'truckdriver/edit/:id', component: TruckDriverEditPage, name: 'TruckdriverEdit' },
-        { path: 'truckdriver/view/:id', component: TruckDriverViewPage, name: 'TruckdriverView' },
-        { path: 'trucks', component: TruckListPage, name: 'Trucks' },
-        { path: 'truck/add', component: TruckAddPage, name: 'TruckAdd' },
-        { path: 'truck/edit/:id', component: TruckEditPage, name: 'TruckEdit' },
-        { path: 'truck/view/:id', component: TruckViewPage, name: 'TruckView' },
-	{ path: 'truck/service/:id', component: TruckViewServicePage, name: 'TruckViewService' },
-        { path: 'truck/addservice/:id', component: TruckAddServicePage, name: 'TruckAddService' },
-	{ path: 'truck/addinsurance/:id', component: TruckInsuranceServicePage, name: 'TruckAddInsurance' },
-        { path: 'skidsteers', component: SkidsteerListPage, name: 'Skidsteers' },
-        { path: 'skidsteer/add', component: SkidsteerAddPage, name: 'SkidsteerAdd' },
-        { path: 'skidsteer/edit/:id', component: SkidsteerEditPage, name: 'SkidsteerEdit' },
-        { path: 'skidsteer/view/:id', component: SkidsteerViewPage, name: 'SkidsteerView' },
-	{ path: 'Skidsteer/service/:id', component: SkidsteerViewServicePage, name: 'SkidsteerViewService' },
-       { path: 'Skidsteer/addservice/:id', component: SkidsteerAddServicePage, name: 'SkidsteerAddService' },
+        { path: 'service/edit/:id', component: SerivcesEditPage, name: 'ServiceEdit', meta: { requiresAuth: [Role.Admin]} }, 
+        { path: 'service/view/:id', component: SerivcesViewPage, name: 'ServiceView', meta: { requiresAuth: [Role.Admin]} },
+        { path: 'truckdrivers', component: TruckDriverListPage, name: 'Truckdrivers', meta: { requiresAuth: [Role.Admin]} },
+        { path: 'truckdriver/add', component: TruckDriverAddPage, name: 'TruckdriverAdd', meta: { requiresAuth: [Role.Admin]} },
+        { path: 'truckdriver/edit/:id', component: TruckDriverEditPage, name: 'TruckdriverEdit', meta: { requiresAuth: [Role.Admin]} },
+        { path: 'truckdriver/view/:id', component: TruckDriverViewPage, name: 'TruckdriverView', meta: { requiresAuth: [Role.Admin]} },
+        { path: 'trucks', component: TruckListPage, name: 'Trucks', meta: { requiresAuth: [Role.Admin]} },
+        { path: 'truck/add', component: TruckAddPage, name: 'TruckAdd', meta: { requiresAuth: [Role.Admin]} },
+        { path: 'truck/edit/:id', component: TruckEditPage, name: 'TruckEdit', meta: { requiresAuth: [Role.Admin]} },
+        { path: 'truck/view/:id', component: TruckViewPage, name: 'TruckView', meta: { requiresAuth: [Role.Admin]} },
+	{ path: 'truck/service/:id', component: TruckViewServicePage, name: 'TruckViewService' , meta: { requiresAuth: [Role.Admin]} },
+        { path: 'truck/addservice/:id', component: TruckAddServicePage, name: 'TruckAddService' , meta: { requiresAuth: [Role.Admin]} },
+	{ path: 'truck/addinsurance/:id', component: TruckInsuranceServicePage, name: 'TruckAddInsurance' , meta: { requiresAuth: [Role.Admin]} },
+        { path: 'skidsteers', component: SkidsteerListPage, name: 'Skidsteers', meta: { requiresAuth: [Role.Admin]} },
+        { path: 'skidsteer/add', component: SkidsteerAddPage, name: 'SkidsteerAdd', meta: { requiresAuth: [Role.Admin]} },
+        { path: 'skidsteer/edit/:id', component: SkidsteerEditPage, name: 'SkidsteerEdit', meta: { requiresAuth: [Role.Admin]} },
+        { path: 'skidsteer/view/:id', component: SkidsteerViewPage, name: 'SkidsteerView', meta: { requiresAuth: [Role.Admin]} },
+	{ path: 'Skidsteer/service/:id', component: SkidsteerViewServicePage, name: 'SkidsteerViewService', meta: { requiresAuth: [Role.Admin]} },
+       { path: 'Skidsteer/addservice/:id', component: SkidsteerAddServicePage, name: 'SkidsteerAddService', meta: { requiresAuth: [Role.Admin]} },
       ]
     },
    
@@ -170,7 +171,6 @@ router.beforeEach((to, from, next) => {
       // not logged in so redirect to login page with the return url
       return next({ path: "/login", query: { returnUrl: to.path } });
     }
-
     // check if route is restricted by role
     if (requiresAuth.length && requiresAuth.includes(currentUser.data.user.role_id)) {
 	if(!currentUser.data.user.password_changed_at){
