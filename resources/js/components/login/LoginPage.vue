@@ -83,7 +83,6 @@ name: "login",
         this.loading = true;
         authenticationService.login(this.email, this.password).then(
           response => {
-alert(response)
               router.push(response);
           },
           error => {
