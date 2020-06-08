@@ -2,9 +2,7 @@
   <v-app>
     <v-container>
       <v-row>
-        <v-col cols="12" md="12">
-          <h2>Add Service</h2>
-        </v-col>
+        <h4 class="main-title">Add Service</h4>
 
         <v-col cols="12" md="12" class="pl-0">
           <v-form ref="form" v-model="valid" lazy-validation>
@@ -49,7 +47,8 @@
             </v-col>
 
             <v-col cols="12" md="12" class="textarea-parent">
-              <v-textarea
+              <v-textarea rows="1"
+                auto-grow
                 clearable
                 clear-icon="cancel"
                 v-model="addForm.description"
@@ -78,7 +77,7 @@
 	      <v-radio label="Round" value="2"></v-radio>
 	    </v-radio-group>
 	</v-col>
-            <v-btn color="success" class="mr-4" @click="save">Submit</v-btn>
+            <v-btn color="success" class="mr-4 custom-save-btn ml-4 mt-4" @click="save">Add Service</v-btn>
           </v-form>
         </v-col>
       </v-row>

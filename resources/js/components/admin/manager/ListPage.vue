@@ -2,7 +2,7 @@
   <v-app>
     <v-container>
       <v-row>
-<h2>List Manager</h2>
+<h4 class="main-title">List Manager</h4>
         <div class="add-icon">
           <router-link to="/admin/manager/add" class="nav-item nav-link">
             <plus-circle-icon size="1.5x" class="custom-class"></plus-circle-icon>
