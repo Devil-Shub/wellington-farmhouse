@@ -83,7 +83,11 @@ name: "login",
         this.loading = true;
         authenticationService.login(this.email, this.password).then(
           response => {
-              router.push(response);
+		  if(response == 'Home'){
+		      this.$router.push({name: response}).catch(error => { })
+		   }else{
+		      router.push(response);
+		  }
           },
           error => {
             // Can accept an Object of options

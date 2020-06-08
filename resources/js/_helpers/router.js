@@ -71,8 +71,8 @@ export const router = new Router({
   mode: "history",
   routes: [
     { path: "/", component: HomePage, meta: { requiresAuth: [Role.Customer] } },
-    { path: "home", component: HomePage, meta: { requiresAuth: [Role.Customer] } },
-    { path: "/confirm-email", component: HomePage },
+    { path: "/home", component: HomePage, name:'Home',  meta: { requiresAuth: [Role.Customer] } },
+    //{ path: "/confirm-email", component: HomePage },
     //admin routes
     {
       path: '/admin',
