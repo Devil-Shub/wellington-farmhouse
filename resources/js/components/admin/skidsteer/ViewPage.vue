@@ -2,14 +2,7 @@
       <v-app>
              <v-container>
       <v-row>
-     
-         <v-col
-          cols="12"
-          md="12"
-        >
-          <router-link :to="'/admin/skidsteer/service/' + skidsteer.id" class="nav-item nav-link"> <plus-circle-icon size="1.5x" class="custom-class"></plus-circle-icon> Add Service</router-link>
-            
-            </v-col>
+    
       <v-subheader>skidsteer</v-subheader>     
         <v-list-item>
             <v-list-item-content>

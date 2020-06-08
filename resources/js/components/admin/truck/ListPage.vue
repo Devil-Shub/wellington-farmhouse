@@ -20,8 +20,8 @@
         <th class="text-left">Service Details</th>
         <th class="text-left">Documents</th>
         <th class="text-left">Status</th>
-        <th class="text-left">Edit</th>
-        <th class="text-left">Delete</th>
+        <th class="text-left">Action</th>
+       
         </tr>
       </thead>
       <tbody>

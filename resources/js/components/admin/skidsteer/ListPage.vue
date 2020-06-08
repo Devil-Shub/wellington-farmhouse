@@ -12,20 +12,20 @@
             <template v-slot:default>
               <thead>
                 <tr>
-                  <!-- <th class="text-left">Company</th> -->
+                  <th class="text-left">Company</th>
                   <th class="text-left">Truck number</th>
                   <th class="text-left">Chassis number</th>
                   <th class="text-left">Total Km</th>
                   <th class="text-left">Service Details</th>
                   <th class="text-left">Documents</th>
                   <th class="text-left">Status</th>
-                  <th class="text-left"></th>
-                  <!-- <th class="text-left">Delete</th> -->
+                  <th class="text-left">Action</th>
+                  
                 </tr>
               </thead>
               <tbody>
                 <tr v-for="item in trucks" :key="item.name">
-                  <!-- <td><router-link :to="'/admin/skidsteer/service/' + item.id" class="nav-item nav-link">View Service</router-link></td> -->
+                  <td><router-link :to="'/admin/skidsteer/view/' + item.id" class="nav-item nav-link">{{item.company_name}}</router-link></td>
                   <td>{{item.truck_number}}</td>
                   <td>{{item.chaase_number}}</td>
                   <td>{{item.killometer}}</td>
