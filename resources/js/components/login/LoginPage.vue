@@ -128,7 +128,8 @@ name: "login",
             //store into local storage
             localStorage.setItem("currentUser", JSON.stringify(response.data));
             //redirect now
-            router.push("/admin/dashboard");
+            // this.$router.push(`/`);
+            // router.push("/");
           }
         })
         .catch(err => {
