@@ -2,7 +2,7 @@
   <v-app>
     <v-container>
       <v-row>
-<h2>Driver list</h2>
+<h4 class="main-title">Driver list</h4>
         <div class="add-icon">
           <router-link to="/admin/truckdriver/add" class="nav-item nav-link">
             <plus-circle-icon size="1.5x" class="custom-class"></plus-circle-icon>

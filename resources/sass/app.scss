@@ -159,6 +159,18 @@ $hover-white: #fff;
       &:focus {
         outline: none;
       }
+      &.custom-save-btn {
+        background-color: #cfcfcf !important;
+        color: #333;
+        box-shadow: none;
+        border-radius: 22px;
+        text-transform: capitalize;
+        padding: 0 25px;
+        font-weight: normal;
+        &.manager-save {
+          margin-top: -100px;
+        }
+      }
     }
     .sidebar-nav {
       background-color: #ebebeb;
@@ -259,7 +271,7 @@ $hover-white: #fff;
     }
     .add-icon {
       position: absolute;
-      top: -29px;
+      top: 5px;
       right: 22px;
       z-index: 1;
       a {
@@ -281,6 +293,16 @@ $hover-white: #fff;
       padding-top: 90px !important;
       .v-content__wrap {
         padding-left: 26px;
+        h4 {
+          &.main-title {
+            font-size: 20px;
+            padding-left: 10px;
+            font-weight: 400;
+            display: block;
+            width: 100%;
+            margin-bottom: 30px;
+          }
+        }
       }
       .v-data-table__wrapper {
         table {
@@ -334,6 +356,30 @@ $hover-white: #fff;
         }
       }
       form {
+        .custom-col {
+          padding-top: 4px;
+          padding-bottom: 4px;
+          &.calendar-col {
+            .v-input {
+              .v-input__slot {
+                max-width: 370px;
+              }
+            }
+          }
+          &.custom-img-holder {
+            float: left;
+            width: 100%;
+            max-width: 425px;
+            .col-img-holder {
+              width: 135px;
+              float: right;
+              .filepond--wrapper {
+                max-width: 135px;
+                border: none;
+              }
+            }
+          }
+        }
         .v-input {
           &.v-input--is-focused.primary--text > .v-input__control > .v-input__slot:after {
             border-color: #ebebeb !important;
@@ -405,7 +451,7 @@ $hover-white: #fff;
         .time-slots {
           .checkbox {
             border: 1px solid #ccc;
-            padding: 4px 6px;
+            padding: 4px 8px 2px;
             margin-right: 15px;
             cursor: pointer;
             &.activeClass {
@@ -427,6 +473,8 @@ $hover-white: #fff;
               padding-left: 0;
               display: inline-block;
               cursor: pointer;
+              margin-bottom: 0;
+              font-size: 15px;
               &:before, &:after {
                 content: "";
                 position: absolute;
@@ -448,6 +496,27 @@ $hover-white: #fff;
                 left: 4px;
                 top: 7px;
               }
+            }
+          }
+        }
+        .filepond--wrapper {
+          max-width: 400px;
+        }
+        .custom-img-holder {
+          .filepond--wrapper {
+            max-width: 150px;
+            min-height: 150px;
+            border: 1px solid #a09fa0;
+            background-color: #cfcfcf;
+            .filepond--root {
+              min-height: 100% !important;
+              .filepond--drop-label {
+                min-height: 9.3em;
+              }
+            }
+            .filepond--panel-root {
+              background-color: #cfcfcf;
+              border-radius: 0;
             }
           }
         }

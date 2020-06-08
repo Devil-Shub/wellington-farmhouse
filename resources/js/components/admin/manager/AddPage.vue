@@ -2,25 +2,25 @@
   <v-app>
     <v-container>
       <v-row>
-     <h2>Add Manager</h2>
+     <h4 class="main-title">Add Manager</h4>
         <v-col cols="12" md="12">
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-row>
-              <v-col cols="6" md="6">
-                <v-col cols="12" md="12">
-                  <file-pond
-                    name="uploadImage"
-                    ref="pond"
-                    label-idle="Drop files here..."
-                    allow-multiple="false"
-                    v-bind:server="serverOptions"
-                    v-bind:files="myFiles"
-                    allow-file-type-validation="true"
-                    accepted-file-types="image/jpeg, image/png"
-                    v-on:processfile="handleProcessFile"
-                  />
-                </v-col>
-                <v-col cols="12" md="12">
+              <v-col cols="12" md="12" class="custom-img-holder">
+                <file-pond
+                  name="uploadImage"
+                  ref="pond"
+                  label-idle="Drop files here..."
+                  allow-multiple="false"
+                  v-bind:server="serverOptions"
+                  v-bind:files="myFiles"
+                  allow-file-type-validation="true"
+                  accepted-file-types="image/jpeg, image/png"
+                  v-on:processfile="handleProcessFile"
+                />
+              </v-col>
+              <v-col cols="6" md="6" class="pl-0 manager-cols">
+                <v-col cols="12" md="12" class="custom-col">
                   <v-text-field
                     v-model="addForm.first_name"
                     label="Manager name"
@@ -28,7 +28,7 @@
                     :rules="[v => !!v || 'Manager name is required']"
                   ></v-text-field>
                 </v-col>
-                <v-col cols="12" md="12">
+                <v-col cols="12" md="12" class="custom-col">
                   <v-text-field
                     v-model="addForm.email"
                     :rules="emailRules"
@@ -37,7 +37,7 @@
                     required
                   ></v-text-field>
                 </v-col>
-                <v-col cols="12" md="12">
+                <v-col cols="12" md="12" class="custom-col">
                   <v-text-field
                     v-model="addForm.address"
                     label="Address"
@@ -45,7 +45,7 @@
                     :rules="[v => !!v || 'address is required']"
                   ></v-text-field>
                 </v-col>
-                <v-col cols="12" md="12">
+                <v-col cols="12" md="12" class="custom-col">
                   <v-text-field
                     v-model="addForm.city"
                     label="City"
@@ -53,7 +53,7 @@
                     :rules="[v => !!v || 'City is required']"
                   ></v-text-field>
                 </v-col>
-                <v-col cols="12" md="12">
+                <v-col cols="12" md="12" class="custom-col">
                   <v-text-field
                     v-model="addForm.state"
                     label="State"
@@ -62,7 +62,7 @@
                   ></v-text-field>
                 </v-col>
 
-                <v-col cols="12" md="12">
+                <v-col cols="12" md="12" class="custom-col">
                   <v-text-field
                     v-model="addForm.country"
                     label="Country"
@@ -72,8 +72,8 @@
                 </v-col>
               </v-col>
 
-              <v-col cols="6" md="6">
-                <v-col cols="12" md="12">
+              <v-col cols="6" md="6" class="pl-0 manager-cols">
+                <v-col cols="12" md="12" class="custom-col">
                   <v-text-field
                     v-model="addForm.manager_zipcode"
                     :rules="[v => !!v || 'Zip code is required']"
@@ -81,7 +81,7 @@
                     required
                   ></v-text-field>
                 </v-col>
-                <v-col cols="12" md="12">
+                <v-col cols="12" md="12" class="custom-col">
                   <v-text-field
                     v-model="addForm.manager_phone"
                     :rules="phoneRules"
@@ -90,7 +90,7 @@
                     maxlength="10"
                   ></v-text-field>
                 </v-col>
-                <v-col cols="12" md="12">
+                <v-col cols="12" md="12" class="custom-col">
                   <v-text-field
                     v-model="addForm.identification_number"
                     label="Identification number"
@@ -99,7 +99,7 @@
                   ></v-text-field>
                 </v-col>
 
-                <v-col cols="12" md="12">
+                <v-col cols="12" md="12" class="custom-col calendar-col">
                   <v-menu
                     v-model="menu1"
                     :close-on-content-click="false"
@@ -123,7 +123,7 @@
                   </v-menu>
                 </v-col>
 
-                <v-col cols="12" md="12">
+                <v-col cols="12" md="12" class="custom-col calendar-col">
                   <v-menu
                     v-model="menu2"
                     :close-on-content-click="false"
@@ -144,7 +144,7 @@
                     <v-date-picker v-model="date1" @input="menu2 = false"></v-date-picker>
                   </v-menu>
                 </v-col>
-                <v-col cols="12" md="12">
+                <v-col cols="12" md="12" class="custom-col">
                   <v-text-field
                     v-model="addForm.salary"
                     label="Manager Salary"
@@ -152,7 +152,9 @@
                     :rules="salaryRules"
                   ></v-text-field>
                 </v-col>
-                <v-col cols="12" md="12">
+                <v-col cols="12" md="12" class="custom-col custom-img-holder">
+                <!-- single id document -->
+                <div class="col-img-holder">
                   <file-pond
                     name="uploadImage"
                     ref="pond"
@@ -164,10 +166,12 @@
                     accepted-file-types="image/jpeg, image/png"
                     v-on:processfile="handleProcessFile1"
                   />
+                  </div>
+                  <!-- ends here -->
                 </v-col>
               </v-col>
 
-              <v-btn color="success" class="mr-4" @click="update">Submit</v-btn>
+              <v-btn color="success" class="mr-4 custom-save-btn ml-4 manager-save" @click="update">Submit</v-btn>
             </v-row>
           </v-form>
         </v-col>
