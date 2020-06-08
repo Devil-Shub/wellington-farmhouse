@@ -60,13 +60,13 @@
                       class="ma-2"
                       color="red"
                       text-color="white"
-                    >Yes</v-chip>
+                    >No</v-chip>
                     <v-chip
                       v-if="item.user.is_active"
                       class="ma-2"
                       color="green"
                       text-color="white"
-                    >No</v-chip>
+                    >Yes</v-chip>
                   </td>
 
                  
