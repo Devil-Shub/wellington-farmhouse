@@ -2,11 +2,11 @@
   <v-app>
     <v-container>
       <v-row>
-        <v-col cols="12" md="12">
+        <div class="add-icon">
           <router-link to="/admin/service/add" class="nav-item nav-link">
             <plus-circle-icon size="1.5x" class="custom-class"></plus-circle-icon>
           </router-link>
-        </v-col>
+        </div>
         <v-col cols="12" md="12">
           <v-simple-table>
             <template v-slot:default>
@@ -37,15 +37,17 @@
                 <td v-if="item.slot_type == 2">Afternoon</td>
 		<td>{{ item.slot_time }}</td>
                   <td>{{ item.description }}</td>
-                  <td>
-                    <router-link :to="'/admin/service/view/' + item.id" class="nav-item nav-link">
+                  <td class="action-col">
+                    <!-- <router-link :to="'/admin/service/view/' + item.id" class="nav-item nav-link">
                       <user-icon size="1.5x" class="custom-class"></user-icon>
-                    </router-link>
+                    </router-link> -->
                     <router-link :to="'/admin/service/edit/' + item.id" class="nav-item nav-link">
-                      <edit-icon size="1.5x" class="custom-class"></edit-icon>
+                      <!-- <edit-icon size="1.5x" class="custom-class"></edit-icon> -->
+                      <span class="custom-action-btn">Edit</span>
                     </router-link>
                     <v-btn color="blue darken-1" text @click="Delete(item.id)">
-                      <trash-icon size="1.5x" class="custom-class"></trash-icon>
+                       <!-- <trash-icon size="1.5x" class="custom-class"></trash-icon> -->
+                      <span class="custom-action-btn">Delete</span>
                     </v-btn>
                   </td>
                 </tr>

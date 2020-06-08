@@ -2,11 +2,11 @@
   <v-app>
     <v-container>
       <v-row>
-        <v-col cols="12" md="12">
+        <div class="add-icon">
           <router-link to="/admin/truckdriver/add" class="nav-item nav-link">
             <plus-circle-icon size="1.5x" class="custom-class"></plus-circle-icon>
           </router-link>
-        </v-col>
+        </div>
         <v-col cols="12" md="12">
           <v-simple-table>
             <template v-slot:default>
@@ -67,16 +67,27 @@
                       text-color="white"
                     >No</v-chip>
                   </td>
-		<td> 
-		<router-link
+
+                  <td>{{ item.driver_licence }}</td>
+                  <td>{{ item.expiry_date }}</td>
+                  <td>{{ item.salary_type }}</td>
+                  <td class="action-col">
+                    <!-- <router-link
+                      :to="'/admin/truckdriver/view/' + item.user.id"
+                      class="nav-item nav-link"
+                    >
+                      <user-icon size="1.5x" class="custom-class"></user-icon>
+                    </router-link> -->
+                    <router-link
                       :to="'/admin/truckdriver/edit/' + item.user.id"
                       class="nav-item nav-link"
                     >
-                      <edit-icon size="1.5x" class="custom-class"></edit-icon>
-                    </router-link></td>
-                  <td>
+                      <!-- <edit-icon size="1.5x" class="custom-class"></edit-icon> -->
+                      <span class="custom-action-btn">Edit</span>
+                    </router-link>
                     <v-btn color="blue darken-1" text @click="Delete(item.user.id)">
-                      <trash-icon size="1.5x" class="custom-class"></trash-icon>
+                      <!-- <trash-icon size="1.5x" class="custom-class"></trash-icon> -->
+                      <span class="custom-action-btn">Delete</span>
                     </v-btn>
                   </td>
                 </tr>

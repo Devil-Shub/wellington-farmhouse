@@ -67,6 +67,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
  // Components
@@ -157,6 +160,7 @@ var render = function() {
   return _c(
     "v-app-bar",
     {
+      staticClass: "custom-toolbar",
       attrs: {
         id: "app-bar",
         absolute: "",
@@ -186,21 +190,16 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c("v-toolbar-title", {
-        staticClass: "hidden-sm-and-down font-weight-light",
-        domProps: { textContent: _vm._s(_vm.$route.name) }
-      }),
-      _vm._v(" "),
-      _c("v-spacer"),
-      _vm._v(" "),
-      _c("div", { staticClass: "mx-3" }),
-      _vm._v(" "),
       _c(
         "v-row",
+        { staticClass: "user-image" },
         [
           _c(
             "v-col",
-            { attrs: { cols: "12", md: "12" } },
+            {
+              staticClass: "user-image-inner",
+              attrs: { cols: "12", md: "12" }
+            },
             [
               _c(
                 "v-row",
@@ -282,6 +281,21 @@ var render = function() {
                                     "router-link",
                                     {
                                       staticClass: "nav-item nav-link",
+                                      attrs: { to: "/admin/admin/add" }
+                                    },
+                                    [_vm._v("Add Admin")]
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-list-item-title",
+                                [
+                                  _c(
+                                    "router-link",
+                                    {
+                                      staticClass: "nav-item nav-link",
                                       attrs: { to: "/admin/admin" }
                                     },
                                     [_vm._v("List Admin")]
@@ -318,7 +332,12 @@ var render = function() {
           )
         ],
         1
-      )
+      ),
+      _vm._v(" "),
+      _c("v-toolbar-title", {
+        staticClass: "hidden-sm-and-down font-weight-normal main-title mt-5",
+        domProps: { textContent: _vm._s(_vm.$route.name) }
+      })
     ],
     1
   )

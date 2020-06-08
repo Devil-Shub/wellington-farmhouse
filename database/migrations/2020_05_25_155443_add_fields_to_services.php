@@ -15,7 +15,7 @@ class AddFieldsToServices extends Migration
     {
         Schema::table('services', function (Blueprint $table) {
             $table->string("slot_type")->after("service_image")->nullable();
-            $table->string("slot_time")->after("slot_type")->nullable();
+            $table->json("slot_time")->after("slot_type")->nullable();
         });
     }
 

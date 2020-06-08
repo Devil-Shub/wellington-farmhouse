@@ -343,13 +343,23 @@ class AuthController extends Controller
                 }
                 $user = $checkIfExist;
             }
+            //process token
+            $tokenResult = $user->createToken('Personal Access Token');
+            $token = $tokenResult->token;
 
-            //return success response
+            $token->save();
             return response()->json([
                 'status' => true,
-                'message' => 'Logged In Successfully.',
-                'data' => $user
-            ], 200);
+                'message' => 'Login Successful',
+                'data' => array(
+                    'access_token' => $tokenResult->accessToken,
+                    'token_type' => 'Bearer',
+                    'expires_at' => Carbon::parse(
+                        $tokenResult->token->expires_at
+                    )->toDateTimeString(),
+                    'user' => $user
+                )
+            ]);
         } catch (\Exception $e) {
             //make log of errors
             Log::error(json_encode($e->getMessage()));
