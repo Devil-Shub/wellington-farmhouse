@@ -106,10 +106,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           url: '/admin/dashboard'
         }, {
           title: 'Jobs',
-          url: '/admin/dashboard'
+          url: '/admin/jobs'
         }, {
           title: 'Dispatches',
-          url: '/admin/dashboard'
+          url: '/admin/dispatches'
         }, {
           title: 'Services',
           url: '/admin/services'
@@ -119,7 +119,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         title: 'Customer',
         items: [{
           title: 'Customer',
-          url: '/admin/dashboard'
+          url: '/admin/customer'
         }, {
           title: 'Customer Compnay',
           url: '/admin/dashboard'
@@ -149,10 +149,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         title: 'Accounts',
         items: [{
           title: 'Accountings',
-          url: '/admin/dashboard'
+          url: '/admin/accounting'
         }, {
           title: 'Reports',
-          url: '/admin/dashboard'
+          url: '/admin/reports'
         }]
       }]
     };

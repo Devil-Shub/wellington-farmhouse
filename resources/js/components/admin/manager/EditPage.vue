@@ -12,7 +12,7 @@
                          <img v-if="!addForm.user_image" src="/images/avatar.png" alt="driver">
              </div>
 
-                <v-col cols="12" md="12">
+                <v-col cols="12" md="12" class="custom-img-holder">
                   <file-pond
                     name="uploadImage"
                     ref="pond"
@@ -159,23 +159,32 @@
                     :rules="[v => !!v || 'Manager salary is required']"
                   ></v-text-field>
                 </v-col>
-                <v-col cols="12" md="12">
+                <v-col cols="12" md="12" class="custom-col custom-img-holder">
+<div class="col-img-holder">
                   <file-pond
                     name="uploadImage"
                     ref="pond"
                     label-idle="Identification Document..."
                     allow-multiple="false"
+	            v-bind:required="true"
                     v-bind:server="serverOptions"
                     v-bind:files="myFiles"
                     allow-file-type-validation="true"
                     accepted-file-types="image/jpeg, image/png"
                     v-on:processfile="handleProcessFile1"
                   />
+<div class="v-messages theme--light error--text" role="alert" v-if="docError">
+		<div class="v-messages__wrapper"><div class="v-messages__message">Document upload is required</div></div>
+		</div>
+                  </div>
                 </v-col>
+
+
 <div class="" style="height: 200px; min-width: 200px; width: 200px;">
                     <img style="width:100%" v-if="addForm.document" :src="'/../'+addForm.document" alt="John">
                         
              </div>
+
               </v-col>
 
               <v-btn color="success" class="mr-4" @click="update">Submit</v-btn>
@@ -199,6 +208,7 @@ export default {
   },
   data() {
     return {
+     docError: false,
       valid: true,
       avatar: null,
       menu2: false,
@@ -304,9 +314,13 @@ export default {
       this.addForm.user_image = file.serverId;
     },
     handleProcessFile1: function(error, file) {
+this.docError = false
       this.addForm.document = file.serverId;
     },
     update() {
+    if(this.addForm.document == ''){
+	this.docError = true
+       }
       this.addForm.joining_date = this.date;
       this.addForm.releaving_date = this.date1;
       console.log(this.addForm);

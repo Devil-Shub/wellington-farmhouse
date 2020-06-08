@@ -18,6 +18,7 @@
                   <th class="text-left">Address</th>
                   <th class="text-left">Contact Number</th>
                   <th class="text-left">Email Address</th>
+		  <th class="text-left">Salary</th>
                   <th class="text-left">Active</th>
                   <th class="text-left">Action</th>
                 </tr>
@@ -41,6 +42,7 @@
                   <td>{{ item.address }} {{ item.city }} {{ item.state }} {{ item.country }} {{ item.zip_code }}</td>
                   <td>{{ item.phone }}</td>
                   <td>{{ item.email }}</td>
+		<td>${{ item.manager.salary }}</td>
                    <td>
                     <v-chip
                       v-if="!item.is_active"

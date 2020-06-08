@@ -60,6 +60,16 @@ import SkidsteerViewPage from "../components/admin/skidsteer/ViewPage";
 import SkidsteerViewServicePage from "../components/admin/skidsteer/ViewServicePage";
 import SkidsteerAddServicePage from "../components/admin/skidsteer/AddServicePage";
 
+//jos
+import JobsViewPage from "../components/admin/jobs/View";
+//dispatches
+import DispatchesViewPage from "../components/admin/dispatches/View";
+
+//reports
+import ReportsViewPage from "../components/admin/reports/View";
+//AccountingViewPage
+import AccountingViewPage from "../components/admin/accounting/View";
+
 import LoginPage from "../components/login/LoginPage";
 import RegisterPage from "../components/register/RegisterPage";
 import ChangePassword from "../components/ChangePasswordPage";
@@ -119,6 +129,11 @@ export const router = new Router({
         { path: 'skidsteer/view/:id', component: SkidsteerViewPage, name: 'SkidsteerView', meta: { requiresAuth: [Role.Admin]} },
 	{ path: 'Skidsteer/service/:id', component: SkidsteerViewServicePage, name: 'SkidsteerViewService', meta: { requiresAuth: [Role.Admin]} },
        { path: 'Skidsteer/addservice/:id', component: SkidsteerAddServicePage, name: 'SkidsteerAddService', meta: { requiresAuth: [Role.Admin]} },
+
+	{ path: 'jobs', component: JobsViewPage, name: 'Jobs', meta: { requiresAuth: [Role.Admin]} },
+        { path: 'dispatches', component: DispatchesViewPage, name: 'Dispatches', meta: { requiresAuth: [Role.Admin]} },
+        { path: 'accounting', component: AccountingViewPage, name: 'Accounting', meta: { requiresAuth: [Role.Admin]} },
+        { path: 'reports', component: ReportsViewPage, name: 'Reports', meta: { requiresAuth: [Role.Admin]} },
       ]
     },
    
