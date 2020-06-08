@@ -73,7 +73,7 @@ function login(email, password) {
         this.currentUrl = "/driver/dashboard";
       }
       if(user.data.user.role_id === 4){
-        this.currentUrl = "/home"; 
+        this.currentUrl = "Home"; 
       }
       return this.currentUrl;
     });
