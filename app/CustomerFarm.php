@@ -15,6 +15,6 @@ class CustomerFarm extends Model
      * @var array
      */
     protected $fillable = [
-        'farm_address', 'farm_city', 'farm_image', 'farm_province', 'farm_unit', 'farm_zipcode', 'farm_active', 'latitude', 'longitude'
+        'customer_id', 'manager_id', 'farm_address', 'farm_city', 'farm_image', 'farm_province', 'farm_unit', 'farm_zipcode', 'farm_active', 'latitude', 'longitude'
     ];
 }

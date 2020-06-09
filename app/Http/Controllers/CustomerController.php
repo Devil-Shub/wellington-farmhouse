@@ -96,6 +96,8 @@ class CustomerController extends Controller
 
                     //save customer farm details
                     $farmDetails = new CustomerFarm([
+                        'customer_id' => $user->id,
+                        'manager_id' => $mangerDetails->id,
                         'farm_address' => $request->farm_address,
                         'farm_city' => $request->farm_city,
                         'farm_image' => json_encode($request->farm_images),
@@ -231,23 +233,19 @@ class CustomerController extends Controller
     }
 
     /**
-     * list services
+     * list customer
      */
-    public function listServices()
+    public function listCustomer()
     {
-        $getAllServices = Service::get();
-
-        foreach ($getAllServices as $key => $service) {
-            //get timeSlots
-            $timeSlots = TimeSlots::whereIn('id', json_decode($service->slot_time))->get();
-            //set timeSlots
-            $getAllServices[$key]["timeSlots"] = $timeSlots;
-        }
+        $getCustomer = User::with(['customerManager' => function ($query) {
+            $query->with("manager.farms");
+        }])
+        ->whereRoleId(config('constant.roles.Customer'))->get();
 
         return response()->json([
             'status' => true,
             'message' => 'Service Listing.',
-            'data' => $getAllServices
+            'data' => $getCustomer
         ], 200);
     }
 
