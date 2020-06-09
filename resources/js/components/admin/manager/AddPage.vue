@@ -295,7 +295,7 @@ export default {
        }
       this.addForm.joining_date = this.date;
       this.addForm.releaving_date = this.date1;
-      if (this.$refs.form.validate()) {
+      if (this.$refs.form.validate() && (!this.docError)) {
         managerService.add(this.addForm).then(response => {
           //handle response
           if (response.status) {

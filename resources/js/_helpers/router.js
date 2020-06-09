@@ -49,6 +49,7 @@ import TruckListPage from "../components/admin/truck/ListPage";
 import TruckAddPage from "../components/admin/truck/AddPage";
 import TruckEditPage from "../components/admin/truck/EditPage";
 import TruckViewPage from "../components/admin/truck/ViewPage";
+import TruckDocViewPage from "../components/admin/truck/ViewDocPage";
 import TruckViewServicePage from "../components/admin/truck/ViewServicePage";
 import TruckAddServicePage from "../components/admin/truck/AddServicePage";
 import TruckInsuranceServicePage from "../components/admin/truck/InsuranceServicePage";
@@ -57,6 +58,7 @@ import SkidsteerListPage from "../components/admin/skidsteer/ListPage";
 import SkidsteerAddPage from "../components/admin/skidsteer/AddPage";
 import SkidsteerEditPage from "../components/admin/skidsteer/EditPage";
 import SkidsteerViewPage from "../components/admin/skidsteer/ViewPage";
+import SkidsteerDocViewPage from "../components/admin/skidsteer/ViewDocPage";
 import SkidsteerViewServicePage from "../components/admin/skidsteer/ViewServicePage";
 import SkidsteerAddServicePage from "../components/admin/skidsteer/AddServicePage";
 
@@ -120,6 +122,7 @@ export const router = new Router({
         { path: 'truck/add', component: TruckAddPage, name: 'TruckAdd', meta: { requiresAuth: [Role.Admin]} },
         { path: 'truck/edit/:id', component: TruckEditPage, name: 'TruckEdit', meta: { requiresAuth: [Role.Admin]} },
         { path: 'truck/view/:id', component: TruckViewPage, name: 'TruckView', meta: { requiresAuth: [Role.Admin]} },
+        { path: 'truck/docview/:id', component: TruckDocViewPage, name: 'TruckDocView', meta: { requiresAuth: [Role.Admin]} },
 	{ path: 'truck/service/:id', component: TruckViewServicePage, name: 'TruckViewService' , meta: { requiresAuth: [Role.Admin]} },
         { path: 'truck/addservice/:id', component: TruckAddServicePage, name: 'TruckAddService' , meta: { requiresAuth: [Role.Admin]} },
 	{ path: 'truck/addinsurance/:id', component: TruckInsuranceServicePage, name: 'TruckAddInsurance' , meta: { requiresAuth: [Role.Admin]} },
@@ -127,6 +130,7 @@ export const router = new Router({
         { path: 'skidsteer/add', component: SkidsteerAddPage, name: 'SkidsteerAdd', meta: { requiresAuth: [Role.Admin]} },
         { path: 'skidsteer/edit/:id', component: SkidsteerEditPage, name: 'SkidsteerEdit', meta: { requiresAuth: [Role.Admin]} },
         { path: 'skidsteer/view/:id', component: SkidsteerViewPage, name: 'SkidsteerView', meta: { requiresAuth: [Role.Admin]} },
+	{ path: 'skidsteer/docview/:id', component: SkidsteerDocViewPage, name: 'SkidsteerDocView', meta: { requiresAuth: [Role.Admin]} },
 	{ path: 'Skidsteer/service/:id', component: SkidsteerViewServicePage, name: 'SkidsteerViewService', meta: { requiresAuth: [Role.Admin]} },
        { path: 'Skidsteer/addservice/:id', component: SkidsteerAddServicePage, name: 'SkidsteerAddService', meta: { requiresAuth: [Role.Admin]} },
 

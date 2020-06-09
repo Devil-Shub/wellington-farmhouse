@@ -141,7 +141,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           title: 'Truck',
           url: '/admin/trucks'
         }, {
-          title: 'Skid',
+          title: 'SkidSteer',
           url: '/admin/skidsteers'
         }]
       }, {

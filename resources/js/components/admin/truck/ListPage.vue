@@ -32,11 +32,11 @@
 	<td>{{item.chaase_number}}</td>
 	<td>{{item.killometer}}</td>
         <td> <router-link :to="'/admin/truck/service/' + item.id" class="nav-item nav-link">View Service</router-link></td>
-        <td>View Documents</td>
+        <td><router-link :to="'/admin/truck/docview/' + item.id" class="nav-item nav-link">View Documents</router-link></td>
 	<td v-if="item.status == 1">Available</td>
 	<td v-if="item.status == 0">Unavailable</td>
           <td class="action-col"> 
-            <!-- <router-link :to="'/admin/truck/view/' + item.id" class="nav-item nav-link"><user-icon size="1.5x" class="custom-class"></user-icon></router-link> -->
+            
             <router-link :to="'/admin/truck/edit/' + item.id" class="nav-item nav-link">
               <!--<edit-icon size="1.5x" class="custom-class"></edit-icon> -->
               <span class="custom-action-btn">Edit</span>

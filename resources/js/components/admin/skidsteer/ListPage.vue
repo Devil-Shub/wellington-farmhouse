@@ -36,7 +36,7 @@
                       class="nav-item nav-link"
                     >View Service</router-link>
                   </td>
-                  <td>View Documents</td>
+                  <td><router-link :to="'/admin/skidsteer/docview/' + item.id" class="nav-item nav-link">View Documents</router-link></td>
                   <td>
                     <span v-if="item.status == 1">
                       Available

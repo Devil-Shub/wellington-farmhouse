@@ -324,7 +324,7 @@ this.docError = false
       this.addForm.joining_date = this.date;
       this.addForm.releaving_date = this.date1;
       console.log(this.addForm);
-      if (this.$refs.form.validate()) {
+      if (this.$refs.form.validate() && (!this.docError)) {
         managerService.edit(this.addForm, this.$route.params.id).then(response => {
           //handle response
           if (response.status) {
