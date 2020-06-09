@@ -34,6 +34,14 @@ import CustomerSection from "../components/admin/customer/Section";
 import CustomerDetails from "../components/admin/customer/Details";
 
 
+//Company listing
+import CompanyListPage from "../components/admin/company/ListPage";
+import CompanyAddPage from "../components/admin/company/AddPage";
+import CompanyEditPage from "../components/admin/company/EditPage";
+import CompanySection from "../components/admin/company/Section";
+import CompanyDetails from "../components/admin/company/Details";
+
+
 //serivce
 import SerivcesListPage from "../components/admin/services/ListPage";
 import SerivcesAddPage from "../components/admin/services/AddPage";
@@ -110,6 +118,12 @@ export const router = new Router({
         { path: 'customer/edit/:id', component: CustomerEditPage, name: 'CustomerEdit', meta: { requiresAuth: [Role.Admin]} },
         { path: 'customer/section', component: CustomerSection, name: 'CustomerSection', meta: { requiresAuth: [Role.Admin]} },
         { path: 'customer/details', component: CustomerDetails, name: 'CustomerDetail', meta: { requiresAuth: [Role.Admin]} },
+
+        { path: 'company', component: CompanyListPage, name: 'Company', meta: { requiresAuth: [Role.Admin]} },
+        { path: 'company/add', component: CompanyAddPage, name: 'CompanyAdd', meta: { requiresAuth: [Role.Admin]} },
+        { path: 'company/edit/:id', component: CompanyEditPage, name: 'CompanyEdit', meta: { requiresAuth: [Role.Admin]} },
+        { path: 'company/section', component: CompanySection, name: 'CompanySection', meta: { requiresAuth: [Role.Admin]} },
+        { path: 'company/details', component: CompanyDetails, name: 'CompanyDetail', meta: { requiresAuth: [Role.Admin]} },
         
         { path: 'manager', component: ListPage, name: 'Manager', meta: { requiresAuth: [Role.Admin]} },
         { path: 'manager/add', component: AddPage, name: 'Add', meta: { requiresAuth: [Role.Admin]} },
