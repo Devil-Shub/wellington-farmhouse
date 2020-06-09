@@ -11042,6 +11042,25 @@ a.text-dark:focus {
   color: #405f6e;
 }
 
+#app .col-sm-1,
+#app .col-sm-2,
+#app .col-sm-3,
+#app .col-sm-4,
+#app .col-sm-5,
+#app .col-sm-6,
+#app .col-sm-7,
+#app .col-sm-8,
+#app .col-sm-9,
+#app .col-sm-10,
+#app .col-sm-11,
+#app .col-sm-12 {
+  display: inline-block;
+}
+
+#app .form-layout .col-sm-3 {
+  margin-left: -4px;
+}
+
 #app a {
   color: #333;
 }
