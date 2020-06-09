@@ -4,10 +4,187 @@
 /*!************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/layout/Drawer.vue?vue&type=script&lang=js& ***!
   \************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /var/www/html/wellington-full/resources/js/components/layout/Drawer.vue: Unexpected token (117:0)\n\n\u001b[0m \u001b[90m 115 | \u001b[39m            items\u001b[33m:\u001b[39m [\u001b[0m\n\u001b[0m \u001b[90m 116 | \u001b[39m              { title\u001b[33m:\u001b[39m \u001b[32m'Truck'\u001b[39m\u001b[33m,\u001b[39m url\u001b[33m:\u001b[39m \u001b[32m'/admin/trucks'\u001b[39m }\u001b[33m,\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 117 | \u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<\u001b[39m \u001b[33mHEAD\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m     | \u001b[39m\u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 118 | \u001b[39m\t            { title\u001b[33m:\u001b[39m \u001b[32m'Skid Steer'\u001b[39m\u001b[33m,\u001b[39m url\u001b[33m:\u001b[39m \u001b[32m'/admin/skidsteers'\u001b[39m }\u001b[0m\n\u001b[0m \u001b[90m 119 | \u001b[39m\u001b[33m===\u001b[39m\u001b[33m===\u001b[39m\u001b[33m=\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 120 | \u001b[39m\t      { title\u001b[33m:\u001b[39m \u001b[32m'SkidSteer'\u001b[39m\u001b[33m,\u001b[39m url\u001b[33m:\u001b[39m \u001b[32m'/admin/skidsteers'\u001b[39m }\u001b[0m\n    at Parser._raise (/var/www/html/wellington-full/node_modules/@babel/parser/lib/index.js:742:17)\n    at Parser.raiseWithData (/var/www/html/wellington-full/node_modules/@babel/parser/lib/index.js:735:17)\n    at Parser.raise (/var/www/html/wellington-full/node_modules/@babel/parser/lib/index.js:729:17)\n    at Parser.unexpected (/var/www/html/wellington-full/node_modules/@babel/parser/lib/index.js:8779:16)\n    at Parser.parseExprAtom (/var/www/html/wellington-full/node_modules/@babel/parser/lib/index.js:10074:20)\n    at Parser.parseExprSubscripts (/var/www/html/wellington-full/node_modules/@babel/parser/lib/index.js:9624:23)\n    at Parser.parseMaybeUnary (/var/www/html/wellington-full/node_modules/@babel/parser/lib/index.js:9604:21)\n    at Parser.parseExprOps (/var/www/html/wellington-full/node_modules/@babel/parser/lib/index.js:9474:23)\n    at Parser.parseMaybeConditional (/var/www/html/wellington-full/node_modules/@babel/parser/lib/index.js:9447:23)\n    at Parser.parseMaybeAssign (/var/www/html/wellington-full/node_modules/@babel/parser/lib/index.js:9402:21)\n    at Parser.parseExprListItem (/var/www/html/wellington-full/node_modules/@babel/parser/lib/index.js:10740:18)\n    at Parser.parseExprList (/var/www/html/wellington-full/node_modules/@babel/parser/lib/index.js:10714:22)\n    at Parser.parseExprAtom (/var/www/html/wellington-full/node_modules/@babel/parser/lib/index.js:9991:32)\n    at Parser.parseExprSubscripts (/var/www/html/wellington-full/node_modules/@babel/parser/lib/index.js:9624:23)\n    at Parser.parseMaybeUnary (/var/www/html/wellington-full/node_modules/@babel/parser/lib/index.js:9604:21)\n    at Parser.parseExprOps (/var/www/html/wellington-full/node_modules/@babel/parser/lib/index.js:9474:23)\n    at Parser.parseMaybeConditional (/var/www/html/wellington-full/node_modules/@babel/parser/lib/index.js:9447:23)\n    at Parser.parseMaybeAssign (/var/www/html/wellington-full/node_modules/@babel/parser/lib/index.js:9402:21)\n    at Parser.parseObjectProperty (/var/www/html/wellington-full/node_modules/@babel/parser/lib/index.js:10534:101)\n    at Parser.parseObjPropValue (/var/www/html/wellington-full/node_modules/@babel/parser/lib/index.js:10559:101)\n    at Parser.parseObjectMember (/var/www/html/wellington-full/node_modules/@babel/parser/lib/index.js:10483:10)\n    at Parser.parseObj (/var/www/html/wellington-full/node_modules/@babel/parser/lib/index.js:10396:25)\n    at Parser.parseExprAtom (/var/www/html/wellington-full/node_modules/@babel/parser/lib/index.js:10017:28)\n    at Parser.parseExprSubscripts (/var/www/html/wellington-full/node_modules/@babel/parser/lib/index.js:9624:23)\n    at Parser.parseMaybeUnary (/var/www/html/wellington-full/node_modules/@babel/parser/lib/index.js:9604:21)\n    at Parser.parseExprOps (/var/www/html/wellington-full/node_modules/@babel/parser/lib/index.js:9474:23)\n    at Parser.parseMaybeConditional (/var/www/html/wellington-full/node_modules/@babel/parser/lib/index.js:9447:23)\n    at Parser.parseMaybeAssign (/var/www/html/wellington-full/node_modules/@babel/parser/lib/index.js:9402:21)\n    at Parser.parseExprListItem (/var/www/html/wellington-full/node_modules/@babel/parser/lib/index.js:10740:18)\n    at Parser.parseExprList (/var/www/html/wellington-full/node_modules/@babel/parser/lib/index.js:10714:22)\n    at Parser.parseExprAtom (/var/www/html/wellington-full/node_modules/@babel/parser/lib/index.js:9991:32)\n    at Parser.parseExprSubscripts (/var/www/html/wellington-full/node_modules/@babel/parser/lib/index.js:9624:23)\n    at Parser.parseMaybeUnary (/var/www/html/wellington-full/node_modules/@babel/parser/lib/index.js:9604:21)\n    at Parser.parseExprOps (/var/www/html/wellington-full/node_modules/@babel/parser/lib/index.js:9474:23)\n    at Parser.parseMaybeConditional (/var/www/html/wellington-full/node_modules/@babel/parser/lib/index.js:9447:23)\n    at Parser.parseMaybeAssign (/var/www/html/wellington-full/node_modules/@babel/parser/lib/index.js:9402:21)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+// Utilities
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'DashboardCoreDrawer',
+  props: {
+    expandOnHover: {
+      type: Boolean,
+      "default": false
+    }
+  },
+  data: function data() {
+    return {
+      items: [{
+        action: 'local_activity',
+        title: 'Main',
+        active: true,
+        items: [{
+          title: 'Overview',
+          url: '/admin/dashboard'
+        }, {
+          title: 'Jobs',
+          url: '/admin/jobs'
+        }, {
+          title: 'Dispatches',
+          url: '/admin/dispatches'
+        }, {
+          title: 'Services',
+          url: '/admin/services'
+        }]
+      }, {
+        action: 'local_activity',
+        title: 'Customer',
+        items: [{
+          title: 'Customer',
+          url: '/admin/customer'
+        }, {
+          title: 'Customer Compnay',
+          url: '/admin/dashboard'
+        }]
+      }, {
+        action: 'local_activity',
+        title: 'Employee',
+        items: [{
+          title: 'Managers',
+          url: '/admin/manager'
+        }, {
+          title: 'Drivers',
+          url: '/admin/truckdrivers'
+        }]
+      }, {
+        action: 'local_activity',
+        title: 'Fleet',
+        items: [{
+          title: 'Truck',
+          url: '/admin/trucks'
+        }, {
+          title: 'SkidSteer',
+          url: '/admin/skidsteers'
+        }]
+      }, {
+        action: 'local_activity',
+        title: 'Accounts',
+        items: [{
+          title: 'Accountings',
+          url: '/admin/accounting'
+        }, {
+          title: 'Reports',
+          url: '/admin/reports'
+        }]
+      }]
+    };
+  },
+  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['barColor', 'barImage'])), {}, {
+    drawer: {
+      get: function get() {
+        return this.$store.state.drawer;
+      },
+      set: function set(val) {
+        this.$store.commit('SET_DRAWER', val);
+      }
+    },
+    computedItems: function computedItems() {
+      return this.items.map(this.mapItem);
+    },
+    profile: function profile() {
+      return {
+        avatar: true // title: this.$t('avatar'),
+
+      };
+    }
+  }),
+  methods: {
+    mapItem: function mapItem(item) {
+      return _objectSpread(_objectSpread({}, item), {}, {
+        children: item.children ? item.children.map(this.mapItem) : undefined //title: this.$t(item.title),
+
+      });
+    }
+  }
+});
 
 /***/ }),
 
@@ -239,15 +416,14 @@ render._withStripped = true
 /*!***************************************************!*\
   !*** ./resources/js/components/layout/Drawer.vue ***!
   \***************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Drawer_vue_vue_type_template_id_522ce85b___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Drawer.vue?vue&type=template&id=522ce85b& */ "./resources/js/components/layout/Drawer.vue?vue&type=template&id=522ce85b&");
 /* harmony import */ var _Drawer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Drawer.vue?vue&type=script&lang=js& */ "./resources/js/components/layout/Drawer.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Drawer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Drawer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _Drawer_vue_vue_type_style_index_0_lang_sass___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Drawer.vue?vue&type=style&index=0&lang=sass& */ "./resources/js/components/layout/Drawer.vue?vue&type=style&index=0&lang=sass&");
+/* empty/unused harmony star reexport *//* harmony import */ var _Drawer_vue_vue_type_style_index_0_lang_sass___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Drawer.vue?vue&type=style&index=0&lang=sass& */ "./resources/js/components/layout/Drawer.vue?vue&type=style&index=0&lang=sass&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -279,15 +455,13 @@ component.options.__file = "resources/js/components/layout/Drawer.vue"
 /*!****************************************************************************!*\
   !*** ./resources/js/components/layout/Drawer.vue?vue&type=script&lang=js& ***!
   \****************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Drawer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Drawer.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/layout/Drawer.vue?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Drawer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Drawer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Drawer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Drawer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Drawer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default.a); 
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Drawer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
