@@ -2,14 +2,14 @@
   <v-app>
     <v-container>
       <v-row>
-<h2>Customer List</h2>
+        <!-- <h2>Customer List</h2> -->
         <div class="add-icon">
          <!--- <router-link to="/admin/customer/add" class="nav-item nav-link">
             <plus-circle-icon size="1.5x" class="custom-class"></plus-circle-icon> -->
           </router-link>
         </div>
         <v-col cols="12" md="12">
-          <v-simple-table>
+          <v-simple-table class="custom-table">
             <template v-slot:default>
               <thead>
                 <tr>
