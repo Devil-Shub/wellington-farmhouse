@@ -19,4 +19,9 @@ class ManagerDetail extends Model
     {
         return $this->belongsTo('App\User', 'user_id', 'id');
     }
+
+    public function farms()
+    {
+        return $this->hasOne('App\CustomerFarm', 'manager_id');
+    }
 }

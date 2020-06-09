@@ -43,4 +43,9 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\ManagerDetail');
     }
+
+    public function customerManager()
+    {
+        return $this->hasMany('App\User', 'created_by');
+    }
 }
