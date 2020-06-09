@@ -68,10 +68,17 @@ Route::group(['prefix' => 'auth'], function () {
             Route::get('list-skidsteer', 'VehicleController@listSkidsteer');
             Route::get('get-vehicle/{vehicle_id}', 'VehicleController@getVehicle');
             Route::delete('delete-vehicle/{vehicle_id}', 'VehicleController@deleteVehicle');
-	    Route::get('get-vehicleservice/{vehicle_id}', 'VehicleController@getVehicleService');
- 	    Route::post('create-vehicleservice', 'VehicleController@createVehicleService');
+            Route::get('get-vehicleservice/{vehicle_id}', 'VehicleController@getVehicleService');
+            Route::post('create-vehicleservice', 'VehicleController@createVehicleService');
             Route::post('create-vehicleinsurance', 'VehicleController@createVehicleInsurance');
             Route::get('get-vehicleinsurance/{vehicle_id}', 'VehicleController@getVehicleInsurance');
+
+            //driver
+            Route::post('create-customer', 'CustomerController@createCustomer');
+            Route::post('edit-driver/{driver_id}', 'CustomerController@editDriver');
+            Route::get('list-drivers', 'CustomerController@listDrivers');
+            Route::get('get-driver/{driver_id}', 'CustomerController@getDriver');
+            Route::delete('delete-driver/{driver_id}', 'CustomerController@deleteDriver');
         });
 
         //upload image

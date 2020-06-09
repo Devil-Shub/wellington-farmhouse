@@ -2,10 +2,9 @@
   <v-app>
     <v-container>
       <v-row>
-        <!-- <h2>Customer List</h2> -->
         <div class="add-icon">
-         <!--- <router-link to="/admin/customer/add" class="nav-item nav-link">
-            <plus-circle-icon size="1.5x" class="custom-class"></plus-circle-icon> -->
+          <router-link to="/admin/customer/add" class="nav-item nav-link">
+          <plus-circle-icon size="1.5x" class="custom-class"></plus-circle-icon>
           </router-link>
         </div>
         <v-col cols="12" md="12">
@@ -137,9 +136,20 @@ export default {
   },
   data() {
     return {
-      dialog: false,
-      on: false,
-      managers: []
+      search: '',
+        headers: [
+        {
+        text:'Name',
+        align: 'left',
+        sortable: false,
+        value:'index'
+        },
+        { text: 'First Name', value: 'first_name' },
+        { text: 'Email', value: 'email' },
+        { text: 'Phone', value: 'phone' }
+     ],
+     items: [],
+ 
     };
   },
   getList() {},
@@ -151,7 +161,7 @@ export default {
       managerService.listService().then(response => {
         //handle response
         if (response.status) {
-          //this.managers = response.data;
+          this.items = response.data;
         } else {
           this.$toast.open({
             message: response.message,
