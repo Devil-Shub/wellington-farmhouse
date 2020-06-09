@@ -2,7 +2,7 @@
   <v-app>
     <v-container>
       <v-row>
-<h2>Add Customer</h2>
+        <h2>Add Customer</h2>
         <v-col cols="12" md="12">
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-row>
@@ -101,70 +101,68 @@
               </v-col>
 
               <v-col cols="12" md="12">
-              <h3>Farm Section</h3>
-		 <v-row>
-              
-             <v-col cols="12" md="12">
-                  <file-pond
-                    name="uploadImage"
-                    ref="pond"
-                    label-idle="Farm Images"
-                    allow-multiple="true"
-                    v-bind:server="serverOptions"
-                    v-bind:files="myFiles"
-                    allow-file-type-validation="true"
-                    accepted-file-types="image/jpeg, image/png"
-                    v-on:processfile="handleProcessFile1"
-                  />
-                </v-col>
-               <v-col cols="3" md="3">
-	       <vue-google-autocomplete
-		    ref="address"
-		    id="map"
-		    classname="form-control"
-		    placeholder="Please type your address"
-		    v-on:placechanged="getAddressData"
-		    country="us"
-		    v-model="addForm.farm_address"
-		>
-              </vue-google-autocomplete>
-             </v-col>
-	     <v-col cols="3" md="3">
-                  <v-text-field
-                    v-model="addForm.farm_unit"
-                    label="Apt/Unit"
-                    required
-                    :rules="[v => !!v || 'Farm apt/unit is required']"
-                  ></v-text-field>
-                </v-col>
-               <v-col cols="3" md="3">
-                  <v-text-field
-                    v-model="addForm.farm_city"
-                    label="City"
-                    required
-                    :rules="[v => !!v || 'Farm city is required']"
-                  ></v-text-field>
-                </v-col>
-               <v-col cols="3" md="3">
-                  <v-text-field
-                    v-model="addForm.farm_province"
-                    label="Province"
-                    required
-                    :rules="[v => !!v || 'Farm province is required']"
-                  ></v-text-field>
-                </v-col>
-               <v-col cols="3" md="3">
-                  <v-text-field
-                    v-model="addForm.farm_zipcode"
-                    label="Zip Code"
-                    required
-                    :rules="[v => !!v || 'Farm zip code is required']"
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="3" md="3">
-               <v-switch v-model="addForm.farm_active" class="mx-2" label="Is Active"></v-switch>
-                </v-col>
-               </v-row>
+                <h3>Farm Section</h3>
+                <v-row>
+                  <v-col cols="12" md="12">
+                    <file-pond
+                      name="uploadImage"
+                      ref="pond"
+                      label-idle="Farm Images"
+                      allow-multiple="true"
+                      v-bind:server="serverOptions"
+                      v-bind:files="myFiles"
+                      allow-file-type-validation="true"
+                      accepted-file-types="image/jpeg, image/png"
+                      v-on:processfile="handleProcessFile1"
+                    />
+                  </v-col>
+                  <v-col cols="3" md="3">
+                    <vue-google-autocomplete
+                      ref="address"
+                      id="map"
+                      class="form-control"
+                      placeholder="Please type your address"
+                      v-on:placechanged="getAddressData"
+                      country="us"
+                      v-model="addForm.farm_address"
+                    ></vue-google-autocomplete>
+                  </v-col>
+                  <v-col cols="3" md="3">
+                    <v-text-field
+                      v-model="addForm.farm_unit"
+                      label="Apt/Unit"
+                      required
+                      :rules="[v => !!v || 'Farm apt/unit is required']"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="3" md="3">
+                    <v-text-field
+                      v-model="addForm.farm_city"
+                      label="City"
+                      required
+                      :rules="[v => !!v || 'Farm city is required']"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="3" md="3">
+                    <v-text-field
+                      v-model="addForm.farm_province"
+                      label="Province"
+                      required
+                      :rules="[v => !!v || 'Farm province is required']"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="3" md="3">
+                    <v-text-field
+                      v-model="addForm.farm_zipcode"
+                      label="Zip Code"
+                      required
+                      :rules="[v => !!v || 'Farm zip code is required']"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="3" md="3">
+                    <v-switch v-model="addForm.farm_active" class="mx-2" label="Is Active"></v-switch>
+                  </v-col>
+                </v-row>
               </v-col>
               <v-col cols="12" md="12">
               <h3>Manager Details</h3>
@@ -293,10 +291,10 @@ import { required } from "vuelidate/lib/validators";
 import { customerService } from "../../../_services/customer.service";
 import { router } from "../../../_helpers/router";
 import { environment } from "../../../config/test.env";
-import VueGoogleAutocomplete from 'vue-google-autocomplete'
+import VueGoogleAutocomplete from "vue-google-autocomplete";
 export default {
   components: {
-   VueGoogleAutocomplete
+    VueGoogleAutocomplete
   },
   data() {
     return {
@@ -315,7 +313,7 @@ export default {
       manager_img: "",
       apiUrl: environment.apiUrl,
       addForm: {
-	prefix: '',
+        prefix: "",
         first_name: "",
         email: "",
         phone: "",
@@ -364,10 +362,10 @@ export default {
       myFiles: []
     };
   },
-mounted(){
-this.$refs.address.focus();
-console.log("dddd")
-},
+  mounted() {
+    this.$refs.address.focus();
+    console.log("dddd");
+  },
   computed: {
     serverOptions() {
       const currentUser = JSON.parse(localStorage.getItem("currentUser"));
@@ -396,11 +394,11 @@ console.log("dddd")
     this.manager_image = "/images/avatar.png";
   },
   methods: {
-   getAddressData: function (addressData, placeResultData, id) {
-                this.addForm.latitude = addressData.latitude
-                this.addForm.longitude = addressData.longitude
-                this.addForm.farm_address = addressData;
-            },
+    getAddressData: function(addressData, placeResultData, id) {
+      this.addForm.latitude = addressData.latitude;
+      this.addForm.longitude = addressData.longitude;
+      this.addForm.farm_address = addressData;
+    },
     handleProcessFile: function(error, file) {
        this.customer_img = "../../"+file.serverId;
       this.addForm.user_image = file.serverId;
@@ -409,18 +407,18 @@ console.log("dddd")
    handleProcessFile1: function(error, file) {
       this.addForm.farm_images = file.serverId;
     },
-   //manager image process
+    //manager image process
     handleProcessFile2: function(error, file) {
        this.manager_img = "../../"+file.serverId;
       this.addForm.manager_image = file.serverId;
     },
-   //manager id card image process
+    //manager id card image process
     handleProcessFile3: function(error, file) {
       this.addForm.manager_card_image = file.serverId;
       //this.docError = false;
     },
     update() {
-      console.log(this.addForm)
+      console.log(this.addForm);
       if (this.$refs.form.validate()) {
         customerService.add(this.addForm).then(response => {
           //handle response

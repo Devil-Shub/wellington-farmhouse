@@ -34,7 +34,7 @@ class CreateManagerDetailsTable extends Migration
      */
     public function down()
     {
-         Schema::disableForeignKeyConstraints();
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('manager_details');
     }
 }
