@@ -14,7 +14,7 @@ export const customerService = {
   edit,
   Delete,
   getManager,
-  listService,
+  listCustomer,
   apiUrl: environment.apiUrl,
   currentUrl: '',
   currentUser: currentUserSubject.asObservable(),
@@ -62,9 +62,9 @@ function Delete(data) {
     });
 }
 
-function listService(){
+function listCustomer(){
       return fetch(
-    this.apiUrl+`admin/list-manager`,
+    this.apiUrl+`admin/list-customer`,
     requestOptions.get()
   )
     .then(handleResponse)

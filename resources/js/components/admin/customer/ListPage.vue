@@ -80,7 +80,7 @@ export default {
   },
   methods: {
     getResults() {
-      customerService.listService().then(response => {
+      customerService.listCustomer().then(response => {
         //handle response
         if (response.status) {
           this.customers = response.data;

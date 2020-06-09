@@ -394,10 +394,10 @@ export default {
   },
   methods: {
     getAddressData: function(addressData, placeResultData, id) {
-      console.log(addressData)
+      console.log(addressData.route)
       this.addForm.latitude = addressData.latitude;
       this.addForm.longitude = addressData.longitude;
-      this.addForm.farm_address = addressData.formatted_address;
+      this.addForm.farm_address = addressData.route;
     },
     handleProcessFile: function(error, file) {
        this.customer_img = "../../"+file.serverId;
