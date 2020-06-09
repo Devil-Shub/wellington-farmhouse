@@ -12,15 +12,11 @@
             <template v-slot:default>
               <thead>
                 <tr>
-                  <th class="text-left">Image</th>
-                  <th class="text-left">Name</th>
-                  <th class="text-left">Email</th>
-                  <th class="text-left">Active</th>
-                  <th class="text-left">Action</th>
+                  <th class="text-left"></th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="item in managers" :key="item.name">
+                <tr v-for="item in customers" :key="item.name">
                   <td>
                     <div
                       class="v-avatar v-list-item__avatar"
@@ -29,82 +25,7 @@
                       <img v-if="item.user_image" :src="'../'+item.user_image" alt="John" />
                       <img v-if="!item.user_image" src="/images/avatar.png" alt="driver" />
                     </div>
-                  </td>
-                  <td>{{ item.first_name }} {{ item.last_name }}</td>
-                  <td>{{ item.email }}</td>
-                  <td>
-                    <v-chip
-                      v-if="!item.is_active"
-                      class="ma-2"
-                      color="red"
-                      text-color="white"
-                    >Deactivate</v-chip>
-                    <v-chip
-                      v-if="item.is_active"
-                      class="ma-2"
-                      color="green"
-                      text-color="white"
-                    >Activate</v-chip>
-                  </td>
-                  <td class="action-col">
-                    <!-- <router-link :to="'/admin/manager/view/' + item.id" class="nav-item nav-link">
-                      <user-icon size="1.5x" class="custom-class"></user-icon>
-                    </router-link> -->
-                    <router-link :to="'/admin/manager/edit/' + item.id" class="nav-item nav-link">
-                      <!-- <edit-icon size="1.5x" class="custom-class"></edit-icon> -->
-                      <span class="custom-action-btn">Edit</span>
-                    </router-link>
-                    <v-btn color="blue darken-1" text @click="Delete(item.id)">
-                      <!-- <trash-icon size="1.5x" class="custom-class"></trash-icon> -->
-                      <span class="custom-action-btn">Delete</span>
-                    </v-btn>
-                    <!--              <v-menu
-                bottom
-                origin="center center"
-                transition="scale-transition"
-              >
-            <template v-slot:activator="{ on }">
-              <v-btn
-                color="primary"
-                dark
-                v-on="on"
-              >
-                More
-              </v-btn>
-            </template>
-            <v-list>
-              <v-list-item>
-                <v-list-item-title @click="Action()"  v-if="!item.is_active">Activate</v-list-item-title>
-                <v-list-item-title @click="Action()"  v-if="item.is_active">Deactivate</v-list-item-title>
-                <v-list-item-title v-on="on">
-                <v-row justify="center">
-                    <v-dialog v-model="dialog" persistent max-width="600px">
-                      <template v-slot:activator="{ on }">
-                        <v-btn color="primary" dark v-on="on">Delete</v-btn>
-                      </template>
-                      <v-card>
-                        <v-card-title>
-                          <span class="headline">User Delete</span>
-                        </v-card-title>
-                        <v-card-text>
-                          <v-container>
-                            <v-row>
-                                Are you sure you want delete this user?
-                            </v-row>
-                          </v-container>
-                        </v-card-text>
-                        <v-card-actions>
-                          <v-spacer></v-spacer>
-                          <v-btn color="blue darken-1" text @click="Close">No</v-btn>
-                          <v-btn color="blue darken-1" text @click="Delete(item.id)">Yes</v-btn>
-                        </v-card-actions>
-                      </v-card>
-                    </v-dialog>
-                </v-row>
-                </v-list-item-title>
-              </v-list-item>
-            </v-list>
-                    </v-menu>-->
+                    {{ item.first_name }} {{ item.last_name }}
                   </td>
                 </tr>
               </tbody>
@@ -118,7 +39,7 @@
 
 <script>
 import { required } from "vuelidate/lib/validators";
-import { managerService } from "../../../_services/manager.service";
+import { customerService } from "../../../_services/customer.service";
 import {
   UserIcon,
   EditIcon,
@@ -149,6 +70,7 @@ export default {
         { text: 'Phone', value: 'phone' }
      ],
      items: [],
+     customers: [],
  
     };
   },
@@ -158,10 +80,10 @@ export default {
   },
   methods: {
     getResults() {
-      managerService.listService().then(response => {
+      customerService.listService().then(response => {
         //handle response
         if (response.status) {
-          this.items = response.data;
+          this.customers = response.data;
         } else {
           this.$toast.open({
             message: response.message,
@@ -173,7 +95,7 @@ export default {
     },
     Delete(e) {
       if (e) {
-        managerService.Delete(e).then(response => {
+        customerService.Delete(e).then(response => {
           //handle response
           if (response.status) {
             this.$toast.open({
@@ -185,7 +107,7 @@ export default {
             this.dialog = false;
             //load new data
             this.getResults();
-            //router.push("/admin/manager");
+            //router.push("/admin/customer");
           } else {
             this.dialog = false;
             this.$toast.open({
