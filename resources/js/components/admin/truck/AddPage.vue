@@ -102,15 +102,33 @@
                   <file-pond
                     name="uploadImage"
                     ref="pond"
-                    label-idle="Upload Document"
+                    label-idle="Upload RC"
                     allow-multiple="false"
                     v-bind:server="serverOptions"
                     v-bind:files="myFiles"
                     v-on:processfile="handleProcessFile1"
-        allow-file-type-validation="true"
-        accepted-file-types="image/jpeg, image/png"
-                    :rules="[v => !!v || 'Document is required']"
+		    allow-file-type-validation="true"
+		    accepted-file-types="image/jpeg, image/png"
                   />
+                <div class="v-messages theme--light error--text" role="alert" v-if="docError">
+		<div class="v-messages__wrapper"><div class="v-messages__message">RC document upload is required</div></div>
+		</div>
+                </v-col>
+                <v-col cols="12" md="12">
+                  <file-pond
+                    name="uploadImage"
+                    ref="pond"
+                    label-idle="Upload Insurance"
+                    allow-multiple="false"
+                    v-bind:server="serverOptions"
+                    v-bind:files="myFiles"
+                    v-on:processfile="handleProcessFile2"
+		    allow-file-type-validation="true"
+		    accepted-file-types="image/jpeg, image/png"
+                  />
+                <div class="v-messages theme--light error--text" role="alert" v-if="insdocError">
+		<div class="v-messages__wrapper"><div class="v-messages__message">Insurance document upload is required</div></div>
+		</div>
                 </v-col>
 		  <v-col cols="12" md="12">
 		 <v-switch
@@ -143,6 +161,8 @@ export default {
 
   data() {
     return {
+      docError: false,
+      insdocError: false,
       menu2: false,
       menu1: false,
       valid: true,
@@ -160,6 +180,7 @@ export default {
         insurance_number: "",
         insurance_date: "",
         document: "",
+	insurance_document: "",
         total_killometer: "",
         insurance_expiry: "",
 	is_active: true
@@ -198,12 +219,22 @@ export default {
   methods: {
     handleProcessFile1: function(error, file) {
       this.addForm.document = file.serverId;
+      this.docError = false;
+    },
+    handleProcessFile2: function(error, file) {
+      this.addForm.insurance_document = file.serverId;
+      this.insdocError = false;
     },
     save() {
-      console.log(this.addForm)
+   	if(this.addForm.document == ''){
+		this.docError = true;
+	}
+        if(this.addForm.insurance_document == ''){
+		this.insdocError = true;
+	}
       this.addForm.insurance_date = this.date;
       this.addForm.insurance_expiry = this.date1;
-      if (this.$refs.form.validate()) {
+      if (this.$refs.form.validate() && (!this.insdocError) && (!this.docError)) {
         truckService.add(this.addForm).then(response => {
          //handle response
          if(response.status) {

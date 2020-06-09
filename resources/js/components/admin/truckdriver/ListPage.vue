@@ -24,8 +24,8 @@
                   <th class="text-left">Salary Rate</th>
                   <th class="text-left">Total Amount</th>
                   <th class="text-left">Active</th>
-                  <th class="text-left">Edit Driver</th>
-                  <th class="text-left">Delete Driver</th>
+                  <th class="text-left">Action</th>
+                 
                 </tr>
               </thead>
               <tbody>
@@ -60,18 +60,17 @@
                       class="ma-2"
                       color="red"
                       text-color="white"
-                    >Yes</v-chip>
+                    >No</v-chip>
                     <v-chip
                       v-if="item.user.is_active"
                       class="ma-2"
                       color="green"
                       text-color="white"
-                    >No</v-chip>
+                    >Yes</v-chip>
                   </td>
 
-                  <td>{{ item.driver_licence }}</td>
-                  <td>{{ item.expiry_date }}</td>
-                  <td>{{ item.salary_type }}</td>
+                 
+                
                   <td class="action-col">
                     <!-- <router-link
                       :to="'/admin/truckdriver/view/' + item.user.id"

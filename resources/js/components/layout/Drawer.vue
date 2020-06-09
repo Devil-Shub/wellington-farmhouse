@@ -88,8 +88,8 @@
             active: true,
             items: [
               { title: 'Overview', url: '/admin/dashboard' },
-              { title: 'Jobs', url: '/admin/dashboard'  },
-              { title: 'Dispatches', url: '/admin/dashboard'  },
+              { title: 'Jobs', url: '/admin/jobs'  },
+              { title: 'Dispatches', url: '/admin/dispatches'  },
               { title: 'Services', url: '/admin/services'  }
             ]
           },
@@ -97,7 +97,7 @@
             action: 'local_activity',
             title: 'Customer',
             items: [
-              { title: 'Customer', url: '/admin/dashboard'  },
+              { title: 'Customer', url: '/admin/customer'  },
               { title: 'Customer Compnay', url: '/admin/dashboard'  }
             ]
           },
@@ -114,15 +114,15 @@
             title: 'Fleet',
             items: [
               { title: 'Truck', url: '/admin/trucks' },
-	            { title: 'Skid Steer', url: '/admin/skidsteers' }
+	      { title: 'SkidSteer', url: '/admin/skidsteers' }
             ]
           },
           {
             action: 'local_activity',
             title: 'Accounts',
             items: [
-               { title: 'Accountings',url: '/admin/dashboard' },
-              { title: 'Reports', url: '/admin/dashboard' }
+               { title: 'Accountings',url: '/admin/accounting' },
+              { title: 'Reports', url: '/admin/reports' }
             ]
           }
         ]

@@ -6,6 +6,12 @@
         <v-col cols="12" md="12">
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-row>
+             <div
+                class="v-avatar v-list-item__avatar"
+                style="height: 40px; min-width: 40px; width: 40px;"
+              >
+                <img :src="avatar" />
+              </div>
               <v-col cols="12" md="12" class="custom-img-holder">
                 <file-pond
                   name="uploadImage"
@@ -158,6 +164,8 @@
                   <file-pond
                     name="uploadImage"
                     ref="pond"
+		    v-bind:required="true"
+		   :rules="documentRules"
                     label-idle="Identification Document..."
                     allow-multiple="false"
                     v-bind:server="serverOptions"
@@ -166,6 +174,9 @@
                     accepted-file-types="image/jpeg, image/png"
                     v-on:processfile="handleProcessFile1"
                   />
+		<div class="v-messages theme--light error--text" role="alert" v-if="docError">
+		<div class="v-messages__wrapper"><div class="v-messages__message">Document upload is required</div></div>
+		</div>
                   </div>
                   <!-- ends here -->
                 </v-col>
@@ -192,6 +203,7 @@ export default {
   },
   data() {
     return {
+      docError: false,
       valid: true,
       avatar: null,
       menu2: false,
@@ -229,6 +241,9 @@ export default {
       salaryRules: [
         v => !!v || "Manager salary is required",
         v => /^\d*$/.test(v) || "Enter valid number"
+      ],
+      documentRules: [
+        v => !!v || "Manager salary is rdfdfdfequired"
       ],
       rules: [
         value =>
@@ -268,14 +283,19 @@ export default {
   methods: {
     handleProcessFile: function(error, file) {
       this.addForm.user_image = file.serverId;
+      this.avatar = "../../"+file.serverId;
     },
     handleProcessFile1: function(error, file) {
+	this.docError = false
       this.addForm.document = file.serverId;
     },
     update() {
+      if(this.addForm.document == ''){
+	this.docError = true
+       }
       this.addForm.joining_date = this.date;
       this.addForm.releaving_date = this.date1;
-      if (this.$refs.form.validate()) {
+      if (this.$refs.form.validate() && (!this.docError)) {
         managerService.add(this.addForm).then(response => {
           //handle response
           if (response.status) {

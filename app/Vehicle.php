@@ -13,7 +13,7 @@ class Vehicle extends Model
      */
     protected $fillable = [
         'created_by', 'vehicle_type', 'company_name', 'truck_number', 'chaase_number', 'killometer', 'capacity',  'status',
-        'document'
+        'document', 'insurance_document'
     ];
 
     public function user()

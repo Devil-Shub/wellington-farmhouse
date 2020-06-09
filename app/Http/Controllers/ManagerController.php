@@ -231,7 +231,7 @@ class ManagerController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'Manager List',
-            'data' => User::whereRoleId(config('constant.roles.Admin_Manager'))->orderBy("created_at", 'DESC')->get()
+            'data' => User::whereRoleId(config('constant.roles.Admin_Manager'))->with('manager')->orderBy("created_at", 'DESC')->get()
         ], 200);
 
     }
