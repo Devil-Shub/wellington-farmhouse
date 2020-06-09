@@ -4,7 +4,8 @@ import Router from "vue-router";
 import { authenticationService } from "../_services/authentication.service";
 import { Role } from "./role";
 
-import HomePage from "../home/HomePage";
+import HomePage from "../frontend/HomePage";
+import PaymentPage from "../frontend/PaymentPage";
 //layouts
 import AdminLayout from "../components/layout/AdminLayout";
 //admin components
@@ -29,6 +30,8 @@ import ViewPage from "../components/admin/manager/ViewPage";
 import CustomerListPage from "../components/admin/customer/ListPage";
 import CustomerAddPage from "../components/admin/customer/AddPage";
 import CustomerEditPage from "../components/admin/customer/EditPage";
+import CustomerSection from "../components/admin/customer/Section";
+import CustomerDetails from "../components/admin/customer/Details";
 
 
 //serivce
@@ -84,6 +87,7 @@ export const router = new Router({
   routes: [
     { path: "/", component: HomePage, meta: { requiresAuth: [Role.Customer] } },
     { path: "/home", component: HomePage, name:'Home',  meta: { requiresAuth: [Role.Customer] } },
+    { path: "/payment", component: PaymentPage, name:'Payment',  meta: { requiresAuth: [Role.Customer] } },
     //{ path: "/confirm-email", component: HomePage },
     //admin routes
     {
@@ -104,6 +108,8 @@ export const router = new Router({
         { path: 'customer', component: CustomerListPage, name: 'Customer', meta: { requiresAuth: [Role.Admin]} },
         { path: 'customer/add', component: CustomerAddPage, name: 'CustomerAdd', meta: { requiresAuth: [Role.Admin]} },
         { path: 'customer/edit/:id', component: CustomerEditPage, name: 'CustomerEdit', meta: { requiresAuth: [Role.Admin]} },
+        { path: 'customer/section', component: CustomerSection, name: 'CustomerSection', meta: { requiresAuth: [Role.Admin]} },
+        { path: 'customer/details', component: CustomerDetails, name: 'CustomerDetail', meta: { requiresAuth: [Role.Admin]} },
         
         { path: 'manager', component: ListPage, name: 'Manager', meta: { requiresAuth: [Role.Admin]} },
         { path: 'manager/add', component: AddPage, name: 'Add', meta: { requiresAuth: [Role.Admin]} },
