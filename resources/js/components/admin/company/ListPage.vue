@@ -3,7 +3,7 @@
     <v-container>
       <v-row>
         <div class="add-icon">
-          <router-link to="/admin/customer/add" class="nav-item nav-link">
+          <router-link to="/admin/company/add" class="nav-item nav-link">
           <plus-circle-icon size="1.5x" class="custom-class"></plus-circle-icon>
           </router-link>
         </div>
@@ -97,7 +97,7 @@ export default {
       customerService.listCustomer().then(response => {
         //handle response
         if (response.status) {
-          this.customers = response.data;
+         // this.customers = response.data;
         } else {
           this.$toast.open({
             message: response.message,

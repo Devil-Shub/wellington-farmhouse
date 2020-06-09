@@ -2,7 +2,7 @@
   <v-app>
     <v-container>
       <v-row>
-        <h2>Add Customer</h2>
+        <h2>Add Company Customer</h2>
         <v-col cols="12" md="12">
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-row>
@@ -288,7 +288,7 @@
 
 <script>
 import { required } from "vuelidate/lib/validators";
-import { customerService } from "../../../_services/customer.service";
+import { companyService } from "../../../_services/company.service";
 import { router } from "../../../_helpers/router";
 import { environment } from "../../../config/test.env";
 import VueGoogleAutocomplete from "vue-google-autocomplete";
@@ -343,8 +343,8 @@ export default {
 	manager_zipcode: '',
 	manager_id_card: '',
 	manager_card_image: '',
-	customer_role: 4,
-        manager_role: 5,
+	customer_role: 6,
+        manager_role: 7,
       },
       emailRules: [
         v => !!v || "E-mail is required",
@@ -422,7 +422,7 @@ export default {
     update() {
       console.log(this.addForm);
       if (this.$refs.form.validate()) {
-        customerService.add(this.addForm).then(response => {
+        companyService.add(this.addForm).then(response => {
           //handle response
           if (response.status) {
             this.$toast.open({

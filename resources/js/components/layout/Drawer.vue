@@ -98,7 +98,7 @@
             title: 'Customer',
             items: [
               { title: 'Customer', url: '/admin/customer'  },
-              { title: 'Customer Compnay', url: '/admin/customer'  }
+              { title: 'Customer Compnay', url: '/admin/company'  }
             ]
           },
           {
