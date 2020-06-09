@@ -114,7 +114,7 @@
             title: 'Fleet',
             items: [
               { title: 'Truck', url: '/admin/trucks' },
-	      { title: 'Skid', url: '/admin/skidsteers' }
+	            { title: 'Skid Steer', url: '/admin/skidsteers' }
             ]
           },
           {
