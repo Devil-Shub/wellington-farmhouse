@@ -4,7 +4,8 @@ import Router from "vue-router";
 import { authenticationService } from "../_services/authentication.service";
 import { Role } from "./role";
 
-import HomePage from "../home/HomePage";
+import HomePage from "../frontend/HomePage";
+import PaymentPage from "../frontend/PaymentPage";
 //layouts
 import AdminLayout from "../components/layout/AdminLayout";
 //admin components
@@ -84,6 +85,7 @@ export const router = new Router({
   routes: [
     { path: "/", component: HomePage, meta: { requiresAuth: [Role.Customer] } },
     { path: "/home", component: HomePage, name:'Home',  meta: { requiresAuth: [Role.Customer] } },
+    { path: "/payment", component: PaymentPage, name:'Payment',  meta: { requiresAuth: [Role.Customer] } },
     //{ path: "/confirm-email", component: HomePage },
     //admin routes
     {
