@@ -314,7 +314,7 @@ export default {
       apiUrl: environment.apiUrl,
       addForm: {
         prefix: "",
-        first_name: "",
+        customer_name: "",
         email: "",
         phone: "",
         address: "",
@@ -364,7 +364,6 @@ export default {
   },
   mounted() {
     this.$refs.address.focus();
-    console.log("dddd");
   },
   computed: {
     serverOptions() {
@@ -395,9 +394,10 @@ export default {
   },
   methods: {
     getAddressData: function(addressData, placeResultData, id) {
+      console.log(addressData)
       this.addForm.latitude = addressData.latitude;
       this.addForm.longitude = addressData.longitude;
-      this.addForm.farm_address = addressData;
+      this.addForm.farm_address = addressData.formatted_address;
     },
     handleProcessFile: function(error, file) {
        this.customer_img = "../../"+file.serverId;
@@ -405,7 +405,7 @@ export default {
     },
   //farm images process
    handleProcessFile1: function(error, file) {
-      this.addForm.farm_images = file.serverId;
+      this.addForm.farm_images.push(file.serverId);
     },
     //manager image process
     handleProcessFile2: function(error, file) {
