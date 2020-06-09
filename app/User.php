@@ -44,8 +44,14 @@ class User extends Authenticatable
         return $this->hasOne('App\ManagerDetail');
     }
 
+    //self relationship
     public function customerManager()
     {
         return $this->hasMany('App\User', 'created_by');
+    }
+
+    public function farms()
+    {
+        return $this->hasOne('App\CustomerFarm', 'manager_id');
     }
 }

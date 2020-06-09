@@ -97,7 +97,7 @@ class CustomerController extends Controller
                     //save customer farm details
                     $farmDetails = new CustomerFarm([
                         'customer_id' => $user->id,
-                        'manager_id' => $mangerDetails->id,
+                        'manager_id' => $saveManger->id,
                         'farm_address' => $request->farm_address,
                         'farm_city' => $request->farm_city,
                         'farm_image' => json_encode($request->farm_images),
@@ -238,7 +238,7 @@ class CustomerController extends Controller
     public function listCustomer()
     {
         $getCustomer = User::with(['customerManager' => function ($query) {
-            $query->with("manager.farms");
+            $query->with("manager", "farms");
         }])
         ->whereRoleId(config('constant.roles.Customer'))->get();
 
