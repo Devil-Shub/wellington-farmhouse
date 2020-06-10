@@ -7,11 +7,11 @@
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-row>
               <v-col cols="5" md="5">
-<div
+                 <div
                   class="v-avatar v-list-item__avatar"
                   style="height: 40px; min-width: 40px; width: 40px;"
                 >
-                  <img :src="'../../../../'+addForm.user_image" alt="John" />
+                  <img :src="avatar" alt="John" />
                 </div>
 
                 <v-col cols="12" md="12">
@@ -168,7 +168,7 @@
                 <div v-if="document_img"
                   style="height: 200px; min-width: 200px; width: 200px;"
                 >
-                  <img :src="document_img" alt="Doc" />
+                  <img :src="document_img" alt="Doc" width=100%/>
                 </div>
 
               </v-col>
@@ -271,12 +271,12 @@ export default {
           this.addForm.user_image = response.data.user.user_image;
         }
         if (response.data.user.user_image) {
-          this.avatar = "../../../" + response.data.user.user_image;
+          this.avatar = environment.imgUrl+response.data.user.user_image;
         } else {
           this.avatar = "/images/avatar.png";
         }
         if (response.data.document) {
-          this.document_img = "../../../" + response.data.document;
+          this.document_img = environment.imgUrl + response.data.document;
         }
         this.addForm.driver_name = response.data.user.first_name;
         this.addForm.email = response.data.user.email;

@@ -7,6 +7,9 @@
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-row>
               <v-col cols="5" md="5">
+                <div class="v-avatar v-list-item__avatar" style="height: 40px; min-width: 40px; width: 40px;" v-if="avatar">
+                  <img :src="avatar" alt="John" />
+                </div>
                 <v-col cols="12" md="12">
                   <file-pond
                     name="uploadImage"
@@ -247,17 +250,20 @@ export default {
       }
     }
   },
-  created() {},
+  created() {
+this.avatar = '/images/avatar.png';
+  },
   methods: {
     handleProcessFile: function(error, file) {
       this.addForm.user_image = file.serverId;
+      this.avatar = environment.imgUrl+file.serverId;       
     },
     handleProcessFile1: function(error, file) {
       this.addForm.document = file.serverId;
 	this.docError = false;
     },
     save() {
-	    if(this.addForm.document == ''){
+      if(this.addForm.document == ''){
 	this.docError = true;
        }
       this.addForm.expiry_date = this.date;
