@@ -1,176 +1,132 @@
 <template>
-      <v-app>
-             <v-container>
+  <v-app>
+    <v-container>
       <v-row>
-   
-<v-tabs
-      class="custom-tabs"
-      v-model="tab"
-      background-color="transparent"
-      color="basil"
-      grow
-    >
-     
-  <v-tab
-        v-for="item in items"
-        :key="item"
-      >
-        {{ item }}
-      </v-tab>
-    </v-tabs>
+        <v-tabs class="custom-tabs" v-model="tab" background-color="transparent" color="basil" grow>
+          <v-tab v-for="item in items" :key="item">{{ item }}</v-tab>
+        </v-tabs>
 
-    <v-tabs-items v-model="tab" class="custom-tab-content">
-
- <v-tab-item
-        v-for="item in items"
-        :key="item"
-      >
-
-        <v-card class="service-tab-content"
-          color="basil"
-          flat
-	v-if="item == 'Service'"
-        >
-          <v-card-text>
-	<v-data-table
-	:headers="headers"
-	:items="truck"
-	:sort-desc="[false, true]"
-	multi-sort
-	class="elevation-1"
-	>
-
- <template v-slot:items="props">
-      <td class="text-xs-right">{{ props.item.service_date }}</td>
-      <td class="text-xs-right">{{ props.item.service_killometer }}</td>
-      <td class="text-xs-right">
-        <span class="custom-action-btn">Edit</span>
-        <span class="custom-action-btn">Delete</span>
-      </td>
-    </template>
-
-</v-data-table>
-   </v-card-text>
-  <router-link :to="'/admin/truck/addservice/' +vehicle_id" class="nav-item nav-link">
-    <v-btn color="success" class="mr-4 custom-save-btn ml-4 mt-4">Add Service</v-btn>
-  </router-link> 
-        </v-card>
-              <v-card class="insurance-tab-content"
-          color="basil"
-          flat
-	v-if="item == 'Insurance'"
-        >
-          <v-card-text>
-
-<v-data-table
-	:headers="headers1"
-	:items="insurance"
-	:sort-desc="[false, true]"
-	multi-sort
-	class="elevation-1"
-	>
-
- <template v-slot:items="props">
-      <td>{{ props.item.name }}</td>
-      <td class="text-xs-right">{{ props.item.insurance_number }}</td>
-      <td class="text-xs-right">{{ props.item.insurance_date }}</td>
-      <td class="text-xs-right">{{ props.item.insurance_expiry }}</td>
-      <td class="text-xs-right">
-      <span class="custom-action-btn">Edit</span>
-        <span class="custom-action-btn">Delete</span>
-      </td>
-    </template>
-
-</v-data-table>
-</v-card-text>
-  <router-link :to="'/admin/truck/addinsurance/' +vehicle_id" class="nav-item nav-link">
-    <v-btn color="success" class="mr-4 custom-save-btn ml-4 mt-4">Add Insurance</v-btn>
-  </router-link> 
-        </v-card>
-      </v-tab-item>
-
-
-
-    </v-tabs-items>
-   
-   </v-row>
+        <v-tabs-items v-model="tab" class="custom-tab-content">
+          <v-tab-item v-for="item in items" :key="item">
+            <v-card class="service-tab-content" color="basil" flat v-if="item == 'Service'">
+              <v-card-text>
+                <v-data-table
+                  :headers="headers"
+                  :items="truck"
+                  :sort-desc="[false, true]"
+                  multi-sort
+                  class="elevation-1"
+                >
+                  <template v-slot:item.id="{ item }">
+                    <span class="custom-action-btn">Edit</span>
+                    <span class="custom-action-btn">Delete</span>
+                  </template>
+                </v-data-table>
+              </v-card-text>
+              <router-link :to="'/admin/truck/addservice/' +vehicle_id" class="nav-item nav-link">
+                <v-btn color="success" class="mr-4 custom-save-btn ml-4 mt-4">Add Service</v-btn>
+              </router-link>
+            </v-card>
+            <v-card class="insurance-tab-content" color="basil" flat v-if="item == 'Insurance'">
+              <v-card-text>
+                <v-data-table
+                  :headers="headers1"
+                  :items="insurance"
+                  :sort-desc="[false, true]"
+                  multi-sort
+                  class="elevation-1"
+                >
+                  <template v-slot:items="props">
+                    <td>{{ props.item.name }}</td>
+                    <td class="text-xs-right">{{ props.item.insurance_number }}</td>
+                    <td class="text-xs-right">{{ props.item.insurance_date }}</td>
+                    <td class="text-xs-right">{{ props.item.insurance_expiry }}</td>
+                    <td class="text-xs-right">
+                      <span class="custom-action-btn">Edit</span>
+                      <span class="custom-action-btn">Delete</span>
+                    </td>
+                  </template>
+                </v-data-table>
+              </v-card-text>
+              <router-link :to="'/admin/truck/addinsurance/' +vehicle_id" class="nav-item nav-link">
+                <v-btn color="success" class="mr-4 custom-save-btn ml-4 mt-4">Add Insurance</v-btn>
+              </router-link>
+            </v-card>
+          </v-tab-item>
+        </v-tabs-items>
+      </v-row>
     </v-container>
-    </v-app>
+  </v-app>
 </template>
 
 <script>
- import { truckService } from "../../../_services/truck.service";
-import { PlusCircleIcon } from 'vue-feather-icons'
+import { truckService } from "../../../_services/truck.service";
+import { PlusCircleIcon } from "vue-feather-icons";
 export default {
-components: {
-      PlusCircleIcon
-      },
+  components: {
+    PlusCircleIcon
+  },
   data() {
     return {
-	tab: null,
-	items: [
-          'Service', 'Insurance',
-        ],
-        headers: [
-          { text: 'Servicekm', value: 'service_killometer' },
-          {
-            text: 'Date',
-            align: 'start',
-            sortable: false,
-            value: 'service_date',
-          },
-         { text: 'Action' },
-        ],
-        headers1: [
-          {
-            text: 'Insurance Name',
-            align: 'start',
-            sortable: false,
-            value: 'insurance_number',
-          },
-          { text: 'Insurance Date', value: 'insurance_date' },
-          { text: 'Insurance Expiry Date', value: 'insurance_expiry' },
-          { text: 'Action' },
-        ],
-        avatar: null,
-        truck: [],
-        insurance: [],
-        vehicle_id: '',
+      tab: null,
+      items: ["Service", "Insurance"],
+      headers: [
+        { text: "Servicekm", value: "service_killometer" },
+        {
+          text: "Date",
+          align: "start",
+          sortable: false,
+          value: "service_date"
+        },
+        { text: "Action", value: "id" }
+      ],
+      headers1: [
+        {
+          text: "Insurance Name",
+          align: "start",
+          sortable: false,
+          value: "insurance_number"
+        },
+        { text: "Insurance Date", value: "insurance_date" },
+        { text: "Insurance Expiry Date", value: "insurance_expiry" },
+        { text: "Action" }
+      ],
+      avatar: null,
+      truck: [],
+      insurance: [],
+      vehicle_id: ""
     };
   },
-   mounted: function() {
-         this.vehicle_id = this.$route.params.id;
-         truckService.getTruckService(this.$route.params.id).then(response => {
-              //handle response
-              if(response.status) {
-                  this.truck = response.data;
-              } else {
-                  router.push("/admin/trucks"); 
-                  this.$toast.open({
-                    message: response.message,
-                    type: 'error',
-                    position: 'top-right'
-                  })
-              }
-         });
-         
-        truckService.getTruckInsurance(this.$route.params.id).then(response => {
-              //handle response
-              if(response.status) {
-                  this.insurance = response.data;
-              } else {
-                  router.push("/admin/trucks"); 
-                  this.$toast.open({
-                    message: response.message,
-                    type: 'error',
-                    position: 'top-right'
-                  })
-              }
-         });
+  mounted: function() {
+    this.vehicle_id = this.$route.params.id;
+    truckService.getTruckService(this.$route.params.id).then(response => {
+      //handle response
+      if (response.status) {
+        this.truck = response.data;
+      } else {
+        router.push("/admin/trucks");
+        this.$toast.open({
+          message: response.message,
+          type: "error",
+          position: "top-right"
+        });
+      }
+    });
 
-    },
-  methods: {
-    
-    }
+    truckService.getTruckInsurance(this.$route.params.id).then(response => {
+      //handle response
+      if (response.status) {
+        this.insurance = response.data;
+      } else {
+        router.push("/admin/trucks");
+        this.$toast.open({
+          message: response.message,
+          type: "error",
+          position: "top-right"
+        });
+      }
+    });
+  },
+  methods: {}
 };
 </script>
