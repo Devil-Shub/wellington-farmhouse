@@ -16,28 +16,33 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="item in customers" :key="item.name">
+                <tr v-for="customer in customers" :key="customer.name">
                   <td>
                     <div
                       class="v-avatar v-list-item__avatar"
                       style="height: 40px; min-width: 40px; width: 40px;"
                     >
-                      <img v-if="item.user_image" :src="'../'+item.user_image" alt="John" />
-                      <img v-if="!item.user_image" src="/images/avatar.png" alt="driver" />
+                      <img v-if="customer.user_image" :src="'../'+customer.user_image" alt="John" />
+                      <img v-if="!customer.user_image" src="/images/avatar.png" alt="driver" />
                     </div>
-                    {{ item.first_name }} {{ item.last_name }}
+                         {{ customer.first_name }} {{ customer.last_name }}
 			 <v-data-table
 			    :headers="headers"
-			    :items="items"
+			    :items="customer.customer_manager"
 			    hide-default-footer
 			    class="elevation-1"
 			  >
 			    <template slot="items" slot-scope="props">
-{{item}}
-			      <td>{{ props.item.name }}</td>
+                               <td class="text-xs-right">{{ props.index }}</td>
 			      <td class="text-xs-right">{{ props.item.first_name }}</td>
-			      <td class="text-xs-right">{{ props.item.email }}</td>
 			      <td class="text-xs-right">{{ props.item.phone }}</td>
+			      <td class="text-xs-right">{{ props.item.email }}</td>
+			      <td class="text-xs-right">{{ props.item.farms.farm_address }}</td>
+				<td class="text-xs-right">{{ props.item.farms.farm_city }}</td>
+				<td class="text-xs-right">{{ props.item.farms.farm_province }}</td>
+				<td class="text-xs-right">{{ props.item.farms.farm_zipcode }}</td>
+				<td class="text-xs-right">0</td>
+				<td class="text-xs-right">05/07/2020</td>
 			    </template>
 			  </v-data-table>
                   </td>
@@ -72,16 +77,24 @@ export default {
   data() {
     return {
       search: '',
+
         headers: [
         {
-        text:'Name',
+        text:'Sno',
         align: 'left',
         sortable: false,
         value:'index'
         },
-        { text: 'First Name', value: 'first_name' },
+        { text: 'Manager', value: 'first_name' },
+        { text: 'Phone Number', value: 'phone' },
         { text: 'Email', value: 'email' },
-        { text: 'Phone', value: 'phone' }
+        { text: 'Farm Address', value: 'farm_address' },
+        { text: 'City', value: 'farm_city' },
+        { text: 'State/Province', value: 'farm_province' },
+        { text: 'Zip/Postal', value: 'farm_zipcode' },
+        { text: 'No Of Jobs', value: '' },
+        { text: 'Last Services', value: '' },
+
      ],
      items: [],
      customers: [],
@@ -93,6 +106,9 @@ export default {
     this.getResults();
   },
   methods: {
+  getTagNames: (tags) => {
+    return tags.map(tag => tag.name)
+  },
     getResults() {
       customerService.listCustomer().then(response => {
         //handle response
