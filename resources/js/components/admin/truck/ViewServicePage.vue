@@ -6,81 +6,49 @@
           <v-tab v-for="item in items" :key="item">{{ item }}</v-tab>
         </v-tabs>
 
-    <v-tabs-items v-model="tab" class="custom-tab-content">
-
- <v-tab-item
-        v-for="item in items"
-        :key="item"
-      >
-
-        <v-card class="service-tab-content"
-          color="basil"
-          flat
-	v-if="item == 'Service'"
-        >
-          <v-card-text>
-	<v-data-table
-	:headers="headers"
-	:items="truck"
-	:sort-desc="[false, true]"
-	multi-sort
-	class="elevation-1"
-	>
-
- <template v-slot:item.id="{ item }">
-      <td class="text-xs-right">{{ props.item.service_date }}</td>
-      <td class="text-xs-right">{{ props.item.service_killometer }}</td>
-      <td class="text-xs-right action-col">
-        <span class="custom-action-btn">Edit</span>
-        <span class="custom-action-btn">Delete</span>
-      </td>
-    </template>
-
-</v-data-table>
-   </v-card-text>
-  <router-link :to="'/admin/truck/addservice/' +vehicle_id" class="nav-item nav-link">
-    <v-btn color="success" class="mr-4 custom-save-btn ml-4 mt-4">Add Service</v-btn>
-  </router-link> 
-        </v-card>
-              <v-card class="insurance-tab-content"
-          color="basil"
-          flat
-	v-if="item == 'Insurance'"
-        >
-          <v-card-text>
-
-<v-data-table
-	:headers="headers1"
-	:items="insurance"
-	:sort-desc="[false, true]"
-	multi-sort
-	class="elevation-1"
-	>
-
- <template v-slot:item.id="{ item }">
-      <td>{{ props.item.name }}</td>
-      <td class="text-xs-right">{{ props.item.insurance_number }}</td>
-      <td class="text-xs-right">{{ props.item.insurance_date }}</td>
-      <td class="text-xs-right">{{ props.item.insurance_expiry }}</td>
-      <td class="text-xs-right action-col">
-      <span class="custom-action-btn">Edit</span>
-        <span class="custom-action-btn">Delete</span>
-      </td>
-    </template>
-
-</v-data-table>
-</v-card-text>
-  <router-link :to="'/admin/truck/addinsurance/' +vehicle_id" class="nav-item nav-link">
-    <v-btn color="success" class="mr-4 custom-save-btn ml-4 mt-4">Add Insurance</v-btn>
-  </router-link> 
-        </v-card>
-      </v-tab-item>
-
-
-
-    </v-tabs-items>
-   
-   </v-row>
+        <v-tabs-items v-model="tab" class="custom-tab-content">
+          <v-tab-item v-for="item in items" :key="item">
+            <v-card class="service-tab-content" color="basil" flat v-if="item == 'Service'">
+              <v-card-text>
+                <v-data-table
+                  :headers="headers"
+                  :items="truck"
+                  :sort-desc="[false, true]"
+                  multi-sort
+                  class="elevation-1"
+                >
+                  <template v-slot:item.id="{ item }">
+                    <span class="custom-action-btn">Edit</span>
+                    <span class="custom-action-btn">Delete</span>
+                  </template>
+                </v-data-table>
+              </v-card-text>
+              <router-link :to="'/admin/truck/addservice/' +vehicle_id" class="nav-item nav-link">
+                <v-btn color="success" class="mr-4 custom-save-btn ml-4 mt-4">Add Service</v-btn>
+              </router-link>
+            </v-card>
+            <v-card class="insurance-tab-content" color="basil" flat v-if="item == 'Insurance'">
+              <v-card-text>
+                <v-data-table
+                  :headers="headers1"
+                  :items="insurance"
+                  :sort-desc="[false, true]"
+                  multi-sort
+                  class="elevation-1"
+                >
+                  <template v-slot:item.id="{ item }">
+                    <span class="custom-action-btn">Edit</span>
+                    <span class="custom-action-btn">Delete</span>
+                  </template>
+                </v-data-table>
+              </v-card-text>
+              <router-link :to="'/admin/truck/addinsurance/' +vehicle_id" class="nav-item nav-link">
+                <v-btn color="success" class="mr-4 custom-save-btn ml-4 mt-4">Add Insurance</v-btn>
+              </router-link>
+            </v-card>
+          </v-tab-item>
+        </v-tabs-items>
+      </v-row>
     </v-container>
   </v-app>
 </template>
