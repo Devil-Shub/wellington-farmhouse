@@ -3,7 +3,7 @@
     <v-container>
       <v-row>
         <v-col cols="12" md="12">
-          <h4 class="main-title">Add skidsteer Service</h4>
+          <h4 class="main-title mb-0">Add Truck Service</h4>
         </v-col>
 
         <v-col cols="12" md="12">
@@ -38,14 +38,14 @@
                   <v-text-field
                     v-model="addForm.total_killometer"
                     label="Total Killometer"
-                    required
-                    :rules="[v => !!v || 'Truck Total killometer is required']"
+                     required
+                    :rules="killometerRules"
                   ></v-text-field>
                 </v-col>
               </v-col>
 
               <v-col cols="12" md="12">
-                <v-btn color="success" class="mr-4" @click="save">Submit</v-btn>
+                <v-btn color="success" class="mr-4 custom-save-btn ml-4 mt-4" @click="save">Submit</v-btn>
               </v-col>
             </v-row>
           </v-form>
@@ -57,7 +57,7 @@
 
 <script>
 import { required } from "vuelidate/lib/validators";
-import { skidsteerService } from "../../../_services/skidsteer.service";
+import { truckService } from "../../../_services/truck.service";
 import { router } from "../../../_helpers/router";
 import { environment } from "../../../config/test.env";
 export default {
@@ -76,6 +76,10 @@ export default {
         service_date: "",
         total_killometer: "",
       },
+     killometerRules: [
+        v => !!v || "Truck kilometer is required",
+        v => /^\d*$/.test(v) || "Enter valid number",
+      ],
     };
   },
   methods: {
@@ -83,7 +87,7 @@ export default {
       this.addForm.vehicle_id = this.$route.params.id;
       this.addForm.service_date = this.date;
       if (this.$refs.form.validate()) {
-        skidsteerService.addService(this.addForm).then(response => {
+        truckService.addService(this.addForm).then(response => {
          //handle response
          if(response.status) {
              this.$toast.open({
@@ -92,7 +96,7 @@ export default {
                position: 'top-right'
              });
           //redirect to login
-	const url = "/admin/skidsteer/service/"+this.$route.params.id;
+	const url = "/admin/truck/service/"+this.$route.params.id;
           router.push(url);
          } else {
              this.$toast.open({

@@ -18,8 +18,10 @@
                   class="elevation-1"
                 >
                   <template v-slot:item.id="{ item }">
-                    <span class="custom-action-btn">Edit</span>
-                    <span class="custom-action-btn">Delete</span>
+                     <span class="custom-action-btn"> <router-link :to="'/admin/truck/editservice/' +item.id">
+               Edit
+              </router-link></span>
+                    <span class="custom-action-btn" @click="DeleteService(item.id)">Delete</span>
                   </template>
                 </v-data-table>
               </v-card-text>
@@ -37,8 +39,10 @@
                   class="elevation-1"
                 >
                   <template v-slot:item.id="{ item }">
-                    <span class="custom-action-btn">Edit</span>
-                    <span class="custom-action-btn">Delete</span>
+                    <span class="custom-action-btn"> <router-link :to="'/admin/truck/editinsurance/' +item.id">
+               Edit
+              </router-link></span>
+                    <span class="custom-action-btn" @click="Delete(item.id)">Delete</span>
                   </template>
                 </v-data-table>
               </v-card-text>
@@ -91,8 +95,13 @@ export default {
       vehicle_id: ""
     };
   },
-  mounted: function() {
-    this.vehicle_id = this.$route.params.id;
+ 
+  mounted() {
+  this.getResults();
+  },
+  methods: {
+	getResults() {
+  this.vehicle_id = this.$route.params.id;
     truckService.getTruckService(this.$route.params.id).then(response => {
       //handle response
       if (response.status) {
@@ -120,7 +129,59 @@ export default {
         });
       }
     });
-  },
-  methods: {}
+	},
+    DeleteService(e) {
+      if (e) {
+        truckService.DeleteService(e).then(response => {
+          //handle response
+          if (response.status) {
+            this.$toast.open({
+              message: response.message,
+              type: "success",
+              position: "top-right"
+            });
+            //redirect to login
+            this.dialog = false;
+            //load new data
+            this.getResults();
+            //router.push("/admin/manager");
+          } else {
+            this.dialog = false;
+            this.$toast.open({
+              message: response.message,
+              type: "error",
+              position: "top-right"
+            });
+          }
+        });
+      }
+    },
+  Delete(e) {
+      if (e) {
+        truckService.DeleteInsurance(e).then(response => {
+          //handle response
+          if (response.status) {
+            this.$toast.open({
+              message: response.message,
+              type: "success",
+              position: "top-right"
+            });
+            //redirect to login
+            this.dialog = false;
+            //load new data
+            this.getResults();
+            //router.push("/admin/manager");
+          } else {
+            this.dialog = false;
+            this.$toast.open({
+              message: response.message,
+              type: "error",
+              position: "top-right"
+            });
+          }
+        });
+      }
+    },
+  }
 };
 </script>
