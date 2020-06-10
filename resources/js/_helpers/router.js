@@ -63,7 +63,9 @@ import TruckViewPage from "../components/admin/truck/ViewPage";
 import TruckDocViewPage from "../components/admin/truck/ViewDocPage";
 import TruckViewServicePage from "../components/admin/truck/ViewServicePage";
 import TruckAddServicePage from "../components/admin/truck/AddServicePage";
+import TruckEditServicePage from "../components/admin/truck/EditServicePage";
 import TruckInsuranceServicePage from "../components/admin/truck/InsuranceServicePage";
+import TruckInsuranceEditServicePage from "../components/admin/truck/EditInsuranceServicePage";
 //skidsteer
 import SkidsteerListPage from "../components/admin/skidsteer/ListPage";
 import SkidsteerAddPage from "../components/admin/skidsteer/AddPage";
@@ -145,7 +147,9 @@ export const router = new Router({
         { path: 'truck/docview/:id', component: TruckDocViewPage, name: 'TruckDocView', meta: { requiresAuth: [Role.Admin]} },
 	{ path: 'truck/service/:id', component: TruckViewServicePage, name: 'TruckViewService' , meta: { requiresAuth: [Role.Admin]} },
         { path: 'truck/addservice/:id', component: TruckAddServicePage, name: 'TruckAddService' , meta: { requiresAuth: [Role.Admin]} },
+        { path: 'truck/editservice/:id', component: TruckEditServicePage, name: 'TruckEditService' , meta: { requiresAuth: [Role.Admin]} },
 	{ path: 'truck/addinsurance/:id', component: TruckInsuranceServicePage, name: 'TruckAddInsurance' , meta: { requiresAuth: [Role.Admin]} },
+	{ path: 'truck/editinsurance/:id', component: TruckInsuranceEditServicePage, name: 'TruckEditInsurance' , meta: { requiresAuth: [Role.Admin]} },
         { path: 'skidsteers', component: SkidsteerListPage, name: 'Skidsteers', meta: { requiresAuth: [Role.Admin]} },
         { path: 'skidsteer/add', component: SkidsteerAddPage, name: 'SkidsteerAdd', meta: { requiresAuth: [Role.Admin]} },
         { path: 'skidsteer/edit/:id', component: SkidsteerEditPage, name: 'SkidsteerEdit', meta: { requiresAuth: [Role.Admin]} },
