@@ -38,8 +38,8 @@
                   <v-text-field
                     v-model="addForm.total_killometer"
                     label="Total Killometer"
-                    required
-                    :rules="[v => !!v || 'Truck Total killometer is required']"
+                     required
+                    :rules="killometerRules"
                   ></v-text-field>
                 </v-col>
               </v-col>
@@ -76,6 +76,10 @@ export default {
         service_date: "",
         total_killometer: "",
       },
+     killometerRules: [
+        v => !!v || "Truck kilometer is required",
+        v => /^\d*$/.test(v) || "Enter valid number",
+      ],
     };
   },
   methods: {

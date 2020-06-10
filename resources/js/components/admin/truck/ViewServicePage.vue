@@ -39,10 +39,10 @@
 	class="elevation-1"
 	>
 
- <template v-slot:items="props">
-      <td class="text-xs-right">{{ props.item.service_date }}</td>
+     <template v-slot:items="props">
+      <td class="text-xs-right">{{ new Date(props.item.expiry_date).toISOString().substr(0, 10)  }}</td>
       <td class="text-xs-right">{{ props.item.service_killometer }}</td>
-<td class="text-xs-right">Delete</td>
+     <td class="text-xs-right">Delete</td>
     </template>
 
 </v-data-table>
