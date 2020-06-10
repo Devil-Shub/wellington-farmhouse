@@ -11445,3 +11445,45 @@ a.text-dark:focus {
   float: right;
 }
 
+#app .custom-tabs {
+  display: block;
+  width: 60%;
+  flex: none;
+}
+
+#app .custom-tabs .v-slide-group__wrapper .v-tab {
+  text-align: left;
+}
+
+#app .custom-tabs .v-slide-group__wrapper .v-tabs-slider-wrapper {
+  max-width: 200px !important;
+  margin-left: 45px !important;
+}
+
+#app .custom-tab-content {
+  display: block;
+  width: 100%;
+  flex: none;
+}
+
+#app .custom-tab-content .v-card.service-tab-content {
+  width: 60%;
+}
+
+#app .custom-tab-content .v-card.insurance-tab-content {
+  width: 80%;
+}
+
+#app .custom-tab-content .v-card .v-data-table {
+  box-shadow: none !important;
+}
+
+#app .custom-tab-content .v-card .v-data-table .v-data-table-header tr th {
+  padding-bottom: 0;
+}
+
+#app .custom-tab-content .v-card .v-data-table .v-data-footer {
+  border: none;
+  display: none;
+}
+

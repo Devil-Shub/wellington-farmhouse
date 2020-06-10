@@ -344,4 +344,129 @@ class VehicleController extends Controller
             ], 500);
         }
     }
+
+    /**
+     * get service details
+     */
+    public function getServiceDetails(Request $request) {
+        return response()->json([
+            'status' => true,
+            'message' => 'Service Details',
+            'data' => VehicleService::whereId($request->service_id)->first()
+        ], 200);    
+    }
+
+    /**
+     * get insurance details
+     */
+    public function getInsuranceDetails(Request $request) {
+        return response()->json([
+            'status' => true,
+            'message' => 'Insurance Details',
+            'data' => VehicleInsurance::whereId($request->insurance_id)->first()
+        ], 200);    
+    }
+
+    /**
+     * save service details
+     */
+    public function saveServiceDetails(Request $request) {
+        try {
+            VehicleService::whereId($request->service_id)->update([
+                'service_killometer' => $request->service_killometer,
+                'service_date' => $request->service_date
+            ]);
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Vehicle Service Updated Successfully',
+                'data' => []
+            ], 200);
+        } catch (\Exception $e) {
+            //make log of errors
+            Log::error(json_encode($e->getMessage()));
+            //return with error
+            return response()->json([
+                'status' => false,
+                'message' => 'Internal server error!',
+                'data' => []
+            ], 500);
+        }    
+    }
+
+    /**
+     * save insurance details
+     */
+    public function saveInsuranceDetails(Request $request) {
+        try {
+            VehicleInsurance::whereId($request->insurance_id)->update([
+                'insurance_number' => $request->insurance_number,
+                'insurance_date' => $request->insurance_date,
+                'insurance_expiry' => $request->insurance_expiry
+            ]);
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Vehicle Insurance Updated Successfully',
+                'data' => []
+            ], 200);
+        } catch (\Exception $e) {
+            //make log of errors
+            Log::error(json_encode($e->getMessage()));
+            //return with error
+            return response()->json([
+                'status' => false,
+                'message' => 'Internal server error!',
+                'data' => []
+            ], 500);
+        }    
+    }
+
+    /**
+     * delete vehicle service details
+     */
+    public function deleteServiceDetails(Request $request) {
+        try {
+            VehicleService::whereId($request->service_id)->delete();
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Vehicle service deleted successfully',
+                'data' => []
+            ], 200);
+        } catch (\Exception $e) {
+            //make log of errors
+            Log::error(json_encode($e->getMessage()));
+            //return with error
+            return response()->json([
+                'status' => false,
+                'message' => 'Internal server error!',
+                'data' => []
+            ], 500);
+        }    
+    }
+
+    /**
+     * delete vehicle insurance details
+     */
+    public function deleteInsuranceDetails(Request $request) {
+        try {
+            VehicleInsurance::whereId($request->insurance_id)->delete();
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Vehicle insurance deleted Successfully',
+                'data' => []
+            ], 200);
+        } catch (\Exception $e) {
+            //make log of errors
+            Log::error(json_encode($e->getMessage()));
+            //return with error
+            return response()->json([
+                'status' => false,
+                'message' => 'Internal server error!',
+                'data' => []
+            ], 500);
+        }    
+    }
 }

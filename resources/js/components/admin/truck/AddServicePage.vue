@@ -3,7 +3,7 @@
     <v-container>
       <v-row>
         <v-col cols="12" md="12">
-          <h2>Add Truck Service</h2>
+          <h4 class="main-title mb-0">Add Truck Service</h4>
         </v-col>
 
         <v-col cols="12" md="12">
@@ -45,7 +45,7 @@
               </v-col>
 
               <v-col cols="12" md="12">
-                <v-btn color="success" class="mr-4" @click="save">Submit</v-btn>
+                <v-btn color="success" class="mr-4 custom-save-btn ml-4 mt-4" @click="save">Submit</v-btn>
               </v-col>
             </v-row>
           </v-form>
