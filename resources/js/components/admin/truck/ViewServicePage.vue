@@ -4,6 +4,7 @@
       <v-row>
    
 <v-tabs
+      class="custom-tabs"
       v-model="tab"
       background-color="transparent"
       color="basil"
@@ -18,14 +19,14 @@
       </v-tab>
     </v-tabs>
 
-    <v-tabs-items v-model="tab">
+    <v-tabs-items v-model="tab" class="custom-tab-content">
 
  <v-tab-item
         v-for="item in items"
         :key="item"
       >
 
-        <v-card
+        <v-card class="service-tab-content"
           color="basil"
           flat
 	v-if="item == 'Service'"
@@ -42,14 +43,19 @@
  <template v-slot:items="props">
       <td class="text-xs-right">{{ props.item.service_date }}</td>
       <td class="text-xs-right">{{ props.item.service_killometer }}</td>
-<td class="text-xs-right">Delete</td>
+      <td class="text-xs-right">
+        <span class="custom-action-btn">Edit</span>
+        <span class="custom-action-btn">Delete</span>
+      </td>
     </template>
 
 </v-data-table>
    </v-card-text>
-  <router-link :to="'/admin/truck/addservice/' +vehicle_id" class="nav-item nav-link">Add Service</router-link> 
+  <router-link :to="'/admin/truck/addservice/' +vehicle_id" class="nav-item nav-link">
+    <v-btn color="success" class="mr-4 custom-save-btn ml-4 mt-4">Add Service</v-btn>
+  </router-link> 
         </v-card>
-              <v-card
+              <v-card class="insurance-tab-content"
           color="basil"
           flat
 	v-if="item == 'Insurance'"
@@ -68,12 +74,18 @@
       <td>{{ props.item.name }}</td>
       <td class="text-xs-right">{{ props.item.insurance_number }}</td>
       <td class="text-xs-right">{{ props.item.insurance_date }}</td>
-<td class="text-xs-right">{{ props.item.insurance_expiry }}</td>
+      <td class="text-xs-right">{{ props.item.insurance_expiry }}</td>
+      <td class="text-xs-right">
+      <span class="custom-action-btn">Edit</span>
+        <span class="custom-action-btn">Delete</span>
+      </td>
     </template>
 
 </v-data-table>
 </v-card-text>
-  <router-link :to="'/admin/truck/addinsurance/' +vehicle_id" class="nav-item nav-link">Add Insurance</router-link> 
+  <router-link :to="'/admin/truck/addinsurance/' +vehicle_id" class="nav-item nav-link">
+    <v-btn color="success" class="mr-4 custom-save-btn ml-4 mt-4">Add Insurance</v-btn>
+  </router-link> 
         </v-card>
       </v-tab-item>
 
@@ -107,7 +119,7 @@ components: {
             sortable: false,
             value: 'service_date',
           },
-         { text: 'Action', value: 'delete' },
+         { text: 'Action' },
         ],
         headers1: [
           {
@@ -117,7 +129,8 @@ components: {
             value: 'insurance_number',
           },
           { text: 'Insurance Date', value: 'insurance_date' },
-           { text: 'Insurance Expiry Date', value: 'insurance_expiry' },
+          { text: 'Insurance Expiry Date', value: 'insurance_expiry' },
+          { text: 'Action' },
         ],
         avatar: null,
         truck: [],
