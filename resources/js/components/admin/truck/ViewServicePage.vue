@@ -36,15 +36,9 @@
                   multi-sort
                   class="elevation-1"
                 >
-                  <template v-slot:items="props">
-                    <td>{{ props.item.name }}</td>
-                    <td class="text-xs-right">{{ props.item.insurance_number }}</td>
-                    <td class="text-xs-right">{{ props.item.insurance_date }}</td>
-                    <td class="text-xs-right">{{ props.item.insurance_expiry }}</td>
-                    <td class="text-xs-right">
-                      <span class="custom-action-btn">Edit</span>
-                      <span class="custom-action-btn">Delete</span>
-                    </td>
+                  <template v-slot:item.id="{ item }">
+                    <span class="custom-action-btn">Edit</span>
+                    <span class="custom-action-btn">Delete</span>
                   </template>
                 </v-data-table>
               </v-card-text>
@@ -89,7 +83,7 @@ export default {
         },
         { text: "Insurance Date", value: "insurance_date" },
         { text: "Insurance Expiry Date", value: "insurance_expiry" },
-        { text: "Action" }
+        { text: "Action", value: "id" }
       ],
       avatar: null,
       truck: [],
