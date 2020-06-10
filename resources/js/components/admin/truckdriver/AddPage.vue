@@ -261,7 +261,7 @@ export default {
 	this.docError = true;
        }
       this.addForm.expiry_date = this.date;
-      if (this.$refs.form.validate()) {
+      if (this.$refs.form.validate() && (!this.docError)) {
                      driverService.add(this.addForm).then(response => {
                       //handle response
                       if(response.status) {

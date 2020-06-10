@@ -2,17 +2,18 @@
   <v-app>
     <v-container>
       <v-row>
-<h2>Edit Driver</h2>
-       <v-col cols="12" md="12">
+<h2>Add New Driver</h2>
+        <v-col cols="12" md="12">
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-row>
               <v-col cols="5" md="5">
-                <div
+<div
                   class="v-avatar v-list-item__avatar"
                   style="height: 40px; min-width: 40px; width: 40px;"
                 >
                   <img :src="'../../../../'+addForm.user_image" alt="John" />
                 </div>
+
                 <v-col cols="12" md="12">
                   <file-pond
                     name="uploadImage"
@@ -44,58 +45,7 @@
                     required
                   ></v-text-field>
                 </v-col>
-
-                <v-col cols="12" md="12">
-                  <v-text-field
-                    v-model="addForm.driver_licence"
-                    :rules="[v => !!v || 'driver licence number is required']"
-                    label="Driver Licence Number"
-                    required
-                  ></v-text-field>
-                </v-col>
-
-                <v-col cols="12" md="12">
-                  <v-menu
-                    v-model="menu2"
-                    :close-on-content-click="false"
-                    :nudge-right="40"
-                    transition="scale-transition"
-                    offset-y
-                    min-width="290px"
-                  >
-                    <template v-slot:activator="{ on }">
-                      <v-text-field
-                        v-model="date"
-                        label="Licence Expiry Date"
-                        prepend-icon="event"
-                        readonly
-                        v-on="on"
-                      ></v-text-field>
-                    </template>
-                    <v-date-picker v-model="date" @input="menu2 = false" :min="setDate"></v-date-picker>
-                  </v-menu>
-                </v-col>
-                <v-col cols="12" md="12">
-                  <v-radio-group
-                    v-model="addForm.salary_type"
-                   :rules="[v => !!v || 'Driver salary type is required']"
-                  >
-                    <v-radio label="Per Hour" value="per_hour"></v-radio>
-                    <v-radio label="Per Load" value="per_load"></v-radio>
-                  </v-radio-group>
-                </v-col>
-                <v-col cols="12" md="12">
-                  <v-text-field
-                    v-model="addForm.driver_salary"
-                    label="Driver Salary"
-                    required
-                    :rules="salaryRules"
-                  ></v-text-field>
-                </v-col>
-              </v-col>
-
-              <v-col cols="5" md="5">
-                <v-col cols="12" md="12">
+	    <v-col cols="12" md="12">
                   <v-text-field
                     v-model="addForm.driver_address"
                     :rules="[v => !!v || 'Address is required']"
@@ -120,8 +70,7 @@
                     required
                   ></v-text-field>
                 </v-col>
-
-                <v-col cols="12" md="12">
+ <v-col cols="12" md="12">
                   <v-text-field
                     v-model="addForm.driver_country"
                     :rules="[v => !!v || 'Country is required']"
@@ -129,7 +78,12 @@
                     required
                   ></v-text-field>
                 </v-col>
-                <v-col cols="12" md="12">
+             
+             
+              </v-col>
+
+              <v-col cols="5" md="5">
+   <v-col cols="12" md="12">
                   <v-text-field
                     v-model="addForm.driver_zipcode"
                     :rules="[v => !!v || 'Zip code is required']"
@@ -137,16 +91,65 @@
                     required
                   ></v-text-field>
                 </v-col>
-                <v-col cols="12" md="12">
+              <v-col cols="12" md="12">
                   <v-text-field
                     v-model="addForm.driver_phone"
+                     :rules="phoneRules"
                     label="Mobile Number"
                     required
-		   :rules="phoneRules"
-		   maxlenght=10
+                    maxlength=10
+
+                  ></v-text-field>
+                </v-col>
+              <v-col cols="12" md="12">
+                  <v-text-field
+                    v-model="addForm.driver_licence"
+                    :rules="[v => !!v || 'driver licence number is required']"
+                    label="Driver Licence Number"
+                    required
                   ></v-text-field>
                 </v-col>
 
+                <v-col cols="12" md="12">
+
+                  <v-menu
+                    v-model="menu2"
+                    :close-on-content-click="false"
+                    :nudge-right="40"
+                    transition="scale-transition"
+                    offset-y
+                    min-width="290px"
+                  >
+                    <template v-slot:activator="{ on }">
+                      <v-text-field
+                        v-model="date"
+                        label="Licence Expiry Date"
+                        prepend-icon="event"
+                        readonly
+                        v-on="on"
+                      ></v-text-field>
+                    </template>
+                    <v-date-picker v-model="date" @input="menu2 = false" :min="setDate"></v-date-picker>
+                  </v-menu>
+                </v-col>
+              <v-col cols="12" md="12">
+                  <v-radio-group
+                    v-model="addForm.salary_type"
+                   :rules="[v => !!v || 'Driver salary type is required']"
+                  >
+                    <v-radio label="Per Hour" value="per_hour"></v-radio>
+                    <v-radio label="Per Load" value="per_load"></v-radio>
+                  </v-radio-group>
+                </v-col>
+
+                <v-col cols="12" md="12">
+                  <v-text-field
+                    v-model="addForm.driver_salary"
+                    label="Driver Salary"
+                    required
+                    :rules="salaryRules"
+                  ></v-text-field>
+                </v-col>
                 <v-col cols="12" md="12">
                   <file-pond
                     name="uploadImage"
@@ -162,10 +165,12 @@
 		<div class="v-messages__wrapper"><div class="v-messages__message">Document upload is required</div></div>
 		</div>
                 </v-col>
-<div class="" style="height: 200px; min-width: 200px; width: 200px;">
-                    <img style="width:100%" v-if="addForm.document" :src="'/../'+addForm.document" alt="John">
-                        
-             </div>
+                <div v-if="document_img"
+                  style="height: 200px; min-width: 200px; width: 200px;"
+                >
+                  <img :src="document_img" alt="Doc" />
+                </div>
+
               </v-col>
 
               <v-col cols="12" md="12">
@@ -178,6 +183,7 @@
     </v-container>
   </v-app>
 </template>
+                
 
 <script>
 import { required } from "vuelidate/lib/validators";
@@ -198,6 +204,7 @@ export default {
       avatar: null,
       date: "",
       user_image: "",
+      document_img: null,
       active: 0,
       setDate:new Date().toISOString().substr(0, 10),
       addForm: {
@@ -263,10 +270,13 @@ export default {
         if (response.data.user.user_image) {
           this.addForm.user_image = response.data.user.user_image;
         }
-        if (response.data.user_image) {
+        if (response.data.user.user_image) {
           this.avatar = "../../../" + response.data.user.user_image;
         } else {
           this.avatar = "/images/avatar.png";
+        }
+        if (response.data.document) {
+          this.document_img = "../../../" + response.data.document;
         }
         this.addForm.driver_name = response.data.user.first_name;
         this.addForm.email = response.data.user.email;
@@ -316,7 +326,7 @@ export default {
       }else{
 	this.addForm.salary_type = 1;
       }
-      if (this.$refs.form.validate()) {
+      if (this.$refs.form.validate() && (!this.docError)) {
         driverService
           .edit(this.addForm, this.$route.params.id)
           .then(response => {

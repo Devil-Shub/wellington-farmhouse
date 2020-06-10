@@ -75,10 +75,10 @@ Route::group(['prefix' => 'auth'], function () {
 
             //driver
             Route::post('create-customer', 'CustomerController@createCustomer');
-            Route::post('edit-driver/{driver_id}', 'CustomerController@editDriver');
+            //Route::post('edit-driver/{driver_id}', 'CustomerController@editDriver');
             Route::get('list-customer', 'CustomerController@listCustomer');
-            Route::get('get-driver/{driver_id}', 'CustomerController@getDriver');
-            Route::delete('delete-driver/{driver_id}', 'CustomerController@deleteDriver');
+            //Route::get('get-driver/{driver_id}', 'CustomerController@getDriver');
+            //Route::delete('delete-driver/{driver_id}', 'CustomerController@deleteDriver');
         });
 
         //upload image
