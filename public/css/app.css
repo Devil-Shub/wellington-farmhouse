@@ -11261,7 +11261,11 @@ a.text-dark:focus {
   min-width: auto;
 }
 
-#app main.v-content .v-data-table__wrapper table tr td.action-col span.custom-action-btn {
+#app main.v-content .v-data-table__wrapper table tr td.action-col span.v-btn__content {
+  line-height: 20px;
+}
+
+#app main.v-content .v-data-table__wrapper table tr td span.custom-action-btn {
   min-width: 90px;
   display: block;
   padding: 3px 8px;
@@ -11273,10 +11277,6 @@ a.text-dark:focus {
   font-size: 12px;
   letter-spacing: 1px;
   text-transform: uppercase;
-}
-
-#app main.v-content .v-data-table__wrapper table tr td.action-col span.v-btn__content {
-  line-height: 20px;
 }
 
 #app main.v-content form .custom-col {
@@ -11480,6 +11480,15 @@ a.text-dark:focus {
 
 #app .custom-tab-content .v-card .v-data-table .v-data-table-header tr th {
   padding-bottom: 0;
+}
+
+#app .custom-tab-content .v-card .v-data-table .v-data-table-header tr th:last-of-type {
+  width: 240px;
+}
+
+#app .custom-tab-content .v-card .v-data-table tbody tr td .custom-action-btn {
+  max-width: 110px;
+  display: inline-block;
 }
 
 #app .custom-tab-content .v-card .v-data-table .v-data-footer {

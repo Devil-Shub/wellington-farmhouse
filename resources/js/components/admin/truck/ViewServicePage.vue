@@ -43,7 +43,7 @@
  <template v-slot:items="props">
       <td class="text-xs-right">{{ props.item.service_date }}</td>
       <td class="text-xs-right">{{ props.item.service_killometer }}</td>
-      <td class="text-xs-right">
+      <td class="text-xs-right action-col">
         <span class="custom-action-btn">Edit</span>
         <span class="custom-action-btn">Delete</span>
       </td>
@@ -75,7 +75,7 @@
       <td class="text-xs-right">{{ props.item.insurance_number }}</td>
       <td class="text-xs-right">{{ props.item.insurance_date }}</td>
       <td class="text-xs-right">{{ props.item.insurance_expiry }}</td>
-      <td class="text-xs-right">
+      <td class="text-xs-right action-col">
       <span class="custom-action-btn">Edit</span>
         <span class="custom-action-btn">Delete</span>
       </td>

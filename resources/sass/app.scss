@@ -352,23 +352,23 @@ $hover-white: #fff;
                   min-width: auto;
                 }
                 span {
-                  &.custom-action-btn {
-                    min-width: 90px;
-                    display: block;
-                    padding: 3px 8px;
-                    background-color: #717171;
-                    border-radius: 26px;
-                    text-align: center;
-                    color: #fff;
-                    font-weight: normal;
-                    font-size: 12px;
-                    letter-spacing: 1px;
-                    text-transform: uppercase;
-                  }
                   &.v-btn__content {
                     line-height: 20px;
                   }
                 }
+              }
+              span.custom-action-btn {
+                min-width: 90px;
+                display: block;
+                padding: 3px 8px;
+                background-color: #717171;
+                border-radius: 26px;
+                text-align: center;
+                color: #fff;
+                font-weight: normal;
+                font-size: 12px;
+                letter-spacing: 1px;
+                text-transform: uppercase;
               }
             }
           }
@@ -593,6 +593,19 @@ $hover-white: #fff;
             tr {
               th {
                 padding-bottom: 0;
+                &:last-of-type {
+                  width: 240px;
+                }
+              }
+            }
+          }
+          tbody {
+            tr {
+              td {
+                .custom-action-btn {
+                  max-width: 110px;
+                  display: inline-block;
+                }
               }
             }
           }
