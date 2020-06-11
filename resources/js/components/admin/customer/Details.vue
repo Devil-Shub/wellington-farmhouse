@@ -13,9 +13,7 @@
             </v-card>
             <!-- Frams tab -->
             <v-card class="insurance-tab-content" color="basil" flat v-if="item == 'Farms'">
-              <v-card-text>
-		Frams Details
-              </v-card-text>
+              <customer-farm />
             </v-card>
             <!-- Payments tab -->
             <v-card class="insurance-tab-content" color="basil" flat v-if="item == 'Payments'">
@@ -41,6 +39,7 @@
 
     components: {
       CustomerInfo: () => import('./tab/info'),
+      CustomerFarm: () => import('./tab/farm'),
     },
 
      data() {

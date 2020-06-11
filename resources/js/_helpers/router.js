@@ -117,6 +117,7 @@ export const router = new Router({
         { path: 'customer', component: CustomerListPage, name: 'Customer', meta: { requiresAuth: [Role.Admin]} },
         { path: 'customer/add', component: CustomerAddPage, name: 'CustomerAdd', meta: { requiresAuth: [Role.Admin]} },
         { path: 'customer/details/:id', component: CustomerDetails, name: 'CustomerDetail', meta: { requiresAuth: [Role.Admin]} },
+        { path: 'customer/farms/:id', component: CustomerDetails, name: 'Customerfarms', meta: { requiresAuth: [Role.Admin]} },
 
         { path: 'company', component: CompanyListPage, name: 'Company', meta: { requiresAuth: [Role.Admin]} },
         { path: 'company/add', component: CompanyAddPage, name: 'CompanyAdd', meta: { requiresAuth: [Role.Admin]} },
