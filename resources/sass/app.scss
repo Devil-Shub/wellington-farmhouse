@@ -171,8 +171,12 @@ $hover-white: #fff;
         margin-left: -4px;
       }
     }
+    .wd-100 {
+      width: 100% !important;
+    }
     a {
       color: #333;
+      text-decoration: none;
     }
     button {
       &:focus {
@@ -375,6 +379,11 @@ $hover-white: #fff;
         }
       }
       form {
+        .label-align {
+          label {
+            margin-top: 23px;
+          }
+        }
         .custom-col {
           padding-top: 4px;
           padding-bottom: 4px;
@@ -396,6 +405,13 @@ $hover-white: #fff;
                 max-width: 135px;
                 border: none;
               }
+            }
+          }
+        }
+        .input-max {
+          .v-input {
+            .v-input__slot {
+              max-width: none;
             }
           }
         }
@@ -605,6 +621,11 @@ $hover-white: #fff;
                 .custom-action-btn {
                   max-width: 110px;
                   display: inline-block;
+                  cursor: pointer;
+                  a {
+                    display: block;
+                    color: #fff;
+                  }
                 }
               }
             }
@@ -615,5 +636,14 @@ $hover-white: #fff;
           }
         }
       }
+    }
+    .job-tabs {
+      max-width: 90%;
+      .custom-tab-content {
+        margin-top: 15px;
+      }
+    }
+    .hidden-area {
+      // display: none;
     }
   }

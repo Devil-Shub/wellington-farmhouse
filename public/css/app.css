@@ -11061,8 +11061,13 @@ a.text-dark:focus {
   margin-left: -4px;
 }
 
+#app .wd-100 {
+  width: 100% !important;
+}
+
 #app a {
   color: #333;
+  text-decoration: none;
 }
 
 #app button:focus {
@@ -11279,6 +11284,10 @@ a.text-dark:focus {
   text-transform: uppercase;
 }
 
+#app main.v-content form .label-align label {
+  margin-top: 23px;
+}
+
 #app main.v-content form .custom-col {
   padding-top: 4px;
   padding-bottom: 4px;
@@ -11302,6 +11311,10 @@ a.text-dark:focus {
 #app main.v-content form .custom-col.custom-img-holder .col-img-holder .filepond--wrapper {
   max-width: 135px;
   border: none;
+}
+
+#app main.v-content form .input-max .v-input .v-input__slot {
+  max-width: none;
 }
 
 #app main.v-content form .v-input.v-input--is-focused.primary--text > .v-input__control > .v-input__slot:after {
@@ -11489,10 +11502,24 @@ a.text-dark:focus {
 #app .custom-tab-content .v-card .v-data-table tbody tr td .custom-action-btn {
   max-width: 110px;
   display: inline-block;
+  cursor: pointer;
+}
+
+#app .custom-tab-content .v-card .v-data-table tbody tr td .custom-action-btn a {
+  display: block;
+  color: #fff;
 }
 
 #app .custom-tab-content .v-card .v-data-table .v-data-footer {
   border: none;
   display: none;
+}
+
+#app .job-tabs {
+  max-width: 90%;
+}
+
+#app .job-tabs .custom-tab-content {
+  margin-top: 15px;
 }
 
