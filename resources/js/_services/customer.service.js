@@ -13,7 +13,7 @@ export const customerService = {
   add,
   edit,
   Delete,
-  getManager,
+  getCustomer,
   listCustomer,
   apiUrl: environment.apiUrl,
   currentUrl: '',
@@ -37,9 +37,9 @@ function add(data) {
     });
 }
 
-function edit(data, managerId) {
+function edit(data) {
   return fetch(
-    this.apiUrl+`admin/update-manager/`+managerId,
+    this.apiUrl+`admin/update-customer/`+data.id,
     requestOptions.post(data)
   )
     .then(handleResponse)
@@ -74,9 +74,9 @@ function listCustomer(){
       return user;
     });
 }
-function getManager(data) {
+function getCustomer(data) {
   return fetch(
-    this.apiUrl+`admin/get-manager/`+data,
+    this.apiUrl+`admin/get-customer/`+data,
     requestOptions.get()
   )
     .then(handleResponse)

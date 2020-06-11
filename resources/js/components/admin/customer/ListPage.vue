@@ -18,14 +18,7 @@
               <tbody>
                 <tr v-for="customer in customers" :key="customer.name">
                   <td>
-                    <div
-                      class="v-avatar v-list-item__avatar"
-                      style="height: 40px; min-width: 40px; width: 40px;"
-                    >
-                      <img v-if="customer.user_image" :src="'../'+customer.user_image" alt="John" />
-                      <img v-if="!customer.user_image" src="/images/avatar.png" alt="driver" />
-                    </div>
-                    {{ customer.first_name }} {{ customer.last_name }}
+                   <router-link :to="'/admin/customer/details/' + customer.id" class="nav-item nav-link">{{ customer.prefix }}               	{{ customer.first_name }} {{ customer.last_name }}</router-link> 
                     <v-data-table
                       :headers="headers"
                       :items="customer.customer_manager"

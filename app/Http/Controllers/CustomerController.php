@@ -137,102 +137,6 @@ class CustomerController extends Controller
     }
 
     /**
-     * edit service
-     */
-    public function editService(Request $request)
-    {
-        //validate request
-        $validator = Validator::make($request->all(), [
-            'service_name' => 'required|string',
-            'price' => 'required',
-            'description' => 'required'
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => false,
-                'message' => 'The given data was invalid.',
-                'data' => $validator->errors()
-            ], 422);
-        }
-
-        try {
-            //update service
-            Service::whereId($request->service_id)->update([
-                'service_name' => $request->service_name,
-                'price' => $request->price,
-                'description' => $request->description,
-                'service_rate' => $request->service_rate,
-                'slot_type' => $request->slot_type,
-                'slot_time' => json_encode($request->slot_time),
-                'service_image' => $request->service_image
-            ]);
-
-            //return success response
-            return response()->json([
-                'status' => true,
-                'message' => 'Service edit successfully.',
-                'data' => []
-            ], 200);
-        } catch (\Exception $e) {
-            //make log of errors
-            Log::error(json_encode($e->getMessage()));
-            //return with error
-            return response()->json([
-                'status' => false,
-                'message' => 'Internal server error!',
-                'data' => []
-            ], 500);
-        }
-    }
-
-    /**
-     * edit service time slot
-     */
-    public function editTimeSlot(Request $request)
-    {
-        //validate request
-        $validator = Validator::make($request->all(), [
-            'slot_type' => 'required|string',
-            'slot_start' => 'required',
-            'slot_end' => 'required'
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => false,
-                'message' => 'The given data was invalid.',
-                'data' => $validator->errors()
-            ], 422);
-        }
-
-        try {
-            //create new user
-            ServicesTimeSlot::whereId($request->time_slot_id)->update([
-                'slot_type' => $request->slot_type,
-                'slot_start' => $request->slot_start,
-                'slot_end' => $request->slot_end
-            ]);
-
-            //return success response
-            return response()->json([
-                'status' => true,
-                'message' => 'Service time slot updated successfully.',
-                'data' => []
-            ], 200);
-        } catch (\Exception $e) {
-            //make log of errors
-            Log::error(json_encode($e->getMessage()));
-            //return with error
-            return response()->json([
-                'status' => false,
-                'message' => 'Internal server error!',
-                'data' => []
-            ], 500);
-        }
-    }
-
-    /**
      * list customer
      */
     public function listCustomer()
@@ -250,90 +154,80 @@ class CustomerController extends Controller
     }
 
     /**
-     * get service
+     * get customer details
+    * @param id
+    * return customer array
      */
-    public function getService(Request $request)
+    public function getCustomer(Request $request)
     {
-        $fetchService = Service::whereId($request->service_id)->first();
-        //check if exist
-        if ($fetchService != null) {
-            $status = true;
-            $message = "Service Found.";
-            $statusCode = 200;
-        } else {
-            $status = false;
-            $message = "Service not found.";
-            $statusCode = 400;
-        }
-
         return response()->json([
-            'status' => $status,
-            'message' => $message,
-            'data' => $fetchService
-        ], $statusCode);
+            'status' => true,
+            'message' => 'Customer Details',
+            'data' => User::whereId($request->customer_id)->first()
+        ], 200);
+
     }
-
     /**
-     * delete service
+     * update customer
      */
-    public function deleteService(Request $request)
+    public function updateCustomer(Request $request)
     {
-        //check if exist
-        if (Service::whereId($request->service_id)->delete()) {
-            $status = true;
-            $message = "Service deleted successfully.";
-            $statusCode = 200;
-        } else {
-            $status = false;
-            $message = "Service not found.";
-            $statusCode = 400;
-        }
+        //validate request
+        $validator = Validator::make($request->all(), [
+            'customer_name' => 'required|string',
+             'email' => 'required|string|email|unique:users,email,'.$request->customer_id,
+            'prefix' => 'required'
+        ]);
 
-        return response()->json([
-            'status' => $status,
-            'message' => $message,
-            'data' => []
-        ], $statusCode);
-    }
-
-    /**
-     * get time slots
-     * @param time slots type(morning, afternoon)
-     * return array()
-     */
-    public function getTimeSlots(Request $request)
-    {
-
-        $getTime = TimeSlots::where('slot_type', $request->slot_type)->get();
-        if ($getTime->count()) {
-            return response()->json([
-                'status' => true,
-                'message' => 'success',
-                'data' => $getTime
-            ], 200);
-        } else {
+        if ($validator->fails()) {
             return response()->json([
                 'status' => false,
-                'message' => 'no time slots found',
-                'data' => $getTime
-            ], 200);
+                'message' => 'The given data was invalid.',
+                'data' => $validator->errors()
+            ], 422);
+        }
+
+        try {
+
+            //use of db transactions
+            DB::beginTransaction();
+            //gert customer details
+            $customerDetails = User::whereId($request->customer_id)->first();
+            //create new user
+            $customerDetails->prefix = $request->prefix;
+            $customerDetails->first_name = $request->customer_name;
+            $customerDetails->email = $request->email;
+            $customerDetails->phone = $request->phone;
+            $customerDetails->address = $request->address;
+            $customerDetails->city = $request->city;
+            $customerDetails->state = $request->province;
+            $customerDetails->zip_code = $request->zipcode;
+            $customerDetails->user_image = $request->user_image;
+            $customerDetails->is_active = $request->is_active;
+            if($customerDetails->save()) {
+              
+           DB::commit();
+
+	    //return success response
+	    return response()->json([
+	        'status' => true,
+	        'message' => 'Customer updated successfully.',
+	        'data' => []
+	    ], 200);
+            }
+         
+        } catch (\Exception $e) {
+            //rollback transactions
+            DB::rollBack();
+            //make log of errors
+            Log::error(json_encode($e->getMessage()));
+            //return with error
+            return response()->json([
+                'status' => false,
+                'message' => 'Internal server error!',
+                'data' => []
+            ], 500);
         }
     }
 
-    /**
-     * email for new registration and password
-     */
-    public function _confirmPassword($user, $newPassword)
-    {
-        $name = $user->first_name . ' ' . $user->last_name;
-        $data = array(
-            'user' => $user,
-            'password' => $newPassword
-        );
-
-        Mail::send('email_templates.welcome_email_manager', $data, function ($message) use ($user, $name) {
-            $message->to($user->email, $name)->subject('Login Details');
-            $message->from(env('MAIL_USERNAME'), env('MAIL_USERNAME'));
-        });
-    }
 }
