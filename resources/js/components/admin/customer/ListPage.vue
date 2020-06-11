@@ -27,7 +27,13 @@
                     >
                       <!-- <template slot="items" slot-scope="props">
                         <td class="text-xs-right">{{ props.index }}</td>
-                        <td class="text-xs-right">{{ props.item.first_name }}</td>
+                        <td class="text-xs-right">
+		         <template v-slot:item.id="{ item }">
+		            <span class="custom-action-btn"> 
+				<router-link :to="'/admin/customer/farms/' +item.id">{{ props.item.first_name }}</router-link>
+			    </span>
+		          </template>
+                        </td>
                         <td class="text-xs-right">{{ props.item.phone }}</td>
                         <td class="text-xs-right">{{ props.item.email }}</td>
                         <td class="text-xs-right">{{ props.item.farms.farm_address }}</td>
