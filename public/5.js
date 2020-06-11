@@ -207,7 +207,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -270,7 +269,21 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
+    var _this = this;
+
     this.$refs.address.focus();
+    _services_customer_service__WEBPACK_IMPORTED_MODULE_1__["customerService"].getCustomer(this.$route.params.id).then(function (response) {
+      //handle response
+      if (response.status) {
+        console.log(response.data.customer_manager);
+      } else {
+        _this.$toast.open({
+          message: response.message,
+          type: "error",
+          position: "top-right"
+        });
+      }
+    });
   },
   computed: {
     serverOptions: function serverOptions() {
@@ -318,7 +331,7 @@ __webpack_require__.r(__webpack_exports__);
       this.addForm.manager_card_image = file.serverId; //this.docError = false;
     },
     update: function update() {
-      var _this = this;
+      var _this2 = this;
 
       console.log(this.addForm);
 
@@ -326,7 +339,7 @@ __webpack_require__.r(__webpack_exports__);
         _services_customer_service__WEBPACK_IMPORTED_MODULE_1__["customerService"].add(this.addForm).then(function (response) {
           //handle response
           if (response.status) {
-            _this.$toast.open({
+            _this2.$toast.open({
               message: response.message,
               type: "success",
               position: "top-right"
@@ -334,7 +347,7 @@ __webpack_require__.r(__webpack_exports__);
             //router.push("/admin/customer");
 
           } else {
-            _this.$toast.open({
+            _this2.$toast.open({
               message: response.message,
               type: "error",
               position: "top-right"

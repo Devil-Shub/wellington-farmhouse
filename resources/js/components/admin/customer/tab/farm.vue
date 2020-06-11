@@ -181,7 +181,6 @@
                 </v-col>
                </v-row>            
               </v-col>
-
               <v-btn color="success" class="mr-4" @click="update">Submit</v-btn>
             </v-row>
           </v-form>
@@ -211,6 +210,7 @@ export default {
       valid: true,
       manager_img: "",
       apiUrl: environment.apiUrl,
+      
       addForm: {
         farm_id: '',
         farm_images: [],
@@ -255,6 +255,18 @@ export default {
   },
   mounted() {
     this.$refs.address.focus();
+    customerService.getCustomer(this.$route.params.id).then(response => {
+    //handle response
+      if (response.status) {
+   	console.log(response.data.customer_manager)
+      } else {
+        this.$toast.open({
+          message: response.message,
+          type: "error",
+          position: "top-right"
+        });
+      }
+    });
   },
   computed: {
     serverOptions() {

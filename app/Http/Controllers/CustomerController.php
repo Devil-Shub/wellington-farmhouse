@@ -163,7 +163,9 @@ class CustomerController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'Customer Details',
-            'data' => User::whereId($request->customer_id)->first()
+            'data' => User::whereId($request->customer_id)->with(['customerManager' => function ($query) {
+		    $query->with("manager", "farms");
+		}])->first()
         ], 200);
 
     }
