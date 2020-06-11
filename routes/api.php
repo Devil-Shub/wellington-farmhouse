@@ -87,8 +87,9 @@ Route::group(['prefix' => 'auth'], function () {
             //Route::delete('delete-driver/{driver_id}', 'CustomerController@deleteDriver');
 
             //jobs
-            Route::get('get-customer-manager/{customer_id}', 'JobsController@getCustomerManager');
+            Route::get('get-customer', 'JobsController@getCustomers');
             Route::get('get-service-slots/{service_id}', 'JobsController@getServiceSlots');
+            Route::post('create-job', 'JobsController@createJob');
         });
 
         //upload image

@@ -51,6 +51,7 @@ class CreateJobsTable extends Migration
             $table->longText('notes')->nullable();
 
             $table->timestamps();
+            $table->softDeletes('deleted_at', 0);
         });
     }
 
