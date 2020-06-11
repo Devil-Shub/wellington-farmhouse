@@ -79,14 +79,16 @@ Route::group(['prefix' => 'auth'], function () {
             Route::delete('delete-service-details/{service_id}', 'VehicleController@deleteServiceDetails');
             Route::delete('delete-insurance-details/{insurance_id}', 'VehicleController@deleteInsuranceDetails');
 
-            //driver
+            //customer
             Route::post('create-customer', 'CustomerController@createCustomer');
             Route::get('list-customer', 'CustomerController@listCustomer');
+            Route::get('get-customer/{customer_id}', 'CustomerController@getCustomer');
+            Route::post('update-customer/{customer_id}', 'CustomerController@updateCustomer');
+            //Route::delete('delete-driver/{driver_id}', 'CustomerController@deleteDriver');
 
             //jobs
             Route::get('get-customer-manager/{customer_id}', 'JobsController@getCustomerManager');
             Route::get('get-service-slots/{service_id}', 'JobsController@getServiceSlots');
-
         });
 
         //upload image
