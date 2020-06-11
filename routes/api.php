@@ -81,10 +81,12 @@ Route::group(['prefix' => 'auth'], function () {
 
             //driver
             Route::post('create-customer', 'CustomerController@createCustomer');
-            //Route::post('edit-driver/{driver_id}', 'CustomerController@editDriver');
             Route::get('list-customer', 'CustomerController@listCustomer');
-            //Route::get('get-driver/{driver_id}', 'CustomerController@getDriver');
-            //Route::delete('delete-driver/{driver_id}', 'CustomerController@deleteDriver');
+
+            //jobs
+            Route::get('get-customer-manager/{customer_id}', 'JobsController@getCustomerManager');
+            Route::get('get-service-slots/{service_id}', 'JobsController@getServiceSlots');
+
         });
 
         //upload image
