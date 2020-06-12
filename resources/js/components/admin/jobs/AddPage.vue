@@ -10,7 +10,7 @@
 		    </v-col>
 	        <v-col sm="4" class="pt-0">
 		       <v-select
-			v-model="addForm.customer_name"
+			v-model="addForm.customer_id"
 			:items="customerName"
 			label="Select Customer"
 			:rules="[v => !!v || 'Customer Name is required']"
@@ -26,7 +26,7 @@
                     </v-col>
                     <v-col sm="4" class="pt-0">
                         <v-select
-                        :v-model="addForm.manager_name"
+                        :v-model="addForm.manager_id"
 			:items="managerName"
 			label="Select Manager"
 			:rules="[v => !!v || 'Manager Name is required']"
@@ -60,7 +60,7 @@
                             clearable
                             clear-icon="cancel"
                             label=""
-                            v-model="addForm.job_desc"
+                            v-model="addForm.job_description"
                         ></v-textarea>
                     </v-col>
                 </v-col>
@@ -70,11 +70,11 @@
                     </v-col>
                     <v-col sm="4" class="pt-0">
                         <v-select
-                        :v-model="addForm.service_name"
+                        :v-model="addForm.service_id"
 			:items="serviceName"
 			label="Select Service"
 			:rules="[v => !!v || 'Service Name is required']"
-			item-text="service_name"
+			item-text="service_id"
 			item-value="id"
                         @change="serviceSelection"
                         ></v-select>
@@ -127,7 +127,7 @@
                         <label>Time Slots</label>
                     </v-col>
                  <v-col sm="10" class="label-align pt-0">
-                    <v-radio-group  row v-model="addForm.start_time" :mandatory="false" required :rules="[v => !!v || 'Time slot is required']">
+                    <v-radio-group  row v-model="addForm.services_time_slots_id" :mandatory="false" required :rules="[v => !!v || 'Time slot is required']">
 <template v-for="(timeSlot, index) in servicetime">
                     <v-radio :label="timeSlot.slot_start+'-'+timeSlot.slot_end" :value="timeSlot.id" ></v-radio>
                   
@@ -169,26 +169,26 @@ export default {
           valid: true,
           setDate:new Date().toISOString().substr(0, 10),
           menu1: false,
-	  weightShow: false,
+	         weightShow: false,
           date: "",
           start_date: "",
           apiUrl: environment.apiUrl,
           customerName: [],
           managerName: [],
           serviceName: [],
- 	  servicetime: '',
- 	  customer_id: '',
+ 	        servicetime: '',
+ 	        customer_id: '',
           addForm: {
-              customer_name: "",
-              manager_name: "",
-              service_name: "",
-              job_desc: "",
+              customer_id: "",
+              manager_id: "",
+              service_id: "",
+              job_description: "",
               farm_add: "",
-	      farm_id: "",
+	            farm_id: "",
               farm_images: [],
-              start_time: "",
+              services_time_slots_id: "",
               start_date: "",
-	      job_weight:"",
+	            job_weight:"",
               job_amount: "",
           },
 	     killometerRules: [
@@ -274,7 +274,7 @@ export default {
 	      });
        },
 	managerSelection(val){
-         this.addForm.manager_name = val;
+         this.addForm.manager_id = val;
 	 jobService.getFrams({customer_id: this.customer_id, manager_id: val}).then(response => {
 		//handle response
 		if (response.status) {
@@ -290,7 +290,7 @@ export default {
 	      });
        },
        serviceSelection(val){
-         this.addForm.service_name = val;
+         this.addForm.service_id = val;
 	this.serviceName.find(file => {
 	  if (file.id == val) {
  	     this.addForm.job_amount = file.price;
@@ -319,14 +319,25 @@ export default {
       submit() {
      this.addForm.start_date = this.date;
     
-      if (this.$refs.form.validate()) {
-          console.log(this.addForm);
-      } else {
-        this.$toast.open({
-            message: 'error',
-            type: "error",
-            position: "top-right"
-        });
+        if (this.$refs.form.validate()) {
+        jobService.createJob(this.addForm).then(response => {
+         //handle response
+         if(response.status) {
+             this.$toast.open({
+               message: response.message,
+               type: 'success',
+               position: 'top-right'
+             });
+          //redirect to login
+          router.push("/admin/jobs");
+         } else {
+             this.$toast.open({
+               message: response.message,
+               type: 'error',
+               position: 'top-right'
+             })
+         }
+       });
       }
     },
     showTiming(){

@@ -2,63 +2,31 @@
   <v-app>
     <v-container>
       <v-row>
-        <h4 class="main-title">Customer Section</h4>
-        <v-col cols="12" md="12">
-          <v-form ref="form" class="form-layout">
-            <div class="single-row">
-              <v-col sm="3">
-                <v-select :items="prefix" label="Prefix" outlined></v-select>
-              </v-col>
-              <v-col sm="3">
-                <v-text-field label="Name" outlined></v-text-field>
-              </v-col>
-              <v-col sm="3">
-                <v-text-field label="Email" outlined></v-text-field>
-              </v-col>
-              <v-col sm="3">
-                <v-text-field label="Phone" outlined></v-text-field>
-              </v-col>
-              <v-col sm="3">
-                <v-text-field label="Address" outlined></v-text-field>
-              </v-col>
-              <v-col sm="3">
-                <v-text-field label="City" outlined></v-text-field>
-              </v-col>
-              <v-col sm="3">
-                <v-text-field label="Province" outlined></v-text-field>
-              </v-col>
-              <v-col sm="3">
-                <v-text-field label="Zip Code" outlined></v-text-field>
-              </v-col>
-              <v-col sm="12">
-                <v-switch :label="`Is Active`"></v-switch>
-              </v-col>
-            </div>
-            <div class="single-row">
-              <h4 class="sub-title">Farm Section</h4>
-              <v-col sm="3">
-                <v-text-field label="Address" outlined></v-text-field>
-              </v-col>
-              <v-col sm="3">
-                <v-text-field label="App/State/Unit" outlined></v-text-field>
-              </v-col>
-              <v-col sm="3">
-                <v-text-field label="City" outlined></v-text-field>
-              </v-col>
-              <v-col sm="3">
-                <v-text-field label="Province" outlined></v-text-field>
-              </v-col>
-              <v-col sm="3">
-                <v-text-field label="Zip Code" outlined></v-text-field>
-              </v-col>
-              <v-col sm="3">
-                <v-switch :label="`Is Active`"></v-switch>
-              </v-col>
-            </div>
-            <div class="single-row">
-              <h4 class="sub-title">Manager Section</h4>
-            </div>
-          </v-form>
+        <v-col sm="12" cols="12">
+          <v-simple-table>
+            <template v-slot:default>
+              <thead>
+                <tr>
+                  <th class="text-left">Sno</th>
+                  <th class="text-left">Card No</th>
+                  <th class="text-left">Expiry</th>
+                  <th class="text-left">Status</th>
+                  <th class="text-left">Primary</th>
+                  <th class="text-left">Add On</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>XXXXXXX22</td>
+                  <td>3/4/22</td>
+                  <td>Active</td>
+                  <td>Yes</td>
+                  <td>8/07/2020</td>
+                </tr>
+              </tbody>
+            </template>
+          </v-simple-table>
         </v-col>
       </v-row>
     </v-container>

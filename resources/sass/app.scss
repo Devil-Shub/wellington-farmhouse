@@ -592,6 +592,16 @@ $hover-white: #fff;
         }
       }
     }
+    .custom-tabs-wdout-modif {
+      display: block;
+      width: 60%;
+      flex: none;
+      .v-slide-group__wrapper {
+        .v-tab {
+          text-align: left;
+        }
+      }
+    }
     .custom-tab-content {
       display: block;
       width: 100%;
@@ -602,6 +612,42 @@ $hover-white: #fff;
         }
         &.insurance-tab-content {
           width: 80%;
+        }
+        &.payment-tabs {
+          width: 80%;
+        }
+        &.record-tabs {
+          .cust-record-content {
+            .col-sm-2 {
+              margin-left: -4px;
+            }
+            .single-record {
+              padding: 15px 0;
+              margin-right: 10px;
+              background-color: #d9d9d9;
+              border-radius: 16px;
+              span {
+                display: block;
+                padding-left: 15px;
+                padding-right: 15px;
+                &.record-timeline {
+                  font-weight: 300;
+                  border-bottom: 1px solid #fff;
+                  padding-bottom: 5px;
+                  margin-bottom: 5px;
+                }
+              }
+            }
+          }
+          .v-data-table__wrapper {
+            table {
+              tr {
+                th {
+                  padding-bottom: 0;
+                }
+              }
+            }
+          }
         }
         .v-data-table {
           box-shadow: none !important;

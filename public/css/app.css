@@ -11473,6 +11473,16 @@ a.text-dark:focus {
   margin-left: 45px !important;
 }
 
+#app .custom-tabs-wdout-modif {
+  display: block;
+  width: 60%;
+  flex: none;
+}
+
+#app .custom-tabs-wdout-modif .v-slide-group__wrapper .v-tab {
+  text-align: left;
+}
+
 #app .custom-tab-content {
   display: block;
   width: 100%;
@@ -11485,6 +11495,38 @@ a.text-dark:focus {
 
 #app .custom-tab-content .v-card.insurance-tab-content {
   width: 80%;
+}
+
+#app .custom-tab-content .v-card.payment-tabs {
+  width: 80%;
+}
+
+#app .custom-tab-content .v-card.record-tabs .cust-record-content .col-sm-2 {
+  margin-left: -4px;
+}
+
+#app .custom-tab-content .v-card.record-tabs .cust-record-content .single-record {
+  padding: 15px 0;
+  margin-right: 10px;
+  background-color: #d9d9d9;
+  border-radius: 16px;
+}
+
+#app .custom-tab-content .v-card.record-tabs .cust-record-content .single-record span {
+  display: block;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+#app .custom-tab-content .v-card.record-tabs .cust-record-content .single-record span.record-timeline {
+  font-weight: 300;
+  border-bottom: 1px solid #fff;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+}
+
+#app .custom-tab-content .v-card.record-tabs .v-data-table__wrapper table tr th {
+  padding-bottom: 0;
 }
 
 #app .custom-tab-content .v-card .v-data-table {
