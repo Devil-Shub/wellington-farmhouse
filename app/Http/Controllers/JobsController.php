@@ -70,7 +70,7 @@ class JobsController extends Controller
             'job_description' => 'required',
             'service_id' => 'required',
             'start_date' => 'required',
-            'end_date' => 'required',
+            'start_time' => 'required',
             'time_slots_id' => 'required'
         ]);
 
@@ -159,5 +159,25 @@ class JobsController extends Controller
             $message->to($managerDetails->email, $managerName)->subject('Job Created');
             $message->from(env('MAIL_USERNAME'), env('MAIL_USERNAME'));
         });
+    }
+
+    /**
+     * get job
+     */
+    public function fetchJobDetails(Request $request) {
+        $loadJob = Job::whereId(base64_decode($request->unique_job_id))->first();
+
+        if($loadJob != null) {
+            $message = "Job not found!";
+            $data = $loadJob;
+        } else {
+            $message = "Job details";
+            $data = [];
+        }
+        return response()->json([
+            'status' => true,
+            'message' => $message,
+            'data' => $data
+        ], 200);
     }
 }
