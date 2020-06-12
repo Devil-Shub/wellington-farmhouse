@@ -28,7 +28,7 @@ class CreateCustomerFarmsTable extends Migration
             $table->string('farm_province')->nullable();
             $table->string('farm_unit')->nullable();
             $table->string('farm_zipcode')->nullable();
-            $table->string('farm_active')->nullable();
+            $table->tinyInteger('farm_active')->nullable();
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();
 

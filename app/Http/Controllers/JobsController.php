@@ -63,6 +63,7 @@ class JobsController extends Controller
     {
         //validate request
         $validator = Validator::make($request->all(), [
+            'job_amount' => 'required',
             'customer_id' => 'required',
             'manager_id' => 'required',
             'farm_id' => 'required',
@@ -70,7 +71,7 @@ class JobsController extends Controller
             'service_id' => 'required',
             'start_date' => 'required',
             'end_date' => 'required',
-            'time_slot_id' => 'required',
+            'time_slots_id' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -85,15 +86,17 @@ class JobsController extends Controller
 
             //create job
             $job = new Job([
+                'job_amount' => $request->job_weight != "" && $request->job_weight != null ? $request->job_weight*$request->job_amount:$request->job_amount,
                 'customer_id' => $request->customer_id,
+                'job_weight' => $request->job_weight,
                 'manager_id' => $request->manager_id,
                 'farm_id' => $request->farm_id,
                 'job_description' => $request->job_description,
                 'service_id' => $request->service_id,
-                'services_time_slots_id' => $request->services_time_slots_id,
+                'time_slots_id' => $request->time_slots_id,
                 'start_date' => $request->start_date,
                 'start_time' => $request->start_time,
-                'time_slot_id' => $request->time_slot_id
+                'job_images' => json_encode($request->job_images)
             ]);
             //save job
             if($job->save()) {
@@ -128,7 +131,8 @@ class JobsController extends Controller
 
         $customerName = $customerDetails->first_name . ' ' . $customerDetails->last_name;
         $data = array(
-            'user' => $customerDetails
+            'user' => $customerDetails,
+            'name' => $customerName
         );
 
         //send to customer
@@ -139,7 +143,8 @@ class JobsController extends Controller
 
         $managerName = $managerDetails->first_name . ' ' . $managerDetails->last_name;
         $data = array(
-            'user' => $managerDetails
+            'user' => $managerDetails,
+            'name' => $managerName
         );
 
         //send to manager

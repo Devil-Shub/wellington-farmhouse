@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\DB;
 use App\Service;
 use App\TimeSlots;
 use Illuminate\Support\Str;
-use App\ServicesTimeSlot;
 
 class ServicesController extends Controller
 {
@@ -112,52 +111,6 @@ class ServicesController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'Service edit successfully.',
-                'data' => []
-            ], 200);
-        } catch (\Exception $e) {
-            //make log of errors
-            Log::error(json_encode($e->getMessage()));
-            //return with error
-            return response()->json([
-                'status' => false,
-                'message' => 'Internal server error!',
-                'data' => []
-            ], 500);
-        }
-    }
-
-    /**
-     * edit service time slot
-     */
-    public function editTimeSlot(Request $request)
-    {
-        //validate request
-        $validator = Validator::make($request->all(), [
-            'slot_type' => 'required|string',
-            'slot_start' => 'required',
-            'slot_end' => 'required'
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => false,
-                'message' => 'The given data was invalid.',
-                'data' => $validator->errors()
-            ], 422);
-        }
-
-        try {
-            //create new user
-            ServicesTimeSlot::whereId($request->time_slot_id)->update([
-                'slot_type' => $request->slot_type,
-                'slot_start' => $request->slot_start,
-                'slot_end' => $request->slot_end
-            ]);
-
-            //return success response
-            return response()->json([
-                'status' => true,
-                'message' => 'Service time slot updated successfully.',
                 'data' => []
             ], 200);
         } catch (\Exception $e) {
