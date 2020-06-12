@@ -100,7 +100,7 @@ class JobsController extends Controller
             ]);
             //save job
             if($job->save()) {
-                $this->_sendPaymentEmail($request->customer_id, $request->manager_id);
+                $this->_sendPaymentEmail($job->id, $request->customer_id, $request->manager_id);
             }
 
             //return success response
@@ -124,15 +124,20 @@ class JobsController extends Controller
     /**
      * payment email
      */
-    public function _sendPaymentEmail($customerId, $managerId)
+    public function _sendPaymentEmail($jobId, $customerId, $managerId)
     {
+        //check user role
+        $checkRole = User::whereId($customerId)->first();
+
         $customerDetails = User::whereId($customerId)->first();
         $managerDetails = User::whereId($managerId)->first();
 
         $customerName = $customerDetails->first_name . ' ' . $customerDetails->last_name;
         $data = array(
             'user' => $customerDetails,
-            'name' => $customerName
+            'name' => $customerName,
+            'paymentLink' => env('APP_URL') . 'payment/' . base64_encode($jobId),
+            'userRoler' => $checkRole
         );
 
         //send to customer
@@ -144,7 +149,9 @@ class JobsController extends Controller
         $managerName = $managerDetails->first_name . ' ' . $managerDetails->last_name;
         $data = array(
             'user' => $managerDetails,
-            'name' => $managerName
+            'name' => $managerName,
+            'paymentLink' => env('APP_URL') . 'payment/' . base64_encode($jobId),
+            'userRoler' => $checkRole
         );
 
         //send to manager
