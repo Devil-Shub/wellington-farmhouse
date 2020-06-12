@@ -152,4 +152,16 @@ class JobsController extends Controller
             $message->from(env('MAIL_USERNAME'), env('MAIL_USERNAME'));
         });
     }
+
+   /**
+   * get job lisitng
+   */
+
+   public function getAllJob(){
+	    return response()->json([
+            'status' => true,
+            'message' => 'job Details',
+            'data' => job::get()
+        ], 200);
+   }
 }

@@ -16,6 +16,7 @@ export const jobService = {
   listService,
   servicesTimeSlots,
   createJob,
+  joblist,
   apiUrl: environment.apiUrl,
   currentUrl: '',
   currentUser: currentUserSubject.asObservable(),
@@ -93,6 +94,19 @@ function createJob(data) {
 function getFrams(data) {
   return fetch(
     this.apiUrl+`admin/job-farms/`+data.customer_id+'/'+data.manager_id,
+    requestOptions.get()
+  )
+    .then(handleResponse)
+    .then(user => {
+      // store user details and passport token in local storage to keep user logged in between page refreshes
+
+      return user;
+    });
+}
+
+function joblist() {
+  return fetch(
+    this.apiUrl+`admin/job-list`,
     requestOptions.get()
   )
     .then(handleResponse)
