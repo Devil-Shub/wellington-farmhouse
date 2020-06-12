@@ -92,6 +92,7 @@ Route::group(['prefix' => 'auth'], function () {
             Route::get('job-farms/{customer_id}/{manager_id}', 'JobsController@getJobFrams');
             Route::get('get-service-slots/{service_id}', 'JobsController@getServiceSlots');
             Route::post('create-job', 'JobsController@createJob');
+            Route::get('job-list', 'JobsController@getAllJob');
         });
 
         //upload image

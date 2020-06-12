@@ -74,7 +74,7 @@
 			:items="serviceName"
 			label="Select Service"
 			:rules="[v => !!v || 'Service Name is required']"
-			item-text="service_id"
+			item-text="service_name"
 			item-value="id"
                         @change="serviceSelection"
                         ></v-select>
@@ -127,7 +127,7 @@
                         <label>Time Slots</label>
                     </v-col>
                  <v-col sm="10" class="label-align pt-0">
-                    <v-radio-group  row v-model="addForm.services_time_slots_id" :mandatory="false" required :rules="[v => !!v || 'Time slot is required']">
+                    <v-radio-group  row v-model="addForm.time_slots_id" :mandatory="false" required :rules="[v => !!v || 'Time slot is required']">
 <template v-for="(timeSlot, index) in servicetime">
                     <v-radio :label="timeSlot.slot_start+'-'+timeSlot.slot_end" :value="timeSlot.id" ></v-radio>
                   
@@ -185,8 +185,8 @@ export default {
               job_description: "",
               farm_add: "",
 	            farm_id: "",
-              farm_images: [],
-              services_time_slots_id: "",
+              job_images: [],
+              time_slots_id: "",
               start_date: "",
 	            job_weight:"",
               job_amount: "",
@@ -227,7 +227,7 @@ export default {
    },
   methods: {
    handleProcessFile: function(error, file) {
-     this.addForm.farm_images.push(file.serverId);
+     this.addForm.job_images.push(file.serverId);
     },
      getResults() {
       jobService.getCustomer().then(response => {
