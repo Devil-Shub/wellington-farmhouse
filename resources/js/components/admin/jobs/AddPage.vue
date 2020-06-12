@@ -5,17 +5,20 @@
         <v-col cols="12" md="12" class="pl-0">
             <v-form ref="form" v-model="valid" lazy-validation>
                 <v-col class="d-flex pt-0" cols="12">
-                    <v-col sm="2" class="label-align pt-0">
-                        <label>Customer Name</label>
-                    </v-col>
-                    <v-col sm="4" class="pt-0">
-                        <v-select
-                        :items="customerName"
-                        v-model="addForm.customer_name"
-                        label="Select Customer"
-                        :rules="[v => !!v || 'Customer Name is required']"
-                        ></v-select>
-                    </v-col>
+		    <v-col sm="2" class="label-align pt-0">
+		        <label>Customer Name</label>
+		    </v-col>
+	        <v-col sm="4" class="pt-0">
+		       <v-select
+			v-model="addForm.customer_name"
+			:items="customerName"
+			label="Select Customer"
+			:rules="[v => !!v || 'Customer Name is required']"
+			item-text="first_name"
+			item-value="id"
+			@change="customerSelection"
+		    ></v-select>
+	    </v-col>
                 </v-col>
                 <v-col class="d-flex pt-0" cols="12">
                     <v-col sm="2" class="label-align pt-0">
@@ -23,10 +26,13 @@
                     </v-col>
                     <v-col sm="4" class="pt-0">
                         <v-select
-                        :items="managerName"
-                        v-model="addForm.manager_name"
-                        label="Select Manager"
-                        :rules="[v => !!v || 'Manager Name is required']"
+                        :v-model="addForm.manager_name"
+			:items="managerName"
+			label="Select Manager"
+			:rules="[v => !!v || 'Manager Name is required']"
+			item-text="first_name"
+			item-value="id"
+                        @change="managerSelection"
                         ></v-select>
                     </v-col>
                 </v-col>
@@ -142,6 +148,7 @@
 <script>
 import { required } from "vuelidate/lib/validators";
 import { router } from "../../../_helpers/router";
+import { jobService } from "../../../_services/job.service";
 export default {
   components: {
   },
@@ -151,9 +158,10 @@ export default {
           menu1: false,
           date: "",
           start_date: "",
-          customerName: ['Foo', 'Bar', 'Fizz', 'Buzz'],
-          managerName: ['Abcd', 'efgh', 'ijkl'],
-          serviceName: ['abc', 'def', 'ghi', 'jkl'],
+          customerName: [{value: "id", name: "first_name" }],
+          managerName: [],
+          serviceName: [],
+ 	  customer_id: '',
           addForm: {
               customer_name: "",
               manager_name: "",
@@ -166,11 +174,57 @@ export default {
           myFiles: [],
       }
   },
+  mounted() {
+    this.getResults();
+   },
   methods: {
+     getResults() {
+      jobService.getCustomer().then(response => {
+        //handle response
+        if (response.status) {
+          this.customerName = response.data;
+         console.log(this.customerName)
+        } else {
+          this.$toast.open({
+            message: response.message,
+            type: "error",
+            position: "top-right"
+          });
+        }
+      });
+    },
+	customerSelection(val){
+ 	 this.customer_id = val;
+	 jobService.getManager(val).then(response => {
+		//handle response
+		if (response.status) {
+		  this.managerName = response.data.customer_manager;
+		} else {
+		  this.$toast.open({
+		    message: response.message,
+		    type: "error",
+		    position: "top-right"
+		  });
+		}
+	      });
+       },
+	managerSelection(val){
+	 jobService.getFrams({customer_id: this.customer_id, manager_id: val}).then(response => {
+		//handle response
+		if (response.status) {
+		  //this.farm_add = response.data;
+		} else {
+		  this.$toast.open({
+		    message: response.message,
+		    type: "error",
+		    position: "top-right"
+		  });
+		}
+	      });
+       },
       submit() {
       console.log(this.addForm);
       if (this.$refs.form.validate()) {
-        console.log('abc');
         this.addForm.start_date = this.date;
       } else {
         this.$toast.open({
