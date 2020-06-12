@@ -37,7 +37,7 @@ class JobsController extends Controller
          return response()->json([
             'status' => true,
             'message' => 'Customer Details',
-            'data' => CustomerFarm::where('customer_id', $request->customer_id)->where('manager_id', $request->manager_id)->first()
+            'data' => CustomerFarm::where('customer_id', $request->customer_id)->where('manager_id', $request->manager_id)->where('farm_active', '1')->first()
         ], 200);
     }
 

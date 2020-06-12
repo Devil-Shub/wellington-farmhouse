@@ -45,6 +45,7 @@
                             label=""
                             v-model="addForm.farm_add"
                             required
+ 			   disabled
                             :rules="[v => !!v || 'Farm Address is required']"
                         ></v-text-field>
                     </v-col>
@@ -69,14 +70,17 @@
                     </v-col>
                     <v-col sm="4" class="pt-0">
                         <v-select
-                        :items="serviceName"
-                        v-model="addForm.service_name"
-                        label="Select Service"
-                        :rules="[v => !!v || 'Service Name is required']"
+                        :v-model="addForm.service_name"
+			:items="serviceName"
+			label="Select Service"
+			:rules="[v => !!v || 'Service Name is required']"
+			item-text="service_name"
+			item-value="id"
+                        @change="serviceSelection"
                         ></v-select>
                     </v-col>
                 </v-col>
-                <div class="hidden-area" id="showTimingSection" v-if="addForm.service_name">
+                <div  id="showTimingSection" v-if="addForm.service_name">
                 <v-col cols="12" md="12" class="custom-col calendar-col pt-0">
                     <v-col sm="2" class="label-align pt-0">
                         <label>Start Date</label>
@@ -168,6 +172,7 @@ export default {
               service_name: "",
               job_desc: "",
               farm_add: "",
+	      farm_id: "",
               start_time: "",
               start_date: "",
           },
@@ -176,6 +181,7 @@ export default {
   },
   mounted() {
     this.getResults();
+this.getService();
    },
   methods: {
      getResults() {
@@ -184,6 +190,20 @@ export default {
         if (response.status) {
           this.customerName = response.data;
          console.log(this.customerName)
+        } else {
+          this.$toast.open({
+            message: response.message,
+            type: "error",
+            position: "top-right"
+          });
+        }
+      });
+    },
+     getService() {
+      jobService.listServices().then(response => {
+        //handle response
+        if (response.status) {
+          this.serviceName = response.data;
         } else {
           this.$toast.open({
             message: response.message,
@@ -212,7 +232,22 @@ export default {
 	 jobService.getFrams({customer_id: this.customer_id, manager_id: val}).then(response => {
 		//handle response
 		if (response.status) {
-		  //this.farm_add = response.data;
+		  this.addForm.farm_id = response.data.id;
+		  this.addForm.farm_add = response.data.farm_address+' '+response.data.farm_city+' '+response.data.farm_province+' '+response.data.farm_zipcode;
+		} else {
+		  this.$toast.open({
+		    message: response.message,
+		    type: "error",
+		    position: "top-right"
+		  });
+		}
+	      });
+       },
+       serviceSelection(val){
+	 jobService.servicesTimeSlots(val).then(response => {
+		//handle response
+		if (response.status) {
+		  console.log(response.data);
 		} else {
 		  this.$toast.open({
 		    message: response.message,
