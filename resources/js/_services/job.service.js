@@ -10,12 +10,9 @@ const currentUserSubject = new BehaviorSubject(
 );
 
 export const jobService = {
-  add,
-  edit,
-  Delete,
-  getService,
-  listService,
-  getTimeSlots,
+  getCustomer,
+  getManager,
+  getFrams,
   apiUrl: environment.apiUrl,
   currentUrl: '',
   currentUser: currentUserSubject.asObservable(),
@@ -24,48 +21,9 @@ export const jobService = {
   }
 };
 
-function add(data) {
-
+function getCustomer() {
   return fetch(
-    this.apiUrl+`admin/create-service`,
-    requestOptions.post(data)
-  )
-    .then(handleResponse)
-    .then(user => {
-      // store user details and passport token in local storage to keep user logged in between page refreshes
-
-      return user;
-    });
-}
-
-function edit(data) {
-  return fetch(
-    this.apiUrl+`admin/edit-service/`+data.id,
-    requestOptions.post(data)
-  )
-    .then(handleResponse)
-    .then(user => {
-      // store user details and passport token in local storage to keep user logged in between page refreshes
-
-      return user;
-    });
-}
-function Delete(data) {
-  return fetch(
-    this.apiUrl+`admin/delete-service/`+data,
-    requestOptions.delete()
-  )
-    .then(handleResponse)
-    .then(user => {
-      // store user details and passport token in local storage to keep user logged in between page refreshes
-
-      return user;
-    });
-}
-
-function getService(data) {
-  return fetch(
-    this.apiUrl+`admin/get-service/`+data,
+    this.apiUrl+`admin/job-customer`,
     requestOptions.get()
   )
     .then(handleResponse)
@@ -76,9 +34,9 @@ function getService(data) {
     });
 }
 
-function listService() {
+function getManager(id) {
   return fetch(
-    this.apiUrl+`admin/list-services`,
+    this.apiUrl+`admin/get-customer/`+id,
     requestOptions.get()
   )
     .then(handleResponse)
@@ -89,9 +47,9 @@ function listService() {
     });
 }
 
-function getTimeSlots(data) {
+function getFrams(data) {
   return fetch(
-    this.apiUrl+`admin/get-timeslots/`+data,
+    this.apiUrl+`admin/job-farms/`+data.customer_id+'/'+data.manager_id,
     requestOptions.get()
   )
     .then(handleResponse)
@@ -101,4 +59,5 @@ function getTimeSlots(data) {
       return user;
     });
 }
+
 

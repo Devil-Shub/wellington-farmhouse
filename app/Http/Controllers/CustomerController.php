@@ -231,5 +231,21 @@ class CustomerController extends Controller
             ], 500);
         }
     }
+    /**
+     * email for new registration and password
+     */
+    public function _confirmPassword($user, $newPassword)
+    {
+        $name = $user->first_name . ' ' . $user->last_name;
+        $data = array(
+            'user' => $user,
+            'password' => $newPassword
+        );
+
+        Mail::send('email_templates.welcome_email_manager', $data, function ($message) use ($user, $name) {
+            $message->to($user->email, $name)->subject('Login Details');
+            $message->from(env('MAIL_USERNAME'), env('MAIL_USERNAME'));
+        });
+    }
 
 }
