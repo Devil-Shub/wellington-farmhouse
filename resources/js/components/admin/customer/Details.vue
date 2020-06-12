@@ -17,15 +17,11 @@
             </v-card>
             <!-- Payments tab -->
             <v-card class="insurance-tab-content" color="basil" flat v-if="item == 'Payments'">
-              <v-card-text>
-		payment Details
-              </v-card-text>
+              <customer-payment />
             </v-card>
             <!-- Records tab -->
             <v-card class="insurance-tab-content" color="basil" flat v-if="item == 'Records'">
-              <v-card-text>
-		Records tab
-              </v-card-text>
+              <customer-record />
             </v-card>
           </v-tab-item>
         </v-tabs-items>
@@ -40,6 +36,8 @@
     components: {
       CustomerInfo: () => import('./tab/info'),
       CustomerFarm: () => import('./tab/farm'),
+      CustomerPayment: () => import('./tab/payment'),
+      CustomerRecord: () => import('./tab/records'),
     },
 
      data() {
