@@ -410,7 +410,9 @@ var render = function() {
                             "v-col",
                             { attrs: { cols: "12", md: "12" } },
                             [
-                              _c("h3", [_vm._v("Farm Section")]),
+                              _c("h4", { staticClass: "main-title" }, [
+                                _vm._v("Farm Section")
+                              ]),
                               _vm._v(" "),
                               _c(
                                 "v-row",
@@ -445,7 +447,7 @@ var render = function() {
                                     [
                                       _c("vue-google-autocomplete", {
                                         ref: "address",
-                                        staticClass: "form-control",
+                                        staticClass: "form-control mt-4",
                                         attrs: {
                                           id: "map",
                                           placeholder:
@@ -694,8 +696,7 @@ var render = function() {
                                             function(v) {
                                               return !!v || "Prefix is required"
                                             }
-                                          ],
-                                          dense: ""
+                                          ]
                                         },
                                         model: {
                                           value: _vm.addForm.manager_prefix,
@@ -992,7 +993,7 @@ var render = function() {
                           _c(
                             "v-btn",
                             {
-                              staticClass: "mr-4",
+                              staticClass: "mr-4 custom-save-btn ml-4",
                               attrs: { color: "success" },
                               on: { click: _vm.update }
                             },

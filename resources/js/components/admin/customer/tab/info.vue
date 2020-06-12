@@ -32,7 +32,7 @@
 		  :items="prefixs"
 		  label="Prefix"
 	          :rules="[v => !!v || 'Prefix is required']"
-		  dense
+		  
 		></v-select>
 		</v-col>
                 <v-col cols="3" md="3">
@@ -98,8 +98,8 @@
                 </v-col>
                </v-row>
               </v-col>
-              <v-btn color="success" class="mr-4" @click="update">Submit</v-btn>
-              <v-btn color="success" class="mr-4" @click="Delete">Delete</v-btn>
+              <v-btn color="success" class="mr-4 custom-save-btn ml-4" @click="update">Submit</v-btn>
+              <v-btn color="success" class="mr-4 custom-save-btn ml-4" @click="Delete">Delete</v-btn>
             </v-row>
           </v-form>
         </v-col>

@@ -6,7 +6,7 @@
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-row>
               <v-col cols="12" md="12">
-                <h3>Farm Section</h3>
+                <h4 class="main-title">Farm Section</h4>
                 <v-row>
                   <v-col cols="12" md="12">
                     <file-pond
@@ -25,7 +25,7 @@
                     <vue-google-autocomplete
                       ref="address"
                       id="map"
-                      class="form-control"
+                      class="form-control mt-4"
                       placeholder="Please type your address"
                       v-on:placechanged="getAddressData"
                       country="us"
@@ -97,7 +97,7 @@
 		  :items="prefixs"
 		  label="Prefix"
 	          :rules="[v => !!v || 'Prefix is required']"
-		  dense
+		  
 		></v-select>
 		</v-col>
                 <v-col cols="3" md="3">
@@ -181,7 +181,7 @@
                 </v-col>
                </v-row>            
               </v-col>
-              <v-btn color="success" class="mr-4" @click="update">Submit</v-btn>
+              <v-btn color="success" class="mr-4 custom-save-btn ml-4" @click="update">Submit</v-btn>
             </v-row>
           </v-form>
         </v-col>
