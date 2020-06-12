@@ -15,6 +15,7 @@ export const jobService = {
   getFrams,
   listService,
   servicesTimeSlots,
+getTimeSlots,
   apiUrl: environment.apiUrl,
   currentUrl: '',
   currentUser: currentUserSubject.asObservable(),
