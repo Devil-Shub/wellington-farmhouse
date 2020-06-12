@@ -13,6 +13,8 @@ export const jobService = {
   getCustomer,
   getManager,
   getFrams,
+  listServices,
+  servicesTimeSlots,
   apiUrl: environment.apiUrl,
   currentUrl: '',
   currentUser: currentUserSubject.asObservable(),
@@ -34,9 +36,36 @@ function getCustomer() {
     });
 }
 
+function listServices() {
+  return fetch(
+    this.apiUrl+`admin/list-services`,
+    requestOptions.get()
+  )
+    .then(handleResponse)
+    .then(user => {
+      // store user details and passport token in local storage to keep user logged in between page refreshes
+
+      return user;
+    });
+}
+
+
 function getManager(id) {
   return fetch(
     this.apiUrl+`admin/get-customer/`+id,
+    requestOptions.get()
+  )
+    .then(handleResponse)
+    .then(user => {
+      // store user details and passport token in local storage to keep user logged in between page refreshes
+
+      return user;
+    });
+}
+
+function servicesTimeSlots(id) {
+  return fetch(
+    this.apiUrl+`admin/get-service-slots/`+id,
     requestOptions.get()
   )
     .then(handleResponse)
