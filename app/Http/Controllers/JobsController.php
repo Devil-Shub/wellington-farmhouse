@@ -20,7 +20,8 @@ class JobsController extends Controller
     /**
      * get customers and company
      */
-    public function getCustomers() {
+    public function getCustomers()
+    {
         return response()->json([
             'status' => true,
             'message' => 'Manager Details',
@@ -33,8 +34,9 @@ class JobsController extends Controller
     /**
      * get farms
      */
-    public function getJobFrams(Request $request) {
-         return response()->json([
+    public function getJobFrams(Request $request)
+    {
+        return response()->json([
             'status' => true,
             'message' => 'Customer Details',
             'data' => CustomerFarm::where('customer_id', $request->customer_id)->where('manager_id', $request->manager_id)->where('farm_active', '1')->first()
@@ -44,7 +46,8 @@ class JobsController extends Controller
     /**
      * get service time slots
      */
-    public function getServiceSlots(Request $request) {
+    public function getServiceSlots(Request $request)
+    {
         $service = Service::whereId($request->service_id)->first();
         //get timeSlots
         $timeSlots = TimeSlots::whereIn('id', json_decode($service->slot_time))->get();
@@ -63,14 +66,14 @@ class JobsController extends Controller
     {
         //validate request
         $validator = Validator::make($request->all(), [
+            'job_amount' => 'required',
             'customer_id' => 'required',
             'manager_id' => 'required',
             'farm_id' => 'required',
             'job_description' => 'required',
             'service_id' => 'required',
             'start_date' => 'required',
-            'end_date' => 'required',
-            'time_slot_id' => 'required',
+            'time_slots_id' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -85,19 +88,21 @@ class JobsController extends Controller
 
             //create job
             $job = new Job([
+                'job_amount' => $request->job_weight != "" && $request->job_weight != null ? $request->job_weight * $request->job_amount : $request->job_amount,
                 'customer_id' => $request->customer_id,
+                'job_weight' => $request->job_weight,
                 'manager_id' => $request->manager_id,
                 'farm_id' => $request->farm_id,
                 'job_description' => $request->job_description,
                 'service_id' => $request->service_id,
-                'services_time_slots_id' => $request->services_time_slots_id,
+                'time_slots_id' => $request->time_slots_id,
                 'start_date' => $request->start_date,
                 'start_time' => $request->start_time,
-                'time_slot_id' => $request->time_slot_id
+                'job_images' => json_encode($request->job_images)
             ]);
             //save job
-            if($job->save()) {
-                $this->_sendPaymentEmail($request->customer_id, $request->manager_id);
+            if ($job->save()) {
+                $this->_sendPaymentEmail($job->id, $request->customer_id, $request->manager_id);
             }
 
             //return success response
@@ -121,14 +126,20 @@ class JobsController extends Controller
     /**
      * payment email
      */
-    public function _sendPaymentEmail($customerId, $managerId)
+    public function _sendPaymentEmail($jobId, $customerId, $managerId)
     {
+        //check user role
+        $checkRole = User::whereId($customerId)->first();
+
         $customerDetails = User::whereId($customerId)->first();
         $managerDetails = User::whereId($managerId)->first();
 
         $customerName = $customerDetails->first_name . ' ' . $customerDetails->last_name;
         $data = array(
-            'user' => $customerDetails
+            'user' => $customerDetails,
+            'name' => $customerName,
+            'paymentLink' => env('APP_URL') . 'payment/' . base64_encode($jobId),
+            'userRoler' => $checkRole
         );
 
         //send to customer
@@ -139,7 +150,10 @@ class JobsController extends Controller
 
         $managerName = $managerDetails->first_name . ' ' . $managerDetails->last_name;
         $data = array(
-            'user' => $managerDetails
+            'user' => $managerDetails,
+            'name' => $managerName,
+            'paymentLink' => env('APP_URL') . 'payment/' . base64_encode($jobId),
+            'userRoler' => $checkRole
         );
 
         //send to manager
@@ -147,5 +161,39 @@ class JobsController extends Controller
             $message->to($managerDetails->email, $managerName)->subject('Job Created');
             $message->from(env('MAIL_USERNAME'), env('MAIL_USERNAME'));
         });
+    }
+
+    /**
+     * get job lisitng
+     */
+
+    public function getAllJob()
+    {
+        return response()->json([
+            'status' => true,
+            'message' => 'job Details',
+            'data' => job::get()
+        ], 200);
+    }
+
+    /**
+     * get job
+     */
+    public function fetchJobDetails(Request $request)
+    {
+        $loadJob = Job::whereId(base64_decode($request->unique_job_id))->first();
+
+        if ($loadJob != null) {
+            $message = "Job not found!";
+            $data = $loadJob;
+        } else {
+            $message = "Job details";
+            $data = [];
+        }
+        return response()->json([
+            'status' => true,
+            'message' => $message,
+            'data' => $data
+        ], 200);
     }
 }

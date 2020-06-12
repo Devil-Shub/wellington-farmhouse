@@ -48,38 +48,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -120,200 +88,65 @@ var render = function() {
           _c(
             "v-row",
             [
-              _c("h4", { staticClass: "main-title" }, [
-                _vm._v("Customer Section")
-              ]),
-              _vm._v(" "),
               _c(
                 "v-col",
-                { attrs: { cols: "12", md: "12" } },
+                { attrs: { sm: "12", cols: "12" } },
                 [
-                  _c("v-form", { ref: "form", staticClass: "form-layout" }, [
-                    _c(
-                      "div",
-                      { staticClass: "single-row" },
-                      [
-                        _c(
-                          "v-col",
-                          { attrs: { sm: "3" } },
-                          [
-                            _c("v-select", {
-                              attrs: {
-                                items: _vm.prefix,
-                                label: "Prefix",
-                                outlined: ""
-                              }
-                            })
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "v-col",
-                          { attrs: { sm: "3" } },
-                          [
-                            _c("v-text-field", {
-                              attrs: { label: "Name", outlined: "" }
-                            })
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "v-col",
-                          { attrs: { sm: "3" } },
-                          [
-                            _c("v-text-field", {
-                              attrs: { label: "Email", outlined: "" }
-                            })
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "v-col",
-                          { attrs: { sm: "3" } },
-                          [
-                            _c("v-text-field", {
-                              attrs: { label: "Phone", outlined: "" }
-                            })
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "v-col",
-                          { attrs: { sm: "3" } },
-                          [
-                            _c("v-text-field", {
-                              attrs: { label: "Address", outlined: "" }
-                            })
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "v-col",
-                          { attrs: { sm: "3" } },
-                          [
-                            _c("v-text-field", {
-                              attrs: { label: "City", outlined: "" }
-                            })
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "v-col",
-                          { attrs: { sm: "3" } },
-                          [
-                            _c("v-text-field", {
-                              attrs: { label: "Province", outlined: "" }
-                            })
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "v-col",
-                          { attrs: { sm: "3" } },
-                          [
-                            _c("v-text-field", {
-                              attrs: { label: "Zip Code", outlined: "" }
-                            })
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "v-col",
-                          { attrs: { sm: "12" } },
-                          [_c("v-switch", { attrs: { label: "Is Active" } })],
-                          1
-                        )
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "single-row" },
-                      [
-                        _c("h4", { staticClass: "sub-title" }, [
-                          _vm._v("Farm Section")
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "v-col",
-                          { attrs: { sm: "3" } },
-                          [
-                            _c("v-text-field", {
-                              attrs: { label: "Address", outlined: "" }
-                            })
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "v-col",
-                          { attrs: { sm: "3" } },
-                          [
-                            _c("v-text-field", {
-                              attrs: { label: "App/State/Unit", outlined: "" }
-                            })
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "v-col",
-                          { attrs: { sm: "3" } },
-                          [
-                            _c("v-text-field", {
-                              attrs: { label: "City", outlined: "" }
-                            })
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "v-col",
-                          { attrs: { sm: "3" } },
-                          [
-                            _c("v-text-field", {
-                              attrs: { label: "Province", outlined: "" }
-                            })
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "v-col",
-                          { attrs: { sm: "3" } },
-                          [
-                            _c("v-text-field", {
-                              attrs: { label: "Zip Code", outlined: "" }
-                            })
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "v-col",
-                          { attrs: { sm: "3" } },
-                          [_c("v-switch", { attrs: { label: "Is Active" } })],
-                          1
-                        )
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "single-row" }, [
-                      _c("h4", { staticClass: "sub-title" }, [
-                        _vm._v("Manager Section")
-                      ])
+                  _c("v-simple-table", {
+                    scopedSlots: _vm._u([
+                      {
+                        key: "default",
+                        fn: function() {
+                          return [
+                            _c("thead", [
+                              _c("tr", [
+                                _c("th", { staticClass: "text-left" }, [
+                                  _vm._v("Sno")
+                                ]),
+                                _vm._v(" "),
+                                _c("th", { staticClass: "text-left" }, [
+                                  _vm._v("Card No")
+                                ]),
+                                _vm._v(" "),
+                                _c("th", { staticClass: "text-left" }, [
+                                  _vm._v("Expiry")
+                                ]),
+                                _vm._v(" "),
+                                _c("th", { staticClass: "text-left" }, [
+                                  _vm._v("Status")
+                                ]),
+                                _vm._v(" "),
+                                _c("th", { staticClass: "text-left" }, [
+                                  _vm._v("Primary")
+                                ]),
+                                _vm._v(" "),
+                                _c("th", { staticClass: "text-left" }, [
+                                  _vm._v("Add On")
+                                ])
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("tbody", [
+                              _c("tr", [
+                                _c("td", [_vm._v("1")]),
+                                _vm._v(" "),
+                                _c("td", [_vm._v("XXXXXXX22")]),
+                                _vm._v(" "),
+                                _c("td", [_vm._v("3/4/22")]),
+                                _vm._v(" "),
+                                _c("td", [_vm._v("Active")]),
+                                _vm._v(" "),
+                                _c("td", [_vm._v("Yes")]),
+                                _vm._v(" "),
+                                _c("td", [_vm._v("8/07/2020")])
+                              ])
+                            ])
+                          ]
+                        },
+                        proxy: true
+                      }
                     ])
-                  ])
+                  })
                 ],
                 1
               )

@@ -80,6 +80,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -121,199 +148,144 @@ var render = function() {
             "v-row",
             [
               _c("h4", { staticClass: "main-title" }, [
-                _vm._v("Customer Section")
+                _vm._v("\n        Customer Records\n      ")
               ]),
               _vm._v(" "),
               _c(
                 "v-col",
-                { attrs: { cols: "12", md: "12" } },
+                {
+                  staticClass: "cust-record-content",
+                  attrs: { sm: "12", cols: "12" }
+                },
                 [
-                  _c("v-form", { ref: "form", staticClass: "form-layout" }, [
-                    _c(
-                      "div",
-                      { staticClass: "single-row" },
-                      [
-                        _c(
-                          "v-col",
-                          { attrs: { sm: "3" } },
-                          [
-                            _c("v-select", {
-                              attrs: {
-                                items: _vm.prefix,
-                                label: "Prefix",
-                                outlined: ""
-                              }
-                            })
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "v-col",
-                          { attrs: { sm: "3" } },
-                          [
-                            _c("v-text-field", {
-                              attrs: { label: "Name", outlined: "" }
-                            })
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "v-col",
-                          { attrs: { sm: "3" } },
-                          [
-                            _c("v-text-field", {
-                              attrs: { label: "Email", outlined: "" }
-                            })
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "v-col",
-                          { attrs: { sm: "3" } },
-                          [
-                            _c("v-text-field", {
-                              attrs: { label: "Phone", outlined: "" }
-                            })
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "v-col",
-                          { attrs: { sm: "3" } },
-                          [
-                            _c("v-text-field", {
-                              attrs: { label: "Address", outlined: "" }
-                            })
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "v-col",
-                          { attrs: { sm: "3" } },
-                          [
-                            _c("v-text-field", {
-                              attrs: { label: "City", outlined: "" }
-                            })
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "v-col",
-                          { attrs: { sm: "3" } },
-                          [
-                            _c("v-text-field", {
-                              attrs: { label: "Province", outlined: "" }
-                            })
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "v-col",
-                          { attrs: { sm: "3" } },
-                          [
-                            _c("v-text-field", {
-                              attrs: { label: "Zip Code", outlined: "" }
-                            })
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "v-col",
-                          { attrs: { sm: "12" } },
-                          [_c("v-switch", { attrs: { label: "Is Active" } })],
-                          1
-                        )
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "single-row" },
-                      [
-                        _c("h4", { staticClass: "sub-title" }, [
-                          _vm._v("Farm Section")
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "v-col",
-                          { attrs: { sm: "3" } },
-                          [
-                            _c("v-text-field", {
-                              attrs: { label: "Address", outlined: "" }
-                            })
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "v-col",
-                          { attrs: { sm: "3" } },
-                          [
-                            _c("v-text-field", {
-                              attrs: { label: "App/State/Unit", outlined: "" }
-                            })
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "v-col",
-                          { attrs: { sm: "3" } },
-                          [
-                            _c("v-text-field", {
-                              attrs: { label: "City", outlined: "" }
-                            })
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "v-col",
-                          { attrs: { sm: "3" } },
-                          [
-                            _c("v-text-field", {
-                              attrs: { label: "Province", outlined: "" }
-                            })
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "v-col",
-                          { attrs: { sm: "3" } },
-                          [
-                            _c("v-text-field", {
-                              attrs: { label: "Zip Code", outlined: "" }
-                            })
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "v-col",
-                          { attrs: { sm: "3" } },
-                          [_c("v-switch", { attrs: { label: "Is Active" } })],
-                          1
-                        )
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "single-row" }, [
-                      _c("h4", { staticClass: "sub-title" }, [
-                        _vm._v("Manager Section")
+                  _c("v-col", { staticClass: "p-0", attrs: { sm: "2" } }, [
+                    _c("div", { staticClass: "single-record" }, [
+                      _c("span", { staticClass: "record-timeline" }, [
+                        _vm._v("\n              Last 12 Months\n            ")
+                      ]),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "record-price" }, [
+                        _vm._v("\n              $25,300\n            ")
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("v-col", { staticClass: "p-0", attrs: { sm: "2" } }, [
+                    _c("div", { staticClass: "single-record" }, [
+                      _c("span", { staticClass: "record-timeline" }, [
+                        _vm._v("\n              Last 12 Months\n            ")
+                      ]),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "record-price" }, [
+                        _vm._v("\n              $25,300\n            ")
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("v-col", { staticClass: "p-0", attrs: { sm: "2" } }, [
+                    _c("div", { staticClass: "single-record" }, [
+                      _c("span", { staticClass: "record-timeline" }, [
+                        _vm._v("\n              Last 12 Months\n            ")
+                      ]),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "record-price" }, [
+                        _vm._v("\n              $25,300\n            ")
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("v-col", { staticClass: "p-0", attrs: { sm: "2" } }, [
+                    _c("div", { staticClass: "single-record" }, [
+                      _c("span", { staticClass: "record-timeline" }, [
+                        _vm._v("\n              Last 12 Months\n            ")
+                      ]),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "record-price" }, [
+                        _vm._v("\n              $25,300\n            ")
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("v-col", { staticClass: "p-0", attrs: { sm: "2" } }, [
+                    _c("div", { staticClass: "single-record" }, [
+                      _c("span", { staticClass: "record-timeline" }, [
+                        _vm._v("\n              Last 12 Months\n            ")
+                      ]),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "record-price" }, [
+                        _vm._v("\n              $25,300\n            ")
                       ])
                     ])
                   ])
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-col",
+                { attrs: { sm: "12", cols: "12" } },
+                [
+                  _c("v-simple-table", {
+                    scopedSlots: _vm._u([
+                      {
+                        key: "default",
+                        fn: function() {
+                          return [
+                            _c("thead", [
+                              _c("tr", [
+                                _c("th", { staticClass: "text-left" }, [
+                                  _vm._v("Job_id")
+                                ]),
+                                _vm._v(" "),
+                                _c("th", { staticClass: "text-left" }, [
+                                  _vm._v("Farm Location")
+                                ]),
+                                _vm._v(" "),
+                                _c("th", { staticClass: "text-left" }, [
+                                  _vm._v("Start Date")
+                                ]),
+                                _vm._v(" "),
+                                _c("th", { staticClass: "text-left" }, [
+                                  _vm._v("Start Time")
+                                ]),
+                                _vm._v(" "),
+                                _c("th", { staticClass: "text-left" }, [
+                                  _vm._v("Techs")
+                                ]),
+                                _vm._v(" "),
+                                _c("th", { staticClass: "text-left" }, [
+                                  _vm._v("Price")
+                                ]),
+                                _vm._v(" "),
+                                _c("th", { staticClass: "text-left" }, [
+                                  _vm._v("Status")
+                                ])
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("tbody", [
+                              _c("tr", [
+                                _c("td", [_vm._v("57900")]),
+                                _vm._v(" "),
+                                _c("td", [_vm._v("25 Country road, NY")]),
+                                _vm._v(" "),
+                                _c("td", [_vm._v("17/06/2019")]),
+                                _vm._v(" "),
+                                _c("td", [_vm._v("9:00 PM")]),
+                                _vm._v(" "),
+                                _c("td", [_vm._v("Frendo Joes")]),
+                                _vm._v(" "),
+                                _c("td", [_vm._v("$250")]),
+                                _vm._v(" "),
+                                _c("td", [_vm._v("Scheduled")])
+                              ])
+                            ])
+                          ]
+                        },
+                        proxy: true
+                      }
+                    ])
+                  })
                 ],
                 1
               )

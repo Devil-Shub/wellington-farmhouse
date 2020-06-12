@@ -88,9 +88,11 @@ Route::group(['prefix' => 'auth'], function () {
 
             //jobs
             Route::get('job-customer', 'JobsController@getCustomers');
+            Route::get('fetch-job-details/{unique_job_id}', 'JobsController@fetchJobDetails');
             Route::get('job-farms/{customer_id}/{manager_id}', 'JobsController@getJobFrams');
             Route::get('get-service-slots/{service_id}', 'JobsController@getServiceSlots');
             Route::post('create-job', 'JobsController@createJob');
+            Route::get('job-list', 'JobsController@getAllJob');
         });
 
         //upload image

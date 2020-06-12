@@ -71,7 +71,7 @@
 
 <script>
 import { required } from "vuelidate/lib/validators";
-import { jobService } from "../../../_services/job.service";
+import { serviceService } from "../../../_services/service.service";
 import {
   UserIcon,
   EditIcon,
@@ -99,7 +99,7 @@ export default {
 
   methods: {
     getResults() {
-      jobService.listService().then(response => {
+      serviceService.listService().then(response => {
         //handle response
         if (response.status) {
           this.services = response.data;
@@ -114,7 +114,7 @@ export default {
     },
     Delete(e) {
       if (e) {
-        jobService.Delete(e).then(response => {
+        serviceService.Delete(e).then(response => {
           //handle response
           if (response.status) {
             this.getResults();

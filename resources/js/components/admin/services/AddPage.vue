@@ -87,7 +87,7 @@
 
 <script>
 import { required } from "vuelidate/lib/validators";
-import { jobService } from "../../../_services/job.service";
+import { serviceService } from "../../../_services/service.service";
 import { router } from "../../../_helpers/router";
 import { environment } from "../../../config/test.env";
 
@@ -151,7 +151,7 @@ export default {
         this.addForm.slot_time = [];
       }
       this.timeSlots = [];
-     jobService.getTimeSlots(this.addForm.slot_type).then(response => {
+     serviceService.getTimeSlots(this.addForm.slot_type).then(response => {
           //handle response
           if (response.status) {
             this.timeSlots = response.data; 
@@ -178,7 +178,7 @@ export default {
     },
     save() {
       if (this.$refs.form.validate()) {
-        jobService.add(this.addForm).then(response => {
+        serviceService.add(this.addForm).then(response => {
           //handle response
           if (response.status) {
             this.$toast.open({

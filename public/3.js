@@ -369,8 +369,7 @@ var render = function() {
                                             function(v) {
                                               return !!v || "Prefix is required"
                                             }
-                                          ],
-                                          dense: ""
+                                          ]
                                         },
                                         model: {
                                           value: _vm.addForm.prefix,
@@ -617,7 +616,7 @@ var render = function() {
                           _c(
                             "v-btn",
                             {
-                              staticClass: "mr-4",
+                              staticClass: "mr-4 custom-save-btn ml-4",
                               attrs: { color: "success" },
                               on: { click: _vm.update }
                             },
@@ -627,7 +626,7 @@ var render = function() {
                           _c(
                             "v-btn",
                             {
-                              staticClass: "mr-4",
+                              staticClass: "mr-4 custom-save-btn ml-4",
                               attrs: { color: "success" },
                               on: { click: _vm.Delete }
                             },

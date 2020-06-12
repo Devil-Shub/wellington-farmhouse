@@ -10,7 +10,7 @@
 		    </v-col>
 	        <v-col sm="4" class="pt-0">
 		       <v-select
-			v-model="addForm.customer_name"
+			v-model="addForm.customer_id"
 			:items="customerName"
 			label="Select Customer"
 			:rules="[v => !!v || 'Customer Name is required']"
@@ -26,7 +26,7 @@
                     </v-col>
                     <v-col sm="4" class="pt-0">
                         <v-select
-                        :v-model="addForm.manager_name"
+                        :v-model="addForm.manager_id"
 			:items="managerName"
 			label="Select Manager"
 			:rules="[v => !!v || 'Manager Name is required']"
@@ -60,7 +60,7 @@
                             clearable
                             clear-icon="cancel"
                             label=""
-                            v-model="addForm.job_desc"
+                            v-model="addForm.job_description"
                         ></v-textarea>
                     </v-col>
                 </v-col>
@@ -70,7 +70,7 @@
                     </v-col>
                     <v-col sm="4" class="pt-0">
                         <v-select
-                        :v-model="addForm.service_name"
+                        :v-model="addForm.service_id"
 			:items="serviceName"
 			label="Select Service"
 			:rules="[v => !!v || 'Service Name is required']"
@@ -80,7 +80,20 @@
                         ></v-select>
                     </v-col>
                 </v-col>
-                <div  id="showTimingSection" v-if="addForm.service_name">
+                <v-col class="d-flex pt-0" cols="12" v-if="weightShow">
+                    <v-col sm="2" class="label-align pt-0">
+                        <label>Job Weight</label>
+                    </v-col>
+                    <v-col sm="4" class="pt-0">
+                        <v-text-field
+		            v-model="addForm.job_weight"
+		            required
+	                    type="number"
+		            :rules="killometerRules"
+		          ></v-text-field>
+                    </v-col>
+                </v-col>
+                <div  id="showTimingSection" v-if="servicetime">
                 <v-col cols="12" md="12" class="custom-col calendar-col pt-0">
                     <v-col sm="2" class="label-align pt-0">
                         <label>Start Date</label>
@@ -104,43 +117,37 @@
                                 :rules="[v => !!v || 'Start date is required']"
                             ></v-text-field>
                             </template>
-                            <v-date-picker v-model="date" @input="menu1 = false"></v-date-picker>
+                            <v-date-picker v-model="date" @input="menu1 = false" :min="setDate"></v-date-picker>
                         </v-menu>
                     </v-col>
                 </v-col>
-                <v-col class="d-flex pt-0" cols="12">
-                    <v-col sm="2" class="label-align pt-0">
-                        <label>Start Time</label>
+              
+                <v-col cols="12" md="12" class="input-max pt-0" >
+                   <v-col sm="2" class="label-align pt-0">
+                        <label>Time Slots</label>
                     </v-col>
-                    <v-col sm="4" class="pt-0">
-                        <v-text-field
-                            label=""
-                            v-model="addForm.start_time"
-                            required
-                            :rules="[v => !!v || 'Start Time is required']"
-                        ></v-text-field>
-                    </v-col>
-                </v-col>
-                <v-col cols="12" md="12" class="input-max pt-0">
-                    <v-radio-group  row v-model="addForm.slot_type" :mandatory="false" required :rules="[v => !!v || 'Time slot is required']">
-                    <v-radio label="7AM-7PM" value="1" ></v-radio>
-                    <v-radio label="8AM-8PM" value="2"></v-radio>
-                    <v-radio label="9AM-8PM" value="3"></v-radio>
-                    <v-radio label="8AM-9PM" value="4"></v-radio>
+                 <v-col sm="10" class="label-align pt-0">
+                    <v-radio-group  row v-model="addForm.time_slots_id" :mandatory="false" required :rules="[v => !!v || 'Time slot is required']">
+<template v-for="(timeSlot, index) in servicetime">
+                    <v-radio :label="timeSlot.slot_start+'-'+timeSlot.slot_end" :value="timeSlot.id" ></v-radio>
+                  
+</template>
                     </v-radio-group>
 	            </v-col>
-                <v-col cols="12" md="12">
-                    <file-pond
-                      name="uploadImage"
-                      ref="pond"
-                      label-idle="Add More Pics"
-                      allow-multiple="true"
-                      v-bind:files="myFiles"
-                      allow-file-type-validation="true"
-                      accepted-file-types="image/jpeg, image/png"
-                    />
-                  </v-col>
+ </v-col>
                 </div>
+  <v-col cols="12" md="12">
+                    <file-pond
+                name="uploadImage"
+                ref="pond"
+                label-idle="Drop files here..."
+                allow-multiple="false"
+                v-bind:server="serverOptions"
+                v-bind:files="myFiles"
+                v-on:processfile="handleProcessFile"
+                allow-file-type-validation="true"
+                accepted-file-types="image/jpeg, image/png"/>
+                  </v-col>
                 <v-btn color="success" class="mr-4 custom-save-btn ml-4" @click="submit">Submit</v-btn>
             </v-form>
         </v-col>
@@ -153,37 +160,75 @@
 import { required } from "vuelidate/lib/validators";
 import { router } from "../../../_helpers/router";
 import { jobService } from "../../../_services/job.service";
+import { environment } from "../../../config/test.env";
 export default {
   components: {
   },
   data() {
       return {
           valid: true,
+          setDate:new Date().toISOString().substr(0, 10),
           menu1: false,
+	         weightShow: false,
           date: "",
           start_date: "",
-          customerName: [{value: "id", name: "first_name" }],
+          apiUrl: environment.apiUrl,
+          customerName: [],
           managerName: [],
           serviceName: [],
- 	  customer_id: '',
+ 	        servicetime: '',
+ 	        customer_id: '',
           addForm: {
-              customer_name: "",
-              manager_name: "",
-              service_name: "",
-              job_desc: "",
+              customer_id: "",
+              manager_id: "",
+              service_id: "",
+              job_description: "",
               farm_add: "",
-	      farm_id: "",
-              start_time: "",
+	            farm_id: "",
+              job_images: [],
+              time_slots_id: "",
               start_date: "",
+	            job_weight:"",
+              job_amount: "",
           },
+	     killometerRules: [
+		v => !!v || "Job weight is required",
+		//v => /^\d*$/.test(v) || "Enter valid weight",
+	      ],
           myFiles: [],
       }
   },
+  computed: {
+    serverOptions() {
+      const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+      return {
+        url: this.apiUrl,
+        withCredentials: false,
+        process: {
+          url: "uploadImage",
+          headers: {
+            Authorization: "Bearer " + currentUser.data.access_token
+          }
+        }
+      };
+    },
+    url() {
+      if (this.file) {
+        let parsedUrl = new URL(this.file);
+        return [parsedUrl.pathname];
+      } else {
+        return null;
+      }
+    }
+  },
   mounted() {
     this.getResults();
-this.getService();
+     this.getService();
    },
   methods: {
+   handleProcessFile: function(error, file) {
+     this.addForm.job_images.push(file.serverId);
+    },
      getResults() {
       jobService.getCustomer().then(response => {
         //handle response
@@ -200,7 +245,7 @@ this.getService();
       });
     },
      getService() {
-      jobService.listServices().then(response => {
+      jobService.listService().then(response => {
         //handle response
         if (response.status) {
           this.serviceName = response.data;
@@ -229,6 +274,7 @@ this.getService();
 	      });
        },
 	managerSelection(val){
+         this.addForm.manager_id = val;
 	 jobService.getFrams({customer_id: this.customer_id, manager_id: val}).then(response => {
 		//handle response
 		if (response.status) {
@@ -244,10 +290,23 @@ this.getService();
 	      });
        },
        serviceSelection(val){
+         this.addForm.service_id = val;
+	this.serviceName.find(file => {
+	  if (file.id == val) {
+ 	     this.addForm.job_amount = file.price;
+           if(file.service_rate == 1){ 
+	    this.weightShow = true;
+	   }else{
+           this.addForm.job_weight = "";
+	   this.weightShow = false;
+	   }  
+	  }
+	})
+
 	 jobService.servicesTimeSlots(val).then(response => {
 		//handle response
 		if (response.status) {
-		  console.log(response.data);
+		this.servicetime = response.data;
 		} else {
 		  this.$toast.open({
 		    message: response.message,
@@ -258,15 +317,27 @@ this.getService();
 	      });
        },
       submit() {
-      console.log(this.addForm);
-      if (this.$refs.form.validate()) {
-        this.addForm.start_date = this.date;
-      } else {
-        this.$toast.open({
-            message: 'error',
-            type: "error",
-            position: "top-right"
-        });
+     this.addForm.start_date = this.date;
+    
+        if (this.$refs.form.validate()) {
+        jobService.createJob(this.addForm).then(response => {
+         //handle response
+         if(response.status) {
+             this.$toast.open({
+               message: response.message,
+               type: 'success',
+               position: 'top-right'
+             });
+          //redirect to login
+          router.push("/admin/jobs");
+         } else {
+             this.$toast.open({
+               message: response.message,
+               type: 'error',
+               position: 'top-right'
+             })
+         }
+       });
       }
     },
     showTiming(){

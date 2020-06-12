@@ -2,64 +2,91 @@
   <v-app>
     <v-container>
       <v-row>
-        <h4 class="main-title">Customer Section</h4>
-        <v-col cols="12" md="12">
-          <v-form ref="form" class="form-layout">
-            <div class="single-row">
-              <v-col sm="3">
-                <v-select :items="prefix" label="Prefix" outlined></v-select>
-              </v-col>
-              <v-col sm="3">
-                <v-text-field label="Name" outlined></v-text-field>
-              </v-col>
-              <v-col sm="3">
-                <v-text-field label="Email" outlined></v-text-field>
-              </v-col>
-              <v-col sm="3">
-                <v-text-field label="Phone" outlined></v-text-field>
-              </v-col>
-              <v-col sm="3">
-                <v-text-field label="Address" outlined></v-text-field>
-              </v-col>
-              <v-col sm="3">
-                <v-text-field label="City" outlined></v-text-field>
-              </v-col>
-              <v-col sm="3">
-                <v-text-field label="Province" outlined></v-text-field>
-              </v-col>
-              <v-col sm="3">
-                <v-text-field label="Zip Code" outlined></v-text-field>
-              </v-col>
-              <v-col sm="12">
-                <v-switch :label="`Is Active`"></v-switch>
-              </v-col>
+        <h4 class="main-title">
+          Customer Records
+        </h4>
+        <v-col sm="12" cols="12" class="cust-record-content">
+          <v-col sm="2" class="p-0">
+            <div class="single-record">
+              <span class="record-timeline">
+                Last 12 Months
+              </span>
+              <span class="record-price">
+                $25,300
+              </span>
             </div>
-            <div class="single-row">
-              <h4 class="sub-title">Farm Section</h4>
-              <v-col sm="3">
-                <v-text-field label="Address" outlined></v-text-field>
-              </v-col>
-              <v-col sm="3">
-                <v-text-field label="App/State/Unit" outlined></v-text-field>
-              </v-col>
-              <v-col sm="3">
-                <v-text-field label="City" outlined></v-text-field>
-              </v-col>
-              <v-col sm="3">
-                <v-text-field label="Province" outlined></v-text-field>
-              </v-col>
-              <v-col sm="3">
-                <v-text-field label="Zip Code" outlined></v-text-field>
-              </v-col>
-              <v-col sm="3">
-                <v-switch :label="`Is Active`"></v-switch>
-              </v-col>
+          </v-col>
+          <v-col sm="2" class="p-0">
+            <div class="single-record">
+              <span class="record-timeline">
+                Last 12 Months
+              </span>
+              <span class="record-price">
+                $25,300
+              </span>
             </div>
-            <div class="single-row">
-              <h4 class="sub-title">Manager Section</h4>
+          </v-col>
+          <v-col sm="2" class="p-0">
+            <div class="single-record">
+              <span class="record-timeline">
+                Last 12 Months
+              </span>
+              <span class="record-price">
+                $25,300
+              </span>
             </div>
-          </v-form>
+          </v-col>
+          <v-col sm="2" class="p-0">
+            <div class="single-record">
+              <span class="record-timeline">
+                Last 12 Months
+              </span>
+              <span class="record-price">
+                $25,300
+              </span>
+            </div>
+          </v-col>
+          <v-col sm="2" class="p-0">
+            <div class="single-record">
+              <span class="record-timeline">
+                Last 12 Months
+              </span>
+              <span class="record-price">
+                $25,300
+              </span>
+            </div>
+          </v-col>
         </v-col>
+
+        <v-col sm="12" cols="12">
+          <v-simple-table>
+            <template v-slot:default>
+              <thead>
+                <tr>
+                  <th class="text-left">Job_id</th>
+                  <th class="text-left">Farm Location</th>
+                  <th class="text-left">Start Date</th>
+                  <th class="text-left">Start Time</th>
+                  <th class="text-left">Techs</th>
+                  <th class="text-left">Price</th>
+                  <th class="text-left">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>57900</td>
+                  <td>25 Country road, NY</td>
+                  <td>17/06/2019</td>
+                  <td>9:00 PM</td>
+                  <td>Frendo Joes</td>
+                  <td>$250</td>
+                  <td>Scheduled</td>
+                </tr>
+              </tbody>
+            </template>
+          </v-simple-table>
+        </v-col>
+
       </v-row>
     </v-container>
   </v-app>
