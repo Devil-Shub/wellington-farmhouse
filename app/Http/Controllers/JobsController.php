@@ -12,6 +12,7 @@ use App\User;
 use App\Service;
 use App\TimeSlots;
 use App\Job;
+use App\CustomerFarm;
 
 class JobsController extends Controller
 {
@@ -23,10 +24,20 @@ class JobsController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'Manager Details',
-            'data' => User::select('id', 'first_name', 'last_name')
+            'data' => User::select('id', 'first_name', 'last_name', 'prefix')
                 ->whereRoleId(config('constant.roles.Customer'))
                 ->orWhere('role_id', config('constant.roles.Company'))
                 ->get()
+        ], 200);
+    }
+    /**
+     * get farms
+     */
+    public function getJobFrams(Request $request) {
+         return response()->json([
+            'status' => true,
+            'message' => 'Customer Details',
+            'data' => CustomerFarm::where('customer_id', $request->customer_id)->where('manager_id', $request->manager_id)->where('farm_active', '1')->first()
         ], 200);
     }
 
