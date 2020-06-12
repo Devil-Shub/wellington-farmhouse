@@ -79,7 +79,7 @@ function servicesTimeSlots(id) {
 
 function createJob(data) {
   return fetch(
-    this.apiUrl+`admin/create-jo`,
+    this.apiUrl+`admin/create-job`,
     requestOptions.post(data)
   )
     .then(handleResponse)
