@@ -73,7 +73,6 @@ class JobsController extends Controller
             'job_description' => 'required',
             'service_id' => 'required',
             'start_date' => 'required',
-            'start_time' => 'required',
             'time_slots_id' => 'required'
         ]);
 
