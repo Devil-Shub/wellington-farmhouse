@@ -18,7 +18,7 @@
 </template>
 
 <script>
- import { jobService } from "../../../_services/job.service";
+ import { serviceService } from "../../../_services/service.service";
 export default {
   data() {
     return {
@@ -27,7 +27,7 @@ export default {
     };
   },
    mounted: function() {
-         jobService.getService(this.$route.params.id).then(response => {
+         serviceService.getService(this.$route.params.id).then(response => {
               //handle response
               if(response.status) {
                this.services = response.data;

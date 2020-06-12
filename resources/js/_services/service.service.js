@@ -9,13 +9,13 @@ const currentUserSubject = new BehaviorSubject(
   JSON.parse(localStorage.getItem("currentUser"))
 );
 
-export const jobService = {
-  getCustomer,
-  getManager,
-  getFrams,
+export const serviceService = {
+  add,
+  edit,
+  Delete,
+  getService,
   listService,
-  servicesTimeSlots,
-  createJob,
+  getTimeSlots,
   apiUrl: environment.apiUrl,
   currentUrl: '',
   currentUser: currentUserSubject.asObservable(),
@@ -24,9 +24,48 @@ export const jobService = {
   }
 };
 
-function getCustomer() {
+function add(data) {
+
   return fetch(
-    this.apiUrl+`admin/job-customer`,
+    this.apiUrl+`admin/create-service`,
+    requestOptions.post(data)
+  )
+    .then(handleResponse)
+    .then(user => {
+      // store user details and passport token in local storage to keep user logged in between page refreshes
+
+      return user;
+    });
+}
+
+function edit(data) {
+  return fetch(
+    this.apiUrl+`admin/edit-service/`+data.id,
+    requestOptions.post(data)
+  )
+    .then(handleResponse)
+    .then(user => {
+      // store user details and passport token in local storage to keep user logged in between page refreshes
+
+      return user;
+    });
+}
+function Delete(data) {
+  return fetch(
+    this.apiUrl+`admin/delete-service/`+data,
+    requestOptions.delete()
+  )
+    .then(handleResponse)
+    .then(user => {
+      // store user details and passport token in local storage to keep user logged in between page refreshes
+
+      return user;
+    });
+}
+
+function getService(data) {
+  return fetch(
+    this.apiUrl+`admin/get-service/`+data,
     requestOptions.get()
   )
     .then(handleResponse)
@@ -50,10 +89,9 @@ function listService() {
     });
 }
 
-
-function getManager(id) {
+function getTimeSlots(data) {
   return fetch(
-    this.apiUrl+`admin/get-customer/`+id,
+    this.apiUrl+`admin/get-timeslots/`+data,
     requestOptions.get()
   )
     .then(handleResponse)
@@ -63,44 +101,4 @@ function getManager(id) {
       return user;
     });
 }
-
-function servicesTimeSlots(id) {
-  return fetch(
-    this.apiUrl+`admin/get-service-slots/`+id,
-    requestOptions.get()
-  )
-    .then(handleResponse)
-    .then(user => {
-      // store user details and passport token in local storage to keep user logged in between page refreshes
-
-      return user;
-    });
-}
-
-function createJob(data) {
-  return fetch(
-    this.apiUrl+`admin/create-jo`,
-    requestOptions.post(data)
-  )
-    .then(handleResponse)
-    .then(user => {
-      // store user details and passport token in local storage to keep user logged in between page refreshes
-
-      return user;
-    });
-}
-
-function getFrams(data) {
-  return fetch(
-    this.apiUrl+`admin/job-farms/`+data.customer_id+'/'+data.manager_id,
-    requestOptions.get()
-  )
-    .then(handleResponse)
-    .then(user => {
-      // store user details and passport token in local storage to keep user logged in between page refreshes
-
-      return user;
-    });
-}
-
 

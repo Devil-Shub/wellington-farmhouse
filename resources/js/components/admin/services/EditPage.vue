@@ -105,7 +105,7 @@
 
 <script>
 import { required } from "vuelidate/lib/validators";
-import { jobService } from "../../../_services/job.service";
+import { serviceService } from "../../../_services/service.service";
 import { router } from "../../../_helpers/router";
 import { environment } from "../../../config/test.env";
 
@@ -159,7 +159,7 @@ export default {
     }
   },
   mounted: function() {
-    jobService.getService(this.$route.params.id).then(response => {
+    serviceService.getService(this.$route.params.id).then(response => {
       //handle response
       if (response.status) {
         this.editForm.id = response.data.id;
@@ -204,7 +204,7 @@ export default {
       } else {
         var type = 2;
       }
-      jobService.getTimeSlots(type).then(response => {
+      serviceService.getTimeSlots(type).then(response => {
         //handle response
         if (response.status) {
           this.timeSlots = response.data;
@@ -242,7 +242,7 @@ export default {
         this.editForm.service_rate = 2;
       }
       if (this.$refs.form.validate()) {
-        jobService.edit(this.editForm).then(response => {
+        serviceService.edit(this.editForm).then(response => {
           //handle response
           if (response.status) {
             this.$toast.open({
