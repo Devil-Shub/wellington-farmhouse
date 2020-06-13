@@ -19,6 +19,7 @@ class PaymentController extends Controller
      */
     public function stripeCharge(Request $request)
     {
+
         try {
             DB::beginTransaction();
             $loggedUser = $request->user();

@@ -9,7 +9,7 @@
       @loading="loading = $event"
     >
     </stripe-elements>
-    <button @click="submit">Pay ${{amount / 100}}</button>
+    <button @click="submit">Pay ${{amount}}</button>
   </div>
 </template>
  
@@ -42,7 +42,7 @@ export default {
           //handle response
           if (response.data) {
            	this.addForm.job_id = response.data.id;
-		this.amount = response.data.job_amount*100;
+		this.amount = response.data.job_amount;
                 this.addForm.customer_id = response.data.customer_id;
           } else {
             this.$toast.open({
