@@ -11,6 +11,7 @@ const currentUserSubject = new BehaviorSubject(
 
 export const paymentService = {
   paymentJob,
+stripeCharge,
   apiUrl: environment.apiUrl,
   currentUrl: '',
   currentUser: currentUserSubject.asObservable(),
@@ -33,3 +34,16 @@ function paymentJob(id) {
     });
 }
 
+function stripeCharge(data) {
+
+  return fetch(
+    this.apiUrl+`admin/stripe-charge`,
+    requestOptions.get()
+  )
+    .then(handleResponse)
+    .then(user => {
+      // store user details and passport token in local storage to keep user logged in between page refreshes
+
+      return user;
+    });
+}

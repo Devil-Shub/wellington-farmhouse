@@ -26,8 +26,9 @@ export default {
     addForm:{ 
       customer_id: null,
       job_id:null,
-      stripe_token:null,
-     amount: null,
+      stripeToken:null,
+      amount: null,
+      newCard:1,
     },
     amount: null,
     token:null,
@@ -66,8 +67,24 @@ export default {
     },
     sendTokenToServer (charge) {
      this.addForm.amount = charge.amount;
-     this.addForm.stripe_token = charge.source,
-     console.log(this.addForm)
+     this.addForm.stripeToken = charge.source,
+    paymentService.stripeCharge(this.addForm).then(response => {
+          //handle response
+          if (response.status) {
+             this.$toast.open({
+              message: response.message,
+              type: "success",
+              position: "top-right"
+            });
+           router.push("/home");
+          } else {
+            this.$toast.open({
+              message: response.message,
+              type: "error",
+              position: "top-right"
+            });
+          }
+        });
     },
   }
 }
