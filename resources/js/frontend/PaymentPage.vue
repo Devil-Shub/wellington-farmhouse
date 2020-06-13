@@ -17,6 +17,7 @@
 import { paymentService } from "../_services/payment.service";
 import { router } from "../_helpers/router";
 import { StripeElements } from 'vue-stripe-checkout';
+import { environment } from '../config/test.env';
 export default {
   components: {
     StripeElements

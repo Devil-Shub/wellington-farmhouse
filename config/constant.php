@@ -13,5 +13,14 @@ return [
     'vehicle_type' => [
         'truck' => 1,
         'skidsteer' => 2
+    ],
+    'payment_methods' => [
+        'stripe' => 1
+    ],
+    'payment_status' => [
+        'succeeded' => 'succeeded'
+    ],
+    'payment_status_reverse' => [
+        'succeeded' => 1
     ]
 ];
