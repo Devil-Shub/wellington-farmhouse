@@ -93,6 +93,11 @@ Route::group(['prefix' => 'auth'], function () {
             Route::get('get-service-slots/{service_id}', 'JobsController@getServiceSlots');
             Route::post('create-job', 'JobsController@createJob');
             Route::get('job-list', 'JobsController@getAllJob');
+            Route::get('assigned-job-list', 'JobsController@getAssignedJob');
+            Route::get('complete-job-list', 'JobsController@getCompleteJob');
+            Route::get('open-job-list', 'JobsController@getOpenJob');
+            Route::get('repeating-job-list', 'JobsController@getRepeatingJob');
+            Route::get('unpaid-job-list', 'JobsController@getUnpaidJob');
 
             //stripe
             Route::post('stripe-charge', 'PaymentController@stripeCharge');

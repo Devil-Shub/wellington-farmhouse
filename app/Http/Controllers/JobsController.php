@@ -167,15 +167,105 @@ class JobsController extends Controller
     }
 
     /**
-     * get job lisitng
+     * get all jobs
      */
-
     public function getAllJob()
     {
+        $getAllJobs = Job::with("customer", "manager", "farm", "service", 
+        "truck", "skidsteer", "truck_driver", "skidsteer_driver")->get();
+
         return response()->json([
             'status' => true,
             'message' => 'job Details',
-            'data' => job::get()
+            'data' => $getAllJobs
+        ], 200);
+    }
+
+    /**
+     * get assigned job
+     */
+    public function getAssignedJob()
+    {
+        $getAllJobs = Job::with("customer", "manager", "farm", "service", 
+        "truck", "skidsteer", "truck_driver", "skidsteer_driver")
+        ->whereNotNull("truck_driver_id")
+        ->whereNotNull("truck_id")
+        ->whereNotNull("skidsteer_id")
+        ->whereNotNull("skidsteer_driver_id")
+        ->get();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'job Details',
+            'data' => $getAllJobs
+        ], 200);
+    }
+
+    /**
+     * get completed jobs
+     */
+    public function getCompleteJob()
+    {
+        $getAllJobs = Job::with("customer", "manager", "farm", "service", 
+        "truck", "skidsteer", "truck_driver", "skidsteer_driver")
+        ->whereJobStatus(config('constant.job_status.close'))
+        ->get();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'job Details',
+            'data' => $getAllJobs
+        ], 200);
+    }
+
+    /**
+     * get open jobs
+     */
+    public function getOpenJob()
+    {
+        $getAllJobs = Job::with("customer", "manager", "farm", "service", 
+        "truck", "skidsteer", "truck_driver", "skidsteer_driver")
+        ->whereJobStatus(config('constant.job_status.open'))
+        ->get();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'job Details',
+            'data' => $getAllJobs
+        ], 200);
+    }
+
+    /**
+     * get repeating jobs
+     */
+    public function getRepeatingJob()
+    {
+        $getAllJobs = Job::with("customer", "manager", "farm", "service", 
+        "truck", "skidsteer", "truck_driver", "skidsteer_driver")
+        ->whereRepeatingJob(config('constant.repeating_job.true'))
+        ->get();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'job Details',
+            'data' => $getAllJobs
+        ], 200);
+    }
+
+    /**
+     * get unpaid jobs
+     */
+    public function getUnpaidJob()
+    {
+        $getAllJobs = Job::with("customer", "manager", "farm", "service", 
+        "truck", "skidsteer", "truck_driver", "skidsteer_driver")
+        ->wherePaymentStatus(config('constant.payment_history.complete'))
+        ->get();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'job Details',
+            'data' => $getAllJobs
         ], 200);
     }
 

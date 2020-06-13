@@ -22,5 +22,17 @@ return [
     ],
     'payment_status_reverse' => [
         'succeeded' => 1
-    ]
+    ],
+    'job_status' => [
+        'open' => 1,
+        'close' => 0
+    ],
+    'repeating_job' => [
+        'true' => 1,
+        'false' => 0
+    ],
+    'payment_history' => [
+        'pending' => 0,
+        'complete' => 1
+    ],
 ];
