@@ -39,6 +39,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -52,6 +62,7 @@ __webpack_require__.r(__webpack_exports__);
       tab: null,
       items: ["All Jobs", "Assigned Jobs", "Completed Jobs", "Open Jobs", "Repeating Jobs", "Unpaid Jobs"],
       openjobs: "",
+      search: "",
       headers: [{
         text: 'Image',
         align: 'left',
@@ -131,9 +142,31 @@ var render = function() {
       _c(
         "v-row",
         [
+          _c("v-text-field", {
+            staticClass: "search-field",
+            attrs: {
+              "append-icon": "search",
+              label: "Search",
+              "single-line": "",
+              "hide-details": ""
+            },
+            model: {
+              value: _vm.search,
+              callback: function($$v) {
+                _vm.search = $$v
+              },
+              expression: "search"
+            }
+          }),
+          _vm._v(" "),
           _c("v-data-table", {
             staticClass: "wd-100",
-            attrs: { headers: _vm.headers, items: _vm.jobsDetails },
+            attrs: {
+              headers: _vm.headers,
+              items: _vm.jobsDetails,
+              "hide-default-footer": "",
+              search: _vm.search
+            },
             scopedSlots: _vm._u([
               {
                 key: "items",
