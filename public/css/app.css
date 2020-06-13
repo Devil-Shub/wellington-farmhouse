@@ -11061,6 +11061,11 @@ a.text-dark:focus {
   margin-left: -4px;
 }
 
+#app .primary--text {
+  color: #aba2a2 !important;
+  caret-color: #aba2a2 !important;
+}
+
 #app .wd-100 {
   width: 100% !important;
 }
