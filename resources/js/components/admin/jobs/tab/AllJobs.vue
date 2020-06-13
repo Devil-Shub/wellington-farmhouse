@@ -13,6 +13,7 @@
             label="Search"
             single-line
             hide-details
+            class="search-field"
           ></v-text-field>
              <v-data-table
                       :headers="headers"

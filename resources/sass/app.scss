@@ -689,7 +689,10 @@ $hover-white: #fff;
         margin-top: 15px;
       }
     }
-    .hidden-area {
-      // display: none;
+    .search-field {
+      width: 250px;
+      display: block;
+      flex: none;
+      margin-bottom: 15px;
     }
   }

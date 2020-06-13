@@ -59,6 +59,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -159,6 +160,7 @@ var render = function() {
         "v-row",
         [
           _c("v-text-field", {
+            staticClass: "search-field",
             attrs: {
               "append-icon": "search",
               label: "Search",
