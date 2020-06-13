@@ -11042,6 +11042,10 @@ a.text-dark:focus {
   color: #405f6e;
 }
 
+#app {
+  padding-right: 25px;
+}
+
 #app .col-sm-1,
 #app .col-sm-2,
 #app .col-sm-3,
@@ -11237,6 +11241,11 @@ a.text-dark:focus {
   display: block;
   width: 100%;
   margin-bottom: 30px;
+}
+
+#app main.v-content .v-data-table__wrapper table tr th:empty {
+  height: 0;
+  padding: 0 !important;
 }
 
 #app main.v-content .v-data-table__wrapper table tr th {
@@ -11575,5 +11584,61 @@ a.text-dark:focus {
   display: block;
   flex: none;
   margin-bottom: 30px;
+}
+
+#app .custom-table > .v-data-table__wrapper {
+  padding-left: 1px;
+  margin-top: 30px;
+}
+
+#app .custom-table table {
+  margin-left: -1px;
+}
+
+#app .custom-table table tr.multi-customers {
+  border: 1px solid #bababa !important;
+}
+
+#app .custom-table table tr:hover {
+  background: transparent !important;
+}
+
+#app .custom-table table tr td.single-customer > span {
+  display: block;
+  text-align: center;
+  background-color: #ececec;
+}
+
+#app .custom-table table tr td.single-customer {
+  padding-left: 0 !important;
+  padding-right: 0;
+}
+
+#app .custom-table table tr td.single-customer .v-data-table__wrapper {
+  overflow: hidden;
+}
+
+#app .custom-table table tr td.single-customer .v-data-table__wrapper table {
+  margin-left: 0;
+  margin-top: 15px;
+  min-width: 1100px;
+}
+
+#app .custom-table table tr td.single-customer .v-data-table__wrapper table th {
+  padding-bottom: 0;
+  position: relative;
+}
+
+#app .custom-table table tr td.single-customer .v-data-table__wrapper table th:first-of-type {
+  padding-left: 10px;
+}
+
+#app .custom-table table tr td.single-customer .v-data-table__wrapper table th:last-of-type {
+  padding-right: 10px;
+}
+
+#app .custom-table table tr td.single-customer .v-data-table__wrapper table th i {
+  position: absolute;
+  right: 0;
 }
 
