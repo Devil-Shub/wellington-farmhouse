@@ -17,6 +17,7 @@
 import { paymentService } from "../_services/payment.service";
 import { router } from "../_helpers/router";
 import { StripeElements } from 'vue-stripe-checkout';
+import { environment } from '../config/test.env';
 export default {
   components: {
     StripeElements
@@ -24,7 +25,7 @@ export default {
   data: () => ({
     loading: false,
     amount: 1000,
-    publishableKey: 'pk_test_51GsAraH9zpgoQ1TSjD70A2YceJPHAGDEPymEdBMDg2R93EWywLH1pQyGClwxUMdlaYau9alEu6sdkfheZmMV8OOL00BUsqHsLr', 
+    publishableKey: environment.stripePublishableKey, 
     token: null,
     charge: null
   }),
@@ -38,8 +39,6 @@ export default {
               type: "success",
               position: "top-right"
             });
-            //redirect to login
-            router.push("/admin/trucks");
           } else {
             this.$toast.open({
               message: response.message,
