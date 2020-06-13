@@ -126,6 +126,9 @@ class JobsController extends Controller
     /**
      * payment email
      */
+        /**
+     * payment email
+     */
     public function _sendPaymentEmail($jobId, $customerId, $managerId)
     {
         //check user role
@@ -182,12 +185,11 @@ class JobsController extends Controller
     public function fetchJobDetails(Request $request)
     {
         $loadJob = Job::whereId(base64_decode($request->unique_job_id))->first();
-
         if ($loadJob != null) {
-            $message = "Job not found!";
+            $message = "Job details!";
             $data = $loadJob;
         } else {
-            $message = "Job details";
+            $message = "Job not found!";
             $data = [];
         }
         return response()->json([

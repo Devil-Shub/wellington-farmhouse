@@ -29,7 +29,6 @@ export default {
     charge: null
   }),
  mounted: function() {
-   alert(this.$route.params.unique_id)
      if (this.$route.params.unique_id) {
         paymentService.paymentJob(this.$route.params.unique_id).then(response => {
           //handle response

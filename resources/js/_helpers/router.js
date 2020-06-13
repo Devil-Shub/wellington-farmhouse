@@ -207,8 +207,9 @@ router.beforeEach((to, from, next) => {
   // redirect to login page if not logged in and trying to access a restricted page
   const { requiresAuth } = to.meta;
   const currentUser = authenticationService.currentUserValue;
-
+ 
   if (requiresAuth) {
+
     if (!currentUser) {
       // not logged in so redirect to login page with the return url
       return next({ path: "/login", query: { returnUrl: to.path } });
@@ -223,6 +224,7 @@ router.beforeEach((to, from, next) => {
 	
     // check if route is restricted by role
     if (requiresAuth.length && !requiresAuth.includes(currentUser.data.user.role_id)) {
+	
 	 localStorage.removeItem("currentUser");
       // role not authorised so redirect to home page
       return next({ path: "/login" });
