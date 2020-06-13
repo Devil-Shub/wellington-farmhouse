@@ -196,7 +196,7 @@ var render = function() {
                   _c("v-col", { staticClass: "p-0", attrs: { sm: "2" } }, [
                     _c("div", { staticClass: "single-record" }, [
                       _c("span", { staticClass: "record-timeline" }, [
-                        _vm._v("\n              Last 12 Months\n            ")
+                        _vm._v("\n              Life Time\n            ")
                       ]),
                       _vm._v(" "),
                       _c("span", { staticClass: "record-price" }, [
@@ -212,7 +212,7 @@ var render = function() {
                   _c("v-col", { staticClass: "p-0", attrs: { sm: "2" } }, [
                     _c("div", { staticClass: "single-record" }, [
                       _c("span", { staticClass: "record-timeline" }, [
-                        _vm._v("\n              Last 12 Months\n            ")
+                        _vm._v("\n              Total Farms\n            ")
                       ]),
                       _vm._v(" "),
                       _c("span", { staticClass: "record-price" }, [
@@ -228,7 +228,7 @@ var render = function() {
                   _c("v-col", { staticClass: "p-0", attrs: { sm: "2" } }, [
                     _c("div", { staticClass: "single-record" }, [
                       _c("span", { staticClass: "record-timeline" }, [
-                        _vm._v("\n              Last 12 Months\n            ")
+                        _vm._v("\n              Total Jobs\n            ")
                       ]),
                       _vm._v(" "),
                       _c("span", { staticClass: "record-price" }, [
@@ -244,7 +244,7 @@ var render = function() {
                   _c("v-col", { staticClass: "p-0", attrs: { sm: "2" } }, [
                     _c("div", { staticClass: "single-record" }, [
                       _c("span", { staticClass: "record-timeline" }, [
-                        _vm._v("\n              Last 12 Months\n            ")
+                        _vm._v("\n              Member Since\n            ")
                       ]),
                       _vm._v(" "),
                       _c("span", { staticClass: "record-price" }, [
