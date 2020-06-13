@@ -7,9 +7,19 @@
   >
     <v-row>
       <!-- all jobs -->
+      <v-text-field
+            v-model="search"
+            append-icon="search"
+            label="Search"
+            single-line
+            hide-details
+            class="search-field"
+          ></v-text-field>
       <v-data-table
         :headers="headers"
         :items="jobsDetails"
+        hide-default-footer
+		     :search="search"
         class="wd-100"
       >
         <template v-slot:items="props">
@@ -42,6 +52,7 @@ export default {
       tab: null,
       items: ["All Jobs", "Assigned Jobs", "Completed Jobs", "Open Jobs", "Repeating Jobs", "Unpaid Jobs"],
       unpaidjobs:"",
+      search:"",
       headers: [
         {
           text: 'Image',
