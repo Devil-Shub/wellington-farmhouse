@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Wellington</title>
-        <link rel="icon" type="image/png" href="images/farm-house.png"/>
+        <link rel="icon" type="image/png" href="{{ asset('images/farm-house.png') }}"/>
         <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet" type="text/css">
         <link href="{{ mix('css/app.css') }}" type="text/css" rel="stylesheet" />
         <meta name="csrf-token" value="{{ csrf_token() }}" />
