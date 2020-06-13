@@ -6,6 +6,9 @@
     class="mx-auto"
     outlined
   >
+  <router-link to="payment/MTk=" class="nav-item nav-link">
+                    Payment
+                    </router-link>
     <v-list-item three-line>
       <v-list-item-content>
         <div class="overline mb-4">{{currentUser.first_name}} {{currentUser.last_name}}</div>
@@ -24,12 +27,7 @@
 
     <v-card-actions>
       <v-btn text @click="logout">logout</v-btn>
-    </v-card-actions>
-  <v-card-actions>
-       <router-link to="payment" class="nav-item nav-link">
-                    Payment
-                    </router-link>
-    </v-card-actions>
+    </v-card-actions> 
   </v-card>
 
 </v-col>
