@@ -58,6 +58,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -69,8 +70,40 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       tab: null,
-      items: ["All Jobs", "Assigned Jobs", "Completed Jobs", "Open Jobs", "Repeating Jobs", "Unpaid Jobs"],
-      alljobs: ""
+      search: "",
+      headers: [{
+        text: "Sno",
+        align: "left",
+        sortable: false,
+        value: "index"
+      }, {
+        text: "Job Summary",
+        value: ""
+      }, {
+        text: "Sort by",
+        value: ""
+      }, {
+        text: "Tech",
+        value: ""
+      }, {
+        text: "Time",
+        value: ""
+      }, {
+        text: "Distance",
+        value: ""
+      }, {
+        text: "Payment",
+        value: ""
+      }, {
+        text: "Chat",
+        value: ""
+      }, {
+        text: "Status",
+        value: ""
+      }],
+      items: [],
+      customers: [],
+      alljobs: []
     };
   },
   created: function created() {},
@@ -125,86 +158,30 @@ var render = function() {
       _c(
         "v-row",
         [
-          _c("v-simple-table", {
-            scopedSlots: _vm._u([
-              {
-                key: "default",
-                fn: function() {
-                  return [
-                    _c("thead", [
-                      _c("tr", [
-                        _c("th", { staticClass: "text-left" }, [
-                          _vm._v("Image")
-                        ]),
-                        _vm._v(" "),
-                        _c("th", { staticClass: "text-left" }, [
-                          _vm._v("Job Summary")
-                        ]),
-                        _vm._v(" "),
-                        _c("th", { staticClass: "text-left" }, [
-                          _vm._v("Sort By")
-                        ]),
-                        _vm._v(" "),
-                        _c("th", { staticClass: "text-left" }, [
-                          _vm._v("Techs")
-                        ]),
-                        _vm._v(" "),
-                        _c("th", { staticClass: "text-left" }, [
-                          _vm._v("Time")
-                        ]),
-                        _vm._v(" "),
-                        _c("th", { staticClass: "text-left" }, [
-                          _vm._v("Distance")
-                        ]),
-                        _vm._v(" "),
-                        _c("th", { staticClass: "text-left" }, [
-                          _vm._v("Payment")
-                        ]),
-                        _vm._v(" "),
-                        _c("th", { staticClass: "text-left" }, [
-                          _vm._v("Chat")
-                        ]),
-                        _vm._v(" "),
-                        _c("th", { staticClass: "text-left" }, [
-                          _vm._v("Status")
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "tbody",
-                      [
-                        _vm.alljobs
-                          ? _vm._l(_vm.alljobs, function(all) {
-                              return _c("tr", [
-                                _c("td"),
-                                _vm._v(" "),
-                                _c("td"),
-                                _vm._v(" "),
-                                _c("td"),
-                                _vm._v(" "),
-                                _c("td"),
-                                _vm._v(" "),
-                                _c("td"),
-                                _vm._v(" "),
-                                _c("td"),
-                                _vm._v(" "),
-                                _c("td"),
-                                _vm._v(" "),
-                                _c("td"),
-                                _vm._v(" "),
-                                _c("td")
-                              ])
-                            })
-                          : _vm._e()
-                      ],
-                      2
-                    )
-                  ]
-                },
-                proxy: true
-              }
-            ])
+          _c("v-text-field", {
+            attrs: {
+              "append-icon": "search",
+              label: "Search",
+              "single-line": "",
+              "hide-details": ""
+            },
+            model: {
+              value: _vm.search,
+              callback: function($$v) {
+                _vm.search = $$v
+              },
+              expression: "search"
+            }
+          }),
+          _vm._v(" "),
+          _c("v-data-table", {
+            staticClass: "elevation-1",
+            attrs: {
+              headers: _vm.headers,
+              items: _vm.alljobs,
+              "hide-default-footer": "",
+              search: _vm.search
+            }
           })
         ],
         1

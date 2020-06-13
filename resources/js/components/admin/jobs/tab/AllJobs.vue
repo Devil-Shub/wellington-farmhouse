@@ -7,38 +7,39 @@
   >
     <v-row>
       <!-- all jobs -->
-              <v-simple-table>
-                <template v-slot:default>
-                  <thead>
-                    <tr>
-                      <th class="text-left">Image</th>
-                      <th class="text-left">Job Summary</th>
-                      <th class="text-left">Sort By</th>
-                      <th class="text-left">Techs</th>
-                      <th class="text-left">Time</th>
-                      <th class="text-left">Distance</th>
-                      <th class="text-left">Payment</th>
-                      <th class="text-left">Chat</th>
-                      <th class="text-left">Status</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-		   <template v-if="alljobs">
-                    <tr v-for="all in alljobs">
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                   </template>
-                  </tbody>
-                </template>
-              </v-simple-table>
+   <v-text-field
+            v-model="search"
+            append-icon="search"
+            label="Search"
+            single-line
+            hide-details
+          ></v-text-field>
+             <v-data-table
+                      :headers="headers"
+                      :items="alljobs"
+                      hide-default-footer
+		     :search="search"
+                      class="elevation-1"
+                    >
+                      <!-- <template slot="items" slot-scope="props">
+                        <td class="text-xs-right">{{ props.index }}</td>
+                        <td class="text-xs-right">
+		         <template v-slot:item.id="{ item }">
+		            <span class="custom-action-btn"> 
+				<router-link :to="'/admin/customer/farms/' +item.id">{{ props.item.first_name }}</router-link>
+			    </span>
+		          </template>
+                        </td>
+                        <td class="text-xs-right">{{ props.item.phone }}</td>
+                        <td class="text-xs-right">{{ props.item.email }}</td>
+                        <td class="text-xs-right">{{ props.item. }}</td>
+                        <td class="text-xs-right">{{ props.item. }}</td>
+                        <td class="text-xs-right">{{ props.item. }}</td>
+                        <td class="text-xs-right">{{ props.item. }}</td>
+                        <td class="text-xs-right">0</td>
+                        <td class="text-xs-right">05/07/2020</td>
+                      </template> -->
+                    </v-data-table>
     </v-row>
   </v-container>
 </template>
@@ -55,8 +56,26 @@ export default {
   data() {
     return {
       tab: null,
-      items: ["All Jobs", "Assigned Jobs", "Completed Jobs", "Open Jobs", "Repeating Jobs", "Unpaid Jobs"],
-      alljobs:"",
+      search:"",
+            headers: [
+        {
+          text: "Sno",
+          align: "left",
+          sortable: false,
+          value: "index"
+        },
+        { text: "Job Summary", value: "" },
+        { text: "Sort by", value: "" },
+        { text: "Tech", value: "" },
+        { text: "Time",  value: "" },
+        { text: "Distance", value: "" },
+        { text: "Payment", value: "" },
+        { text: "Chat", value: "" },
+        { text: "Status", value: "" }
+      ],
+      items: [],
+      customers: [],
+      alljobs:[],
     };
   },
   created() {
