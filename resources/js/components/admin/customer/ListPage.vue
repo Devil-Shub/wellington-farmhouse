@@ -16,14 +16,16 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="customer in customers" :key="customer.name">
-                  <td>
-                   <router-link :to="'/admin/customer/details/' + customer.id" class="nav-item nav-link">{{ customer.prefix }}               	{{ customer.first_name }} {{ customer.last_name }}</router-link> 
+                <tr class="multi-customers" v-for="customer in customers" :key="customer.name">
+                  <td class="single-customer">
+                  <span>
+                   <router-link :to="'/admin/customer/details/' + customer.id" class="nav-item nav-link">{{ customer.prefix }}               	{{ customer.first_name }} {{ customer.last_name }}</router-link>
+                   </span> 
                     <v-data-table
                       :headers="headers"
                       :items="customer.customer_manager"
                       hide-default-footer
-                      class="elevation-1"
+                      class=""
                     >
                       <!-- <template slot="items" slot-scope="props">
                         <td class="text-xs-right">{{ props.index }}</td>
