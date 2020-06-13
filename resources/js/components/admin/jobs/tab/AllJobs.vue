@@ -7,38 +7,23 @@
   >
     <v-row>
       <!-- all jobs -->
-              <v-simple-table>
-                <template v-slot:default>
-                  <thead>
-                    <tr>
-                      <th class="text-left">Image</th>
-                      <th class="text-left">Job Summary</th>
-                      <th class="text-left">Sort By</th>
-                      <th class="text-left">Techs</th>
-                      <th class="text-left">Time</th>
-                      <th class="text-left">Distance</th>
-                      <th class="text-left">Payment</th>
-                      <th class="text-left">Chat</th>
-                      <th class="text-left">Status</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-		   <template v-if="alljobs">
-                    <tr v-for="all in alljobs">
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                   </template>
-                  </tbody>
-                </template>
-              </v-simple-table>
+      <v-data-table
+        :headers="headers"
+        :items="jobsDetails"
+        class="elevation-1"
+      >
+        <template v-slot:items="props">
+          <td>{{ props.item.image }}</td>
+          <td class="text-xs-right">{{ props.item.summary }}</td>
+          <td class="text-xs-right">{{ props.item.sort }}</td>
+          <td class="text-xs-right">{{ props.item.techs }}</td>
+          <td class="text-xs-right">{{ props.item.time }}</td>
+          <td class="text-xs-right">{{ props.item.distance }}</td>
+          <td class="text-xs-right">{{ props.item.payment }}</td>
+          <td class="text-xs-right">{{ props.item.chat }}</td>
+          <td class="text-xs-right">{{ props.item.status }}</td>
+        </template>
+      </v-data-table>
     </v-row>
   </v-container>
 </template>
@@ -57,6 +42,34 @@ export default {
       tab: null,
       items: ["All Jobs", "Assigned Jobs", "Completed Jobs", "Open Jobs", "Repeating Jobs", "Unpaid Jobs"],
       alljobs:"",
+      headers: [
+        {
+          text: 'Image',
+          align: 'left',
+          sortable: false,
+          value: 'image'
+        },
+        { text: 'Job Summary', value: 'summary'},
+        { text: 'Sort By', value: 'sort' },
+        { text: 'Techs', value: 'techs' },
+        { text: 'Time', value: 'time' },
+        { text: 'Distance', value: 'distance' },
+        { text: 'Payment', value: 'payment' },
+        { text: 'Chat', value: 'chat' },
+        { text: 'Status', value: 'status' },
+      ],
+      jobsDetails: [
+        {
+          image: '',
+          summary: 999,
+          sort: '',
+          time: 9,
+          distance: 30,
+          payment: 999,
+          chat: '',
+          status: 'active',
+        }
+      ]
     };
   },
   created() {

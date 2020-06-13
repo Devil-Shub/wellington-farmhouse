@@ -16,6 +16,21 @@
             <v-card class="" color="basil" flat v-if="item == 'All Jobs'">
              	 <all-jobs />
             </v-card>
+            <v-card class="" color="basil" flat v-if="item == 'Assigned Jobs'">
+             	 <assigned-jobs />
+            </v-card>
+            <v-card class="" color="basil" flat v-if="item == 'Completed Jobs'">
+             	 <completed-jobs />
+            </v-card>
+            <v-card class="" color="basil" flat v-if="item == 'Open Jobs'">
+             	 <open-jobs />
+            </v-card>
+            <v-card class="" color="basil" flat v-if="item == 'Repeating Jobs'">
+             	 <repeating-jobs />
+            </v-card>
+            <v-card class="" color="basil" flat v-if="item == 'Unpaid Jobs'">
+             	 <unpaid-jobs />
+            </v-card>
           </v-tab-item>
         </v-tabs-items>
       </v-row>
@@ -30,6 +45,11 @@ import { PlusCircleIcon } from "vue-feather-icons";
     components: {
 PlusCircleIcon,
       AllJobs: () => import('./tab/AllJobs'),
+      AssignedJobs: () => import('./tab/AssignedJobs'),
+      CompletedJobs: () => import('./tab/CompletedJobs'),
+      OpenJobs: () => import('./tab/OpenJobs'),
+      RepeatingJobs: () => import('./tab/RepeatingJobs'),
+      UnpaidJobs: () => import('./tab/UnpaidJobs'),
     },
 
      data() {
