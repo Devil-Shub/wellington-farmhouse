@@ -34,7 +34,7 @@ export default {
     amount: null,
     token:null,
     charge: null,
-    publishableKey: 'pk_test_51GsAraH9zpgoQ1TSjD70A2YceJPHAGDEPymEdBMDg2R93EWywLH1pQyGClwxUMdlaYau9alEu6sdkfheZmMV8OOL00BUsqHsLr', 
+    publishableKey: environment.stripePublishableKey, 
   }),
  mounted: function() {
      if (this.$route.params.unique_id) {
