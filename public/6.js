@@ -59,6 +59,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -159,6 +160,7 @@ var render = function() {
         "v-row",
         [
           _c("v-text-field", {
+            staticClass: "search-field",
             attrs: {
               "append-icon": "search",
               label: "Search",
@@ -175,7 +177,7 @@ var render = function() {
           }),
           _vm._v(" "),
           _c("v-data-table", {
-            staticClass: "elevation-1",
+            staticClass: "wd-100",
             attrs: {
               headers: _vm.headers,
               items: _vm.alljobs,

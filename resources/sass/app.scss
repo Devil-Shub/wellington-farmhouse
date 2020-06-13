@@ -171,6 +171,10 @@ $hover-white: #fff;
         margin-left: -4px;
       }
     }
+    .primary--text {
+      color: #aba2a2 !important;
+      caret-color: #aba2a2 !important;
+    }
     .wd-100 {
       width: 100% !important;
     }
@@ -689,7 +693,10 @@ $hover-white: #fff;
         margin-top: 15px;
       }
     }
-    .hidden-area {
-      // display: none;
+    .search-field {
+      width: 250px;
+      display: block;
+      flex: none;
+      margin-bottom: 30px;
     }
   }

@@ -11061,6 +11061,11 @@ a.text-dark:focus {
   margin-left: -4px;
 }
 
+#app .primary--text {
+  color: #aba2a2 !important;
+  caret-color: #aba2a2 !important;
+}
+
 #app .wd-100 {
   width: 100% !important;
 }
@@ -11563,5 +11568,12 @@ a.text-dark:focus {
 
 #app .job-tabs .custom-tab-content {
   margin-top: 15px;
+}
+
+#app .search-field {
+  width: 250px;
+  display: block;
+  flex: none;
+  margin-bottom: 30px;
 }
 
