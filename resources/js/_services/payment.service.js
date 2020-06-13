@@ -38,7 +38,7 @@ function stripeCharge(data) {
 
   return fetch(
     this.apiUrl+`admin/stripe-charge`,
-    requestOptions.get()
+    requestOptions.post(data)
   )
     .then(handleResponse)
     .then(user => {
