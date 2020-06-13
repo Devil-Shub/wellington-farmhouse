@@ -1,8 +1,8 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[10],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/jobs/tab/CompletedJobs.vue?vue&type=script&lang=js&":
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/jobs/tab/RepeatingJobs.vue?vue&type=script&lang=js&":
 /*!***************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/jobs/tab/CompletedJobs.vue?vue&type=script&lang=js& ***!
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/jobs/tab/RepeatingJobs.vue?vue&type=script&lang=js& ***!
   \***************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -13,9 +13,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_job_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../_services/job.service */ "./resources/js/_services/job.service.js");
 /* harmony import */ var _config_test_env__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../config/test.env */ "./resources/js/config/test.env.js");
 /* harmony import */ var vue_feather_icons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-feather-icons */ "./node_modules/vue-feather-icons/dist/vue-feather-icons.es.js");
-//
-//
-//
 //
 //
 //
@@ -64,7 +61,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       tab: null,
       items: ["All Jobs", "Assigned Jobs", "Completed Jobs", "Open Jobs", "Repeating Jobs", "Unpaid Jobs"],
-      completedjobs: "",
+      repeatingjobs: "",
       search: "",
       headers: [{
         text: 'Image',
@@ -78,15 +75,6 @@ __webpack_require__.r(__webpack_exports__);
         text: 'Sort By',
         value: 'sort'
       }, {
-        text: 'Techs',
-        value: 'techs'
-      }, {
-        text: 'Time',
-        value: 'time'
-      }, {
-        text: 'Distance',
-        value: 'distance'
-      }, {
         text: 'Payment',
         value: 'payment'
       }, {
@@ -97,8 +85,6 @@ __webpack_require__.r(__webpack_exports__);
         image: '',
         summary: 999,
         sort: '',
-        time: 9,
-        distance: 30,
         payment: 999,
         chat: ''
       }]
@@ -131,9 +117,9 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/jobs/tab/CompletedJobs.vue?vue&type=template&id=5ef4c439&":
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/jobs/tab/RepeatingJobs.vue?vue&type=template&id=78d29b56&":
 /*!*******************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/jobs/tab/CompletedJobs.vue?vue&type=template&id=5ef4c439& ***!
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/jobs/tab/RepeatingJobs.vue?vue&type=template&id=78d29b56& ***!
   \*******************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -197,18 +183,6 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("td", { staticClass: "text-xs-right" }, [
-                      _vm._v(_vm._s(props.item.techs))
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "text-xs-right" }, [
-                      _vm._v(_vm._s(props.item.time))
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "text-xs-right" }, [
-                      _vm._v(_vm._s(props.item.distance))
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "text-xs-right" }, [
                       _vm._v(_vm._s(props.item.payment))
                     ]),
                     _vm._v(" "),
@@ -234,17 +208,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/admin/jobs/tab/CompletedJobs.vue":
+/***/ "./resources/js/components/admin/jobs/tab/RepeatingJobs.vue":
 /*!******************************************************************!*\
-  !*** ./resources/js/components/admin/jobs/tab/CompletedJobs.vue ***!
+  !*** ./resources/js/components/admin/jobs/tab/RepeatingJobs.vue ***!
   \******************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _CompletedJobs_vue_vue_type_template_id_5ef4c439___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CompletedJobs.vue?vue&type=template&id=5ef4c439& */ "./resources/js/components/admin/jobs/tab/CompletedJobs.vue?vue&type=template&id=5ef4c439&");
-/* harmony import */ var _CompletedJobs_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CompletedJobs.vue?vue&type=script&lang=js& */ "./resources/js/components/admin/jobs/tab/CompletedJobs.vue?vue&type=script&lang=js&");
+/* harmony import */ var _RepeatingJobs_vue_vue_type_template_id_78d29b56___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RepeatingJobs.vue?vue&type=template&id=78d29b56& */ "./resources/js/components/admin/jobs/tab/RepeatingJobs.vue?vue&type=template&id=78d29b56&");
+/* harmony import */ var _RepeatingJobs_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RepeatingJobs.vue?vue&type=script&lang=js& */ "./resources/js/components/admin/jobs/tab/RepeatingJobs.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -254,9 +228,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _CompletedJobs_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _CompletedJobs_vue_vue_type_template_id_5ef4c439___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _CompletedJobs_vue_vue_type_template_id_5ef4c439___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _RepeatingJobs_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _RepeatingJobs_vue_vue_type_template_id_78d29b56___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _RepeatingJobs_vue_vue_type_template_id_78d29b56___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -266,38 +240,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/admin/jobs/tab/CompletedJobs.vue"
+component.options.__file = "resources/js/components/admin/jobs/tab/RepeatingJobs.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/admin/jobs/tab/CompletedJobs.vue?vue&type=script&lang=js&":
+/***/ "./resources/js/components/admin/jobs/tab/RepeatingJobs.vue?vue&type=script&lang=js&":
 /*!*******************************************************************************************!*\
-  !*** ./resources/js/components/admin/jobs/tab/CompletedJobs.vue?vue&type=script&lang=js& ***!
+  !*** ./resources/js/components/admin/jobs/tab/RepeatingJobs.vue?vue&type=script&lang=js& ***!
   \*******************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CompletedJobs_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./CompletedJobs.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/jobs/tab/CompletedJobs.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CompletedJobs_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RepeatingJobs_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./RepeatingJobs.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/jobs/tab/RepeatingJobs.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RepeatingJobs_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/admin/jobs/tab/CompletedJobs.vue?vue&type=template&id=5ef4c439&":
+/***/ "./resources/js/components/admin/jobs/tab/RepeatingJobs.vue?vue&type=template&id=78d29b56&":
 /*!*************************************************************************************************!*\
-  !*** ./resources/js/components/admin/jobs/tab/CompletedJobs.vue?vue&type=template&id=5ef4c439& ***!
+  !*** ./resources/js/components/admin/jobs/tab/RepeatingJobs.vue?vue&type=template&id=78d29b56& ***!
   \*************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CompletedJobs_vue_vue_type_template_id_5ef4c439___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./CompletedJobs.vue?vue&type=template&id=5ef4c439& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/jobs/tab/CompletedJobs.vue?vue&type=template&id=5ef4c439&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CompletedJobs_vue_vue_type_template_id_5ef4c439___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RepeatingJobs_vue_vue_type_template_id_78d29b56___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./RepeatingJobs.vue?vue&type=template&id=78d29b56& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/jobs/tab/RepeatingJobs.vue?vue&type=template&id=78d29b56&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RepeatingJobs_vue_vue_type_template_id_78d29b56___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CompletedJobs_vue_vue_type_template_id_5ef4c439___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RepeatingJobs_vue_vue_type_template_id_78d29b56___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

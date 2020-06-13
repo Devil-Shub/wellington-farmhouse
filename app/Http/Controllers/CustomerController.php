@@ -15,6 +15,10 @@ use App\ServicesTimeSlot;
 use App\User;
 use App\ManagerDetail;
 use App\CustomerFarm;
+use App\CustomerCardDetail;
+use App\JobPayment;
+use App\Job;
+use Carbon\Carbon;
 
 class CustomerController extends Controller
 {
@@ -247,5 +251,65 @@ class CustomerController extends Controller
             $message->from(env('MAIL_USERNAME'), env('MAIL_USERNAME'));
         });
     }
+
+   /*
+   * get card listing based on customer id
+   */
+   public function getAllCard(Request $request){
+	
+	$userList = User::where('created_by', $request->customer_id)->get();
+	$userId = array();
+	array_push($userId, trim($request->customer_id,'"') );
+	if($userList->count()){
+	   foreach($userList as $user){
+	      array_push($userId, $user->id);
+           }
+	}
+        $card = CustomerCardDetail::whereIn('customer_id', $userId)->get();
+	    //return success response
+	    return response()->json([
+	        'status' => true,
+	        'message' => 'Card List successfully.',
+	        'data' => $card
+	    ], 200);
+	
+   }
+
+   /*
+   * get customer records by customer id
+   */
+   public function getAllRecords(Request $request){
+	$records = array();
+        $userList = User::where('created_by', $request->customer_id)->get();
+	$userId = array();
+        $managerId = array();
+	array_push($userId, trim($request->customer_id,'"') );
+	if($userList->count()){
+	   foreach($userList as $user){
+	      array_push($userId, $user->id);
+           }
+	}
+
+        $farmrecord = CustomerFarm::where('customer_id', $request->customer_id)->count();
+	$allamount = JobPayment::whereIn('user_id', $userId)->sum('amount');
+        $monthamount = JobPayment::whereIn('user_id', $userId)->whereMonth(
+        'created_at', '=', Carbon::now()->subMonth(12))->sum('amount');
+	$totaljobs = Job::where('customer_id', $request->customer_id)->count();
+	$memebersince = User::whereId($request->customer_id)->pluck('created_at');
+	$records = array(
+	 	'monthamount'=>$monthamount,
+		'allamount' => $allamount,
+		'farmrecord' => $farmrecord,
+		'totaljobs' => $totaljobs,
+		'memebersince' => $memebersince[0] 
+	);
+	    //return success response
+	    return response()->json([
+	        'status' => true,
+	        'message' => 'Card List successfully.',
+	        'data' => $records
+	    ], 200);
+	
+   }
 
 }
