@@ -126,7 +126,7 @@ class JobsController extends Controller
     /**
      * payment email
      */
-        /**
+    /**
      * payment email
      */
     public function _sendPaymentEmail($jobId, $customerId, $managerId)
@@ -171,8 +171,16 @@ class JobsController extends Controller
      */
     public function getAllJob()
     {
-        $getAllJobs = Job::with("customer", "manager", "farm", "service", 
-        "truck", "skidsteer", "truck_driver", "skidsteer_driver")->get();
+        $getAllJobs = Job::with(
+            "customer",
+            "manager",
+            "farm",
+            "service",
+            "truck",
+            "skidsteer",
+            "truck_driver",
+            "skidsteer_driver"
+        )->get();
 
         return response()->json([
             'status' => true,
@@ -186,13 +194,21 @@ class JobsController extends Controller
      */
     public function getAssignedJob()
     {
-        $getAllJobs = Job::with("customer", "manager", "farm", "service", 
-        "truck", "skidsteer", "truck_driver", "skidsteer_driver")
-        ->whereNotNull("truck_driver_id")
-        ->whereNotNull("truck_id")
-        ->whereNotNull("skidsteer_id")
-        ->whereNotNull("skidsteer_driver_id")
-        ->get();
+        $getAllJobs = Job::with(
+            "customer",
+            "manager",
+            "farm",
+            "service",
+            "truck",
+            "skidsteer",
+            "truck_driver",
+            "skidsteer_driver"
+        )
+            ->whereNotNull("truck_driver_id")
+            ->whereNotNull("truck_id")
+            ->whereNotNull("skidsteer_id")
+            ->whereNotNull("skidsteer_driver_id")
+            ->get();
 
         return response()->json([
             'status' => true,
@@ -206,10 +222,18 @@ class JobsController extends Controller
      */
     public function getCompleteJob()
     {
-        $getAllJobs = Job::with("customer", "manager", "farm", "service", 
-        "truck", "skidsteer", "truck_driver", "skidsteer_driver")
-        ->whereJobStatus(config('constant.job_status.close'))
-        ->get();
+        $getAllJobs = Job::with(
+            "customer",
+            "manager",
+            "farm",
+            "service",
+            "truck",
+            "skidsteer",
+            "truck_driver",
+            "skidsteer_driver"
+        )
+            ->whereJobStatus(config('constant.job_status.close'))
+            ->get();
 
         return response()->json([
             'status' => true,
@@ -223,10 +247,18 @@ class JobsController extends Controller
      */
     public function getOpenJob()
     {
-        $getAllJobs = Job::with("customer", "manager", "farm", "service", 
-        "truck", "skidsteer", "truck_driver", "skidsteer_driver")
-        ->whereJobStatus(config('constant.job_status.open'))
-        ->get();
+        $getAllJobs = Job::with(
+            "customer",
+            "manager",
+            "farm",
+            "service",
+            "truck",
+            "skidsteer",
+            "truck_driver",
+            "skidsteer_driver"
+        )
+            ->whereJobStatus(config('constant.job_status.open'))
+            ->get();
 
         return response()->json([
             'status' => true,
@@ -240,10 +272,18 @@ class JobsController extends Controller
      */
     public function getRepeatingJob()
     {
-        $getAllJobs = Job::with("customer", "manager", "farm", "service", 
-        "truck", "skidsteer", "truck_driver", "skidsteer_driver")
-        ->whereRepeatingJob(config('constant.repeating_job.true'))
-        ->get();
+        $getAllJobs = Job::with(
+            "customer",
+            "manager",
+            "farm",
+            "service",
+            "truck",
+            "skidsteer",
+            "truck_driver",
+            "skidsteer_driver"
+        )
+            ->whereRepeatingJob(config('constant.repeating_job.true'))
+            ->get();
 
         return response()->json([
             'status' => true,
@@ -257,10 +297,18 @@ class JobsController extends Controller
      */
     public function getUnpaidJob()
     {
-        $getAllJobs = Job::with("customer", "manager", "farm", "service", 
-        "truck", "skidsteer", "truck_driver", "skidsteer_driver")
-        ->wherePaymentStatus(config('constant.payment_history.complete'))
-        ->get();
+        $getAllJobs = Job::with(
+            "customer",
+            "manager",
+            "farm",
+            "service",
+            "truck",
+            "skidsteer",
+            "truck_driver",
+            "skidsteer_driver"
+        )
+            ->wherePaymentStatus(config('constant.payment_history.complete'))
+            ->get();
 
         return response()->json([
             'status' => true,
@@ -287,5 +335,28 @@ class JobsController extends Controller
             'message' => $message,
             'data' => $data
         ], 200);
+    }
+
+
+    public function getUsers(Request $request)
+    {
+        if ($request->input('showdata')) {
+            return User::orderBy('created_at', 'desc')->get();
+        }
+        $columns = ['first_name', 'email', 'created_at'];
+        $length = $request->input('length');
+        $column = $request->input('column');
+        $search_input = $request->input('search');
+        $query = User::select('first_name', 'email', 'created_at')
+            ->orderBy($columns[$column]);
+        if ($search_input) {
+            $query->where(function ($query) use ($search_input) {
+                $query->where('first_name', 'like', '%' . $search_input . '%')
+                    ->orWhere('email', 'like', '%' . $search_input . '%')
+                    ->orWhere('created_at', 'like', '%' . $search_input . '%');
+            });
+        }
+        $users = $query->paginate($length);
+        return ['data' => $users];
     }
 }
