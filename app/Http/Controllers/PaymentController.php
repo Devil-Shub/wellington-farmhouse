@@ -46,6 +46,14 @@ class PaymentController extends Controller
                     $custId,
                     ['source' => $request->stripeToken]
                 );
+                //remove previous cards from default 
+                if(CustomerCardDetail::whereCustomerId($loggedUser->id)->get()->count() > 0){
+                    // CustomerCardDetail::whereCustomerId($loggedUser->id)->update(['card_primary' => 0]);
+                    $defaultCard = 0;
+                } else {
+                    $defaultCard = 1;
+                }
+
                 $storeCardDetails = new CustomerCardDetail([
                     'customer_id' => $loggedUser->id,
                     'card_id' => $addCard->id,
@@ -53,7 +61,7 @@ class PaymentController extends Controller
                     'card_exp_month' => $addCard->exp_month,
                     'card_exp_year' => $addCard->exp_year,
                     'card_status' => 1,
-                    'card_primary' => 0 
+                    'card_primary' => $defaultCard 
                 ]);
                 $storeCardDetails->save();
             } 
