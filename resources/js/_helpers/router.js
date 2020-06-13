@@ -207,7 +207,7 @@ router.beforeEach((to, from, next) => {
   // redirect to login page if not logged in and trying to access a restricted page
   const { requiresAuth } = to.meta;
   const currentUser = authenticationService.currentUserValue;
- 
+  localStorage.setItem("payment", to.query.returnUrl);
   if (requiresAuth) {
 
     if (!currentUser) {

@@ -93,6 +93,9 @@ Route::group(['prefix' => 'auth'], function () {
             Route::get('get-service-slots/{service_id}', 'JobsController@getServiceSlots');
             Route::post('create-job', 'JobsController@createJob');
             Route::get('job-list', 'JobsController@getAllJob');
+
+            //stripe
+            Route::post('stripe-charge', 'PaymentController@stripeCharge');
         });
 
         //upload image

@@ -43,6 +43,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -54,48 +70,40 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       tab: null,
-      items: ["All Jobs", "Assigned Jobs", "Completed Jobs", "Open Jobs", "Repeating Jobs", "Unpaid Jobs"],
-      alljobs: "",
+      search: "",
       headers: [{
-        text: 'Image',
-        align: 'left',
+        text: "Sno",
+        align: "left",
         sortable: false,
-        value: 'image'
+        value: "index"
       }, {
-        text: 'Job Summary',
-        value: 'summary'
+        text: "Job Summary",
+        value: ""
       }, {
-        text: 'Sort By',
-        value: 'sort'
+        text: "Sort by",
+        value: ""
       }, {
-        text: 'Techs',
-        value: 'techs'
+        text: "Tech",
+        value: ""
       }, {
-        text: 'Time',
-        value: 'time'
+        text: "Time",
+        value: ""
       }, {
-        text: 'Distance',
-        value: 'distance'
+        text: "Distance",
+        value: ""
       }, {
-        text: 'Payment',
-        value: 'payment'
+        text: "Payment",
+        value: ""
       }, {
-        text: 'Chat',
-        value: 'chat'
+        text: "Chat",
+        value: ""
       }, {
-        text: 'Status',
-        value: 'status'
+        text: "Status",
+        value: ""
       }],
-      jobsDetails: [{
-        image: '',
-        summary: 999,
-        sort: '',
-        time: 9,
-        distance: 30,
-        payment: 999,
-        chat: '',
-        status: 'active'
-      }]
+      items: [],
+      customers: [],
+      alljobs: []
     };
   },
   created: function created() {},
@@ -150,51 +158,30 @@ var render = function() {
       _c(
         "v-row",
         [
+          _c("v-text-field", {
+            attrs: {
+              "append-icon": "search",
+              label: "Search",
+              "single-line": "",
+              "hide-details": ""
+            },
+            model: {
+              value: _vm.search,
+              callback: function($$v) {
+                _vm.search = $$v
+              },
+              expression: "search"
+            }
+          }),
+          _vm._v(" "),
           _c("v-data-table", {
             staticClass: "elevation-1",
-            attrs: { headers: _vm.headers, items: _vm.jobsDetails },
-            scopedSlots: _vm._u([
-              {
-                key: "items",
-                fn: function(props) {
-                  return [
-                    _c("td", [_vm._v(_vm._s(props.item.image))]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "text-xs-right" }, [
-                      _vm._v(_vm._s(props.item.summary))
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "text-xs-right" }, [
-                      _vm._v(_vm._s(props.item.sort))
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "text-xs-right" }, [
-                      _vm._v(_vm._s(props.item.techs))
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "text-xs-right" }, [
-                      _vm._v(_vm._s(props.item.time))
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "text-xs-right" }, [
-                      _vm._v(_vm._s(props.item.distance))
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "text-xs-right" }, [
-                      _vm._v(_vm._s(props.item.payment))
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "text-xs-right" }, [
-                      _vm._v(_vm._s(props.item.chat))
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "text-xs-right" }, [
-                      _vm._v(_vm._s(props.item.status))
-                    ])
-                  ]
-                }
-              }
-            ])
+            attrs: {
+              headers: _vm.headers,
+              items: _vm.alljobs,
+              "hide-default-footer": "",
+              search: _vm.search
+            }
           })
         ],
         1

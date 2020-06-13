@@ -88,7 +88,15 @@ name: "login",
         authenticationService.login(this.email, this.password).then(
           response => {
 		  if(response == 'Home'){
-		      this.$router.push({name: response}).catch(error => { })
+			var paymentUrl = localStorage.getItem("payment");
+			if(paymentUrl){
+			var r = paymentUrl.indexOf("payment");
+				if(r){
+				router.push(paymentUrl);
+				}else{
+		                  this.$router.push({name: response}).catch(error => { })
+				}
+			}
 		   }else{
 		      router.push(response);
 		  }
