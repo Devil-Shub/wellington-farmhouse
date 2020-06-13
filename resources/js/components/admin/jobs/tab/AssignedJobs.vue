@@ -10,7 +10,7 @@
       <v-data-table
         :headers="headers"
         :items="jobsDetails"
-        class="elevation-1"
+        class="wd-100"
       >
         <template v-slot:items="props">
           <td>{{ props.item.image }}</td>

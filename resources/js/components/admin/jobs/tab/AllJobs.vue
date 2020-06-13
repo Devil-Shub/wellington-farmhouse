@@ -20,7 +20,7 @@
                       :items="alljobs"
                       hide-default-footer
 		     :search="search"
-                      class="elevation-1"
+                      class="wd-100"
                     >
                       <!-- <template slot="items" slot-scope="props">
                         <td class="text-xs-right">{{ props.index }}</td>

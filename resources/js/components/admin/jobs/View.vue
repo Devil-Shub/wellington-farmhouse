@@ -7,7 +7,7 @@
         <plus-circle-icon size="1.5x" class="custom-class"></plus-circle-icon>
       </router-link>
     </div>
-        <v-tabs class="wdout-modif" v-model="tab" background-color="transparent" color="basil" grow>
+        <v-tabs class="wdout-modif mt-6 mb-4" v-model="tab" background-color="transparent" color="basil" grow>
           <v-tab v-for="item in items" :key="item">{{ item }}</v-tab>
         </v-tabs>
         <v-tabs-items v-model="tab" class="">
@@ -16,19 +16,19 @@
             <v-card class="" color="basil" flat v-if="item == 'All Jobs'">
              	 <all-jobs />
             </v-card>
-            <v-card class="" color="basil" flat v-if="item == 'Assigned Jobs'">
+            <v-card class="pl-7" color="basil" flat v-if="item == 'Assigned Jobs'">
              	 <assigned-jobs />
             </v-card>
-            <v-card class="" color="basil" flat v-if="item == 'Completed Jobs'">
+            <v-card class="pl-7" color="basil" flat v-if="item == 'Completed Jobs'">
              	 <completed-jobs />
             </v-card>
-            <v-card class="" color="basil" flat v-if="item == 'Open Jobs'">
+            <v-card class="pl-7" color="basil" flat v-if="item == 'Open Jobs'">
              	 <open-jobs />
             </v-card>
-            <v-card class="" color="basil" flat v-if="item == 'Repeating Jobs'">
+            <v-card class="pl-7" color="basil" flat v-if="item == 'Repeating Jobs'">
              	 <repeating-jobs />
             </v-card>
-            <v-card class="" color="basil" flat v-if="item == 'Unpaid Jobs'">
+            <v-card class="pl-7" color="basil" flat v-if="item == 'Unpaid Jobs'">
              	 <unpaid-jobs />
             </v-card>
           </v-tab-item>
