@@ -12,7 +12,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue_feather_icons__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-feather-icons */ "./node_modules/vue-feather-icons/dist/vue-feather-icons.es.js");
-/* harmony import */ var _helpers_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../_helpers/router */ "./resources/js/_helpers/router.js");
+/* harmony import */ var _services_customer_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../_services/customer.service */ "./resources/js/_services/customer.service.js");
+/* harmony import */ var _helpers_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../_helpers/router */ "./resources/js/_helpers/router.js");
 //
 //
 //
@@ -107,6 +108,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 
@@ -116,8 +118,25 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      prefix: ["One", "Two", "Three", "Four"]
+      prefix: ["One", "Two", "Three", "Four"],
+      records: ''
     };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    _services_customer_service__WEBPACK_IMPORTED_MODULE_2__["customerService"].getCustomerRecord(this.$route.params.id).then(function (response) {
+      //handle response
+      if (response.status) {
+        _this.records = response.data;
+      } else {
+        _this.$toast.open({
+          message: response.message,
+          type: "error",
+          position: "top-right"
+        });
+      }
+    });
   }
 });
 
@@ -165,7 +184,11 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("span", { staticClass: "record-price" }, [
-                        _vm._v("\n              $25,300\n            ")
+                        _vm._v(
+                          "\n              $" +
+                            _vm._s(_vm.records.monthamount) +
+                            "\n            "
+                        )
                       ])
                     ])
                   ]),
@@ -177,7 +200,11 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("span", { staticClass: "record-price" }, [
-                        _vm._v("\n              $25,300\n            ")
+                        _vm._v(
+                          "\n              $" +
+                            _vm._s(_vm.records.allamount) +
+                            "\n            "
+                        )
                       ])
                     ])
                   ]),
@@ -189,7 +216,11 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("span", { staticClass: "record-price" }, [
-                        _vm._v("\n              $25,300\n            ")
+                        _vm._v(
+                          "\n              " +
+                            _vm._s(_vm.records.farmrecord) +
+                            "\n            "
+                        )
                       ])
                     ])
                   ]),
@@ -201,7 +232,11 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("span", { staticClass: "record-price" }, [
-                        _vm._v("\n              $25,300\n            ")
+                        _vm._v(
+                          "\n              " +
+                            _vm._s(_vm.records.totaljobs) +
+                            "\n            "
+                        )
                       ])
                     ])
                   ]),
@@ -213,7 +248,13 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("span", { staticClass: "record-price" }, [
-                        _vm._v("\n              $25,300\n            ")
+                        _vm._v(
+                          "\n               " +
+                            _vm._s(
+                              _vm._f("formatDate")(_vm.records.memebersince)
+                            ) +
+                            "\n            "
+                        )
                       ])
                     ])
                   ])

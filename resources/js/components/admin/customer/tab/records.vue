@@ -12,7 +12,7 @@
                 Last 12 Months
               </span>
               <span class="record-price">
-                $25,300
+                ${{records.monthamount}}
               </span>
             </div>
           </v-col>
@@ -22,7 +22,7 @@
                 Last 12 Months
               </span>
               <span class="record-price">
-                $25,300
+                ${{records.allamount}}
               </span>
             </div>
           </v-col>
@@ -32,7 +32,7 @@
                 Last 12 Months
               </span>
               <span class="record-price">
-                $25,300
+                {{records.farmrecord}}
               </span>
             </div>
           </v-col>
@@ -42,7 +42,7 @@
                 Last 12 Months
               </span>
               <span class="record-price">
-                $25,300
+                {{records.totaljobs}}
               </span>
             </div>
           </v-col>
@@ -52,7 +52,7 @@
                 Last 12 Months
               </span>
               <span class="record-price">
-                $25,300
+                 {{records.memebersince | formatDate}}
               </span>
             </div>
           </v-col>
@@ -93,8 +93,10 @@
 </template>
 
 <script>
+
 import { required } from "vuelidate/lib/validators";
 import { PlusCircleIcon } from "vue-feather-icons";
+import { customerService } from "../../../../_services/customer.service";
 import { router } from "../../../../_helpers/router";
 export default {
   components: {
@@ -102,8 +104,23 @@ export default {
   },
   data() {
     return {
-      prefix: ["One", "Two", "Three", "Four"]
+      prefix: ["One", "Two", "Three", "Four"],
+      records:'',
     };
-  }
+  },
+ mounted: function() {
+    customerService.getCustomerRecord(this.$route.params.id).then(response => {
+      //handle response
+      if (response.status) {
+        this.records = response.data;
+      } else {
+        this.$toast.open({
+          message: response.message,
+          type: "error",
+          position: "top-right"
+        });
+      }
+    });
+  },
 };
 </script>

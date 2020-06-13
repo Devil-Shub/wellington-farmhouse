@@ -15,6 +15,8 @@ export const customerService = {
   Delete,
   getCustomer,
   listCustomer,
+  getCustomerCard,
+  getCustomerRecord,
   apiUrl: environment.apiUrl,
   currentUrl: '',
   currentUser: currentUserSubject.asObservable(),
@@ -87,3 +89,29 @@ function getCustomer(data) {
     });
 }
 
+
+function getCustomerCard(data) {
+  return fetch(
+    this.apiUrl+`admin/card-list/`+data,
+    requestOptions.get()
+  )
+    .then(handleResponse)
+    .then(user => {
+      // store user details and passport token in local storage to keep user logged in between page refreshes
+
+      return user;
+    });
+}
+
+function getCustomerRecord(data) {
+  return fetch(
+    this.apiUrl+`admin/record-list/`+data,
+    requestOptions.get()
+  )
+    .then(handleResponse)
+    .then(user => {
+      // store user details and passport token in local storage to keep user logged in between page refreshes
+
+      return user;
+    });
+}

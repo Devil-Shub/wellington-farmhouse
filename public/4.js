@@ -12,7 +12,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue_feather_icons__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-feather-icons */ "./node_modules/vue-feather-icons/dist/vue-feather-icons.es.js");
-/* harmony import */ var _helpers_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../_helpers/router */ "./resources/js/_helpers/router.js");
+/* harmony import */ var _services_customer_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../_services/customer.service */ "./resources/js/_services/customer.service.js");
+/* harmony import */ var _helpers_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../_helpers/router */ "./resources/js/_helpers/router.js");
 //
 //
 //
@@ -48,6 +49,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+
 
 
 
@@ -57,8 +64,25 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      prefix: ["One", "Two", "Three", "Four"]
+      prefix: ["One", "Two", "Three", "Four"],
+      cards: ''
     };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    _services_customer_service__WEBPACK_IMPORTED_MODULE_2__["customerService"].getCustomerCard(this.$route.params.id).then(function (response) {
+      //handle response
+      if (response.status) {
+        _this.cards = response.data;
+      } else {
+        _this.$toast.open({
+          message: response.message,
+          type: "error",
+          position: "top-right"
+        });
+      }
+    });
   }
 });
 
@@ -126,21 +150,63 @@ var render = function() {
                               ])
                             ]),
                             _vm._v(" "),
-                            _c("tbody", [
-                              _c("tr", [
-                                _c("td", [_vm._v("1")]),
+                            _c(
+                              "tbody",
+                              [
+                                _vm.cards
+                                  ? _vm._l(_vm.cards, function(card, index) {
+                                      return _c("tr", [
+                                        _c("td", [_vm._v(_vm._s(index + 1))]),
+                                        _vm._v(" "),
+                                        _c("td", [
+                                          _vm._v(
+                                            "XXXXXXX" + _vm._s(card.card_number)
+                                          )
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("td", [
+                                          _vm._v(
+                                            _vm._s(card.card_exp_month) +
+                                              "/" +
+                                              _vm._s(card.card_exp_year)
+                                          )
+                                        ]),
+                                        _vm._v(" "),
+                                        card.card_status
+                                          ? _c("td", [_vm._v("Active")])
+                                          : _vm._e(),
+                                        _vm._v(" "),
+                                        !card.card_status
+                                          ? _c("td", [_vm._v("Deactivate")])
+                                          : _vm._e(),
+                                        _vm._v(" "),
+                                        card.card_primary
+                                          ? _c("td", [_vm._v("Primary")])
+                                          : _vm._e(),
+                                        _vm._v(" "),
+                                        !card.card_primary
+                                          ? _c("td", [_vm._v("Secondary")])
+                                          : _vm._e(),
+                                        _vm._v(" "),
+                                        _c("td", [
+                                          _vm._v(
+                                            _vm._s(
+                                              _vm._f("formatDate")(
+                                                card.created_at
+                                              )
+                                            )
+                                          )
+                                        ])
+                                      ])
+                                    })
+                                  : _vm._e(),
                                 _vm._v(" "),
-                                _c("td", [_vm._v("XXXXXXX22")]),
-                                _vm._v(" "),
-                                _c("td", [_vm._v("3/4/22")]),
-                                _vm._v(" "),
-                                _c("td", [_vm._v("Active")]),
-                                _vm._v(" "),
-                                _c("td", [_vm._v("Yes")]),
-                                _vm._v(" "),
-                                _c("td", [_vm._v("8/07/2020")])
-                              ])
-                            ])
+                                !_vm.cards
+                                  ? _c("tr", [_vm._v("No Card Found")])
+                                  : _vm._e()
+                              ],
+                              2
+                            )
                           ]
                         },
                         proxy: true
