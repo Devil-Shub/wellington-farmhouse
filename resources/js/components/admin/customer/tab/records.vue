@@ -19,7 +19,7 @@
           <v-col sm="2" class="p-0">
             <div class="single-record">
               <span class="record-timeline">
-                Last 12 Months
+                Life Time
               </span>
               <span class="record-price">
                 ${{records.allamount}}
@@ -29,7 +29,7 @@
           <v-col sm="2" class="p-0">
             <div class="single-record">
               <span class="record-timeline">
-                Last 12 Months
+                Total Farms
               </span>
               <span class="record-price">
                 {{records.farmrecord}}
@@ -39,7 +39,7 @@
           <v-col sm="2" class="p-0">
             <div class="single-record">
               <span class="record-timeline">
-                Last 12 Months
+                Total Jobs
               </span>
               <span class="record-price">
                 {{records.totaljobs}}
@@ -49,7 +49,7 @@
           <v-col sm="2" class="p-0">
             <div class="single-record">
               <span class="record-timeline">
-                Last 12 Months
+                Member Since
               </span>
               <span class="record-price">
                  {{records.memebersince | formatDate}}
