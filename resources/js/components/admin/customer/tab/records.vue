@@ -59,8 +59,8 @@
         </v-col>
 
         <v-col sm="12" cols="12">
-          <v-simple-table>
-            <template v-slot:default>
+<input type="text" id="myInput"  v-on:keyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+          <table id="myTable">
               <thead>
                 <tr>
                   <th class="text-left">Job_id</th>
@@ -89,8 +89,7 @@
 	          <td v-if="record.repeating_job">Rescheduled</td>
                 </tr>
               </tbody>
-            </template>
-          </v-simple-table>
+          </table>
 <nav aria-label="Page navigation example">
 			<ul class="pagination">
 				<li class="page-item">
@@ -145,7 +144,12 @@ filters: {
 		return value.split(" ").splice(0,20).join(" ") + '...';
 	}
 },
- mounted: function() {
+    mounted() {
+    this.getResult();
+this.myFunction();
+   }, 
+  methods:{
+getResult(){
     customerService.getCustomerRecord(this.$route.params.id).then(response => {
       //handle response
       if (response.status) {
@@ -159,8 +163,25 @@ filters: {
         });
       }
     });
-  },
-  methods:{
+},
+ myFunction() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+},
 	setPages () {
 		let numberOfPages = Math.ceil(this.jobs.length / this.perPage);
 		for (let index = 1; index <= numberOfPages; index++) {
