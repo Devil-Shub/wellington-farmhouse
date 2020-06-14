@@ -1,89 +1,18 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[15],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/company/tab/info.vue?vue&type=script&lang=js&":
-/*!*********************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/company/tab/info.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/jobs/tab/UnpaidJobs.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/jobs/tab/UnpaidJobs.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
-/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _services_customer_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../_services/customer.service */ "./resources/js/_services/customer.service.js");
-/* harmony import */ var _helpers_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../_helpers/router */ "./resources/js/_helpers/router.js");
-/* harmony import */ var _config_test_env__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../config/test.env */ "./resources/js/config/test.env.js");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/* harmony import */ var _helpers_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../_helpers/router */ "./resources/js/_helpers/router.js");
+/* harmony import */ var _services_job_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../_services/job.service */ "./resources/js/_services/job.service.js");
+/* harmony import */ var _config_test_env__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../config/test.env */ "./resources/js/config/test.env.js");
+/* harmony import */ var vue_feather_icons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-feather-icons */ "./node_modules/vue-feather-icons/dist/vue-feather-icons.es.js");
 //
 //
 //
@@ -129,144 +58,88 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    PlusCircleIcon: vue_feather_icons__WEBPACK_IMPORTED_MODULE_3__["PlusCircleIcon"]
+  },
   data: function data() {
     return {
-      prefixs: ['Ms.', 'Mr.', 'Mrs.'],
-      isLoading: false,
-      items: [],
-      model: null,
-      valid: true,
-      avatar: null,
-      apiUrl: _config_test_env__WEBPACK_IMPORTED_MODULE_3__["environment"].apiUrl,
-      imgUrl: _config_test_env__WEBPACK_IMPORTED_MODULE_3__["environment"].imgUrl,
-      addForm: {
-        id: "",
-        prefix: "",
-        customer_name: "",
-        email: "",
-        phone: "",
-        address: "",
-        city: "",
-        province: "",
-        user_image: null,
-        zipcode: '',
-        is_active: ''
-      },
-      emailRules: [function (v) {
-        return !!v || "E-mail is required";
-      }, function (v) {
-        return /.+@.+/.test(v) || "E-mail must be valid";
+      tab: null,
+      items: ["All Jobs", "Assigned Jobs", "Completed Jobs", "Open Jobs", "Repeating Jobs", "Unpaid Jobs"],
+      unpaidjobs: "",
+      search: "",
+      headers: [{
+        text: 'Image',
+        align: 'left',
+        sortable: false,
+        value: 'image'
+      }, {
+        text: 'Job Summary',
+        value: 'summary'
+      }, {
+        text: 'Sort By',
+        value: 'sort'
+      }, {
+        text: 'Techs',
+        value: 'techs'
+      }, {
+        text: 'Time',
+        value: 'time'
+      }, {
+        text: 'Distance',
+        value: 'distance'
+      }, {
+        text: 'Payment',
+        value: 'payment'
+      }, {
+        text: 'Chat',
+        value: 'chat'
+      }, {
+        text: 'Status',
+        value: 'status'
       }],
-      phoneRules: [function (v) {
-        return !!v || "Phone number is required";
-      }, function (v) {
-        return /^\d*$/.test(v) || "Enter valid number";
-      }, function (v) {
-        return v.length >= 10 || "Enter valid number length";
-      }],
-      rules: [function (value) {
-        return !value || value.size < 2000000 || "Avatar size should be less than 2 MB!";
-      }],
-      myFiles: []
+      jobsDetails: [{
+        image: '',
+        summary: 999,
+        sort: '',
+        time: 9,
+        distance: 30,
+        payment: 999,
+        chat: '',
+        status: 'active'
+      }]
     };
   },
+  created: function created() {},
   mounted: function mounted() {
-    var _this = this;
-
-    _services_customer_service__WEBPACK_IMPORTED_MODULE_1__["customerService"].getCustomer(this.$route.params.id).then(function (response) {
-      //handle response
-      if (response.status) {
-        _this.addForm = {
-          id: response.data.id,
-          prefix: response.data.prefix,
-          customer_name: response.data.first_name,
-          phone: response.data.phone,
-          email: response.data.email,
-          city: response.data.city,
-          province: response.data.state,
-          country: response.data.country,
-          user_image: response.data.user_image,
-          address: response.data.address,
-          zipcode: response.data.zip_code,
-          is_active: response.data.is_active
-        };
-
-        if (response.data.user_image) {
-          _this.avatar = _this.imgUrl + response.data.user_image;
-        } else {
-          _this.avatar = "/images/avatar.png";
-        }
-      } else {
-        _this.$toast.open({
-          message: response.message,
-          type: "error",
-          position: "top-right"
-        });
-      }
-    });
-  },
-  computed: {
-    serverOptions: function serverOptions() {
-      var currentUser = JSON.parse(localStorage.getItem("currentUser"));
-      return {
-        url: this.apiUrl,
-        withCredentials: false,
-        process: {
-          url: "uploadImage",
-          headers: {
-            Authorization: "Bearer " + currentUser.data.access_token
-          }
-        }
-      };
-    },
-    url: function url() {
-      if (this.file) {
-        var parsedUrl = new URL(this.file);
-        return [parsedUrl.pathname];
-      } else {
-        return null;
-      }
-    }
+    this.getResults();
   },
   methods: {
-    handleProcessFile: function handleProcessFile(error, file) {
-      this.avatar = this.imgUrl + file.serverId;
-      this.addForm.user_image = file.serverId;
-    },
-    update: function update() {
-      var _this2 = this;
+    getResults: function getResults() {
+      var _this = this;
 
-      if (this.$refs.form.validate()) {
-        _services_customer_service__WEBPACK_IMPORTED_MODULE_1__["customerService"].edit(this.addForm).then(function (response) {
-          //handle response
-          if (response.status) {
-            _this2.$toast.open({
-              message: response.message,
-              type: "success",
-              position: "top-right"
-            }); //redirect to login
-            //router.push("/admin/customer");
-
-          } else {
-            _this2.$toast.open({
-              message: response.message,
-              type: "error",
-              position: "top-right"
-            });
-          }
-        });
-      }
-    },
-    Delete: function Delete() {}
+      _services_job_service__WEBPACK_IMPORTED_MODULE_1__["jobService"].joblist().then(function (response) {
+        //handle response
+        if (response.status) {
+          _this.alljobs = response.data;
+          console.log(_this.alljobs);
+        } else {
+          _this.$toast.open({
+            message: response.message,
+            type: "error",
+            position: "top-right"
+          });
+        }
+      });
+    }
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/company/tab/info.vue?vue&type=template&id=a3349bf6&":
-/*!*************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/company/tab/info.vue?vue&type=template&id=a3349bf6& ***!
-  \*************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/jobs/tab/UnpaidJobs.vue?vue&type=template&id=50ec49da&":
+/*!****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/jobs/tab/UnpaidJobs.vue?vue&type=template&id=50ec49da& ***!
+  \****************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -279,371 +152,83 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "v-app",
+    "v-container",
+    {
+      staticClass: "pt-0",
+      attrs: { id: "dashboard", fluid: "", tag: "section" }
+    },
     [
       _c(
-        "v-container",
+        "v-row",
         [
-          _c(
-            "v-row",
-            [
-              _c(
-                "v-col",
-                { attrs: { cols: "12", md: "12" } },
-                [
-                  _c(
-                    "v-form",
-                    {
-                      ref: "form",
-                      attrs: { "lazy-validation": "" },
-                      model: {
-                        value: _vm.valid,
-                        callback: function($$v) {
-                          _vm.valid = $$v
-                        },
-                        expression: "valid"
-                      }
-                    },
-                    [
-                      _c(
-                        "v-row",
-                        [
-                          _c(
-                            "v-col",
-                            { attrs: { cols: "12", md: "12" } },
-                            [
-                              _c(
-                                "v-row",
-                                [
-                                  _c(
-                                    "v-col",
-                                    { attrs: { cols: "12", md: "12" } },
-                                    [
-                                      _c(
-                                        "div",
-                                        {
-                                          staticClass:
-                                            "v-avatar v-list-item__avatar",
-                                          staticStyle: {
-                                            height: "40px",
-                                            "min-width": "40px",
-                                            width: "40px"
-                                          }
-                                        },
-                                        [
-                                          _c("img", {
-                                            attrs: { src: _vm.avatar }
-                                          })
-                                        ]
-                                      ),
-                                      _vm._v(" "),
-                                      _c("file-pond", {
-                                        ref: "pond",
-                                        attrs: {
-                                          name: "uploadImage",
-                                          "label-idle": "Add Profile pic...",
-                                          "allow-multiple": "false",
-                                          server: _vm.serverOptions,
-                                          files: _vm.myFiles,
-                                          "allow-file-type-validation": "true",
-                                          "accepted-file-types":
-                                            "image/jpeg, image/png"
-                                        },
-                                        on: {
-                                          processfile: _vm.handleProcessFile
-                                        }
-                                      })
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-col",
-                                    { attrs: { cols: "3", md: "3" } },
-                                    [
-                                      _c("v-select", {
-                                        attrs: {
-                                          items: _vm.prefixs,
-                                          label: "Prefix",
-                                          rules: [
-                                            function(v) {
-                                              return !!v || "Prefix is required"
-                                            }
-                                          ]
-                                        },
-                                        model: {
-                                          value: _vm.addForm.prefix,
-                                          callback: function($$v) {
-                                            _vm.$set(_vm.addForm, "prefix", $$v)
-                                          },
-                                          expression: "addForm.prefix"
-                                        }
-                                      })
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-col",
-                                    { attrs: { cols: "3", md: "3" } },
-                                    [
-                                      _c("v-text-field", {
-                                        attrs: {
-                                          label: "Name",
-                                          required: "",
-                                          rules: [
-                                            function(v) {
-                                              return (
-                                                !!v ||
-                                                "Customer name is required"
-                                              )
-                                            }
-                                          ]
-                                        },
-                                        model: {
-                                          value: _vm.addForm.customer_name,
-                                          callback: function($$v) {
-                                            _vm.$set(
-                                              _vm.addForm,
-                                              "customer_name",
-                                              $$v
-                                            )
-                                          },
-                                          expression: "addForm.customer_name"
-                                        }
-                                      })
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-col",
-                                    { attrs: { cols: "3", md: "3" } },
-                                    [
-                                      _c("v-text-field", {
-                                        attrs: {
-                                          rules: _vm.emailRules,
-                                          name: "email",
-                                          label: "E-mail",
-                                          required: ""
-                                        },
-                                        model: {
-                                          value: _vm.addForm.email,
-                                          callback: function($$v) {
-                                            _vm.$set(_vm.addForm, "email", $$v)
-                                          },
-                                          expression: "addForm.email"
-                                        }
-                                      })
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-col",
-                                    { attrs: { cols: "3", md: "3" } },
-                                    [
-                                      _c("v-text-field", {
-                                        attrs: {
-                                          rules: _vm.phoneRules,
-                                          label: "Phone",
-                                          required: "",
-                                          maxlength: "10"
-                                        },
-                                        model: {
-                                          value: _vm.addForm.phone,
-                                          callback: function($$v) {
-                                            _vm.$set(_vm.addForm, "phone", $$v)
-                                          },
-                                          expression: "addForm.phone"
-                                        }
-                                      })
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-col",
-                                    { attrs: { cols: "3", md: "3" } },
-                                    [
-                                      _c("v-text-field", {
-                                        attrs: {
-                                          label: "Address",
-                                          required: "",
-                                          rules: [
-                                            function(v) {
-                                              return (
-                                                !!v || "address is required"
-                                              )
-                                            }
-                                          ]
-                                        },
-                                        model: {
-                                          value: _vm.addForm.address,
-                                          callback: function($$v) {
-                                            _vm.$set(
-                                              _vm.addForm,
-                                              "address",
-                                              $$v
-                                            )
-                                          },
-                                          expression: "addForm.address"
-                                        }
-                                      })
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-col",
-                                    { attrs: { cols: "3", md: "3" } },
-                                    [
-                                      _c("v-text-field", {
-                                        attrs: {
-                                          label: "City",
-                                          required: "",
-                                          rules: [
-                                            function(v) {
-                                              return !!v || "City is required"
-                                            }
-                                          ]
-                                        },
-                                        model: {
-                                          value: _vm.addForm.city,
-                                          callback: function($$v) {
-                                            _vm.$set(_vm.addForm, "city", $$v)
-                                          },
-                                          expression: "addForm.city"
-                                        }
-                                      })
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-col",
-                                    { attrs: { cols: "3", md: "3" } },
-                                    [
-                                      _c("v-text-field", {
-                                        attrs: {
-                                          label: "Province",
-                                          required: "",
-                                          rules: [
-                                            function(v) {
-                                              return (
-                                                !!v || "Province is required"
-                                              )
-                                            }
-                                          ]
-                                        },
-                                        model: {
-                                          value: _vm.addForm.province,
-                                          callback: function($$v) {
-                                            _vm.$set(
-                                              _vm.addForm,
-                                              "province",
-                                              $$v
-                                            )
-                                          },
-                                          expression: "addForm.province"
-                                        }
-                                      })
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-col",
-                                    { attrs: { cols: "3", md: "3" } },
-                                    [
-                                      _c("v-text-field", {
-                                        attrs: {
-                                          rules: [
-                                            function(v) {
-                                              return (
-                                                !!v || "Zip code is required"
-                                              )
-                                            }
-                                          ],
-                                          label: "zipcode",
-                                          required: ""
-                                        },
-                                        model: {
-                                          value: _vm.addForm.zipcode,
-                                          callback: function($$v) {
-                                            _vm.$set(
-                                              _vm.addForm,
-                                              "zipcode",
-                                              $$v
-                                            )
-                                          },
-                                          expression: "addForm.zipcode"
-                                        }
-                                      })
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-col",
-                                    { attrs: { cols: "3", md: "3" } },
-                                    [
-                                      _c("v-switch", {
-                                        staticClass: "mx-2",
-                                        attrs: { label: "Is Active" },
-                                        model: {
-                                          value: _vm.addForm.is_active,
-                                          callback: function($$v) {
-                                            _vm.$set(
-                                              _vm.addForm,
-                                              "is_active",
-                                              $$v
-                                            )
-                                          },
-                                          expression: "addForm.is_active"
-                                        }
-                                      })
-                                    ],
-                                    1
-                                  )
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-btn",
-                            {
-                              staticClass: "mr-4 custom-save-btn ml-4",
-                              attrs: { color: "success" },
-                              on: { click: _vm.update }
-                            },
-                            [_vm._v("Submit")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-btn",
-                            {
-                              staticClass: "mr-4 custom-save-btn ml-4",
-                              attrs: { color: "success" },
-                              on: { click: _vm.Delete }
-                            },
-                            [_vm._v("Delete")]
-                          )
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
-            ],
-            1
-          )
+          _c("v-text-field", {
+            staticClass: "search-field",
+            attrs: {
+              "append-icon": "search",
+              label: "Search",
+              "single-line": "",
+              "hide-details": ""
+            },
+            model: {
+              value: _vm.search,
+              callback: function($$v) {
+                _vm.search = $$v
+              },
+              expression: "search"
+            }
+          }),
+          _vm._v(" "),
+          _c("v-data-table", {
+            staticClass: "wd-100",
+            attrs: {
+              headers: _vm.headers,
+              items: _vm.jobsDetails,
+              "hide-default-footer": "",
+              search: _vm.search
+            },
+            scopedSlots: _vm._u([
+              {
+                key: "items",
+                fn: function(props) {
+                  return [
+                    _c("td", [_vm._v(_vm._s(props.item.image))]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "text-xs-right" }, [
+                      _vm._v(_vm._s(props.item.summary))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "text-xs-right" }, [
+                      _vm._v(_vm._s(props.item.sort))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "text-xs-right" }, [
+                      _vm._v(_vm._s(props.item.techs))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "text-xs-right" }, [
+                      _vm._v(_vm._s(props.item.time))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "text-xs-right" }, [
+                      _vm._v(_vm._s(props.item.distance))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "text-xs-right" }, [
+                      _vm._v(_vm._s(props.item.payment))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "text-xs-right" }, [
+                      _vm._v(_vm._s(props.item.chat))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "text-xs-right" }, [
+                      _vm._v(_vm._s(props.item.status))
+                    ])
+                  ]
+                }
+              }
+            ])
+          })
         ],
         1
       )
@@ -658,17 +243,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/admin/company/tab/info.vue":
-/*!************************************************************!*\
-  !*** ./resources/js/components/admin/company/tab/info.vue ***!
-  \************************************************************/
+/***/ "./resources/js/components/admin/jobs/tab/UnpaidJobs.vue":
+/*!***************************************************************!*\
+  !*** ./resources/js/components/admin/jobs/tab/UnpaidJobs.vue ***!
+  \***************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _info_vue_vue_type_template_id_a3349bf6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./info.vue?vue&type=template&id=a3349bf6& */ "./resources/js/components/admin/company/tab/info.vue?vue&type=template&id=a3349bf6&");
-/* harmony import */ var _info_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./info.vue?vue&type=script&lang=js& */ "./resources/js/components/admin/company/tab/info.vue?vue&type=script&lang=js&");
+/* harmony import */ var _UnpaidJobs_vue_vue_type_template_id_50ec49da___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UnpaidJobs.vue?vue&type=template&id=50ec49da& */ "./resources/js/components/admin/jobs/tab/UnpaidJobs.vue?vue&type=template&id=50ec49da&");
+/* harmony import */ var _UnpaidJobs_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UnpaidJobs.vue?vue&type=script&lang=js& */ "./resources/js/components/admin/jobs/tab/UnpaidJobs.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -678,9 +263,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _info_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _info_vue_vue_type_template_id_a3349bf6___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _info_vue_vue_type_template_id_a3349bf6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _UnpaidJobs_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _UnpaidJobs_vue_vue_type_template_id_50ec49da___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _UnpaidJobs_vue_vue_type_template_id_50ec49da___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -690,38 +275,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/admin/company/tab/info.vue"
+component.options.__file = "resources/js/components/admin/jobs/tab/UnpaidJobs.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/admin/company/tab/info.vue?vue&type=script&lang=js&":
-/*!*************************************************************************************!*\
-  !*** ./resources/js/components/admin/company/tab/info.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************/
+/***/ "./resources/js/components/admin/jobs/tab/UnpaidJobs.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/components/admin/jobs/tab/UnpaidJobs.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_info_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./info.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/company/tab/info.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_info_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UnpaidJobs_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./UnpaidJobs.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/jobs/tab/UnpaidJobs.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UnpaidJobs_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/admin/company/tab/info.vue?vue&type=template&id=a3349bf6&":
-/*!*******************************************************************************************!*\
-  !*** ./resources/js/components/admin/company/tab/info.vue?vue&type=template&id=a3349bf6& ***!
-  \*******************************************************************************************/
+/***/ "./resources/js/components/admin/jobs/tab/UnpaidJobs.vue?vue&type=template&id=50ec49da&":
+/*!**********************************************************************************************!*\
+  !*** ./resources/js/components/admin/jobs/tab/UnpaidJobs.vue?vue&type=template&id=50ec49da& ***!
+  \**********************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_info_vue_vue_type_template_id_a3349bf6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./info.vue?vue&type=template&id=a3349bf6& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/company/tab/info.vue?vue&type=template&id=a3349bf6&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_info_vue_vue_type_template_id_a3349bf6___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UnpaidJobs_vue_vue_type_template_id_50ec49da___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./UnpaidJobs.vue?vue&type=template&id=50ec49da& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/jobs/tab/UnpaidJobs.vue?vue&type=template&id=50ec49da&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UnpaidJobs_vue_vue_type_template_id_50ec49da___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_info_vue_vue_type_template_id_a3349bf6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UnpaidJobs_vue_vue_type_template_id_50ec49da___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
