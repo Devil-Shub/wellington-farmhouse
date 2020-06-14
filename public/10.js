@@ -93,7 +93,6 @@ __webpack_require__.r(__webpack_exports__);
         //handle response
         if (response.status) {
           _this.alljobs = response.data;
-          console.log(_this.alljobs);
         } else {
           _this.$toast.open({
             message: response.message,

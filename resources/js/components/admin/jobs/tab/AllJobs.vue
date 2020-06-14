@@ -79,7 +79,6 @@ export default {
         //handle response
         if (response.status) {
           this.alljobs = response.data;
-	console.log(this.alljobs)
         } else {
           this.$toast.open({
             message: response.message,

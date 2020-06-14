@@ -323,6 +323,32 @@ class JobsController extends Controller
         ], 200);
     }
 
+   /**
+     * get single jobs
+     */
+    public function getSingleJob(Request $request)
+    {
+        $getSingleJobs = Job::with(
+            "customer",
+            "manager",
+            "farm",
+            "service",
+            "timeslots",
+            "truck",
+            "skidsteer",
+            "truck_driver",
+            "skidsteer_driver"
+        )
+            ->whereId($request->job_id)
+            ->first();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'single job Details',
+            'data' => $getSingleJobs
+        ], 200);
+    }
+
     /**
      * get job
      */
