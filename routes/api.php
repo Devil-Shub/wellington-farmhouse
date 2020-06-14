@@ -101,8 +101,6 @@ Route::group(['prefix' => 'auth'], function () {
             Route::get('repeating-job-list', 'JobsController@getRepeatingJob');
             Route::get('unpaid-job-list', 'JobsController@getUnpaidJob');
 
-            Route::get('/users', 'JobsController@getUsers');
-
             //stripe
             Route::post('stripe-charge', 'PaymentController@stripeCharge');
         });
