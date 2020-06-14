@@ -11061,8 +11061,21 @@ a.text-dark:focus {
   display: inline-block;
 }
 
+#app .disabled-tag > .v-input__control > .v-input__slot:before,
+#app .disabled-tag > .v-input__control > .v-input__slot:after {
+  display: none;
+}
+
 #app .form-layout .col-sm-3 {
   margin-left: -4px;
+}
+
+#app .ml-m4 {
+  margin-left: -4px;
+}
+
+#app .ft-normal {
+  font-weight: 300;
 }
 
 #app .primary--text {
