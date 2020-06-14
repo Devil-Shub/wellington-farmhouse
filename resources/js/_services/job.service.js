@@ -16,6 +16,7 @@ export const jobService = {
   listService,
   servicesTimeSlots,
   createJob,
+  singleJob,
   joblist,
   apiUrl: environment.apiUrl,
   currentUrl: '',
@@ -107,6 +108,19 @@ function getFrams(data) {
 function joblist() {
   return fetch(
     this.apiUrl+`admin/job-list`,
+    requestOptions.get()
+  )
+    .then(handleResponse)
+    .then(user => {
+      // store user details and passport token in local storage to keep user logged in between page refreshes
+
+      return user;
+    });
+}
+
+function singleJob(job_id) {
+  return fetch(
+    this.apiUrl+`admin/single-job/`+job_id,
     requestOptions.get()
   )
     .then(handleResponse)

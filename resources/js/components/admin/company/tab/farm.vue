@@ -2,106 +2,11 @@
   <v-app>
     <v-container>
       <v-row>
-        <h2>Add Customer</h2>
         <v-col cols="12" md="12">
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-row>
               <v-col cols="12" md="12">
-               <v-row>
-                <v-col cols="12" md="12">
-               <div
-                class="v-avatar v-list-item__avatar"
-                style="height: 40px; min-width: 40px; width: 40px;"
-              >
-                <img :src="customer_img" />
-              </div>
-                  <file-pond
-                    name="uploadImage"
-                    ref="pond"
-                    label-idle="Add Profile pic..."
-                    allow-multiple="false"
-                    v-bind:server="serverOptions"
-                    v-bind:files="myFiles"
-                    allow-file-type-validation="true"
-                    accepted-file-types="image/jpeg, image/png"
-                    v-on:processfile="handleProcessFile"
-                  />
-                </v-col>
-		<v-col cols="3" md="3">
-		 <v-select 
-		  v-model="addForm.prefix"
-		  :items="prefixs"
-		  label="Prefix"
-	          :rules="[v => !!v || 'Prefix is required']"
-		  dense
-		></v-select>
-		</v-col>
-                <v-col cols="3" md="3">
-                  <v-text-field
-                    v-model="addForm.customer_name"
-                    label="Name"
-                    required
-                    :rules="[v => !!v || 'Customer name is required']"
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="3" md="3">
-                  <v-text-field
-                    v-model="addForm.email"
-                    :rules="emailRules"
-                    name="email"
-                    label="E-mail"
-                    required
-                  ></v-text-field>
-                </v-col>
-                 <v-col cols="3" md="3">
-                  <v-text-field
-                    v-model="addForm.phone"
-                    :rules="phoneRules"
-                    label="Phone"
-                    required
-                    maxlength="10"
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="3" md="3">
-                  <v-text-field
-                    v-model="addForm.address"
-                    label="Address"
-                    required
-                    :rules="[v => !!v || 'address is required']"
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="3" md="3">
-                  <v-text-field
-                    v-model="addForm.city"
-                    label="City"
-                    required
-                    :rules="[v => !!v || 'City is required']"
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="3" md="3">
-                  <v-text-field
-                    v-model="addForm.province"
-                    label="Province"
-                    required
-                    :rules="[v => !!v || 'Province is required']"
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="3" md="3">
-                  <v-text-field
-                    v-model="addForm.zipcode"
-                    :rules="[v => !!v || 'Zip code is required']"
-                    label="zipcode"
-                    required
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="3" md="3">
-               <v-switch v-model="addForm.is_active" class="mx-2" label="Is Active" ></v-switch>
-                </v-col>
-               </v-row>
-              </v-col>
-
-              <v-col cols="12" md="12">
-                <h3>Farm Section</h3>
+                <h4 class="main-title">Farm Section</h4>
                 <v-row>
                   <v-col cols="12" md="12">
                     <file-pond
@@ -120,7 +25,7 @@
                     <vue-google-autocomplete
                       ref="address"
                       id="map"
-                      class="form-control"
+                      class="form-control mt-4"
                       placeholder="Please type your address"
                       v-on:placechanged="getAddressData"
                       country="us"
@@ -168,7 +73,7 @@
               <h3>Manager Details</h3>
 		 <v-row>
                 <v-col cols="12" md="12">
- <div
+                <div
                 class="v-avatar v-list-item__avatar"
                 style="height: 40px; min-width: 40px; width: 40px;"
               >
@@ -192,7 +97,7 @@
 		  :items="prefixs"
 		  label="Prefix"
 	          :rules="[v => !!v || 'Prefix is required']"
-		  dense
+		  
 		></v-select>
 		</v-col>
                 <v-col cols="3" md="3">
@@ -276,8 +181,7 @@
                 </v-col>
                </v-row>            
               </v-col>
-
-              <v-btn color="success" class="mr-4" @click="update">Submit</v-btn>
+              <v-btn color="success" class="mr-4 custom-save-btn ml-4" @click="update">Submit</v-btn>
             </v-row>
           </v-form>
         </v-col>
@@ -288,9 +192,9 @@
 
 <script>
 import { required } from "vuelidate/lib/validators";
-import { companyService } from "../../../_services/company.service";
-import { router } from "../../../_helpers/router";
-import { environment } from "../../../config/test.env";
+import { customerService } from "../../../../_services/customer.service";
+import { router } from "../../../../_helpers/router";
+import { environment } from "../../../../config/test.env";
 import VueGoogleAutocomplete from "vue-google-autocomplete";
 export default {
   components: {
@@ -304,25 +208,11 @@ export default {
     items: [],
     model: null,
       valid: true,
-      avatar: null,
-      menu2: false,
-      menu1: false,
-      date: "",
-      date1: "",
-      customer_img: "",
       manager_img: "",
       apiUrl: environment.apiUrl,
+      
       addForm: {
-        prefix: "",
-        customer_name: "",
-        email: "",
-        phone: "",
-        address: "",
-        city: "",
-        province: "",
-        user_image: null,
-        zipcode: '',
-        is_active: true,
+        farm_id: '',
         farm_images: [],
         latitude: '',
 	longitude: '',
@@ -332,6 +222,7 @@ export default {
 	farm_province: '',
 	farm_zipcode: '',
 	farm_active: true,
+        manager_id: '',
 	manager_image: '',
 	manager_prefix: '',
 	manager_name: '',
@@ -342,9 +233,7 @@ export default {
 	manager_province: '',
 	manager_zipcode: '',
 	manager_id_card: '',
-	manager_card_image: '',
-	customer_role: 6,
-        manager_role: 7,
+	manager_card_image: ''
       },
       emailRules: [
         v => !!v || "E-mail is required",
@@ -366,6 +255,18 @@ export default {
   },
   mounted() {
     this.$refs.address.focus();
+    customerService.getCustomer(this.$route.params.id).then(response => {
+    //handle response
+      if (response.status) {
+   	console.log(response.data.customer_manager)
+      } else {
+        this.$toast.open({
+          message: response.message,
+          type: "error",
+          position: "top-right"
+        });
+      }
+    });
   },
   computed: {
     serverOptions() {
@@ -391,21 +292,15 @@ export default {
     }
   },
   created() {
-    this.customer_img = "/images/avatar.png";
     this.manager_image = "/images/avatar.png";
   },
   methods: {
     getAddressData: function(addressData, placeResultData, id) {
-      console.log(addressData.route)
       this.addForm.latitude = addressData.latitude;
       this.addForm.longitude = addressData.longitude;
       this.addForm.farm_address = addressData.route;
     },
-    handleProcessFile: function(error, file) {
-       this.customer_img = "../../"+file.serverId;
-      this.addForm.user_image = file.serverId;
-    },
-  //farm images process
+   //farm images process
    handleProcessFile1: function(error, file) {
       this.addForm.farm_images.push(file.serverId);
     },
@@ -422,7 +317,7 @@ export default {
     update() {
       console.log(this.addForm);
       if (this.$refs.form.validate()) {
-        companyService.add(this.addForm).then(response => {
+        customerService.add(this.addForm).then(response => {
           //handle response
           if (response.status) {
             this.$toast.open({
@@ -431,7 +326,7 @@ export default {
               position: "top-right"
             });
             //redirect to login
-            router.push("/admin/company");
+            //router.push("/admin/customer");
           } else {
             this.$toast.open({
               message: response.message,

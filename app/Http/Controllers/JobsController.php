@@ -176,6 +176,7 @@ class JobsController extends Controller
             "manager",
             "farm",
             "service",
+            "timeslots",
             "truck",
             "skidsteer",
             "truck_driver",
@@ -199,6 +200,7 @@ class JobsController extends Controller
             "manager",
             "farm",
             "service",
+            "timeslots",
             "truck",
             "skidsteer",
             "truck_driver",
@@ -227,6 +229,7 @@ class JobsController extends Controller
             "manager",
             "farm",
             "service",
+            "timeslots",
             "truck",
             "skidsteer",
             "truck_driver",
@@ -252,6 +255,7 @@ class JobsController extends Controller
             "manager",
             "farm",
             "service",
+            "timeslots",
             "truck",
             "skidsteer",
             "truck_driver",
@@ -277,6 +281,7 @@ class JobsController extends Controller
             "manager",
             "farm",
             "service",
+            "timeslots",
             "truck",
             "skidsteer",
             "truck_driver",
@@ -302,6 +307,7 @@ class JobsController extends Controller
             "manager",
             "farm",
             "service",
+            "timeslots",
             "truck",
             "skidsteer",
             "truck_driver",
@@ -314,6 +320,32 @@ class JobsController extends Controller
             'status' => true,
             'message' => 'job Details',
             'data' => $getAllJobs
+        ], 200);
+    }
+
+   /**
+     * get single jobs
+     */
+    public function getSingleJob(Request $request)
+    {
+        $getSingleJobs = Job::with(
+            "customer",
+            "manager",
+            "farm",
+            "service",
+            "timeslots",
+            "truck",
+            "skidsteer",
+            "truck_driver",
+            "skidsteer_driver"
+        )
+            ->whereId($request->job_id)
+            ->first();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'single job Details',
+            'data' => $getSingleJobs
         ], 200);
     }
 
@@ -335,28 +367,5 @@ class JobsController extends Controller
             'message' => $message,
             'data' => $data
         ], 200);
-    }
-
-
-    public function getUsers(Request $request)
-    {
-        if ($request->input('showdata')) {
-            return User::orderBy('created_at', 'desc')->get();
-        }
-        $columns = ['first_name', 'email', 'created_at'];
-        $length = $request->input('length');
-        $column = $request->input('column');
-        $search_input = $request->input('search');
-        $query = User::select('first_name', 'email', 'created_at')
-            ->orderBy($columns[$column]);
-        if ($search_input) {
-            $query->where(function ($query) use ($search_input) {
-                $query->where('first_name', 'like', '%' . $search_input . '%')
-                    ->orWhere('email', 'like', '%' . $search_input . '%')
-                    ->orWhere('created_at', 'like', '%' . $search_input . '%');
-            });
-        }
-        $users = $query->paginate($length);
-        return ['data' => $users];
     }
 }

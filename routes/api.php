@@ -85,7 +85,7 @@ Route::group(['prefix' => 'auth'], function () {
             Route::get('get-customer/{customer_id}', 'CustomerController@getCustomer');
             Route::post('update-customer/{customer_id}', 'CustomerController@updateCustomer');
             Route::get('card-list/{customer_id}', 'CustomerController@getAllCard');
-           Route::get('record-list/{customer_id}', 'CustomerController@getAllRecords');
+            Route::get('record-list/{customer_id}', 'CustomerController@getAllRecords');
             //Route::delete('delete-driver/{driver_id}', 'CustomerController@deleteDriver');
 
             //jobs
@@ -100,8 +100,7 @@ Route::group(['prefix' => 'auth'], function () {
             Route::get('open-job-list', 'JobsController@getOpenJob');
             Route::get('repeating-job-list', 'JobsController@getRepeatingJob');
             Route::get('unpaid-job-list', 'JobsController@getUnpaidJob');
-
-            Route::get('/users', 'JobsController@getUsers');
+            Route::get('single-job/{job_id}', 'JobsController@getSingleJob');
 
             //stripe
             Route::post('stripe-charge', 'PaymentController@stripeCharge');

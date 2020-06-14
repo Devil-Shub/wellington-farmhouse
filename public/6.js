@@ -60,6 +60,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -70,41 +78,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      tab: null,
-      search: "",
-      headers: [{
-        text: "Sno",
-        align: "left",
-        sortable: false,
-        value: "index"
-      }, {
-        text: "Job Summary",
-        value: ""
-      }, {
-        text: "Sort by",
-        value: ""
-      }, {
-        text: "Tech",
-        value: ""
-      }, {
-        text: "Time",
-        value: ""
-      }, {
-        text: "Distance",
-        value: ""
-      }, {
-        text: "Payment",
-        value: ""
-      }, {
-        text: "Chat",
-        value: ""
-      }, {
-        text: "Status",
-        value: ""
-      }],
-      items: [],
-      customers: [],
-      alljobs: []
+      alljobs: ''
     };
   },
   created: function created() {},
@@ -119,7 +93,6 @@ __webpack_require__.r(__webpack_exports__);
         //handle response
         if (response.status) {
           _this.alljobs = response.data;
-          console.log(_this.alljobs);
         } else {
           _this.$toast.open({
             message: response.message,
@@ -129,6 +102,13 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     }
+  },
+  updated: function updated() {
+    setTimeout(function () {
+      $(document).ready(function () {
+        $('#example').DataTable();
+      });
+    }, 1000);
   }
 });
 
@@ -159,32 +139,172 @@ var render = function() {
       _c(
         "v-row",
         [
-          _c("v-text-field", {
-            staticClass: "search-field",
-            attrs: {
-              "append-icon": "search",
-              label: "Search",
-              "single-line": "",
-              "hide-details": ""
-            },
-            model: {
-              value: _vm.search,
-              callback: function($$v) {
-                _vm.search = $$v
+          _c("v-col", { attrs: { sm: "12", cols: "12" } }, [
+            _c(
+              "table",
+              {
+                staticClass: "table table-striped table-bordered",
+                staticStyle: { width: "100%" },
+                attrs: { id: "example" }
               },
-              expression: "search"
-            }
-          }),
-          _vm._v(" "),
-          _c("v-data-table", {
-            staticClass: "wd-100",
-            attrs: {
-              headers: _vm.headers,
-              items: _vm.alljobs,
-              "hide-default-footer": "",
-              search: _vm.search
-            }
-          })
+              [
+                _c("thead", [
+                  _c("tr", [
+                    _c("th", [_vm._v("Sno")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Job Summary")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Sort By")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Techs")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Time")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Distance")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Payment")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Chat")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Status")])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.alljobs, function(job) {
+                    return _c("tr", [
+                      _c("td", [_vm._v("1")]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(_vm._s(job.start_date)),
+                        _c("br"),
+                        _vm._v(" " + _vm._s(job.id) + " "),
+                        _c("br"),
+                        _vm._v("$" + _vm._s(job.job_amount) + " "),
+                        _c("br"),
+                        _vm._v(_vm._s(job.service.service_name))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(_vm._s(job.customer.first_name)),
+                        _c("br"),
+                        _vm._v(" " + _vm._s(job.manager.first_name) + " "),
+                        _c("br"),
+                        _vm._v(" " + _vm._s(job.manager.phone) + " "),
+                        _c("br"),
+                        _vm._v(_vm._s(job.manager.email) + "\n"),
+                        _c("br"),
+                        _vm._v(
+                          _vm._s(job.manager.address) +
+                            " " +
+                            _vm._s(job.manager.city) +
+                            " " +
+                            _vm._s(job.manager.state) +
+                            " " +
+                            _vm._s(job.manager.country) +
+                            " " +
+                            _vm._s(job.manager.zip_code) +
+                            "\n"
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        [
+                          _vm._v("\nTruck Driver Name"),
+                          _c("br"),
+                          job.truck_driver
+                            ? [_vm._v(_vm._s(job.truck_driver.first_name))]
+                            : _vm._e(),
+                          !job.truck_driver
+                            ? [_vm._v("Not Assigned Yet")]
+                            : _vm._e(),
+                          _vm._v("\nTruck Number"),
+                          _c("br"),
+                          job.truck
+                            ? [_vm._v(_vm._s(job.truck.truck_number))]
+                            : _vm._e(),
+                          !job.truck ? [_vm._v("Not Assigned Yet")] : _vm._e(),
+                          _vm._v("\n\nskidsteer Driver Name"),
+                          _c("br"),
+                          job.skidsteer_driver
+                            ? [_vm._v(_vm._s(job.skidsteer_driver.first_name))]
+                            : _vm._e(),
+                          !job.skidsteer_driver
+                            ? [_vm._v("Not Assigned Yet")]
+                            : _vm._e(),
+                          _vm._v("\nskidsteer Number"),
+                          _c("br"),
+                          job.skidsteer
+                            ? [_vm._v(_vm._s(job.skidsteer.truck_number))]
+                            : _vm._e(),
+                          !job.skidsteer
+                            ? [_vm._v("Not Assigned Yet")]
+                            : _vm._e()
+                        ],
+                        2
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        [
+                          _vm._v("\nStart Time"),
+                          _c("br"),
+                          [_vm._v("9:30 pm")],
+                          _vm._v("\nEnd Time"),
+                          _c("br"),
+                          [_vm._v("12:30 Pm")],
+                          _vm._v("\nTime Taken"),
+                          _c("br"),
+                          [_vm._v("3")]
+                        ],
+                        2
+                      ),
+                      _vm._v(" "),
+                      _c("td", [_vm._v("3000 dummy")]),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        [
+                          job.payment_status ? [_vm._v("Paid")] : _vm._e(),
+                          _vm._v(" "),
+                          !job.payment_status ? [_vm._v("Unpaid")] : _vm._e()
+                        ],
+                        2
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        [
+                          _c(
+                            "router-link",
+                            {
+                              staticClass: "nav-item nav-link",
+                              attrs: { to: "/admin/jobs/chart/" + job.id }
+                            },
+                            [_vm._v("View chat")]
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        [
+                          !job.job_status ? [_vm._v("Open")] : _vm._e(),
+                          _vm._v(" "),
+                          job.job_status ? [_vm._v("Close")] : _vm._e()
+                        ],
+                        2
+                      )
+                    ])
+                  }),
+                  0
+                )
+              ]
+            )
+          ])
         ],
         1
       )

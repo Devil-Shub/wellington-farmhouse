@@ -296,7 +296,7 @@ class CustomerController extends Controller
         'created_at', '=', Carbon::now()->subMonth(12))->sum('amount');
 	$totaljobs = Job::where('customer_id', $request->customer_id)->count();
 	$memebersince = User::whereId($request->customer_id)->pluck('created_at');
-        $jobs = Job::where('customer_id', $request->customer_id)->with(['farm', 'truck_driver', 'skidsteer_driver'])->get();
+        $jobs = Job::where('customer_id', $request->customer_id)->with(['farm', 'truck_driver', 'skidsteer_driver', 'service'])->get();
 	$records = array(
 	 	'monthamount'=>$monthamount,
 		'allamount' => $allamount,
