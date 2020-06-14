@@ -6,41 +6,49 @@
     class="pt-0"
   >
     <v-row>
+ <v-col sm="12" cols="12">
       <!-- all jobs -->
-   <v-text-field
-            v-model="search"
-            append-icon="search"
-            label="Search"
-            single-line
-            hide-details
-            class="search-field"
-          ></v-text-field>
-             <v-data-table
-                      :headers="headers"
-                      :items="alljobs"
-                      hide-default-footer
-		     :search="search"
-                      class="wd-100"
-                    >
-                      <!-- <template slot="items" slot-scope="props">
-                        <td class="text-xs-right">{{ props.index }}</td>
-                        <td class="text-xs-right">
-		         <template v-slot:item.id="{ item }">
-		            <span class="custom-action-btn"> 
-				<router-link :to="'/admin/customer/farms/' +item.id">{{ props.item.first_name }}</router-link>
-			    </span>
-		          </template>
-                        </td>
-                        <td class="text-xs-right">{{ props.item.phone }}</td>
-                        <td class="text-xs-right">{{ props.item.email }}</td>
-                        <td class="text-xs-right">{{ props.item. }}</td>
-                        <td class="text-xs-right">{{ props.item. }}</td>
-                        <td class="text-xs-right">{{ props.item. }}</td>
-                        <td class="text-xs-right">{{ props.item. }}</td>
-                        <td class="text-xs-right">0</td>
-                        <td class="text-xs-right">05/07/2020</td>
-                      </template> -->
-                    </v-data-table>
+  	    <table id="example" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr>
+                <th>Sno</th>
+                <th>Job Summary</th>
+                <th>Sort By</th>
+                <th>Techs</th>
+                <th>Time</th>
+		 <th>Distance</th>
+		<th>Payment</th>
+                <th>Chat</th>
+	        <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+    <tr  v-for="job in alljobs">
+<td>1</td>
+	<td>{{job.start_date}} {{job.id}} {{job.job_amount}} {{job.service.service_name}}</td>
+	<td>{{job.customer.first_name}} {{job.manager.first_name}} {{job.manager.first_name}} {{job.manager.phone}} {{job.manager.email}}
+{{job.manager.address}} {{job.manager.city}} {{job.manager.state}} {{job.manager.country}} {{job.manager.zip_code}}
+</td>
+<td>
+Truck Driver Name<br><template v-if="job.truck_driver">{{job.truck_driver.first_name}}</template><template v-if="!job.truck_driver">Not Assigned Yet</template>
+Truck Number<br><template v-if="job.truck">{{job.truck.truck_number}}</template><template v-if="!job.truck">Not Assigned Yet</template>
+
+skidsteer Driver Name<br><template v-if="job.skidsteer_driver">{{job.skidsteer_driver.first_name}}</template><template v-if="!job.skidsteer_driver">Not Assigned Yet</template>
+skidsteer Number</br><template v-if="job.skidsteer">{{job.skidsteer.truck_number}}</template><template v-if="!job.skidsteer">Not Assigned Yet</template>
+</td>
+<td>
+Start Time<br><template>9:30 Pm</template>
+End Time<br><template>12:30 Pm</template>
+Time Taken<br><template>3</template>
+</td>
+<td>3000 dummy</td>
+<td><template v-if="job.payment_status">Paid</template> <template v-if="!job.payment_status">Unpaid</template></td>
+<td>chat</td>
+<td><template v-if="job.job_status">Open</template> <template v-if="!job.job_status">Close</template></td>
+                </tr>
+</tbody>
+    </table>
+</v-col>
     </v-row>
   </v-container>
 </template>
@@ -56,27 +64,7 @@ export default {
   },
   data() {
     return {
-      tab: null,
-      search:"",
-            headers: [
-        {
-          text: "Sno",
-          align: "left",
-          sortable: false,
-          value: "index"
-        },
-        { text: "Job Summary", value: "" },
-        { text: "Sort by", value: "" },
-        { text: "Tech", value: "" },
-        { text: "Time",  value: "" },
-        { text: "Distance", value: "" },
-        { text: "Payment", value: "" },
-        { text: "Chat", value: "" },
-        { text: "Status", value: "" }
-      ],
-      items: [],
-      customers: [],
-      alljobs:[],
+      alljobs:'',
     };
   },
   created() {
@@ -86,7 +74,7 @@ export default {
     this.getResults();
    },
     methods: {
-           getResults() {
+     getResults() {
       jobService.joblist().then(response => {
         //handle response
         if (response.status) {
@@ -101,6 +89,13 @@ export default {
         }
       });
     }
-}
+},
+updated() {
+setTimeout(function() {
+     $(document).ready(function() {
+	    $('#example').DataTable();
+	} );
+  }, 1000);
+    }
 };
 </script>

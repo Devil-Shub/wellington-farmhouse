@@ -12,7 +12,6 @@ const currentUserSubject = new BehaviorSubject(
 export const customerService = {
   add,
   edit,
-  Delete,
   getCustomer,
   listCustomer,
   getCustomerCard,
@@ -51,19 +50,6 @@ function edit(data) {
       return user;
     });
 }
-function Delete(data) {
-  return fetch(
-    this.apiUrl+`admin/delete-manager/`+data,
-    requestOptions.get()
-  )
-    .then(handleResponse)
-    .then(user => {
-      // store user details and passport token in local storage to keep user logged in between page refreshes
-
-      return user;
-    });
-}
-
 function listCustomer(){
       return fetch(
     this.apiUrl+`admin/list-customer`,

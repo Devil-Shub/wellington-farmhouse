@@ -12,9 +12,10 @@ const currentUserSubject = new BehaviorSubject(
 export const companyService = {
   add,
   edit,
-  Delete,
-  getManager,
-  listCompany,
+  getCustomer,
+  listCustomer,
+  getCustomerCard,
+  getCustomerRecord,
   apiUrl: environment.apiUrl,
   currentUrl: '',
   currentUser: currentUserSubject.asObservable(),
@@ -37,9 +38,9 @@ function add(data) {
     });
 }
 
-function edit(data, managerId) {
+function edit(data) {
   return fetch(
-    this.apiUrl+`admin/update-manager/`+managerId,
+    this.apiUrl+`admin/update-customer/`+data.id,
     requestOptions.post(data)
   )
     .then(handleResponse)
@@ -49,20 +50,9 @@ function edit(data, managerId) {
       return user;
     });
 }
-function Delete(data) {
-  return fetch(
-    this.apiUrl+`admin/delete-manager/`+data,
-    requestOptions.get()
-  )
-    .then(handleResponse)
-    .then(user => {
-      // store user details and passport token in local storage to keep user logged in between page refreshes
 
-      return user;
-    });
-}
 
-function listCompany(){
+function listCustomer(){
       return fetch(
     this.apiUrl+`admin/list-customer`,
     requestOptions.get()
@@ -74,9 +64,9 @@ function listCompany(){
       return user;
     });
 }
-function getManager(data) {
+function getCustomer(data) {
   return fetch(
-    this.apiUrl+`admin/get-manager/`+data,
+    this.apiUrl+`admin/get-customer/`+data,
     requestOptions.get()
   )
     .then(handleResponse)
@@ -87,3 +77,29 @@ function getManager(data) {
     });
 }
 
+
+function getCustomerCard(data) {
+  return fetch(
+    this.apiUrl+`admin/card-list/`+data,
+    requestOptions.get()
+  )
+    .then(handleResponse)
+    .then(user => {
+      // store user details and passport token in local storage to keep user logged in between page refreshes
+
+      return user;
+    });
+}
+
+function getCustomerRecord(data) {
+  return fetch(
+    this.apiUrl+`admin/record-list/`+data,
+    requestOptions.get()
+  )
+    .then(handleResponse)
+    .then(user => {
+      // store user details and passport token in local storage to keep user logged in between page refreshes
+
+      return user;
+    });
+}
