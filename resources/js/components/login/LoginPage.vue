@@ -98,7 +98,7 @@ name: "login",
 				}
 			}
 		   }else{
-		      router.push(response);
+		      this.$router.push({name: response}).catch(error => { })
 		  }
           },
           error => {

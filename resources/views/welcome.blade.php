@@ -7,11 +7,15 @@
         <link rel="icon" type="image/png" href="{{ asset('images/farm-house.png') }}"/>
         <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
-
+        <script src='https://api.mapbox.com/mapbox-gl-js/v0.34.0/mapbox-gl.js'></script>
+        <link href='https://api.mapbox.com/mapbox-gl-js/v0.34.0/mapbox-gl.css' rel='stylesheet' />
+ 
         <link href="{{ mix('css/app.css') }}" type="text/css" rel="stylesheet" />
         <meta name="csrf-token" value="{{ csrf_token() }}" />
     </head>
     <body>
+
+
         <div id="app" class="my-app">
           <example-component></example-component>
         </div>
