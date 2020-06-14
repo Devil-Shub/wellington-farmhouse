@@ -178,30 +178,26 @@ var render = function() {
                       _c("td", [_vm._v("1")]),
                       _vm._v(" "),
                       _c("td", [
-                        _vm._v(
-                          _vm._s(job.start_date) +
-                            " " +
-                            _vm._s(job.id) +
-                            " " +
-                            _vm._s(job.job_amount) +
-                            " " +
-                            _vm._s(job.service.service_name)
-                        )
+                        _vm._v(_vm._s(job.start_date)),
+                        _c("br"),
+                        _vm._v(" " + _vm._s(job.id) + " "),
+                        _c("br"),
+                        _vm._v("$" + _vm._s(job.job_amount) + " "),
+                        _c("br"),
+                        _vm._v(_vm._s(job.service.service_name))
                       ]),
                       _vm._v(" "),
                       _c("td", [
+                        _vm._v(_vm._s(job.customer.first_name)),
+                        _c("br"),
+                        _vm._v(" " + _vm._s(job.manager.first_name) + " "),
+                        _c("br"),
+                        _vm._v(" " + _vm._s(job.manager.phone) + " "),
+                        _c("br"),
+                        _vm._v(_vm._s(job.manager.email) + "\n"),
+                        _c("br"),
                         _vm._v(
-                          _vm._s(job.customer.first_name) +
-                            " " +
-                            _vm._s(job.manager.first_name) +
-                            " " +
-                            _vm._s(job.manager.first_name) +
-                            " " +
-                            _vm._s(job.manager.phone) +
-                            " " +
-                            _vm._s(job.manager.email) +
-                            "\n" +
-                            _vm._s(job.manager.address) +
+                          _vm._s(job.manager.address) +
                             " " +
                             _vm._s(job.manager.city) +
                             " " +
@@ -256,7 +252,7 @@ var render = function() {
                         [
                           _vm._v("\nStart Time"),
                           _c("br"),
-                          [_vm._v("9:30 Pm")],
+                          [_vm._v("9:30 pm")],
                           _vm._v("\nEnd Time"),
                           _c("br"),
                           [_vm._v("12:30 Pm")],
@@ -279,14 +275,27 @@ var render = function() {
                         2
                       ),
                       _vm._v(" "),
-                      _c("td", [_vm._v("chat")]),
+                      _c(
+                        "td",
+                        [
+                          _c(
+                            "router-link",
+                            {
+                              staticClass: "nav-item nav-link",
+                              attrs: { to: "/admin/jobs/chart/" + job.id }
+                            },
+                            [_vm._v("View chat")]
+                          )
+                        ],
+                        1
+                      ),
                       _vm._v(" "),
                       _c(
                         "td",
                         [
-                          job.job_status ? [_vm._v("Open")] : _vm._e(),
+                          !job.job_status ? [_vm._v("Open")] : _vm._e(),
                           _vm._v(" "),
-                          !job.job_status ? [_vm._v("Close")] : _vm._e()
+                          job.job_status ? [_vm._v("Close")] : _vm._e()
                         ],
                         2
                       )

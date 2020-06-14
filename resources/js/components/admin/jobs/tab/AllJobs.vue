@@ -25,9 +25,9 @@
         <tbody>
     <tr  v-for="job in alljobs">
 <td>1</td>
-	<td>{{job.start_date}} {{job.id}} {{job.job_amount}} {{job.service.service_name}}</td>
-	<td>{{job.customer.first_name}} {{job.manager.first_name}} {{job.manager.first_name}} {{job.manager.phone}} {{job.manager.email}}
-{{job.manager.address}} {{job.manager.city}} {{job.manager.state}} {{job.manager.country}} {{job.manager.zip_code}}
+	<td>{{job.start_date}}<br> {{job.id}} <br>${{job.job_amount}} <br>{{job.service.service_name}}</td>
+	<td>{{job.customer.first_name}}<br> {{job.manager.first_name}} <br> {{job.manager.phone}} <br>{{job.manager.email}}
+<br>{{job.manager.address}} {{job.manager.city}} {{job.manager.state}} {{job.manager.country}} {{job.manager.zip_code}}
 </td>
 <td>
 Truck Driver Name<br><template v-if="job.truck_driver">{{job.truck_driver.first_name}}</template><template v-if="!job.truck_driver">Not Assigned Yet</template>
@@ -37,14 +37,14 @@ skidsteer Driver Name<br><template v-if="job.skidsteer_driver">{{job.skidsteer_d
 skidsteer Number</br><template v-if="job.skidsteer">{{job.skidsteer.truck_number}}</template><template v-if="!job.skidsteer">Not Assigned Yet</template>
 </td>
 <td>
-Start Time<br><template>9:30 Pm</template>
+Start Time<br><template>9:30 pm</template>
 End Time<br><template>12:30 Pm</template>
 Time Taken<br><template>3</template>
 </td>
 <td>3000 dummy</td>
 <td><template v-if="job.payment_status">Paid</template> <template v-if="!job.payment_status">Unpaid</template></td>
-<td>chat</td>
-<td><template v-if="job.job_status">Open</template> <template v-if="!job.job_status">Close</template></td>
+<td> <router-link :to="'/admin/jobs/chart/' + job.id" class="nav-item nav-link">View chat</router-link></td>
+<td><template v-if="!job.job_status">Open</template> <template v-if="job.job_status">Close</template></td>
                 </tr>
 </tbody>
     </table>
