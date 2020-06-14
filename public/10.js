@@ -68,6 +68,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -172,9 +174,9 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "tbody",
-                  _vm._l(_vm.alljobs, function(job) {
+                  _vm._l(_vm.alljobs, function(job, index) {
                     return _c("tr", [
-                      _c("td", [_vm._v("1")]),
+                      _c("td", [_vm._v(_vm._s(index + 1))]),
                       _vm._v(" "),
                       _c("td", [
                         _vm._v(_vm._s(job.start_date)),

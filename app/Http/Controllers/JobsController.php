@@ -263,7 +263,6 @@ class JobsController extends Controller
         )
             ->whereJobStatus(config('constant.job_status.open'))
             ->get();
-
         return response()->json([
             'status' => true,
             'message' => 'job Details',
@@ -313,7 +312,7 @@ class JobsController extends Controller
             "truck_driver",
             "skidsteer_driver"
         )
-            ->wherePaymentStatus(config('constant.payment_history.complete'))
+            ->wherePaymentStatus(config('constant.payment_history.pending'))
             ->get();
 
         return response()->json([

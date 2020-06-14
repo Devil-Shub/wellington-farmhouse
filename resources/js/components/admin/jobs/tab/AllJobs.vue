@@ -23,8 +23,8 @@
             </tr>
         </thead>
         <tbody>
-    <tr  v-for="job in alljobs">
-<td>1</td>
+     <tr v-for="(job, index) in alljobs">
+<td>{{index+1}}</td>
 	<td>{{job.start_date}}<br> {{job.id}} <br>${{job.job_amount}} <br>{{job.service.service_name}}</td>
 	<td>{{job.customer.first_name}}<br> {{job.manager.first_name}} <br> {{job.manager.phone}} <br>{{job.manager.email}}
 <br>{{job.manager.address}} {{job.manager.city}} {{job.manager.state}} {{job.manager.country}} {{job.manager.zip_code}}
@@ -45,7 +45,9 @@ Time Taken<br><template>3</template>
 <td><template v-if="job.payment_status">Paid</template> <template v-if="!job.payment_status">Unpaid</template></td>
 <td> <router-link :to="'/admin/jobs/chart/' + job.id" class="nav-item nav-link">View chat</router-link></td>
 <td><template v-if="!job.job_status">Open</template> <template v-if="job.job_status">Close</template></td>
+               
                 </tr>
+
 </tbody>
     </table>
 </v-col>
