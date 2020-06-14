@@ -8,6 +8,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Job extends Model
 {
     use SoftDeletes;
+
+    use \Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
+
+    protected $casts = [
+        'options' => 'json',
+    ];
     /**
      * The attributes that are mass assignable.
      *
@@ -58,8 +64,13 @@ class Job extends Model
         return $this->belongsTo('App\User', 'skidsteer_driver_id', 'id');
     }
 
-    public function Timeslots()
+    public function timeslots()
     {
         return $this->belongsTo('App\TimeSlots', 'time_slots_id', 'id');
     }
+
+    // public function timeslots()
+    // {
+    //     return $this->belongsTo('App\TimeSlots', 'options->time_slots_id');
+    // }
 }
