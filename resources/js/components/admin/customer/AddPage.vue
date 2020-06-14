@@ -2,7 +2,7 @@
   <v-app>
     <v-container>
       <v-row>
-        <h2>Add Customer</h2>
+        <h4 class="main-title">Add Customer</h4>
         <v-col cols="12" md="12">
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-row>
@@ -33,7 +33,7 @@
 		  :items="prefixs"
 		  label="Prefix"
 	          :rules="[v => !!v || 'Prefix is required']"
-		  dense
+		  
 		></v-select>
 		</v-col>
                 <v-col cols="3" md="3">
@@ -101,7 +101,7 @@
               </v-col>
 
               <v-col cols="12" md="12">
-                <h3>Farm Section</h3>
+                <h4 class="main-title">Farm Section</h4>
                 <v-row>
                   <v-col cols="12" md="12">
                     <file-pond
@@ -116,7 +116,7 @@
                       v-on:processfile="handleProcessFile1"
                     />
                   </v-col>
-                  <v-col cols="3" md="3">
+                  <v-col cols="3" md="3" class="mt-4">
                     <vue-google-autocomplete
                       ref="address"
                       id="map"
@@ -165,7 +165,7 @@
                 </v-row>
               </v-col>
               <v-col cols="12" md="12">
-              <h3>Manager Details</h3>
+              <h4 class="main-title">Manager Details</h4>
 		 <v-row>
                 <v-col cols="12" md="12">
  <div
@@ -192,7 +192,7 @@
 		  :items="prefixs"
 		  label="Prefix"
 	          :rules="[v => !!v || 'Prefix is required']"
-		  dense
+		  
 		></v-select>
 		</v-col>
                 <v-col cols="3" md="3">
@@ -277,7 +277,7 @@
                </v-row>            
               </v-col>
 
-              <v-btn color="success" class="mr-4" @click="update">Submit</v-btn>
+              <v-btn color="success" class="mr-4 custom-save-btn ml-4 mt-4" @click="update">Submit</v-btn>
             </v-row>
           </v-form>
         </v-col>

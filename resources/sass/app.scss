@@ -167,10 +167,20 @@ $hover-white: #fff;
     .col-sm-12 {
       display: inline-block;
     }
+    .disabled-tag > .v-input__control > .v-input__slot:before,
+    .disabled-tag > .v-input__control > .v-input__slot:after {
+      display: none;
+    }
     .form-layout {
       .col-sm-3 {
         margin-left: -4px;
       }
+    }
+    .ml-m4 {
+      margin-left: -4px;
+    }
+    .ft-normal {
+      font-weight: 300;
     }
     .primary--text {
       color: #aba2a2 !important;

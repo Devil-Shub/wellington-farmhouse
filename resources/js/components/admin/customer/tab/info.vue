@@ -27,74 +27,124 @@
                   />
                 </v-col>
 		<v-col cols="3" md="3">
-		 <v-select 
-		  v-model="addForm.prefix"
-		  :items="prefixs"
-		  label="Prefix"
-	          :rules="[v => !!v || 'Prefix is required']"
-		  
-		></v-select>
+      <v-col cols="4" sm="4" class="pl-0 pt-0 pb-0">
+        <label class="ft-normal">Prefix</label>
+      </v-col>
+      <v-col cols="8" sm="8" class="p-0 ml-m4">
+      <v-select 
+        v-model="addForm.prefix"
+        class="disabled-tag"
+        :items="prefixs"
+              :rules="[v => !!v || 'Prefix is required']"
+              :disabled="disabled == 0"
+        ></v-select>
+      </v-col>
 		</v-col>
-                <v-col cols="3" md="3">
-                  <v-text-field
-                    v-model="addForm.customer_name"
-                    label="Name"
-                    required
-                    :rules="[v => !!v || 'Customer name is required']"
-                  ></v-text-field>
+                <v-col cols="3" sm="3">
+                  <v-col cols="4" sm="4" class="pl-0 pt-0 pb-0">
+                    <label class="ft-normal">Name</label>
+                  </v-col>
+                  <v-col cols="8" sm="8" class="p-0 ml-m4">
+                    <v-text-field
+                      v-model="addForm.customer_name"
+                      required
+                      :disabled="disabled == 0"
+                      class="disabled-tag"
+                      :rules="[v => !!v || 'Customer name is required']"
+                    ></v-text-field>
+                  </v-col>
                 </v-col>
                 <v-col cols="3" md="3">
-                  <v-text-field
-                    v-model="addForm.email"
-                    :rules="emailRules"
-                    name="email"
-                    label="E-mail"
-                    required
-                  ></v-text-field>
+                  <v-col cols="4" sm="4" class="pl-0 pt-0 pb-0">
+                    <label class="ft-normal">Email</label>
+                  </v-col>
+                  <v-col cols="8" sm="8" class="p-0 ml-m4">
+                    <v-text-field
+                      v-model="addForm.email"
+                      :rules="emailRules"
+                      name="email"
+                      :disabled="disabled == 0"
+                      class="disabled-tag"
+                      required
+                    ></v-text-field>
+                  </v-col>
                 </v-col>
                  <v-col cols="3" md="3">
-                  <v-text-field
-                    v-model="addForm.phone"
-                    :rules="phoneRules"
-                    label="Phone"
-                    required
-                    maxlength="10"
-                  ></v-text-field>
+                  <v-col cols="4" sm="4" class="pl-0 pt-0 pb-0">
+                    <label class="ft-normal">Phone</label>
+                  </v-col>
+                  <v-col cols="8" sm="8" class="p-0 ml-m4">
+                    <v-text-field
+                      v-model="addForm.phone"
+                      :rules="phoneRules"
+                      :disabled="disabled == 0"
+                      class="disabled-tag"
+                      required
+                      maxlength="10"
+                    ></v-text-field>
+                  </v-col>
                 </v-col>
                 <v-col cols="3" md="3">
-                  <v-text-field
-                    v-model="addForm.address"
-                    label="Address"
-                    required
-                    :rules="[v => !!v || 'address is required']"
-                  ></v-text-field>
+                  <v-col cols="4" sm="4" class="pl-0 pt-0 pb-0">
+                    <label class="ft-normal">Address</label>
+                  </v-col>
+                  <v-col cols="8" sm="8" class="p-0 ml-m4">
+                    <v-text-field
+                      v-model="addForm.address"
+                      :disabled="disabled == 0"
+                      class="disabled-tag"
+                      required
+                      :rules="[v => !!v || 'address is required']"
+                    ></v-text-field>
+                  </v-col>
                 </v-col>
                 <v-col cols="3" md="3">
-                  <v-text-field
-                    v-model="addForm.city"
-                    label="City"
-                    required
-                    :rules="[v => !!v || 'City is required']"
-                  ></v-text-field>
+                  <v-col cols="4" sm="4" class="pl-0 pt-0 pb-0">
+                    <label class="ft-normal">City</label>
+                  </v-col>
+                  <v-col cols="8" sm="8" class="p-0 ml-m4">
+                    <v-text-field
+                      v-model="addForm.city"
+                      :disabled="disabled == 0"
+                      class="disabled-tag"
+                      required
+                      :rules="[v => !!v || 'City is required']"
+                    ></v-text-field>
+                  </v-col>
                 </v-col>
                 <v-col cols="3" md="3">
-                  <v-text-field
-                    v-model="addForm.province"
-                    label="Province"
-                    required
-                    :rules="[v => !!v || 'Province is required']"
-                  ></v-text-field>
+                  <v-col cols="4" sm="4" class="pl-0 pt-0 pb-0">
+                    <label class="ft-normal">Province</label>
+                  </v-col>
+                  <v-col cols="8" sm="8" class="p-0 ml-m4">
+                    <v-text-field
+                      v-model="addForm.province"
+                      :disabled="disabled == 0"
+                      class="disabled-tag"
+                      required
+                      :rules="[v => !!v || 'Province is required']"
+                    ></v-text-field>
+                  </v-col>
                 </v-col>
                 <v-col cols="3" md="3">
-                  <v-text-field
-                    v-model="addForm.zipcode"
-                    :rules="[v => !!v || 'Zip code is required']"
-                    label="zipcode"
-                    required
-                  ></v-text-field>
+                  <v-col cols="4" sm="4" class="pl-0 pt-0 pb-0">
+                    <label class="ft-normal">ZipCode</label>
+                  </v-col>
+                  <v-col cols="8" sm="8" class="p-0 ml-m4">
+                    <v-text-field
+                      v-model="addForm.zipcode"
+                      :rules="[v => !!v || 'Zip code is required']"
+                      :disabled="disabled == 0"
+                      class="disabled-tag"
+                      required
+                    ></v-text-field>
+                  </v-col>
                 </v-col>
-                <v-col cols="3" md="3">
-               <v-switch v-model="addForm.is_active" class="mx-2" label="Is Active" ></v-switch>
+                <v-col cols="2" md="2">
+                  <v-switch v-model="addForm.is_active" class="mx-2" label="Is Active" ></v-switch>
+                </v-col>
+                <v-col cols="2" md="2">
+                  <v-switch v-model="editSwitch" class="mx-2" label="Edit" @click="disabled = (disabled + 1) % 2"></v-switch>
                 </v-col>
                </v-row>
               </v-col>
@@ -120,6 +170,8 @@ export default {
     return {
     prefixs: ['Ms.', 'Mr.', 'Mrs.'],
     isLoading: false,
+    editSwitch: false,
+    disabled: 0,
     items: [],
     model: null,
       valid: true,
@@ -156,6 +208,15 @@ export default {
       ],
       myFiles: []
     };
+  },
+  watch: {
+    editSwitch(newValue) {
+      if(newValue == true) {
+        // console.log('yes');
+      } else {
+        // console.log('no');
+      }
+    }
   },
   mounted: function() {
     customerService.getCustomer(this.$route.params.id).then(response => {

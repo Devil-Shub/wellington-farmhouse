@@ -45,7 +45,7 @@
                             label=""
                             v-model="addForm.farm_add"
                             required
- 			   disabled
+ 			                      disabled
                             :rules="[v => !!v || 'Farm Address is required']"
                         ></v-text-field>
                     </v-col>
@@ -126,7 +126,7 @@
                    <v-col sm="2" class="label-align pt-0">
                         <label>Time Slots</label>
                     </v-col>
-                 <v-col sm="10" class="label-align pt-0">
+                 <v-col sm="10" class="pt-0">
                     <v-radio-group  row v-model="addForm.time_slots_id" :mandatory="false" required :rules="[v => !!v || 'Time slot is required']">
 <template v-for="(timeSlot, index) in servicetime">
                     <v-radio :label="timeSlot.slot_start+'-'+timeSlot.slot_end" :value="timeSlot.id" ></v-radio>

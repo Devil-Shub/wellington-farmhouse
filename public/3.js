@@ -124,6 +124,56 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -133,6 +183,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       prefixs: ['Ms.', 'Mr.', 'Mrs.'],
       isLoading: false,
+      editSwitch: false,
+      disabled: 0,
       items: [],
       model: null,
       valid: true,
@@ -169,6 +221,13 @@ __webpack_require__.r(__webpack_exports__);
       }],
       myFiles: []
     };
+  },
+  watch: {
+    editSwitch: function editSwitch(newValue) {
+      if (newValue == true) {// console.log('yes');
+      } else {// console.log('no');
+        }
+    }
   },
   mounted: function mounted() {
     var _this = this;
@@ -361,57 +420,116 @@ var render = function() {
                                     "v-col",
                                     { attrs: { cols: "3", md: "3" } },
                                     [
-                                      _c("v-select", {
-                                        attrs: {
-                                          items: _vm.prefixs,
-                                          label: "Prefix",
-                                          rules: [
-                                            function(v) {
-                                              return !!v || "Prefix is required"
+                                      _c(
+                                        "v-col",
+                                        {
+                                          staticClass: "pl-0 pt-0 pb-0",
+                                          attrs: { cols: "4", sm: "4" }
+                                        },
+                                        [
+                                          _c(
+                                            "label",
+                                            { staticClass: "ft-normal" },
+                                            [_vm._v("Prefix")]
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        {
+                                          staticClass: "p-0 ml-m4",
+                                          attrs: { cols: "8", sm: "8" }
+                                        },
+                                        [
+                                          _c("v-select", {
+                                            staticClass: "disabled-tag",
+                                            attrs: {
+                                              items: _vm.prefixs,
+                                              rules: [
+                                                function(v) {
+                                                  return (
+                                                    !!v || "Prefix is required"
+                                                  )
+                                                }
+                                              ],
+                                              disabled: _vm.disabled == 0
+                                            },
+                                            model: {
+                                              value: _vm.addForm.prefix,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.addForm,
+                                                  "prefix",
+                                                  $$v
+                                                )
+                                              },
+                                              expression: "addForm.prefix"
                                             }
-                                          ]
-                                        },
-                                        model: {
-                                          value: _vm.addForm.prefix,
-                                          callback: function($$v) {
-                                            _vm.$set(_vm.addForm, "prefix", $$v)
-                                          },
-                                          expression: "addForm.prefix"
-                                        }
-                                      })
+                                          })
+                                        ],
+                                        1
+                                      )
                                     ],
                                     1
                                   ),
                                   _vm._v(" "),
                                   _c(
                                     "v-col",
-                                    { attrs: { cols: "3", md: "3" } },
+                                    { attrs: { cols: "3", sm: "3" } },
                                     [
-                                      _c("v-text-field", {
-                                        attrs: {
-                                          label: "Name",
-                                          required: "",
-                                          rules: [
-                                            function(v) {
-                                              return (
-                                                !!v ||
-                                                "Customer name is required"
-                                              )
+                                      _c(
+                                        "v-col",
+                                        {
+                                          staticClass: "pl-0 pt-0 pb-0",
+                                          attrs: { cols: "4", sm: "4" }
+                                        },
+                                        [
+                                          _c(
+                                            "label",
+                                            { staticClass: "ft-normal" },
+                                            [_vm._v("Name")]
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        {
+                                          staticClass: "p-0 ml-m4",
+                                          attrs: { cols: "8", sm: "8" }
+                                        },
+                                        [
+                                          _c("v-text-field", {
+                                            staticClass: "disabled-tag",
+                                            attrs: {
+                                              required: "",
+                                              disabled: _vm.disabled == 0,
+                                              rules: [
+                                                function(v) {
+                                                  return (
+                                                    !!v ||
+                                                    "Customer name is required"
+                                                  )
+                                                }
+                                              ]
+                                            },
+                                            model: {
+                                              value: _vm.addForm.customer_name,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.addForm,
+                                                  "customer_name",
+                                                  $$v
+                                                )
+                                              },
+                                              expression:
+                                                "addForm.customer_name"
                                             }
-                                          ]
-                                        },
-                                        model: {
-                                          value: _vm.addForm.customer_name,
-                                          callback: function($$v) {
-                                            _vm.$set(
-                                              _vm.addForm,
-                                              "customer_name",
-                                              $$v
-                                            )
-                                          },
-                                          expression: "addForm.customer_name"
-                                        }
-                                      })
+                                          })
+                                        ],
+                                        1
+                                      )
                                     ],
                                     1
                                   ),
@@ -420,76 +538,51 @@ var render = function() {
                                     "v-col",
                                     { attrs: { cols: "3", md: "3" } },
                                     [
-                                      _c("v-text-field", {
-                                        attrs: {
-                                          rules: _vm.emailRules,
-                                          name: "email",
-                                          label: "E-mail",
-                                          required: ""
+                                      _c(
+                                        "v-col",
+                                        {
+                                          staticClass: "pl-0 pt-0 pb-0",
+                                          attrs: { cols: "4", sm: "4" }
                                         },
-                                        model: {
-                                          value: _vm.addForm.email,
-                                          callback: function($$v) {
-                                            _vm.$set(_vm.addForm, "email", $$v)
-                                          },
-                                          expression: "addForm.email"
-                                        }
-                                      })
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-col",
-                                    { attrs: { cols: "3", md: "3" } },
-                                    [
-                                      _c("v-text-field", {
-                                        attrs: {
-                                          rules: _vm.phoneRules,
-                                          label: "Phone",
-                                          required: "",
-                                          maxlength: "10"
+                                        [
+                                          _c(
+                                            "label",
+                                            { staticClass: "ft-normal" },
+                                            [_vm._v("Email")]
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        {
+                                          staticClass: "p-0 ml-m4",
+                                          attrs: { cols: "8", sm: "8" }
                                         },
-                                        model: {
-                                          value: _vm.addForm.phone,
-                                          callback: function($$v) {
-                                            _vm.$set(_vm.addForm, "phone", $$v)
-                                          },
-                                          expression: "addForm.phone"
-                                        }
-                                      })
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-col",
-                                    { attrs: { cols: "3", md: "3" } },
-                                    [
-                                      _c("v-text-field", {
-                                        attrs: {
-                                          label: "Address",
-                                          required: "",
-                                          rules: [
-                                            function(v) {
-                                              return (
-                                                !!v || "address is required"
-                                              )
+                                        [
+                                          _c("v-text-field", {
+                                            staticClass: "disabled-tag",
+                                            attrs: {
+                                              rules: _vm.emailRules,
+                                              name: "email",
+                                              disabled: _vm.disabled == 0,
+                                              required: ""
+                                            },
+                                            model: {
+                                              value: _vm.addForm.email,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.addForm,
+                                                  "email",
+                                                  $$v
+                                                )
+                                              },
+                                              expression: "addForm.email"
                                             }
-                                          ]
-                                        },
-                                        model: {
-                                          value: _vm.addForm.address,
-                                          callback: function($$v) {
-                                            _vm.$set(
-                                              _vm.addForm,
-                                              "address",
-                                              $$v
-                                            )
-                                          },
-                                          expression: "addForm.address"
-                                        }
-                                      })
+                                          })
+                                        ],
+                                        1
+                                      )
                                     ],
                                     1
                                   ),
@@ -498,24 +591,51 @@ var render = function() {
                                     "v-col",
                                     { attrs: { cols: "3", md: "3" } },
                                     [
-                                      _c("v-text-field", {
-                                        attrs: {
-                                          label: "City",
-                                          required: "",
-                                          rules: [
-                                            function(v) {
-                                              return !!v || "City is required"
-                                            }
-                                          ]
+                                      _c(
+                                        "v-col",
+                                        {
+                                          staticClass: "pl-0 pt-0 pb-0",
+                                          attrs: { cols: "4", sm: "4" }
                                         },
-                                        model: {
-                                          value: _vm.addForm.city,
-                                          callback: function($$v) {
-                                            _vm.$set(_vm.addForm, "city", $$v)
-                                          },
-                                          expression: "addForm.city"
-                                        }
-                                      })
+                                        [
+                                          _c(
+                                            "label",
+                                            { staticClass: "ft-normal" },
+                                            [_vm._v("Phone")]
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        {
+                                          staticClass: "p-0 ml-m4",
+                                          attrs: { cols: "8", sm: "8" }
+                                        },
+                                        [
+                                          _c("v-text-field", {
+                                            staticClass: "disabled-tag",
+                                            attrs: {
+                                              rules: _vm.phoneRules,
+                                              disabled: _vm.disabled == 0,
+                                              required: "",
+                                              maxlength: "10"
+                                            },
+                                            model: {
+                                              value: _vm.addForm.phone,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.addForm,
+                                                  "phone",
+                                                  $$v
+                                                )
+                                              },
+                                              expression: "addForm.phone"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      )
                                     ],
                                     1
                                   ),
@@ -524,30 +644,56 @@ var render = function() {
                                     "v-col",
                                     { attrs: { cols: "3", md: "3" } },
                                     [
-                                      _c("v-text-field", {
-                                        attrs: {
-                                          label: "Province",
-                                          required: "",
-                                          rules: [
-                                            function(v) {
-                                              return (
-                                                !!v || "Province is required"
-                                              )
-                                            }
-                                          ]
+                                      _c(
+                                        "v-col",
+                                        {
+                                          staticClass: "pl-0 pt-0 pb-0",
+                                          attrs: { cols: "4", sm: "4" }
                                         },
-                                        model: {
-                                          value: _vm.addForm.province,
-                                          callback: function($$v) {
-                                            _vm.$set(
-                                              _vm.addForm,
-                                              "province",
-                                              $$v
-                                            )
-                                          },
-                                          expression: "addForm.province"
-                                        }
-                                      })
+                                        [
+                                          _c(
+                                            "label",
+                                            { staticClass: "ft-normal" },
+                                            [_vm._v("Address")]
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        {
+                                          staticClass: "p-0 ml-m4",
+                                          attrs: { cols: "8", sm: "8" }
+                                        },
+                                        [
+                                          _c("v-text-field", {
+                                            staticClass: "disabled-tag",
+                                            attrs: {
+                                              disabled: _vm.disabled == 0,
+                                              required: "",
+                                              rules: [
+                                                function(v) {
+                                                  return (
+                                                    !!v || "address is required"
+                                                  )
+                                                }
+                                              ]
+                                            },
+                                            model: {
+                                              value: _vm.addForm.address,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.addForm,
+                                                  "address",
+                                                  $$v
+                                                )
+                                              },
+                                              expression: "addForm.address"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      )
                                     ],
                                     1
                                   ),
@@ -556,30 +702,56 @@ var render = function() {
                                     "v-col",
                                     { attrs: { cols: "3", md: "3" } },
                                     [
-                                      _c("v-text-field", {
-                                        attrs: {
-                                          rules: [
-                                            function(v) {
-                                              return (
-                                                !!v || "Zip code is required"
-                                              )
-                                            }
-                                          ],
-                                          label: "zipcode",
-                                          required: ""
+                                      _c(
+                                        "v-col",
+                                        {
+                                          staticClass: "pl-0 pt-0 pb-0",
+                                          attrs: { cols: "4", sm: "4" }
                                         },
-                                        model: {
-                                          value: _vm.addForm.zipcode,
-                                          callback: function($$v) {
-                                            _vm.$set(
-                                              _vm.addForm,
-                                              "zipcode",
-                                              $$v
-                                            )
-                                          },
-                                          expression: "addForm.zipcode"
-                                        }
-                                      })
+                                        [
+                                          _c(
+                                            "label",
+                                            { staticClass: "ft-normal" },
+                                            [_vm._v("City")]
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        {
+                                          staticClass: "p-0 ml-m4",
+                                          attrs: { cols: "8", sm: "8" }
+                                        },
+                                        [
+                                          _c("v-text-field", {
+                                            staticClass: "disabled-tag",
+                                            attrs: {
+                                              disabled: _vm.disabled == 0,
+                                              required: "",
+                                              rules: [
+                                                function(v) {
+                                                  return (
+                                                    !!v || "City is required"
+                                                  )
+                                                }
+                                              ]
+                                            },
+                                            model: {
+                                              value: _vm.addForm.city,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.addForm,
+                                                  "city",
+                                                  $$v
+                                                )
+                                              },
+                                              expression: "addForm.city"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      )
                                     ],
                                     1
                                   ),
@@ -587,6 +759,124 @@ var render = function() {
                                   _c(
                                     "v-col",
                                     { attrs: { cols: "3", md: "3" } },
+                                    [
+                                      _c(
+                                        "v-col",
+                                        {
+                                          staticClass: "pl-0 pt-0 pb-0",
+                                          attrs: { cols: "4", sm: "4" }
+                                        },
+                                        [
+                                          _c(
+                                            "label",
+                                            { staticClass: "ft-normal" },
+                                            [_vm._v("Province")]
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        {
+                                          staticClass: "p-0 ml-m4",
+                                          attrs: { cols: "8", sm: "8" }
+                                        },
+                                        [
+                                          _c("v-text-field", {
+                                            staticClass: "disabled-tag",
+                                            attrs: {
+                                              disabled: _vm.disabled == 0,
+                                              required: "",
+                                              rules: [
+                                                function(v) {
+                                                  return (
+                                                    !!v ||
+                                                    "Province is required"
+                                                  )
+                                                }
+                                              ]
+                                            },
+                                            model: {
+                                              value: _vm.addForm.province,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.addForm,
+                                                  "province",
+                                                  $$v
+                                                )
+                                              },
+                                              expression: "addForm.province"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-col",
+                                    { attrs: { cols: "3", md: "3" } },
+                                    [
+                                      _c(
+                                        "v-col",
+                                        {
+                                          staticClass: "pl-0 pt-0 pb-0",
+                                          attrs: { cols: "4", sm: "4" }
+                                        },
+                                        [
+                                          _c(
+                                            "label",
+                                            { staticClass: "ft-normal" },
+                                            [_vm._v("ZipCode")]
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        {
+                                          staticClass: "p-0 ml-m4",
+                                          attrs: { cols: "8", sm: "8" }
+                                        },
+                                        [
+                                          _c("v-text-field", {
+                                            staticClass: "disabled-tag",
+                                            attrs: {
+                                              rules: [
+                                                function(v) {
+                                                  return (
+                                                    !!v ||
+                                                    "Zip code is required"
+                                                  )
+                                                }
+                                              ],
+                                              disabled: _vm.disabled == 0,
+                                              required: ""
+                                            },
+                                            model: {
+                                              value: _vm.addForm.zipcode,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.addForm,
+                                                  "zipcode",
+                                                  $$v
+                                                )
+                                              },
+                                              expression: "addForm.zipcode"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-col",
+                                    { attrs: { cols: "2", md: "2" } },
                                     [
                                       _c("v-switch", {
                                         staticClass: "mx-2",
@@ -601,6 +891,31 @@ var render = function() {
                                             )
                                           },
                                           expression: "addForm.is_active"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-col",
+                                    { attrs: { cols: "2", md: "2" } },
+                                    [
+                                      _c("v-switch", {
+                                        staticClass: "mx-2",
+                                        attrs: { label: "Edit" },
+                                        on: {
+                                          click: function($event) {
+                                            _vm.disabled =
+                                              (_vm.disabled + 1) % 2
+                                          }
+                                        },
+                                        model: {
+                                          value: _vm.editSwitch,
+                                          callback: function($$v) {
+                                            _vm.editSwitch = $$v
+                                          },
+                                          expression: "editSwitch"
                                         }
                                       })
                                     ],
