@@ -6,33 +6,47 @@
     class="pt-0"
   >
     <v-row>
-      <!-- completed jobs -->
-      <v-text-field
-            v-model="search"
-            append-icon="search"
-            label="Search"
-            single-line
-            hide-details
-            class="search-field"
-          ></v-text-field>
-      <v-data-table
-        :headers="headers"
-        :items="jobsDetails"
-        hide-default-footer
-		     :search="search"
-        class="wd-100"
-      >
-        <template v-slot:items="props">
-          <td>{{ props.item.image }}</td>
-          <td class="text-xs-right">{{ props.item.summary }}</td>
-          <td class="text-xs-right">{{ props.item.sort }}</td>
-          <td class="text-xs-right">{{ props.item.techs }}</td>
-          <td class="text-xs-right">{{ props.item.time }}</td>
-          <td class="text-xs-right">{{ props.item.distance }}</td>
-          <td class="text-xs-right">{{ props.item.payment }}</td>
-          <td class="text-xs-right">{{ props.item.chat }}</td>
-        </template>
-      </v-data-table>
+ <v-col sm="12" cols="12">
+      <!-- all jobs -->
+  	    <table id="completed" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr>
+                <th>Sno</th>
+                <th>Job Summary</th>
+                <th>Sort By</th>
+                <th>Techs</th>
+                <th>Time</th>
+		 <th>Distance</th>
+		<th>Payment</th>
+                <th>Chat</th>
+            </tr>
+        </thead>
+        <tbody>
+    <tr v-for="(job, index) in alljobs">
+<td>{{index+1}}</td>
+	<td>{{job.start_date}}<br> {{job.id}} <br>${{job.job_amount}} <br>{{job.service.service_name}}</td>
+	<td>{{job.customer.first_name}}<br> {{job.manager.first_name}} <br> {{job.manager.phone}} <br>{{job.manager.email}}
+<br>{{job.manager.address}} {{job.manager.city}} {{job.manager.state}} {{job.manager.country}} {{job.manager.zip_code}}
+</td>
+<td>
+Truck Driver Name<br><template v-if="job.truck_driver">{{job.truck_driver.first_name}}</template><template v-if="!job.truck_driver">Not Assigned Yet</template>
+Truck Number<br><template v-if="job.truck">{{job.truck.truck_number}}</template><template v-if="!job.truck">Not Assigned Yet</template>
+
+skidsteer Driver Name<br><template v-if="job.skidsteer_driver">{{job.skidsteer_driver.first_name}}</template><template v-if="!job.skidsteer_driver">Not Assigned Yet</template>
+skidsteer Number</br><template v-if="job.skidsteer">{{job.skidsteer.truck_number}}</template><template v-if="!job.skidsteer">Not Assigned Yet</template>
+</td>
+<td>
+Start Time<br><template>9:30 pm</template>
+End Time<br><template>12:30 Pm</template>
+Time Taken<br><template>3</template>
+</td>
+<td>3000 dummy</td>
+<td><template v-if="job.payment_status">Paid</template> <template v-if="!job.payment_status">Unpaid</template></td>
+<td> <router-link :to="'/admin/jobs/chart/' + job.id" class="nav-item nav-link">View chat</router-link></td>
+                </tr>
+</tbody>
+    </table>
+</v-col>
     </v-row>
   </v-container>
 </template>
@@ -48,36 +62,7 @@ export default {
   },
   data() {
     return {
-      tab: null,
-      items: ["All Jobs", "Assigned Jobs", "Completed Jobs", "Open Jobs", "Repeating Jobs", "Unpaid Jobs"],
-      completedjobs:"",
-      search:"",
-      headers: [
-        {
-          text: 'Image',
-          align: 'left',
-          sortable: false,
-          value: 'image'
-        },
-        { text: 'Job Summary', value: 'summary'},
-        { text: 'Sort By', value: 'sort' },
-        { text: 'Techs', value: 'techs' },
-        { text: 'Time', value: 'time' },
-        { text: 'Distance', value: 'distance' },
-        { text: 'Payment', value: 'payment' },
-        { text: 'Chat', value: 'chat' },
-      ],
-      jobsDetails: [
-        {
-          image: '',
-          summary: 999,
-          sort: '',
-          time: 9,
-          distance: 30,
-          payment: 999,
-          chat: '',
-        }
-      ]
+      alljobs:'',
     };
   },
   created() {
@@ -87,12 +72,11 @@ export default {
     this.getResults();
    },
     methods: {
-           getResults() {
-      jobService.joblist().then(response => {
+     getResults() {
+      jobService.jobcomplete().then(response => {
         //handle response
         if (response.status) {
           this.alljobs = response.data;
-	console.log(this.alljobs)
         } else {
           this.$toast.open({
             message: response.message,
@@ -102,6 +86,13 @@ export default {
         }
       });
     }
-}
+},
+updated() {
+setTimeout(function() {
+     $(document).ready(function() {
+	    $('#completed').DataTable();
+	} );
+  }, 1000);
+    }
 };
 </script>
