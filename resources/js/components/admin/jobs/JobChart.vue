@@ -6,6 +6,32 @@
 		Job_id: {{job.id}} <br>   Service Request: {{service.service_name}}<br>   Service Date: {{job.start_date}} <br>Price: ${{job.job_amount}}
 <br>Manager Name: {{manager.first_name}} <br>Email Address: {{manager.email}} <br>Phone Number {{manager.phone}}<br> Farm Address: {{farm.farm_address}} {{farm.farm_unit}} {{farm.farm_city}} {{farm.farm_province}} {{farm.farm_zipcode}}
          </v-col>
+
+         <v-col sm="12" cols="12">
+          <div class="chat-area">
+            <div class="chat-sender mb-6">
+              <div class="chat-img">
+              </div>
+              <div class="chat-msg">
+                Lorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit amet
+              </div>
+            </div>
+            <div class="chat-receiver mb-6">
+              <div class="chat-msg">
+                Lorem ipsum dolor sit amet
+              </div>
+              <div class="chat-img">
+              </div>
+            </div>
+            <div class="chat-receiver mb-6">
+              <div class="chat-msg">
+                Lorem ipsum dolor sit amet
+              </div>
+              <div class="chat-img">
+              </div>
+            </div>
+          </div>
+         </v-col>
       </v-row>
     </v-container>
   </v-app>

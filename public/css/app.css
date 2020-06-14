@@ -11655,3 +11655,60 @@ a.text-dark:focus {
   right: 0;
 }
 
+#app .chat-area {
+  border-top: 1px solid #ebebeb;
+  padding-top: 35px;
+}
+
+#app .chat-area .chat-img {
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+  float: left;
+  background-color: #ebebeb;
+  border-radius: 50%;
+}
+
+#app .chat-area .chat-msg {
+  width: 60%;
+  margin-left: 60px;
+  background-color: #ebebeb;
+  padding: 10px 30px 10px 30px;
+  position: relative;
+  font-size: 14px;
+}
+
+#app .chat-area .chat-msg:before {
+  content: "";
+  position: absolute;
+  left: -8px;
+  top: 15px;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-right: 10px solid #ebebeb;
+}
+
+#app .chat-area .chat-receiver {
+  float: left;
+  width: 100%;
+  text-align: right;
+}
+
+#app .chat-area .chat-receiver .chat-msg {
+  margin-left: 0;
+  margin-right: 20px;
+  display: inline-block;
+  text-align: left;
+}
+
+#app .chat-area .chat-receiver .chat-msg:before {
+  right: -8px;
+  border-right: none;
+  border-left: 10px solid #ebebeb;
+  left: auto;
+}
+
+#app .chat-area .chat-receiver .chat-img {
+  float: right;
+}
+

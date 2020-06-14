@@ -765,4 +765,53 @@ $hover-white: #fff;
         }
       }
     }
+    .chat-area {
+      border-top: 1px solid #ebebeb;
+      padding-top: 35px;
+      .chat-img {
+        width: 40px;
+        height: 40px;
+        display: inline-block;
+        float: left;
+        background-color: #ebebeb;
+        border-radius: 50%;
+      }
+      .chat-msg {
+        width: 60%;
+        margin-left: 60px;
+        background-color: #ebebeb;
+        padding: 10px 30px 10px 30px;
+        position: relative;
+        font-size: 14px;
+        &:before {
+          content: "";
+          position: absolute;
+          left: -8px;
+          top: 15px;
+          border-top: 7px solid transparent;
+          border-bottom: 7px solid transparent;
+          border-right: 10px solid #ebebeb;
+        }
+      }
+      .chat-receiver {
+        float: left;
+        width: 100%;
+        text-align: right;
+        .chat-msg {
+          margin-left: 0;
+          margin-right: 20px;
+          display: inline-block;
+          text-align: left;
+          &:before {
+            right: -8px;
+            border-right: none;
+            border-left: 10px solid #ebebeb;
+            left: auto;
+          }
+        }
+        .chat-img {
+          float: right;
+        }
+      }
+    }
   }
