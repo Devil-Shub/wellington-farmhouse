@@ -18,6 +18,11 @@ export const jobService = {
   createJob,
   singleJob,
   joblist,
+  jobassigned,
+  jobcomplete,
+  jobopned,
+  jobrepeating,
+  jobunpaid,
   apiUrl: environment.apiUrl,
   currentUrl: '',
   currentUser: currentUserSubject.asObservable(),
@@ -117,6 +122,72 @@ function joblist() {
       return user;
     });
 }
+
+function jobassigned() {
+  return fetch(
+    this.apiUrl+`admin/assigned-job-list`,
+    requestOptions.get()
+  )
+    .then(handleResponse)
+    .then(user => {
+      // store user details and passport token in local storage to keep user logged in between page refreshes
+
+      return user;
+    });
+}
+
+function jobcomplete() {
+  return fetch(
+    this.apiUrl+`admin/complete-job-list`,
+    requestOptions.get()
+  )
+    .then(handleResponse)
+    .then(user => {
+      // store user details and passport token in local storage to keep user logged in between page refreshes
+
+      return user;
+    });
+}
+
+function jobopned() {
+  return fetch(
+    this.apiUrl+`admin/opne-job-list`,
+    requestOptions.get()
+  )
+    .then(handleResponse)
+    .then(user => {
+      // store user details and passport token in local storage to keep user logged in between page refreshes
+
+      return user;
+    });
+}
+
+function jobrepeating() {
+  return fetch(
+    this.apiUrl+`admin/repeating-job-list`,
+    requestOptions.get()
+  )
+    .then(handleResponse)
+    .then(user => {
+      // store user details and passport token in local storage to keep user logged in between page refreshes
+
+      return user;
+    });
+}
+
+function jobunpaid() {
+  return fetch(
+    this.apiUrl+`admin/unpaid-job-list`,
+    requestOptions.get()
+  )
+    .then(handleResponse)
+    .then(user => {
+      // store user details and passport token in local storage to keep user logged in between page refreshes
+
+      return user;
+    });
+}
+
 
 function singleJob(job_id) {
   return fetch(

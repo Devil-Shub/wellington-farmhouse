@@ -52,6 +52,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -62,46 +76,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      tab: null,
-      items: ["All Jobs", "Assigned Jobs", "Completed Jobs", "Open Jobs", "Repeating Jobs", "Unpaid Jobs"],
-      assignedJobs: "",
-      search: "",
-      headers: [{
-        text: 'Image',
-        align: 'left',
-        sortable: false,
-        value: 'image'
-      }, {
-        text: 'Job Summary',
-        value: 'summary'
-      }, {
-        text: 'Sort By',
-        value: 'sort'
-      }, {
-        text: 'Techs',
-        value: 'techs'
-      }, {
-        text: 'Time',
-        value: 'time'
-      }, {
-        text: 'Distance',
-        value: 'distance'
-      }, {
-        text: 'Payment',
-        value: 'payment'
-      }, {
-        text: 'Chat',
-        value: 'chat'
-      }],
-      jobsDetails: [{
-        image: '',
-        summary: 999,
-        sort: '',
-        time: 9,
-        distance: 30,
-        payment: 999,
-        chat: ''
-      }]
+      alljobs: ''
     };
   },
   created: function created() {},
@@ -112,11 +87,10 @@ __webpack_require__.r(__webpack_exports__);
     getResults: function getResults() {
       var _this = this;
 
-      _services_job_service__WEBPACK_IMPORTED_MODULE_1__["jobService"].joblist().then(function (response) {
+      _services_job_service__WEBPACK_IMPORTED_MODULE_1__["jobService"].jobassigned().then(function (response) {
         //handle response
         if (response.status) {
           _this.alljobs = response.data;
-          console.log(_this.alljobs);
         } else {
           _this.$toast.open({
             message: response.message,
@@ -126,6 +100,13 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     }
+  },
+  updated: function updated() {
+    setTimeout(function () {
+      $(document).ready(function () {
+        $('#assinged').DataTable();
+      });
+    }, 1000);
   }
 });
 
@@ -156,70 +137,160 @@ var render = function() {
       _c(
         "v-row",
         [
-          _c("v-text-field", {
-            staticClass: "search-field",
-            attrs: {
-              "append-icon": "search",
-              label: "Search",
-              "single-line": "",
-              "hide-details": ""
-            },
-            model: {
-              value: _vm.search,
-              callback: function($$v) {
-                _vm.search = $$v
-              },
-              expression: "search"
-            }
-          }),
-          _vm._v(" "),
-          _c("v-data-table", {
-            staticClass: "wd-100",
-            attrs: {
-              headers: _vm.headers,
-              items: _vm.jobsDetails,
-              "hide-default-footer": "",
-              search: _vm.search
-            },
-            scopedSlots: _vm._u([
+          _c("v-col", { attrs: { sm: "12", cols: "12" } }, [
+            _c(
+              "table",
               {
-                key: "items",
-                fn: function(props) {
-                  return [
-                    _c("td", [_vm._v(_vm._s(props.item.image))]),
+                staticClass: "table table-striped table-bordered",
+                staticStyle: { width: "100%" },
+                attrs: { id: "assinged" }
+              },
+              [
+                _c("thead", [
+                  _c("tr", [
+                    _c("th", [_vm._v("Sno")]),
                     _vm._v(" "),
-                    _c("td", { staticClass: "text-xs-right" }, [
-                      _vm._v(_vm._s(props.item.summary))
-                    ]),
+                    _c("th", [_vm._v("Job Summary")]),
                     _vm._v(" "),
-                    _c("td", { staticClass: "text-xs-right" }, [
-                      _vm._v(_vm._s(props.item.sort))
-                    ]),
+                    _c("th", [_vm._v("Sort By")]),
                     _vm._v(" "),
-                    _c("td", { staticClass: "text-xs-right" }, [
-                      _vm._v(_vm._s(props.item.techs))
-                    ]),
+                    _c("th", [_vm._v("Techs")]),
                     _vm._v(" "),
-                    _c("td", { staticClass: "text-xs-right" }, [
-                      _vm._v(_vm._s(props.item.time))
-                    ]),
+                    _c("th", [_vm._v("Time")]),
                     _vm._v(" "),
-                    _c("td", { staticClass: "text-xs-right" }, [
-                      _vm._v(_vm._s(props.item.distance))
-                    ]),
+                    _c("th", [_vm._v("Distance")]),
                     _vm._v(" "),
-                    _c("td", { staticClass: "text-xs-right" }, [
-                      _vm._v(_vm._s(props.item.payment))
-                    ]),
+                    _c("th", [_vm._v("Payment")]),
                     _vm._v(" "),
-                    _c("td", { staticClass: "text-xs-right" }, [
-                      _vm._v(_vm._s(props.item.chat))
+                    _c("th", [_vm._v("Chat")])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.alljobs, function(job, index) {
+                    return _c("tr", [
+                      _c("td", [_vm._v(_vm._s(index + 1))]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(_vm._s(job.start_date)),
+                        _c("br"),
+                        _vm._v(" " + _vm._s(job.id) + " "),
+                        _c("br"),
+                        _vm._v("$" + _vm._s(job.job_amount) + " "),
+                        _c("br"),
+                        _vm._v(_vm._s(job.service.service_name))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(_vm._s(job.customer.first_name)),
+                        _c("br"),
+                        _vm._v(" " + _vm._s(job.manager.first_name) + " "),
+                        _c("br"),
+                        _vm._v(" " + _vm._s(job.manager.phone) + " "),
+                        _c("br"),
+                        _vm._v(_vm._s(job.manager.email) + "\n"),
+                        _c("br"),
+                        _vm._v(
+                          _vm._s(job.manager.address) +
+                            " " +
+                            _vm._s(job.manager.city) +
+                            " " +
+                            _vm._s(job.manager.state) +
+                            " " +
+                            _vm._s(job.manager.country) +
+                            " " +
+                            _vm._s(job.manager.zip_code) +
+                            "\n"
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        [
+                          _vm._v("\nTruck Driver Name"),
+                          _c("br"),
+                          job.truck_driver
+                            ? [_vm._v(_vm._s(job.truck_driver.first_name))]
+                            : _vm._e(),
+                          !job.truck_driver
+                            ? [_vm._v("Not Assigned Yet")]
+                            : _vm._e(),
+                          _vm._v("\nTruck Number"),
+                          _c("br"),
+                          job.truck
+                            ? [_vm._v(_vm._s(job.truck.truck_number))]
+                            : _vm._e(),
+                          !job.truck ? [_vm._v("Not Assigned Yet")] : _vm._e(),
+                          _vm._v("\n\nskidsteer Driver Name"),
+                          _c("br"),
+                          job.skidsteer_driver
+                            ? [_vm._v(_vm._s(job.skidsteer_driver.first_name))]
+                            : _vm._e(),
+                          !job.skidsteer_driver
+                            ? [_vm._v("Not Assigned Yet")]
+                            : _vm._e(),
+                          _vm._v("\nskidsteer Number"),
+                          _c("br"),
+                          job.skidsteer
+                            ? [_vm._v(_vm._s(job.skidsteer.truck_number))]
+                            : _vm._e(),
+                          !job.skidsteer
+                            ? [_vm._v("Not Assigned Yet")]
+                            : _vm._e()
+                        ],
+                        2
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        [
+                          _vm._v("\nStart Time"),
+                          _c("br"),
+                          [_vm._v("9:30 pm")],
+                          _vm._v("\nEnd Time"),
+                          _c("br"),
+                          [_vm._v("12:30 Pm")],
+                          _vm._v("\nTime Taken"),
+                          _c("br"),
+                          [_vm._v("3")]
+                        ],
+                        2
+                      ),
+                      _vm._v(" "),
+                      _c("td", [_vm._v("3000 dummy")]),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        [
+                          job.payment_status ? [_vm._v("Paid")] : _vm._e(),
+                          _vm._v(" "),
+                          !job.payment_status ? [_vm._v("Unpaid")] : _vm._e()
+                        ],
+                        2
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        [
+                          _c(
+                            "router-link",
+                            {
+                              staticClass: "nav-item nav-link",
+                              attrs: { to: "/admin/jobs/chart/" + job.id }
+                            },
+                            [_vm._v("View chat")]
+                          )
+                        ],
+                        1
+                      )
                     ])
-                  ]
-                }
-              }
-            ])
-          })
+                  }),
+                  0
+                )
+              ]
+            )
+          ])
         ],
         1
       )
