@@ -151,7 +151,7 @@ function jobcomplete() {
 
 function jobopned() {
   return fetch(
-    this.apiUrl+`admin/opne-job-list`,
+    this.apiUrl+`admin/open-job-list`,
     requestOptions.get()
   )
     .then(handleResponse)

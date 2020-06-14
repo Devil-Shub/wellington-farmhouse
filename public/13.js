@@ -51,6 +51,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -61,7 +77,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      alljobs: ''
+      alljobs: ""
     };
   },
   created: function created() {},
@@ -89,7 +105,7 @@ __webpack_require__.r(__webpack_exports__);
   updated: function updated() {
     setTimeout(function () {
       $(document).ready(function () {
-        $('#opned').DataTable();
+        $("#opned").DataTable();
       });
     }, 1000);
   }
@@ -152,26 +168,59 @@ var render = function() {
                       _c("td", [_vm._v(_vm._s(index + 1))]),
                       _vm._v(" "),
                       _c("td", [
-                        _vm._v(_vm._s(job.start_date)),
+                        _vm._v(
+                          "\n              " +
+                            _vm._s(job.start_date) +
+                            "\n              "
+                        ),
                         _c("br"),
-                        _vm._v(" " + _vm._s(job.id) + " "),
+                        _vm._v(
+                          "\n              " +
+                            _vm._s(job.id) +
+                            "\n              "
+                        ),
                         _c("br"),
-                        _vm._v("$" + _vm._s(job.job_amount) + " "),
+                        _vm._v(
+                          "\n              $" +
+                            _vm._s(job.job_amount) +
+                            "\n              "
+                        ),
                         _c("br"),
-                        _vm._v(_vm._s(job.service.service_name))
+                        _vm._v(
+                          "\n              " +
+                            _vm._s(job.service.service_name) +
+                            "\n            "
+                        )
                       ]),
                       _vm._v(" "),
                       _c("td", [
-                        _vm._v(_vm._s(job.customer.first_name)),
-                        _c("br"),
-                        _vm._v(" " + _vm._s(job.manager.first_name) + " "),
-                        _c("br"),
-                        _vm._v(" " + _vm._s(job.manager.phone) + " "),
-                        _c("br"),
-                        _vm._v(_vm._s(job.manager.email) + "\n"),
+                        _vm._v(
+                          "\n              " +
+                            _vm._s(job.customer.first_name) +
+                            "\n              "
+                        ),
                         _c("br"),
                         _vm._v(
-                          _vm._s(job.manager.address) +
+                          "\n              " +
+                            _vm._s(job.manager.first_name) +
+                            "\n              "
+                        ),
+                        _c("br"),
+                        _vm._v(
+                          "\n              " +
+                            _vm._s(job.manager.phone) +
+                            "\n              "
+                        ),
+                        _c("br"),
+                        _vm._v(
+                          "\n              " +
+                            _vm._s(job.manager.email) +
+                            "\n              "
+                        ),
+                        _c("br"),
+                        _vm._v(
+                          "\n              " +
+                            _vm._s(job.manager.address) +
                             " " +
                             _vm._s(job.manager.city) +
                             " " +
@@ -179,7 +228,8 @@ var render = function() {
                             " " +
                             _vm._s(job.manager.country) +
                             " " +
-                            _vm._s(job.manager.zip_code)
+                            _vm._s(job.manager.zip_code) +
+                            "\n            "
                         )
                       ]),
                       _vm._v(" "),

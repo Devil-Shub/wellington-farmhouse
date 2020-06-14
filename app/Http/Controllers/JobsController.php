@@ -250,6 +250,10 @@ class JobsController extends Controller
      */
     public function getOpenJob()
     {
+        Log::info("HELL IN CELL");
+
+        Log::info(config('constant.job_status.open'));
+        
         $getAllJobs = Job::with(
             "customer",
             "manager",
