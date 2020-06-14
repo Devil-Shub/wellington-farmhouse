@@ -73,18 +73,37 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>57900</td>
-                  <td>25 Country road, NY</td>
-                  <td>17/06/2019</td>
-                  <td>9:00 PM</td>
-                  <td>Frendo Joes</td>
-                  <td>$250</td>
-                  <td>Scheduled</td>
+                <tr  v-for="record in displayedPosts">
+                  <td>{{record.id}}</td>
+                  <td>{{record.farm.farm_address}} {{record.farm.farm_unit}} {{record.farm.farm_city}} {{record.farm.farm_province}} {{record.farm.farm_zipcode}}</td>
+                  <td>{{record.created_at | formatDate}}</td>
+                  <td>{{record.time_slots_id}}</td>
+                  <td>
+			<template v-if="record.truck_driver_id">Truck driver name</template>
+			<template v-if="!record.truck_driver_id">Not Assigned Yet</template>
+	                <template v-if="record.skidsteer_driver_id">Skidsteer driver name</template>
+			<template v-if="!record.skidsteer_driver_id">Not Assigned Yet</template>
+                   </td>
+                  <td>${{record.job_amount}}</td>
+                  <td v-if="!record.repeating_job">Scheduled</td>
+	          <td v-if="record.repeating_job">Rescheduled</td>
                 </tr>
               </tbody>
             </template>
           </v-simple-table>
+<nav aria-label="Page navigation example">
+			<ul class="pagination">
+				<li class="page-item">
+					<button type="button" class="page-link" v-if="page != 1" @click="page--"> Previous </button>
+				</li>
+				<li class="page-item">
+					<button type="button" class="page-link" v-for="pageNumber in pages.slice(page-1, page+5)" @click="page = pageNumber"> {{pageNumber}} </button>
+				</li>
+				<li class="page-item">
+					<button type="button" @click="page++" v-if="page < pages.length" class="page-link"> Next </button>
+				</li>
+			</ul>
+		</nav>	
         </v-col>
 
       </v-row>
@@ -104,15 +123,34 @@ export default {
   },
   data() {
     return {
-      prefix: ["One", "Two", "Three", "Four"],
-      records:'',
+        records:'',
+        jobs:'',
+     	page: 1,
+	perPage: 9,
+        pages: [],
     };
   },
+  computed: {
+    displayedPosts () {
+	return this.paginate(this.jobs);
+   }
+ },
+ watch: {
+  jobs () {
+   this.setPages();
+  }
+ },
+filters: {
+	trimWords(value){
+		return value.split(" ").splice(0,20).join(" ") + '...';
+	}
+},
  mounted: function() {
     customerService.getCustomerRecord(this.$route.params.id).then(response => {
       //handle response
       if (response.status) {
         this.records = response.data;
+	 this.jobs = response.data.jobs;
       } else {
         this.$toast.open({
           message: response.message,
@@ -121,6 +159,21 @@ export default {
         });
       }
     });
+  },
+  methods:{
+	setPages () {
+		let numberOfPages = Math.ceil(this.jobs.length / this.perPage);
+		for (let index = 1; index <= numberOfPages; index++) {
+			this.pages.push(index);
+		}
+	},
+	paginate (jobs) {
+		let page = this.page;
+		let perPage = this.perPage;
+		let from = (page * perPage) - perPage;
+		let to = (page * perPage);
+		return  jobs.slice(from, to);
+	}
   },
 };
 </script>

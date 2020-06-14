@@ -108,6 +108,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -118,9 +137,27 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      prefix: ["One", "Two", "Three", "Four"],
-      records: ''
+      records: '',
+      jobs: '',
+      page: 1,
+      perPage: 9,
+      pages: []
     };
+  },
+  computed: {
+    displayedPosts: function displayedPosts() {
+      return this.paginate(this.jobs);
+    }
+  },
+  watch: {
+    jobs: function jobs() {
+      this.setPages();
+    }
+  },
+  filters: {
+    trimWords: function trimWords(value) {
+      return value.split(" ").splice(0, 20).join(" ") + '...';
+    }
   },
   mounted: function mounted() {
     var _this = this;
@@ -129,6 +166,7 @@ __webpack_require__.r(__webpack_exports__);
       //handle response
       if (response.status) {
         _this.records = response.data;
+        _this.jobs = response.data.jobs;
       } else {
         _this.$toast.open({
           message: response.message,
@@ -137,6 +175,22 @@ __webpack_require__.r(__webpack_exports__);
         });
       }
     });
+  },
+  methods: {
+    setPages: function setPages() {
+      var numberOfPages = Math.ceil(this.jobs.length / this.perPage);
+
+      for (var index = 1; index <= numberOfPages; index++) {
+        this.pages.push(index);
+      }
+    },
+    paginate: function paginate(jobs) {
+      var page = this.page;
+      var perPage = this.perPage;
+      var from = page * perPage - perPage;
+      var to = page * perPage;
+      return jobs.slice(from, to);
+    }
   }
 });
 
@@ -167,7 +221,7 @@ var render = function() {
             "v-row",
             [
               _c("h4", { staticClass: "main-title" }, [
-                _vm._v("\n        Customer Records\n      ")
+                _vm._v("\n          Customer Records\n        ")
               ]),
               _vm._v(" "),
               _c(
@@ -180,14 +234,16 @@ var render = function() {
                   _c("v-col", { staticClass: "p-0", attrs: { sm: "2" } }, [
                     _c("div", { staticClass: "single-record" }, [
                       _c("span", { staticClass: "record-timeline" }, [
-                        _vm._v("\n              Last 12 Months\n            ")
+                        _vm._v(
+                          "\n                Last 12 Months\n              "
+                        )
                       ]),
                       _vm._v(" "),
                       _c("span", { staticClass: "record-price" }, [
                         _vm._v(
-                          "\n              $" +
+                          "\n                $" +
                             _vm._s(_vm.records.monthamount) +
-                            "\n            "
+                            "\n              "
                         )
                       ])
                     ])
@@ -196,14 +252,14 @@ var render = function() {
                   _c("v-col", { staticClass: "p-0", attrs: { sm: "2" } }, [
                     _c("div", { staticClass: "single-record" }, [
                       _c("span", { staticClass: "record-timeline" }, [
-                        _vm._v("\n              Life Time\n            ")
+                        _vm._v("\n                Life Time\n              ")
                       ]),
                       _vm._v(" "),
                       _c("span", { staticClass: "record-price" }, [
                         _vm._v(
-                          "\n              $" +
+                          "\n                $" +
                             _vm._s(_vm.records.allamount) +
-                            "\n            "
+                            "\n              "
                         )
                       ])
                     ])
@@ -212,14 +268,14 @@ var render = function() {
                   _c("v-col", { staticClass: "p-0", attrs: { sm: "2" } }, [
                     _c("div", { staticClass: "single-record" }, [
                       _c("span", { staticClass: "record-timeline" }, [
-                        _vm._v("\n              Total Farms\n            ")
+                        _vm._v("\n                Total Farms\n              ")
                       ]),
                       _vm._v(" "),
                       _c("span", { staticClass: "record-price" }, [
                         _vm._v(
-                          "\n              " +
+                          "\n                " +
                             _vm._s(_vm.records.farmrecord) +
-                            "\n            "
+                            "\n              "
                         )
                       ])
                     ])
@@ -228,14 +284,14 @@ var render = function() {
                   _c("v-col", { staticClass: "p-0", attrs: { sm: "2" } }, [
                     _c("div", { staticClass: "single-record" }, [
                       _c("span", { staticClass: "record-timeline" }, [
-                        _vm._v("\n              Total Jobs\n            ")
+                        _vm._v("\n                Total Jobs\n              ")
                       ]),
                       _vm._v(" "),
                       _c("span", { staticClass: "record-price" }, [
                         _vm._v(
-                          "\n              " +
+                          "\n                " +
                             _vm._s(_vm.records.totaljobs) +
-                            "\n            "
+                            "\n              "
                         )
                       ])
                     ])
@@ -244,16 +300,16 @@ var render = function() {
                   _c("v-col", { staticClass: "p-0", attrs: { sm: "2" } }, [
                     _c("div", { staticClass: "single-record" }, [
                       _c("span", { staticClass: "record-timeline" }, [
-                        _vm._v("\n              Member Since\n            ")
+                        _vm._v("\n                Member Since\n              ")
                       ]),
                       _vm._v(" "),
                       _c("span", { staticClass: "record-price" }, [
                         _vm._v(
-                          "\n               " +
+                          "\n                 " +
                             _vm._s(
                               _vm._f("formatDate")(_vm.records.memebersince)
                             ) +
-                            "\n            "
+                            "\n              "
                         )
                       ])
                     ])
@@ -304,29 +360,149 @@ var render = function() {
                               ])
                             ]),
                             _vm._v(" "),
-                            _c("tbody", [
-                              _c("tr", [
-                                _c("td", [_vm._v("57900")]),
-                                _vm._v(" "),
-                                _c("td", [_vm._v("25 Country road, NY")]),
-                                _vm._v(" "),
-                                _c("td", [_vm._v("17/06/2019")]),
-                                _vm._v(" "),
-                                _c("td", [_vm._v("9:00 PM")]),
-                                _vm._v(" "),
-                                _c("td", [_vm._v("Frendo Joes")]),
-                                _vm._v(" "),
-                                _c("td", [_vm._v("$250")]),
-                                _vm._v(" "),
-                                _c("td", [_vm._v("Scheduled")])
-                              ])
-                            ])
+                            _c(
+                              "tbody",
+                              _vm._l(_vm.displayedPosts, function(record) {
+                                return _c("tr", [
+                                  _c("td", [_vm._v(_vm._s(record.id))]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(
+                                      _vm._s(record.farm.farm_address) +
+                                        " " +
+                                        _vm._s(record.farm.farm_unit) +
+                                        " " +
+                                        _vm._s(record.farm.farm_city) +
+                                        " " +
+                                        _vm._s(record.farm.farm_province) +
+                                        " " +
+                                        _vm._s(record.farm.farm_zipcode)
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(
+                                      _vm._s(
+                                        _vm._f("formatDate")(record.created_at)
+                                      )
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(_vm._s(record.time_slots_id))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    [
+                                      record.truck_driver_id
+                                        ? [_vm._v("Truck driver name")]
+                                        : _vm._e(),
+                                      _vm._v(" "),
+                                      !record.truck_driver_id
+                                        ? [_vm._v("Not Assigned Yet")]
+                                        : _vm._e(),
+                                      _vm._v(" "),
+                                      record.skidsteer_driver_id
+                                        ? [_vm._v("Skidsteer driver name")]
+                                        : _vm._e(),
+                                      _vm._v(" "),
+                                      !record.skidsteer_driver_id
+                                        ? [_vm._v("Not Assigned Yet")]
+                                        : _vm._e()
+                                    ],
+                                    2
+                                  ),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v("$" + _vm._s(record.job_amount))
+                                  ]),
+                                  _vm._v(" "),
+                                  !record.repeating_job
+                                    ? _c("td", [_vm._v("Scheduled")])
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  record.repeating_job
+                                    ? _c("td", [_vm._v("Rescheduled")])
+                                    : _vm._e()
+                                ])
+                              }),
+                              0
+                            )
                           ]
                         },
                         proxy: true
                       }
                     ])
-                  })
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "nav",
+                    { attrs: { "aria-label": "Page navigation example" } },
+                    [
+                      _c("ul", { staticClass: "pagination" }, [
+                        _c("li", { staticClass: "page-item" }, [
+                          _vm.page != 1
+                            ? _c(
+                                "button",
+                                {
+                                  staticClass: "page-link",
+                                  attrs: { type: "button" },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.page--
+                                    }
+                                  }
+                                },
+                                [_vm._v(" Previous ")]
+                              )
+                            : _vm._e()
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "li",
+                          { staticClass: "page-item" },
+                          _vm._l(
+                            _vm.pages.slice(_vm.page - 1, _vm.page + 5),
+                            function(pageNumber) {
+                              return _c(
+                                "button",
+                                {
+                                  staticClass: "page-link",
+                                  attrs: { type: "button" },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.page = pageNumber
+                                    }
+                                  }
+                                },
+                                [_vm._v(" " + _vm._s(pageNumber) + " ")]
+                              )
+                            }
+                          ),
+                          0
+                        ),
+                        _vm._v(" "),
+                        _c("li", { staticClass: "page-item" }, [
+                          _vm.page < _vm.pages.length
+                            ? _c(
+                                "button",
+                                {
+                                  staticClass: "page-link",
+                                  attrs: { type: "button" },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.page++
+                                    }
+                                  }
+                                },
+                                [_vm._v(" Next ")]
+                              )
+                            : _vm._e()
+                        ])
+                      ])
+                    ]
+                  )
                 ],
                 1
               )

@@ -57,4 +57,9 @@ class Job extends Model
     {
         return $this->belongsTo('App\User', 'skidsteer_driver_id', 'id');
     }
+
+    public function Timeslots()
+    {
+        return $this->belongsTo('App\TimeSlots', 'time_slots_id', 'id');
+    }
 }
