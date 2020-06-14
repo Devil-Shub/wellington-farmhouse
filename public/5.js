@@ -119,13 +119,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -136,8 +129,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      records: '',
-      jobs: '',
+      records: "",
+      jobs: "",
       page: 1,
       perPage: 9,
       pages: []
@@ -155,7 +148,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   filters: {
     trimWords: function trimWords(value) {
-      return value.split(" ").splice(0, 20).join(" ") + '...';
+      return value.split(" ").splice(0, 20).join(" ") + "...";
     }
   },
   mounted: function mounted() {
@@ -245,7 +238,7 @@ var render = function() {
             "v-row",
             [
               _c("h4", { staticClass: "main-title" }, [
-                _vm._v("\n          Customer Records\n        ")
+                _vm._v("Customer Records")
               ]),
               _vm._v(" "),
               _c(
@@ -258,17 +251,11 @@ var render = function() {
                   _c("v-col", { staticClass: "p-0", attrs: { sm: "2" } }, [
                     _c("div", { staticClass: "single-record" }, [
                       _c("span", { staticClass: "record-timeline" }, [
-                        _vm._v(
-                          "\n                Last 12 Months\n              "
-                        )
+                        _vm._v("Last 12 Months")
                       ]),
                       _vm._v(" "),
                       _c("span", { staticClass: "record-price" }, [
-                        _vm._v(
-                          "\n                $" +
-                            _vm._s(_vm.records.monthamount) +
-                            "\n              "
-                        )
+                        _vm._v("$" + _vm._s(_vm.records.monthamount))
                       ])
                     ])
                   ]),
@@ -276,15 +263,11 @@ var render = function() {
                   _c("v-col", { staticClass: "p-0", attrs: { sm: "2" } }, [
                     _c("div", { staticClass: "single-record" }, [
                       _c("span", { staticClass: "record-timeline" }, [
-                        _vm._v("\n                Life Time\n              ")
+                        _vm._v("Life Time")
                       ]),
                       _vm._v(" "),
                       _c("span", { staticClass: "record-price" }, [
-                        _vm._v(
-                          "\n                $" +
-                            _vm._s(_vm.records.allamount) +
-                            "\n              "
-                        )
+                        _vm._v("$" + _vm._s(_vm.records.allamount))
                       ])
                     ])
                   ]),
@@ -292,15 +275,11 @@ var render = function() {
                   _c("v-col", { staticClass: "p-0", attrs: { sm: "2" } }, [
                     _c("div", { staticClass: "single-record" }, [
                       _c("span", { staticClass: "record-timeline" }, [
-                        _vm._v("\n                Total Farms\n              ")
+                        _vm._v("Total Farms")
                       ]),
                       _vm._v(" "),
                       _c("span", { staticClass: "record-price" }, [
-                        _vm._v(
-                          "\n                " +
-                            _vm._s(_vm.records.farmrecord) +
-                            "\n              "
-                        )
+                        _vm._v(_vm._s(_vm.records.farmrecord))
                       ])
                     ])
                   ]),
@@ -308,15 +287,11 @@ var render = function() {
                   _c("v-col", { staticClass: "p-0", attrs: { sm: "2" } }, [
                     _c("div", { staticClass: "single-record" }, [
                       _c("span", { staticClass: "record-timeline" }, [
-                        _vm._v("\n                Total Jobs\n              ")
+                        _vm._v("Total Jobs")
                       ]),
                       _vm._v(" "),
                       _c("span", { staticClass: "record-price" }, [
-                        _vm._v(
-                          "\n                " +
-                            _vm._s(_vm.records.totaljobs) +
-                            "\n              "
-                        )
+                        _vm._v(_vm._s(_vm.records.totaljobs))
                       ])
                     ])
                   ]),
@@ -324,16 +299,12 @@ var render = function() {
                   _c("v-col", { staticClass: "p-0", attrs: { sm: "2" } }, [
                     _c("div", { staticClass: "single-record" }, [
                       _c("span", { staticClass: "record-timeline" }, [
-                        _vm._v("\n                Member Since\n              ")
+                        _vm._v("Member Since")
                       ]),
                       _vm._v(" "),
                       _c("span", { staticClass: "record-price" }, [
                         _vm._v(
-                          "\n                 " +
-                            _vm._s(
-                              _vm._f("formatDate")(_vm.records.memebersince)
-                            ) +
-                            "\n              "
+                          _vm._s(_vm._f("formatDate")(_vm.records.memebersince))
                         )
                       ])
                     ])
@@ -467,7 +438,7 @@ var render = function() {
                                   }
                                 }
                               },
-                              [_vm._v(" Previous ")]
+                              [_vm._v("Previous")]
                             )
                           : _vm._e()
                       ]),
@@ -489,7 +460,7 @@ var render = function() {
                                   }
                                 }
                               },
-                              [_vm._v(" " + _vm._s(pageNumber) + " ")]
+                              [_vm._v(_vm._s(pageNumber))]
                             )
                           }
                         ),
@@ -509,7 +480,7 @@ var render = function() {
                                   }
                                 }
                               },
-                              [_vm._v(" Next ")]
+                              [_vm._v("Next")]
                             )
                           : _vm._e()
                       ])
