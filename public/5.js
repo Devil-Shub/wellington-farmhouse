@@ -90,35 +90,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -130,30 +101,11 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       records: "",
-      jobs: "",
-      page: 1,
-      perPage: 9,
-      pages: []
+      jobs: ""
     };
-  },
-  computed: {
-    displayedPosts: function displayedPosts() {
-      return this.paginate(this.jobs);
-    }
-  },
-  watch: {
-    jobs: function jobs() {
-      this.setPages();
-    }
-  },
-  filters: {
-    trimWords: function trimWords(value) {
-      return value.split(" ").splice(0, 20).join(" ") + "...";
-    }
   },
   mounted: function mounted() {
     this.getResult();
-    this.myFunction();
   },
   methods: {
     getResult: function getResult() {
@@ -172,42 +124,14 @@ __webpack_require__.r(__webpack_exports__);
           });
         }
       });
-    },
-    myFunction: function myFunction() {
-      var input, filter, table, tr, td, i, txtValue;
-      input = document.getElementById("myInput");
-      filter = input.value.toUpperCase();
-      table = document.getElementById("myTable");
-      tr = table.getElementsByTagName("tr");
-
-      for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[1];
-
-        if (td) {
-          txtValue = td.textContent || td.innerText;
-
-          if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            tr[i].style.display = "";
-          } else {
-            tr[i].style.display = "none";
-          }
-        }
-      }
-    },
-    setPages: function setPages() {
-      var numberOfPages = Math.ceil(this.jobs.length / this.perPage);
-
-      for (var index = 1; index <= numberOfPages; index++) {
-        this.pages.push(index);
-      }
-    },
-    paginate: function paginate(jobs) {
-      var page = this.page;
-      var perPage = this.perPage;
-      var from = page * perPage - perPage;
-      var to = page * perPage;
-      return jobs.slice(from, to);
     }
+  },
+  updated: function updated() {
+    setTimeout(function () {
+      $(document).ready(function () {
+        $('#example').DataTable();
+      });
+    }, 1000);
   }
 });
 
@@ -314,177 +238,95 @@ var render = function() {
               ),
               _vm._v(" "),
               _c("v-col", { attrs: { sm: "12", cols: "12" } }, [
-                _c("input", {
-                  attrs: {
-                    type: "text",
-                    id: "myInput",
-                    placeholder: "Search for names..",
-                    title: "Type in a name"
-                  },
-                  on: {
-                    keyup: function($event) {
-                      return _vm.myFunction()
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c("table", { attrs: { id: "myTable" } }, [
-                  _c("thead", [
-                    _c("tr", [
-                      _c("th", { staticClass: "text-left" }, [
-                        _vm._v("Job_id")
-                      ]),
-                      _vm._v(" "),
-                      _c("th", { staticClass: "text-left" }, [
-                        _vm._v("Farm Location")
-                      ]),
-                      _vm._v(" "),
-                      _c("th", { staticClass: "text-left" }, [
-                        _vm._v("Start Date")
-                      ]),
-                      _vm._v(" "),
-                      _c("th", { staticClass: "text-left" }, [
-                        _vm._v("Start Time")
-                      ]),
-                      _vm._v(" "),
-                      _c("th", { staticClass: "text-left" }, [_vm._v("Techs")]),
-                      _vm._v(" "),
-                      _c("th", { staticClass: "text-left" }, [_vm._v("Price")]),
-                      _vm._v(" "),
-                      _c("th", { staticClass: "text-left" }, [_vm._v("Status")])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "tbody",
-                    _vm._l(_vm.displayedPosts, function(record) {
-                      return _c("tr", [
-                        _c("td", [_vm._v(_vm._s(record.id))]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _vm._v(
-                            _vm._s(record.farm.farm_address) +
-                              " " +
-                              _vm._s(record.farm.farm_unit) +
-                              " " +
-                              _vm._s(record.farm.farm_city) +
-                              " " +
-                              _vm._s(record.farm.farm_province) +
-                              " " +
-                              _vm._s(record.farm.farm_zipcode)
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _vm._v(
-                            _vm._s(_vm._f("formatDate")(record.created_at))
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(record.time_slots_id))]),
-                        _vm._v(" "),
-                        _c(
-                          "td",
-                          [
-                            record.truck_driver_id
-                              ? [_vm._v("Truck driver name")]
-                              : _vm._e(),
-                            _vm._v(" "),
-                            !record.truck_driver_id
-                              ? [_vm._v("Not Assigned Yet")]
-                              : _vm._e(),
-                            _vm._v(" "),
-                            record.skidsteer_driver_id
-                              ? [_vm._v("Skidsteer driver name")]
-                              : _vm._e(),
-                            _vm._v(" "),
-                            !record.skidsteer_driver_id
-                              ? [_vm._v("Not Assigned Yet")]
-                              : _vm._e()
-                          ],
-                          2
-                        ),
-                        _vm._v(" "),
-                        _c("td", [_vm._v("$" + _vm._s(record.job_amount))]),
-                        _vm._v(" "),
-                        !record.repeating_job
-                          ? _c("td", [_vm._v("Scheduled")])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        record.repeating_job
-                          ? _c("td", [_vm._v("Rescheduled")])
-                          : _vm._e()
-                      ])
-                    }),
-                    0
-                  )
-                ]),
-                _vm._v(" "),
                 _c(
-                  "nav",
-                  { attrs: { "aria-label": "Page navigation example" } },
+                  "table",
+                  {
+                    staticClass: "table table-striped table-bordered",
+                    staticStyle: { width: "100%" },
+                    attrs: { id: "example" }
+                  },
                   [
-                    _c("ul", { staticClass: "pagination" }, [
-                      _c("li", { staticClass: "page-item" }, [
-                        _vm.page != 1
-                          ? _c(
-                              "button",
-                              {
-                                staticClass: "page-link",
-                                attrs: { type: "button" },
-                                on: {
-                                  click: function($event) {
-                                    _vm.page--
-                                  }
-                                }
-                              },
-                              [_vm._v("Previous")]
-                            )
-                          : _vm._e()
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "li",
-                        { staticClass: "page-item" },
-                        _vm._l(
-                          _vm.pages.slice(_vm.page - 1, _vm.page + 5),
-                          function(pageNumber) {
-                            return _c(
-                              "button",
-                              {
-                                staticClass: "page-link",
-                                attrs: { type: "button" },
-                                on: {
-                                  click: function($event) {
-                                    _vm.page = pageNumber
-                                  }
-                                }
-                              },
-                              [_vm._v(_vm._s(pageNumber))]
-                            )
-                          }
-                        ),
-                        0
-                      ),
-                      _vm._v(" "),
-                      _c("li", { staticClass: "page-item" }, [
-                        _vm.page < _vm.pages.length
-                          ? _c(
-                              "button",
-                              {
-                                staticClass: "page-link",
-                                attrs: { type: "button" },
-                                on: {
-                                  click: function($event) {
-                                    _vm.page++
-                                  }
-                                }
-                              },
-                              [_vm._v("Next")]
-                            )
-                          : _vm._e()
+                    _c("thead", [
+                      _c("tr", [
+                        _c("th", [_vm._v("Job ID")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Farm Location")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Start Date")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Start Time")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Tech")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Price")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Status")])
                       ])
-                    ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.jobs, function(record) {
+                        return _c("tr", [
+                          _c("td", [_vm._v(_vm._s(record.id))]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _vm._v(
+                              _vm._s(record.farm.farm_address) +
+                                " " +
+                                _vm._s(record.farm.farm_unit) +
+                                " " +
+                                _vm._s(record.farm.farm_city) +
+                                " " +
+                                _vm._s(record.farm.farm_province) +
+                                " " +
+                                _vm._s(record.farm.farm_zipcode)
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _vm._v(
+                              _vm._s(_vm._f("formatDate")(record.created_at))
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(record.time_slots_id))]),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            [
+                              record.truck_driver_id
+                                ? [_vm._v("Truck driver name")]
+                                : _vm._e(),
+                              _vm._v(" "),
+                              !record.truck_driver_id
+                                ? [_vm._v("Not Assigned Yet")]
+                                : _vm._e(),
+                              _vm._v(" "),
+                              record.skidsteer_driver_id
+                                ? [_vm._v("Skidsteer driver name")]
+                                : _vm._e(),
+                              _vm._v(" "),
+                              !record.skidsteer_driver_id
+                                ? [_vm._v("Not Assigned Yet")]
+                                : _vm._e()
+                            ],
+                            2
+                          ),
+                          _vm._v(" "),
+                          _c("td", [_vm._v("$" + _vm._s(record.job_amount))]),
+                          _vm._v(" "),
+                          !record.repeating_job
+                            ? _c("td", [_vm._v("Scheduled")])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          record.repeating_job
+                            ? _c("td", [_vm._v("Rescheduled")])
+                            : _vm._e()
+                        ])
+                      }),
+                      0
+                    )
                   ]
                 )
               ])
