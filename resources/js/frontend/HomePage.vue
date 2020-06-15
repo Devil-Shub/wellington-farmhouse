@@ -6,7 +6,7 @@
     class="mx-auto"
     outlined
   >
-  <router-link to="payment/MTk=" class="nav-item nav-link">
+  <router-link v-if="payment" :to="paymentUrl" class="nav-item nav-link">
                     Payment
                     </router-link>
     <v-list-item three-line>
@@ -48,13 +48,22 @@ import { router } from "../_helpers/router";
           'red',
           'orange',
         ],
-	currentUser: '',
+	      currentUser: '',
+        paymentUrl: '',
+        payment: false,
         model: 1,
       }
     },
     mounted() {
        var Userdata = JSON.parse(localStorage.getItem("currentUser"));
-	this.currentUser = Userdata.data.user;
+	     this.currentUser = Userdata.data.user;
+       this.paymentUrl = localStorage.getItem("payment");
+       if(this.paymentUrl != 'undefined'){
+          var r = paymentUrl.indexOf("payment");
+          if(r){
+            this.payment = true;
+          }
+       }
    },
   methods: {
     logout() {
