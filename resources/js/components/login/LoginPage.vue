@@ -87,19 +87,21 @@ name: "login",
         this.loading = true;
         authenticationService.login(this.email, this.password).then(
           response => {
-		  if(response == 'Home'){
-			var paymentUrl = localStorage.getItem("payment");
-			if(paymentUrl){
-			var r = paymentUrl.indexOf("payment");
-				if(r){
-				router.push(paymentUrl);
-				}else{
-		                  this.$router.push({name: response}).catch(error => { })
-				}
-			}
-		   }else{
-		      this.$router.push({name: response}).catch(error => { })
-		  }
+            if(response === 'Home'){
+              var paymentUrl = localStorage.getItem("payment");
+              if(paymentUrl != 'undefined'){
+              var r = paymentUrl.indexOf("payment");
+                if(r){
+                  router.push(paymentUrl);
+                }else{
+                  this.$router.push({name: response}).catch(error => { })
+                }
+              }else{
+                 this.$router.push({name: response}).catch(error => { })
+              }
+            }else{
+                router.push(response);
+            }
           },
           error => {
             // Can accept an Object of options
