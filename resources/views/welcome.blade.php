@@ -26,5 +26,18 @@
 <script src="//code.jquery.com/jquery.js"></script>
  <!-- DataTables -->
 <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script> 
+
+<script>
+        window.Laravel = {!! json_encode([
+            'csrfToken'=> csrf_token(),
+            'user'=> [
+                'authenticated' => auth()->check(),
+                'id' => auth()->check() ? auth()->user()->id : null,
+                'name' => auth()->check() ? auth()->user()->name : null, 
+                ]
+            ])
+        !!};
+</script>
+
     </body>
 </html>

@@ -17,6 +17,8 @@ export const jobService = {
   servicesTimeSlots,
   createJob,
   singleJob,
+  chatList,
+  storeMessage,
   joblist,
   jobassigned,
   jobcomplete,
@@ -199,6 +201,28 @@ function singleJob(job_id) {
       // store user details and passport token in local storage to keep user logged in between page refreshes
 
       return user;
+    });
+}
+
+function chatList() {
+  return fetch(
+    this.apiUrl + `admin/message`,
+    requestOptions.get()
+  )
+    .then(handleResponse)
+    .then(chat => {
+      return chat;
+    });
+}
+
+function storeMessage(data) {
+  return fetch(
+    this.apiUrl + `admin/message`,
+    requestOptions.post(data)
+  )
+    .then(handleResponse)
+    .then(chat => {
+      return chat;
     });
 }
 
