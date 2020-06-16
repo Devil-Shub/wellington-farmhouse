@@ -20,13 +20,13 @@
         position: 'top-left',
       }"
     />
+
   </div>
 </template>
 <script>
 import Mapbox from 'mapbox-gl-vue'
-
 export default {
- components: { Mapbox },
+components: { Mapbox },
   data() {
     return {
    
