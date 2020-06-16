@@ -64,8 +64,6 @@ Vue.use(VueGoogleMaps, {
   }
 })
 
-import JwPagination from 'jw-vue-pagination';
-Vue.component('jw-pagination', JwPagination);
 
 Vue.use(Vuelidate);
 Vue.use(Vuetify);
