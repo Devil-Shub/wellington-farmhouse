@@ -75,6 +75,7 @@ import SkidsteerAddServicePage from "../components/admin/skidsteer/AddServicePag
 import JobsViewPage from "../components/admin/jobs/View";
 import JobsAddPage from "../components/admin/jobs/AddPage";
 import JobsChatPage from "../components/admin/jobs/JobChat";
+import ChatPage from "../components/chat/Chat";
 //dispatches
 import DispatchesViewPage from "../components/admin/dispatches/View";
 
@@ -156,6 +157,7 @@ export const router = new Router({
         { path: 'jobs', component: JobsViewPage, name: 'Jobs', meta: { requiresAuth: [Role.Admin] } },
         { path: 'jobs/add', component: JobsAddPage, name: 'JobsAdd', meta: { requiresAuth: [Role.Admin] } },
         { path: 'jobs/chat/:id', component: JobsChatPage, name: 'JobsChat', meta: { requiresAuth: [Role.Admin] } },
+        { path: 'jobs/chat', component: ChatPage, name: 'Chat', meta: { requiresAuth: [Role.Admin] } },
         { path: 'dispatches', component: DispatchesViewPage, name: 'Dispatches', meta: { requiresAuth: [Role.Admin] } },
         { path: 'accounting', component: AccountingViewPage, name: 'Accounting', meta: { requiresAuth: [Role.Admin] } },
         { path: 'reports', component: ReportsViewPage, name: 'Reports', meta: { requiresAuth: [Role.Admin] } },

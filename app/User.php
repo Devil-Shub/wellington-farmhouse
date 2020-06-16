@@ -54,4 +54,9 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\CustomerFarm', 'manager_id');
     }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
 }
