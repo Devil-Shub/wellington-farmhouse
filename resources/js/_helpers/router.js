@@ -83,6 +83,7 @@ import DispatchesViewPage from "../components/admin/dispatches/View";
 import ReportsViewPage from "../components/admin/reports/View";
 //AccountingViewPage
 import AccountingViewPage from "../components/admin/accounting/View";
+import AccountingDetails from "../components/admin/accounting/Details";
 
 import LoginPage from "../components/login/LoginPage";
 import RegisterPage from "../components/register/RegisterPage";
@@ -160,6 +161,7 @@ export const router = new Router({
         { path: 'jobs/chat', component: ChatPage, name: 'Chat', meta: { requiresAuth: [Role.Admin] } },
         { path: 'dispatches', component: DispatchesViewPage, name: 'Dispatches', meta: { requiresAuth: [Role.Admin] } },
         { path: 'accounting', component: AccountingViewPage, name: 'Accounting', meta: { requiresAuth: [Role.Admin] } },
+        { path: 'accounting/details', component: AccountingDetails, name: 'AccountingDetails', meta: { requiresAuth: [Role.Admin] } },
         { path: 'reports', component: ReportsViewPage, name: 'Reports', meta: { requiresAuth: [Role.Admin] } },
       ]
     },

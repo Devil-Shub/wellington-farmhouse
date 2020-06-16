@@ -840,4 +840,47 @@ $hover-white: #fff;
         }
       }
     }
+    .account-upper {
+      margin-bottom: 50px;
+      .account-left {
+        display: inline-block;
+        width: 110px;
+        height: 110px;
+        border-radius: 50%;
+        border: 1px solid #ccc;
+        vertical-align: top;
+        img {
+          max-width: 100%;
+          text-align: center;
+        }
+      }
+      .account-right {
+        display: inline-block;
+        padding-left: 35px;
+        color: #717171;
+        h5 {
+          font-size: 16px;
+          font-weight: 400;
+        }
+        button.custom-save-btn {
+          background-color: #717171 !important;
+          color: #fff;
+          font-size: 12px;
+          padding: 0 20px;
+          height: 32px;
+        }
+      }
+    }
+    .account-bottom {
+      text-align: right;
+      padding-right: 10px;
+      span {
+        padding: 15px 0 15px 15px;
+      }
+    }
+    table,
+    table td,
+    table th {
+      border: none;
+    }
   }
