@@ -160,6 +160,13 @@
 		<div class="v-messages__wrapper"><div class="v-messages__message">Document upload is required</div></div>
 		</div>
                 </v-col>
+
+
+   <v-radio-group  row v-model="addForm.driver_type"  :mandatory="false" required :rules="[v => !!v || 'Truck type is required']">
+              <v-radio label="Truck" value="1" ></v-radio>
+              <v-radio label="Skidsteer" value="2"></v-radio>
+	           </v-radio-group>
+
               </v-col>
 
               <v-col cols="12" md="12">
@@ -207,7 +214,7 @@ export default {
         driver_country: "",
         driver_zipcode: "",
         driver_phone: "",
-        driver_type: 1
+        driver_type:  "",
         
       },
       emailRules: [
@@ -267,6 +274,7 @@ this.avatar = '/images/avatar.png';
 	this.docError = true;
        }
       this.addForm.expiry_date = this.date;
+console.log(this.addForm)
       if (this.$refs.form.validate() && (!this.docError)) {
                      driverService.add(this.addForm).then(response => {
                       //handle response
