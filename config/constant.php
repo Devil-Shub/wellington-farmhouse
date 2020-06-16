@@ -24,8 +24,8 @@ return [
         'succeeded' => 1
     ],
     'job_status' => [
-        'open' => 1,
-        'close' => 0
+        'open' => 0,
+        'close' => 1
     ],
     'repeating_job' => [
         'true' => 1,

@@ -19,6 +19,12 @@ class CreateMessagesTable extends Migration
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
 
+            $table->unsignedBigInteger('to_id')->nullable();
+            $table->foreign('to_id')->references('id')->on('users');
+
+            $table->unsignedBigInteger('job_id')->nullable();
+            $table->foreign('job_id')->references('id')->on('jobs');
+
             $table->text('body');
 
             $table->timestamps();
