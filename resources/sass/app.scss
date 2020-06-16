@@ -814,4 +814,30 @@ $hover-white: #fff;
         }
       }
     }
+    .type_msg {
+      border-top: 1px solid #ebebeb;
+      padding-top: 35px;
+      .input_msg_write {
+        input {
+          width: 92.3%;
+          padding: 12px 10px 12px 30px;
+          background-color: #ebebeb;
+          &:focus {
+            outline: none;
+          }
+        }
+        button.msg_send_btn {
+          background-color: #c8c8c8;
+          height: 45px;
+          width: 45px;
+          border-radius: 50%;
+          color: #fff;
+          margin-left: 10px;
+          svg {
+            padding-top: 2px;
+            height: 25px;
+          }
+        }
+      }
+    }
   }
