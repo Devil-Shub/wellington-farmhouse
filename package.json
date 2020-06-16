@@ -35,7 +35,6 @@
         "filepond-plugin-image-exif-orientation": "^1.0.9",
         "filepond-plugin-image-preview": "^4.6.4",
         "js-event-bus": "^1.0.3",
-        "jw-vue-pagination": "^1.0.3",
         "mapbox-gl-vue": "^2.0.4",
         "rxjs": "^6.5.5",
         "scriptjs": "^2.5.9",
