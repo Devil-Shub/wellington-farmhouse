@@ -283,7 +283,7 @@ var render = function() {
                             "router-link",
                             {
                               staticClass: "nav-item nav-link",
-                              attrs: { to: "/admin/jobs/chart/" + job.id }
+                              attrs: { to: "/admin/jobs/chat/" + job.id }
                             },
                             [_vm._v("View chat")]
                           )
