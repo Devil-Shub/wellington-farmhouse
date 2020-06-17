@@ -22,15 +22,21 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                    <tr v-for="invoice in invoiceJobs">
+                        <td>{{invoice.updated_at | formatDate}}</td>
+                        <td><router-link :to="'/admin/customer/details/'+invoice.customer.id" class="nav-item nav-link">
+                     {{invoice.customer.first_name}}
+                    </router-link></td>
+                        <td><router-link :to="'/admin/jobs'" class="nav-item nav-link">
+                      {{invoice.id}}
+                    </router-link></td>
+                       <td><router-link :to="'/admin/service/edit/'+invoice.service.id" class="nav-item nav-link">
+                      {{invoice.service.service_name}}
+                    </router-link></td>
+                        <td>${{invoice.job_amount}}</td>
+                        <td>Sync</td>
+                        <td>Email</td>
+                        <td>Download</td>
                     </tr>
                 </tbody>
             </table>
@@ -43,14 +49,34 @@
 import { router } from "../../../../_helpers/router";
 import { environment } from "../../../../config/test.env";
 import { PlusCircleIcon } from "vue-feather-icons";
+import { accountingService } from "../../../../_services/accounting.service";
 export default {
   components: {
     PlusCircleIcon
   },
   data() {
     return {
-      
+      invoiceJobs:'',
     };
+  },
+  mounted: function() {
+    this.invoiceList();
+  },
+  methods: {
+	invoiceList(){
+        accountingService.jobInvoices().then(response => {
+        //handle response
+        if (response.status) {
+          this.invoiceJobs = response.data;
+        } else {
+          this.$toast.open({
+            message: response.message,
+            type: "error",
+            position: "top-right"
+          });
+        }
+      });
+	}
   },
 }
 
