@@ -8,11 +8,11 @@
     <v-row>
  <v-col sm="12" cols="12">
       <!-- all jobs -->
-  	    <table id="example" class="table table-striped table-bordered" style="width:100%">
+  	    <table id="example" class="table table-striped table-bordered table-lg all_jobs" style="width:100%">
         <thead>
             <tr>
                 <th>Sno</th>
-                <th>Job Summary</th>
+                <th class="job-summ">Job Summary</th>
                 <th>Sort By</th>
                 <th>Techs</th>
                 <th>Time</th>

@@ -54,7 +54,7 @@
                     <router-link :to="'/admin/admin/edit/' + item.id" class="nav-item nav-link">
                       <edit-icon size="1.5x" class="custom-class"></edit-icon>
                     </router-link>
-                    <v-btn color="blue darken-1" text @click="Delete(item.id)">
+                    <v-btn color="blue darken-1" v-if="item.id != 1" text @click="Delete(item.id)">
                       <trash-icon size="1.5x" class="custom-class"></trash-icon>
                     </v-btn>
                   </td>

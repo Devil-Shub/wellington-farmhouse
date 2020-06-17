@@ -8,6 +8,7 @@ import HomePage from "../frontend/HomePage";
 import PaymentPage from "../frontend/PaymentPage";
 //layouts
 import AdminLayout from "../components/layout/AdminLayout";
+import UserLayout from "../frontend/layout/UserLayout";
 //admin components
 import Dashboard from "../components/admin/Dashboard";
 import Settings from "../components/admin/Settings";
@@ -175,7 +176,6 @@ export const router = new Router({
       meta: { requiresAuth: Role.Admin_Manager },
       children: [
         { path: 'dashboard', component: Dashboard, name: 'Manager_Dashboard', meta: { requiresAuth: [Role.Admin_Manager] } },
-        { path: 'settings', component: Settings, name: 'Manager_Settings', meta: { requiresAuth: [Role.Admin_Manager] } },
         { path: 'changepassword', component: ChangePasswordPage, name: 'MChangepassword', meta: { requiresAuth: [Role.Admin_Manager] } },
         { path: 'jobs', component: JobsViewPage, name: 'manager_Jobs', meta: { requiresAuth: [Role.Admin_Manager] } },
         { path: 'jobs/add', component: JobsAddPage, name: 'manager_JobsAdd', meta: { requiresAuth: [Role.Admin_Manager] } },

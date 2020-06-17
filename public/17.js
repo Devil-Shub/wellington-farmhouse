@@ -145,7 +145,8 @@ var render = function() {
             _c(
               "table",
               {
-                staticClass: "table table-striped table-bordered",
+                staticClass:
+                  "table table-striped table-bordered table-lg all_jobs",
                 staticStyle: { width: "100%" },
                 attrs: { id: "example" }
               },
@@ -154,7 +155,9 @@ var render = function() {
                   _c("tr", [
                     _c("th", [_vm._v("Sno")]),
                     _vm._v(" "),
-                    _c("th", [_vm._v("Job Summary")]),
+                    _c("th", { staticClass: "job-summ" }, [
+                      _vm._v("Job Summary")
+                    ]),
                     _vm._v(" "),
                     _c("th", [_vm._v("Sort By")]),
                     _vm._v(" "),
