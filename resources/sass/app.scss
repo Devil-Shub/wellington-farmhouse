@@ -883,4 +883,43 @@ $hover-white: #fff;
     table th {
       border: none;
     }
+    .dataTables_wrapper {
+      overflow-x: auto;
+      .dataTables_filter {
+        input {
+          border: 1px solid #ccc;
+          padding: 6px 15px;
+          border-radius: 24px;
+          cursor: text;
+          &:focus {
+            outline: none;
+          }
+        }
+      }
+      table {
+        min-width: 900px;
+        width: 100% !important;
+        &.table-lg {
+          min-width: 1100px;
+        }
+        &.all_jobs {
+          thead {
+            tr {
+              th {
+                &.job-summ {
+                  width: 110px;
+                }
+              }
+            }
+          }
+          tbody {
+            tr {
+              td {
+                padding-left: 18px;
+              }
+            }
+          }
+        }
+      }
+    }
   }

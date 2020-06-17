@@ -8,6 +8,7 @@ import HomePage from "../frontend/HomePage";
 import PaymentPage from "../frontend/PaymentPage";
 //layouts
 import AdminLayout from "../components/layout/AdminLayout";
+import UserLayout from "../frontend/layout/UserLayout";
 //admin components
 import Dashboard from "../components/admin/Dashboard";
 import Settings from "../components/admin/Settings";
