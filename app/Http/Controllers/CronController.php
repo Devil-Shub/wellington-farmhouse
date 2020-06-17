@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Carbon;
 use App\Job;
 use App\User;
+use App\Driver;
+use App\Vehicle;
 
 class CronController extends Controller
 {
@@ -27,14 +29,34 @@ class CronController extends Controller
         )
         ->whereJobStatus(config('constant.job_status.open'))
         // ->whereCreatedAt(Carbon::now())
+        ->whereTruckId(null)
+        ->whereSkidsteerId(null)
+        ->whereTruckDriverId(null)
+        ->whereSkidsteerDriverId(null)
         ->get(); 
 
-        // $getTruckDriver = User::with('driver', 'jobTruckDriver')->whereRoleId(config('constant.roles.Driver'))->first();
+        // $getTruckDriver = User::with(['driver' => function($query) {
+        //     $query->whereDriverType(1);
+        // }])
+        // ->orDoesntHave('jobTruckDriver')
+        // ->orWherehas('jobTruckDriver', function ($query) {
+        //    $query->whereJobStatus(config('constant.job_status.open'));
+        // })
+        // ->whereRoleId(config('constant.roles.Driver'))->first();
 
-        // dd($getTruckDriver->toArray());
+        foreach($getAllJobs as $jobs) {
+            $truck = Vehicle::whereVehicleType(config('constant.vehicle_type.truck'))->first();
+            $truckDriver = Driver::with('user')->whereDriverType(1)->first();
+            $skidster = Vehicle::whereVehicleType(config('constant.vehicle_type.skidsteer'))->first();
+            $skidSterDriver = Driver::with('user')->whereDriverType(2)->first();
+            
+            //assign to job 
+            $jobs->truck_id = $truck != null ? $truck->id:null;
+            $jobs->skidsteer_id = $skidster != null ? $skidster->id:null;
+            $jobs->truck_driver_id = $truckDriver != null ? $truckDriver->user_id:null;
+            $jobs->skidsteer_driver_id = $skidSterDriver != null ? $skidSterDriver->user_id:null;
 
-        // foreach($getAllJobs as $jobs) {
-        //     dump($jobs->id);
-        // }
+            $jobs->save();
+        }
     }
 }
