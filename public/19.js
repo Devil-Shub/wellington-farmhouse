@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[19],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/jobs/tab/UnpaidJobs.vue?vue&type=script&lang=js&":
-/*!************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/jobs/tab/UnpaidJobs.vue?vue&type=script&lang=js& ***!
-  \************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/jobs/tab/CompletedJobs.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/jobs/tab/CompletedJobs.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -13,10 +13,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_job_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../_services/job.service */ "./resources/js/_services/job.service.js");
 /* harmony import */ var _config_test_env__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../config/test.env */ "./resources/js/config/test.env.js");
 /* harmony import */ var vue_feather_icons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-feather-icons */ "./node_modules/vue-feather-icons/dist/vue-feather-icons.es.js");
-//
-//
-//
-//
 //
 //
 //
@@ -91,7 +87,7 @@ __webpack_require__.r(__webpack_exports__);
     getResults: function getResults() {
       var _this = this;
 
-      _services_job_service__WEBPACK_IMPORTED_MODULE_1__["jobService"].jobunpaid().then(function (response) {
+      _services_job_service__WEBPACK_IMPORTED_MODULE_1__["jobService"].jobcomplete().then(function (response) {
         //handle response
         if (response.status) {
           _this.alljobs = response.data;
@@ -108,7 +104,7 @@ __webpack_require__.r(__webpack_exports__);
   updated: function updated() {
     setTimeout(function () {
       $(document).ready(function () {
-        $('#unpaid').DataTable();
+        $('#completed').DataTable();
       });
     }, 1000);
   }
@@ -116,10 +112,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/jobs/tab/UnpaidJobs.vue?vue&type=template&id=50ec49da&":
-/*!****************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/jobs/tab/UnpaidJobs.vue?vue&type=template&id=50ec49da& ***!
-  \****************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/jobs/tab/CompletedJobs.vue?vue&type=template&id=5ef4c439&":
+/*!*******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/jobs/tab/CompletedJobs.vue?vue&type=template&id=5ef4c439& ***!
+  \*******************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -147,7 +143,7 @@ var render = function() {
               {
                 staticClass: "table table-striped table-bordered",
                 staticStyle: { width: "100%" },
-                attrs: { id: "unpaid" }
+                attrs: { id: "completed" }
               },
               [
                 _c("thead", [
@@ -166,9 +162,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("th", [_vm._v("Payment")]),
                     _vm._v(" "),
-                    _c("th", [_vm._v("Chat")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Status")])
+                    _c("th", [_vm._v("Chat")])
                   ])
                 ]),
                 _vm._v(" "),
@@ -283,26 +277,12 @@ var render = function() {
                             "router-link",
                             {
                               staticClass: "nav-item nav-link",
-<<<<<<< HEAD
-                              attrs: { to: "/admin/jobs/chart/" + job.id }
-=======
                               attrs: { to: "/admin/jobs/chat/" + job.id }
->>>>>>> 442b427d7d704ec465175e49e98e7de5d234d080
                             },
                             [_vm._v("View chat")]
                           )
                         ],
                         1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "td",
-                        [
-                          !job.job_status ? [_vm._v("Open")] : _vm._e(),
-                          _vm._v(" "),
-                          job.job_status ? [_vm._v("Close")] : _vm._e()
-                        ],
-                        2
                       )
                     ])
                   }),
@@ -325,17 +305,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/admin/jobs/tab/UnpaidJobs.vue":
-/*!***************************************************************!*\
-  !*** ./resources/js/components/admin/jobs/tab/UnpaidJobs.vue ***!
-  \***************************************************************/
+/***/ "./resources/js/components/admin/jobs/tab/CompletedJobs.vue":
+/*!******************************************************************!*\
+  !*** ./resources/js/components/admin/jobs/tab/CompletedJobs.vue ***!
+  \******************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _UnpaidJobs_vue_vue_type_template_id_50ec49da___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UnpaidJobs.vue?vue&type=template&id=50ec49da& */ "./resources/js/components/admin/jobs/tab/UnpaidJobs.vue?vue&type=template&id=50ec49da&");
-/* harmony import */ var _UnpaidJobs_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UnpaidJobs.vue?vue&type=script&lang=js& */ "./resources/js/components/admin/jobs/tab/UnpaidJobs.vue?vue&type=script&lang=js&");
+/* harmony import */ var _CompletedJobs_vue_vue_type_template_id_5ef4c439___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CompletedJobs.vue?vue&type=template&id=5ef4c439& */ "./resources/js/components/admin/jobs/tab/CompletedJobs.vue?vue&type=template&id=5ef4c439&");
+/* harmony import */ var _CompletedJobs_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CompletedJobs.vue?vue&type=script&lang=js& */ "./resources/js/components/admin/jobs/tab/CompletedJobs.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -345,9 +325,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _UnpaidJobs_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _UnpaidJobs_vue_vue_type_template_id_50ec49da___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _UnpaidJobs_vue_vue_type_template_id_50ec49da___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _CompletedJobs_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _CompletedJobs_vue_vue_type_template_id_5ef4c439___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _CompletedJobs_vue_vue_type_template_id_5ef4c439___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -357,38 +337,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/admin/jobs/tab/UnpaidJobs.vue"
+component.options.__file = "resources/js/components/admin/jobs/tab/CompletedJobs.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/admin/jobs/tab/UnpaidJobs.vue?vue&type=script&lang=js&":
-/*!****************************************************************************************!*\
-  !*** ./resources/js/components/admin/jobs/tab/UnpaidJobs.vue?vue&type=script&lang=js& ***!
-  \****************************************************************************************/
+/***/ "./resources/js/components/admin/jobs/tab/CompletedJobs.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************!*\
+  !*** ./resources/js/components/admin/jobs/tab/CompletedJobs.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UnpaidJobs_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./UnpaidJobs.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/jobs/tab/UnpaidJobs.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UnpaidJobs_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CompletedJobs_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./CompletedJobs.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/jobs/tab/CompletedJobs.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CompletedJobs_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/admin/jobs/tab/UnpaidJobs.vue?vue&type=template&id=50ec49da&":
-/*!**********************************************************************************************!*\
-  !*** ./resources/js/components/admin/jobs/tab/UnpaidJobs.vue?vue&type=template&id=50ec49da& ***!
-  \**********************************************************************************************/
+/***/ "./resources/js/components/admin/jobs/tab/CompletedJobs.vue?vue&type=template&id=5ef4c439&":
+/*!*************************************************************************************************!*\
+  !*** ./resources/js/components/admin/jobs/tab/CompletedJobs.vue?vue&type=template&id=5ef4c439& ***!
+  \*************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UnpaidJobs_vue_vue_type_template_id_50ec49da___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./UnpaidJobs.vue?vue&type=template&id=50ec49da& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/jobs/tab/UnpaidJobs.vue?vue&type=template&id=50ec49da&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UnpaidJobs_vue_vue_type_template_id_50ec49da___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CompletedJobs_vue_vue_type_template_id_5ef4c439___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./CompletedJobs.vue?vue&type=template&id=5ef4c439& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/jobs/tab/CompletedJobs.vue?vue&type=template&id=5ef4c439&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CompletedJobs_vue_vue_type_template_id_5ef4c439___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UnpaidJobs_vue_vue_type_template_id_50ec49da___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CompletedJobs_vue_vue_type_template_id_5ef4c439___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

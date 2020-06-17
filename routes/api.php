@@ -102,6 +102,9 @@ Route::group(['prefix' => 'auth'], function () {
             Route::get('unpaid-job-list', 'JobsController@getUnpaidJob');
             Route::get('single-job/{job_id}', 'JobsController@getSingleJob');
 
+            //accounting
+            Route::get('/job-invoices', 'AccountingController@getAllJobInvoices');
+
             //message
             Route::get('/message', 'MessageController@index')->name('message');
             Route::post('/message', 'MessageController@store')->name('message.store');
