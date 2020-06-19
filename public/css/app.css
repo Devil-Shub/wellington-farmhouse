@@ -11061,6 +11061,10 @@ a.text-dark:focus {
   display: inline-block;
 }
 
+#app .ht-auto {
+  height: auto;
+}
+
 #app .disabled-tag > .v-input__control > .v-input__slot:before,
 #app .disabled-tag > .v-input__control > .v-input__slot:after {
   display: none;
@@ -11606,6 +11610,8 @@ a.text-dark:focus {
 
 #app .custom-table table {
   margin-left: -1px;
+  border-collapse: separate;
+  border-spacing: 0 5px;
 }
 
 #app .custom-table table tr.multi-customers {
@@ -11625,6 +11631,7 @@ a.text-dark:focus {
 #app .custom-table table tr td.single-customer {
   padding-left: 0 !important;
   padding-right: 0;
+  border: 1px solid #bababa !important;
 }
 
 #app .custom-table table tr td.single-customer .v-data-table__wrapper {
@@ -11823,5 +11830,9 @@ a.text-dark:focus {
 
 #app .dataTables_wrapper table.all_jobs tbody tr td {
   padding-left: 18px;
+}
+
+#app .customer-form #map {
+  height: auto;
 }
 

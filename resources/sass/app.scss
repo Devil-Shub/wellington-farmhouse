@@ -167,6 +167,9 @@ $hover-white: #fff;
     .col-sm-12 {
       display: inline-block;
     }
+    .ht-auto {
+      height: auto;
+    }
     .disabled-tag > .v-input__control > .v-input__slot:before,
     .disabled-tag > .v-input__control > .v-input__slot:after {
       display: none;
@@ -722,6 +725,8 @@ $hover-white: #fff;
     .custom-table {
       table {
         margin-left: -1px;
+        border-collapse: separate;
+        border-spacing: 0 5px;
         tr {
           &.multi-customers {
             border: 1px solid #bababa !important;
@@ -738,6 +743,7 @@ $hover-white: #fff;
             &.single-customer {
               padding-left: 0 !important;
               padding-right: 0;
+              border: 1px solid #bababa !important;
               .v-data-table__wrapper {
                 overflow: hidden;
                 table {
@@ -920,6 +926,11 @@ $hover-white: #fff;
             }
           }
         }
+      }
+    }
+    .customer-form {
+      #map {
+        height: auto;
       }
     }
   }
