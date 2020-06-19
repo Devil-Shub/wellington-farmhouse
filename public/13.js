@@ -206,7 +206,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -219,7 +218,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       docError: false,
-      prefixs: ['Ms.', 'Mr.', 'Mrs.'],
+      prefixs: ["Ms.", "Mr.", "Mrs."],
       isLoading: false,
       items: [],
       model: null,
@@ -227,28 +226,28 @@ __webpack_require__.r(__webpack_exports__);
       manager_img: "",
       apiUrl: _config_test_env__WEBPACK_IMPORTED_MODULE_3__["environment"].apiUrl,
       addForm: {
-        farm_id: '',
+        farm_id: "",
         farm_images: [],
-        latitude: '',
-        longitude: '',
-        farm_address: '',
-        farm_unit: '',
-        farm_city: '',
-        farm_province: '',
-        farm_zipcode: '',
+        latitude: "",
+        longitude: "",
+        farm_address: "",
+        farm_unit: "",
+        farm_city: "",
+        farm_province: "",
+        farm_zipcode: "",
         farm_active: true,
-        manager_id: '',
-        manager_image: '',
-        manager_prefix: '',
-        manager_name: '',
-        manager_email: '',
-        manager_phone: '',
-        manager_address: '',
-        manager_city: '',
-        manager_province: '',
-        manager_zipcode: '',
-        manager_id_card: '',
-        manager_card_image: ''
+        manager_id: "",
+        manager_image: "",
+        manager_prefix: "",
+        manager_name: "",
+        manager_email: "",
+        manager_phone: "",
+        manager_address: "",
+        manager_city: "",
+        manager_province: "",
+        manager_zipcode: "",
+        manager_id_card: "",
+        manager_card_image: ""
       },
       emailRules: [function (v) {
         return !!v || "E-mail is required";
@@ -275,7 +274,33 @@ __webpack_require__.r(__webpack_exports__);
     _services_customer_service__WEBPACK_IMPORTED_MODULE_1__["customerService"].getCustomer(this.$route.params.id).then(function (response) {
       //handle response
       if (response.status) {
-        console.log(response.data.customer_manager);
+        var farmDetails = response.data.customer_manager[0].farms;
+        var managerDetails = response.data.customer_manager[0]; //set farm values
+
+        _this.addForm = {
+          farm_id: farmDetails.id,
+          farm_images: [],
+          latitude: farmDetails.latitude,
+          longitude: farmDetails.longitude,
+          farm_address: farmDetails.farm_address,
+          farm_unit: farmDetails.farm_unit,
+          farm_city: farmDetails.farm_city,
+          farm_province: farmDetails.farm_province,
+          farm_zipcode: farmDetails.farm_zipcode,
+          farm_active: farmDetails.farm_active == 1 ? true : false,
+          manager_id: managerDetails.id,
+          manager_image: managerDetails.user_image,
+          manager_prefix: managerDetails.prefix,
+          manager_name: managerDetails.first_name,
+          manager_email: managerDetails.email,
+          manager_phone: managerDetails.phone,
+          manager_address: managerDetails.address,
+          manager_city: managerDetails.city,
+          manager_province: managerDetails.state,
+          manager_zipcode: managerDetails.zip_code,
+          manager_id_card: managerDetails.manager.identification_number,
+          manager_card_image: managerDetails.document
+        };
       } else {
         _this.$toast.open({
           message: response.message,
