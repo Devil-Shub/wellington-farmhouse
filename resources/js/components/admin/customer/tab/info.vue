@@ -24,6 +24,7 @@
                     allow-file-type-validation="true"
                     accepted-file-types="image/jpeg, image/png"
                     v-on:processfile="handleProcessFile"
+                    :disabled="disabled == 0"
                   />
                 </v-col>
 		<v-col cols="3" md="3">

@@ -206,6 +206,97 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -218,6 +309,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       docError: false,
+      editSwitch: false,
+      disabled: 0,
       prefixs: ["Ms.", "Mr.", "Mrs."],
       isLoading: false,
       items: [],
@@ -418,6 +511,7 @@ var render = function() {
                     "v-form",
                     {
                       ref: "form",
+                      staticClass: "customer-form",
                       attrs: { "lazy-validation": "" },
                       model: {
                         value: _vm.valid,
@@ -456,7 +550,8 @@ var render = function() {
                                           files: _vm.myFiles,
                                           "allow-file-type-validation": "true",
                                           "accepted-file-types":
-                                            "image/jpeg, image/png"
+                                            "image/jpeg, image/png",
+                                          disabled: _vm.disabled == 0
                                         },
                                         on: {
                                           processfile: _vm.handleProcessFile1
@@ -477,7 +572,8 @@ var render = function() {
                                           id: "map",
                                           placeholder:
                                             "Please type your address",
-                                          country: "us"
+                                          country: "us",
+                                          disabled: _vm.disabled == 0
                                         },
                                         on: {
                                           placechanged: _vm.getAddressData
@@ -502,31 +598,57 @@ var render = function() {
                                     "v-col",
                                     { attrs: { cols: "3", md: "3" } },
                                     [
-                                      _c("v-text-field", {
-                                        attrs: {
-                                          label: "Apt/Unit",
-                                          required: "",
-                                          rules: [
-                                            function(v) {
-                                              return (
-                                                !!v ||
-                                                "Farm apt/unit is required"
-                                              )
-                                            }
-                                          ]
+                                      _c(
+                                        "v-col",
+                                        {
+                                          staticClass: "pl-0 pt-0 pb-0",
+                                          attrs: { cols: "4", sm: "4" }
                                         },
-                                        model: {
-                                          value: _vm.addForm.farm_unit,
-                                          callback: function($$v) {
-                                            _vm.$set(
-                                              _vm.addForm,
-                                              "farm_unit",
-                                              $$v
-                                            )
-                                          },
-                                          expression: "addForm.farm_unit"
-                                        }
-                                      })
+                                        [
+                                          _c(
+                                            "label",
+                                            { staticClass: "ft-normal" },
+                                            [_vm._v("Apt/Unit")]
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        {
+                                          staticClass: "p-0 ml-m4",
+                                          attrs: { cols: "8", sm: "8" }
+                                        },
+                                        [
+                                          _c("v-text-field", {
+                                            staticClass: "disabled-tag",
+                                            attrs: {
+                                              required: "",
+                                              rules: [
+                                                function(v) {
+                                                  return (
+                                                    !!v ||
+                                                    "Farm apt/unit is required"
+                                                  )
+                                                }
+                                              ],
+                                              disabled: _vm.disabled == 0
+                                            },
+                                            model: {
+                                              value: _vm.addForm.farm_unit,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.addForm,
+                                                  "farm_unit",
+                                                  $$v
+                                                )
+                                              },
+                                              expression: "addForm.farm_unit"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      )
                                     ],
                                     1
                                   ),
@@ -535,30 +657,57 @@ var render = function() {
                                     "v-col",
                                     { attrs: { cols: "3", md: "3" } },
                                     [
-                                      _c("v-text-field", {
-                                        attrs: {
-                                          label: "City",
-                                          required: "",
-                                          rules: [
-                                            function(v) {
-                                              return (
-                                                !!v || "Farm city is required"
-                                              )
-                                            }
-                                          ]
+                                      _c(
+                                        "v-col",
+                                        {
+                                          staticClass: "pl-0 pt-0 pb-0",
+                                          attrs: { cols: "4", sm: "4" }
                                         },
-                                        model: {
-                                          value: _vm.addForm.farm_city,
-                                          callback: function($$v) {
-                                            _vm.$set(
-                                              _vm.addForm,
-                                              "farm_city",
-                                              $$v
-                                            )
-                                          },
-                                          expression: "addForm.farm_city"
-                                        }
-                                      })
+                                        [
+                                          _c(
+                                            "label",
+                                            { staticClass: "ft-normal" },
+                                            [_vm._v("City")]
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        {
+                                          staticClass: "p-0 ml-m4",
+                                          attrs: { cols: "8", sm: "8" }
+                                        },
+                                        [
+                                          _c("v-text-field", {
+                                            staticClass: "disabled-tag",
+                                            attrs: {
+                                              required: "",
+                                              rules: [
+                                                function(v) {
+                                                  return (
+                                                    !!v ||
+                                                    "Farm city is required"
+                                                  )
+                                                }
+                                              ],
+                                              disabled: _vm.disabled == 0
+                                            },
+                                            model: {
+                                              value: _vm.addForm.farm_city,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.addForm,
+                                                  "farm_city",
+                                                  $$v
+                                                )
+                                              },
+                                              expression: "addForm.farm_city"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      )
                                     ],
                                     1
                                   ),
@@ -567,31 +716,58 @@ var render = function() {
                                     "v-col",
                                     { attrs: { cols: "3", md: "3" } },
                                     [
-                                      _c("v-text-field", {
-                                        attrs: {
-                                          label: "Province",
-                                          required: "",
-                                          rules: [
-                                            function(v) {
-                                              return (
-                                                !!v ||
-                                                "Farm province is required"
-                                              )
-                                            }
-                                          ]
+                                      _c(
+                                        "v-col",
+                                        {
+                                          staticClass: "pl-0 pt-0 pb-0",
+                                          attrs: { cols: "4", sm: "4" }
                                         },
-                                        model: {
-                                          value: _vm.addForm.farm_province,
-                                          callback: function($$v) {
-                                            _vm.$set(
-                                              _vm.addForm,
-                                              "farm_province",
-                                              $$v
-                                            )
-                                          },
-                                          expression: "addForm.farm_province"
-                                        }
-                                      })
+                                        [
+                                          _c(
+                                            "label",
+                                            { staticClass: "ft-normal" },
+                                            [_vm._v("Province")]
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        {
+                                          staticClass: "p-0 ml-m4",
+                                          attrs: { cols: "8", sm: "8" }
+                                        },
+                                        [
+                                          _c("v-text-field", {
+                                            staticClass: "disabled-tag",
+                                            attrs: {
+                                              required: "",
+                                              rules: [
+                                                function(v) {
+                                                  return (
+                                                    !!v ||
+                                                    "Farm province is required"
+                                                  )
+                                                }
+                                              ],
+                                              disabled: _vm.disabled == 0
+                                            },
+                                            model: {
+                                              value: _vm.addForm.farm_province,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.addForm,
+                                                  "farm_province",
+                                                  $$v
+                                                )
+                                              },
+                                              expression:
+                                                "addForm.farm_province"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      )
                                     ],
                                     1
                                   ),
@@ -600,31 +776,57 @@ var render = function() {
                                     "v-col",
                                     { attrs: { cols: "3", md: "3" } },
                                     [
-                                      _c("v-text-field", {
-                                        attrs: {
-                                          label: "Zip Code",
-                                          required: "",
-                                          rules: [
-                                            function(v) {
-                                              return (
-                                                !!v ||
-                                                "Farm zip code is required"
-                                              )
-                                            }
-                                          ]
+                                      _c(
+                                        "v-col",
+                                        {
+                                          staticClass: "pl-0 pt-0 pb-0",
+                                          attrs: { cols: "4", sm: "4" }
                                         },
-                                        model: {
-                                          value: _vm.addForm.farm_zipcode,
-                                          callback: function($$v) {
-                                            _vm.$set(
-                                              _vm.addForm,
-                                              "farm_zipcode",
-                                              $$v
-                                            )
-                                          },
-                                          expression: "addForm.farm_zipcode"
-                                        }
-                                      })
+                                        [
+                                          _c(
+                                            "label",
+                                            { staticClass: "ft-normal" },
+                                            [_vm._v("Zip Code")]
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        {
+                                          staticClass: "p-0 ml-m4",
+                                          attrs: { cols: "8", sm: "8" }
+                                        },
+                                        [
+                                          _c("v-text-field", {
+                                            staticClass: "disabled-tag",
+                                            attrs: {
+                                              required: "",
+                                              rules: [
+                                                function(v) {
+                                                  return (
+                                                    !!v ||
+                                                    "Farm zip code is required"
+                                                  )
+                                                }
+                                              ],
+                                              disabled: _vm.disabled == 0
+                                            },
+                                            model: {
+                                              value: _vm.addForm.farm_zipcode,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.addForm,
+                                                  "farm_zipcode",
+                                                  $$v
+                                                )
+                                              },
+                                              expression: "addForm.farm_zipcode"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      )
                                     ],
                                     1
                                   ),
@@ -699,7 +901,8 @@ var render = function() {
                                           files: _vm.myFiles,
                                           "allow-file-type-validation": "true",
                                           "accepted-file-types":
-                                            "image/jpeg, image/png"
+                                            "image/jpeg, image/png",
+                                          disabled: _vm.disabled == 0
                                         },
                                         on: {
                                           processfile: _vm.handleProcessFile2
@@ -713,28 +916,58 @@ var render = function() {
                                     "v-col",
                                     { attrs: { cols: "3", md: "3" } },
                                     [
-                                      _c("v-select", {
-                                        attrs: {
-                                          items: _vm.prefixs,
-                                          label: "Prefix",
-                                          rules: [
-                                            function(v) {
-                                              return !!v || "Prefix is required"
+                                      _c(
+                                        "v-col",
+                                        {
+                                          staticClass: "pl-0 pt-0 pb-0",
+                                          attrs: { cols: "4", sm: "4" }
+                                        },
+                                        [
+                                          _c(
+                                            "label",
+                                            { staticClass: "ft-normal" },
+                                            [_vm._v("Prefix")]
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        {
+                                          staticClass: "p-0 ml-m4",
+                                          attrs: { cols: "8", sm: "8" }
+                                        },
+                                        [
+                                          _c("v-select", {
+                                            staticClass: "disabled-tag",
+                                            attrs: {
+                                              items: _vm.prefixs,
+                                              label: "Select",
+                                              rules: [
+                                                function(v) {
+                                                  return (
+                                                    !!v || "Prefix is required"
+                                                  )
+                                                }
+                                              ],
+                                              disabled: _vm.disabled == 0
+                                            },
+                                            model: {
+                                              value: _vm.addForm.manager_prefix,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.addForm,
+                                                  "manager_prefix",
+                                                  $$v
+                                                )
+                                              },
+                                              expression:
+                                                "addForm.manager_prefix"
                                             }
-                                          ]
-                                        },
-                                        model: {
-                                          value: _vm.addForm.manager_prefix,
-                                          callback: function($$v) {
-                                            _vm.$set(
-                                              _vm.addForm,
-                                              "manager_prefix",
-                                              $$v
-                                            )
-                                          },
-                                          expression: "addForm.manager_prefix"
-                                        }
-                                      })
+                                          })
+                                        ],
+                                        1
+                                      )
                                     ],
                                     1
                                   ),
@@ -743,31 +976,57 @@ var render = function() {
                                     "v-col",
                                     { attrs: { cols: "3", md: "3" } },
                                     [
-                                      _c("v-text-field", {
-                                        attrs: {
-                                          label: "Name",
-                                          required: "",
-                                          rules: [
-                                            function(v) {
-                                              return (
-                                                !!v ||
-                                                "Manager name is required"
-                                              )
+                                      _c(
+                                        "v-col",
+                                        {
+                                          staticClass: "pl-0 pt-0 pb-0",
+                                          attrs: { cols: "4", sm: "4" }
+                                        },
+                                        [
+                                          _c(
+                                            "label",
+                                            { staticClass: "ft-normal" },
+                                            [_vm._v("Name")]
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        {
+                                          staticClass: "p-0 ml-m4",
+                                          attrs: { cols: "8", sm: "8" }
+                                        },
+                                        [
+                                          _c("v-text-field", {
+                                            staticClass: "disabled-tag",
+                                            attrs: {
+                                              required: "",
+                                              rules: [
+                                                function(v) {
+                                                  return (
+                                                    !!v ||
+                                                    "Manager name is required"
+                                                  )
+                                                }
+                                              ],
+                                              disabled: _vm.disabled == 0
+                                            },
+                                            model: {
+                                              value: _vm.addForm.manager_name,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.addForm,
+                                                  "manager_name",
+                                                  $$v
+                                                )
+                                              },
+                                              expression: "addForm.manager_name"
                                             }
-                                          ]
-                                        },
-                                        model: {
-                                          value: _vm.addForm.manager_name,
-                                          callback: function($$v) {
-                                            _vm.$set(
-                                              _vm.addForm,
-                                              "manager_name",
-                                              $$v
-                                            )
-                                          },
-                                          expression: "addForm.manager_name"
-                                        }
-                                      })
+                                          })
+                                        ],
+                                        1
+                                      )
                                     ],
                                     1
                                   ),
@@ -776,84 +1035,52 @@ var render = function() {
                                     "v-col",
                                     { attrs: { cols: "3", md: "3" } },
                                     [
-                                      _c("v-text-field", {
-                                        attrs: {
-                                          rules: _vm.emailRules,
-                                          name: "email",
-                                          label: "E-mail",
-                                          required: ""
+                                      _c(
+                                        "v-col",
+                                        {
+                                          staticClass: "pl-0 pt-0 pb-0",
+                                          attrs: { cols: "4", sm: "4" }
                                         },
-                                        model: {
-                                          value: _vm.addForm.manager_email,
-                                          callback: function($$v) {
-                                            _vm.$set(
-                                              _vm.addForm,
-                                              "manager_email",
-                                              $$v
-                                            )
-                                          },
-                                          expression: "addForm.manager_email"
-                                        }
-                                      })
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-col",
-                                    { attrs: { cols: "3", md: "3" } },
-                                    [
-                                      _c("v-text-field", {
-                                        attrs: {
-                                          rules: _vm.phoneRules,
-                                          label: "Phone",
-                                          required: "",
-                                          maxlength: "10"
+                                        [
+                                          _c(
+                                            "label",
+                                            { staticClass: "ft-normal" },
+                                            [_vm._v("E-mail")]
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        {
+                                          staticClass: "p-0 ml-m4",
+                                          attrs: { cols: "8", sm: "8" }
                                         },
-                                        model: {
-                                          value: _vm.addForm.manager_phone,
-                                          callback: function($$v) {
-                                            _vm.$set(
-                                              _vm.addForm,
-                                              "manager_phone",
-                                              $$v
-                                            )
-                                          },
-                                          expression: "addForm.manager_phone"
-                                        }
-                                      })
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-col",
-                                    { attrs: { cols: "3", md: "3" } },
-                                    [
-                                      _c("v-text-field", {
-                                        attrs: {
-                                          label: "Address",
-                                          required: "",
-                                          rules: [
-                                            function(v) {
-                                              return (
-                                                !!v || "address is required"
-                                              )
+                                        [
+                                          _c("v-text-field", {
+                                            staticClass: "disabled-tag",
+                                            attrs: {
+                                              rules: _vm.emailRules,
+                                              disabled: _vm.disabled == 0,
+                                              name: "email",
+                                              required: ""
+                                            },
+                                            model: {
+                                              value: _vm.addForm.manager_email,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.addForm,
+                                                  "manager_email",
+                                                  $$v
+                                                )
+                                              },
+                                              expression:
+                                                "addForm.manager_email"
                                             }
-                                          ]
-                                        },
-                                        model: {
-                                          value: _vm.addForm.manager_address,
-                                          callback: function($$v) {
-                                            _vm.$set(
-                                              _vm.addForm,
-                                              "manager_address",
-                                              $$v
-                                            )
-                                          },
-                                          expression: "addForm.manager_address"
-                                        }
-                                      })
+                                          })
+                                        ],
+                                        1
+                                      )
                                     ],
                                     1
                                   ),
@@ -862,28 +1089,52 @@ var render = function() {
                                     "v-col",
                                     { attrs: { cols: "3", md: "3" } },
                                     [
-                                      _c("v-text-field", {
-                                        attrs: {
-                                          label: "City",
-                                          required: "",
-                                          rules: [
-                                            function(v) {
-                                              return !!v || "City is required"
-                                            }
-                                          ]
+                                      _c(
+                                        "v-col",
+                                        {
+                                          staticClass: "pl-0 pt-0 pb-0",
+                                          attrs: { cols: "4", sm: "4" }
                                         },
-                                        model: {
-                                          value: _vm.addForm.manager_city,
-                                          callback: function($$v) {
-                                            _vm.$set(
-                                              _vm.addForm,
-                                              "manager_city",
-                                              $$v
-                                            )
-                                          },
-                                          expression: "addForm.manager_city"
-                                        }
-                                      })
+                                        [
+                                          _c(
+                                            "label",
+                                            { staticClass: "ft-normal" },
+                                            [_vm._v("Phone")]
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        {
+                                          staticClass: "p-0 ml-m4",
+                                          attrs: { cols: "8", sm: "8" }
+                                        },
+                                        [
+                                          _c("v-text-field", {
+                                            staticClass: "disabled-tag",
+                                            attrs: {
+                                              rules: _vm.phoneRules,
+                                              disabled: _vm.disabled == 0,
+                                              required: "",
+                                              maxlength: "10"
+                                            },
+                                            model: {
+                                              value: _vm.addForm.manager_phone,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.addForm,
+                                                  "manager_phone",
+                                                  $$v
+                                                )
+                                              },
+                                              expression:
+                                                "addForm.manager_phone"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      )
                                     ],
                                     1
                                   ),
@@ -892,30 +1143,58 @@ var render = function() {
                                     "v-col",
                                     { attrs: { cols: "3", md: "3" } },
                                     [
-                                      _c("v-text-field", {
-                                        attrs: {
-                                          label: "State",
-                                          required: "",
-                                          rules: [
-                                            function(v) {
-                                              return (
-                                                !!v || "Province is required"
-                                              )
-                                            }
-                                          ]
+                                      _c(
+                                        "v-col",
+                                        {
+                                          staticClass: "pl-0 pt-0 pb-0",
+                                          attrs: { cols: "4", sm: "4" }
                                         },
-                                        model: {
-                                          value: _vm.addForm.manager_province,
-                                          callback: function($$v) {
-                                            _vm.$set(
-                                              _vm.addForm,
-                                              "manager_province",
-                                              $$v
-                                            )
-                                          },
-                                          expression: "addForm.manager_province"
-                                        }
-                                      })
+                                        [
+                                          _c(
+                                            "label",
+                                            { staticClass: "ft-normal" },
+                                            [_vm._v("Address")]
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        {
+                                          staticClass: "p-0 ml-m4",
+                                          attrs: { cols: "8", sm: "8" }
+                                        },
+                                        [
+                                          _c("v-text-field", {
+                                            staticClass: "disabled-tag",
+                                            attrs: {
+                                              required: "",
+                                              rules: [
+                                                function(v) {
+                                                  return (
+                                                    !!v || "address is required"
+                                                  )
+                                                }
+                                              ],
+                                              disabled: _vm.disabled == 0
+                                            },
+                                            model: {
+                                              value:
+                                                _vm.addForm.manager_address,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.addForm,
+                                                  "manager_address",
+                                                  $$v
+                                                )
+                                              },
+                                              expression:
+                                                "addForm.manager_address"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      )
                                     ],
                                     1
                                   ),
@@ -924,30 +1203,56 @@ var render = function() {
                                     "v-col",
                                     { attrs: { cols: "3", md: "3" } },
                                     [
-                                      _c("v-text-field", {
-                                        attrs: {
-                                          rules: [
-                                            function(v) {
-                                              return (
-                                                !!v || "Zip code is required"
-                                              )
-                                            }
-                                          ],
-                                          label: "zipcode",
-                                          required: ""
+                                      _c(
+                                        "v-col",
+                                        {
+                                          staticClass: "pl-0 pt-0 pb-0",
+                                          attrs: { cols: "4", sm: "4" }
                                         },
-                                        model: {
-                                          value: _vm.addForm.manager_zipcode,
-                                          callback: function($$v) {
-                                            _vm.$set(
-                                              _vm.addForm,
-                                              "manager_zipcode",
-                                              $$v
-                                            )
-                                          },
-                                          expression: "addForm.manager_zipcode"
-                                        }
-                                      })
+                                        [
+                                          _c(
+                                            "label",
+                                            { staticClass: "ft-normal" },
+                                            [_vm._v("City")]
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        {
+                                          staticClass: "p-0 ml-m4",
+                                          attrs: { cols: "8", sm: "8" }
+                                        },
+                                        [
+                                          _c("v-text-field", {
+                                            staticClass: "disabled-tag",
+                                            attrs: {
+                                              required: "",
+                                              rules: [
+                                                function(v) {
+                                                  return (
+                                                    !!v || "City is required"
+                                                  )
+                                                }
+                                              ],
+                                              disabled: _vm.disabled == 0
+                                            },
+                                            model: {
+                                              value: _vm.addForm.manager_city,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.addForm,
+                                                  "manager_city",
+                                                  $$v
+                                                )
+                                              },
+                                              expression: "addForm.manager_city"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      )
                                     ],
                                     1
                                   ),
@@ -956,31 +1261,181 @@ var render = function() {
                                     "v-col",
                                     { attrs: { cols: "3", md: "3" } },
                                     [
-                                      _c("v-text-field", {
-                                        attrs: {
-                                          rules: [
-                                            function(v) {
-                                              return (
-                                                !!v ||
-                                                "Card Id number is required"
-                                              )
-                                            }
-                                          ],
-                                          label: "Id CradNo",
-                                          required: ""
+                                      _c(
+                                        "v-col",
+                                        {
+                                          staticClass: "pl-0 pt-0 pb-0",
+                                          attrs: { cols: "4", sm: "4" }
                                         },
-                                        model: {
-                                          value: _vm.addForm.manager_id_card,
-                                          callback: function($$v) {
-                                            _vm.$set(
-                                              _vm.addForm,
-                                              "manager_id_card",
-                                              $$v
-                                            )
-                                          },
-                                          expression: "addForm.manager_id_card"
-                                        }
-                                      })
+                                        [
+                                          _c(
+                                            "label",
+                                            { staticClass: "ft-normal" },
+                                            [_vm._v("State")]
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        {
+                                          staticClass: "p-0 ml-m4",
+                                          attrs: { cols: "8", sm: "8" }
+                                        },
+                                        [
+                                          _c("v-text-field", {
+                                            staticClass: "disabled-tag",
+                                            attrs: {
+                                              required: "",
+                                              rules: [
+                                                function(v) {
+                                                  return (
+                                                    !!v ||
+                                                    "Province is required"
+                                                  )
+                                                }
+                                              ],
+                                              disabled: _vm.disabled == 0
+                                            },
+                                            model: {
+                                              value:
+                                                _vm.addForm.manager_province,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.addForm,
+                                                  "manager_province",
+                                                  $$v
+                                                )
+                                              },
+                                              expression:
+                                                "addForm.manager_province"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-col",
+                                    { attrs: { cols: "3", md: "3" } },
+                                    [
+                                      _c(
+                                        "v-col",
+                                        {
+                                          staticClass: "pl-0 pt-0 pb-0",
+                                          attrs: { cols: "4", sm: "4" }
+                                        },
+                                        [
+                                          _c(
+                                            "label",
+                                            { staticClass: "ft-normal" },
+                                            [_vm._v("zipcode")]
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        {
+                                          staticClass: "p-0 ml-m4",
+                                          attrs: { cols: "8", sm: "8" }
+                                        },
+                                        [
+                                          _c("v-text-field", {
+                                            staticClass: "disabled-tag",
+                                            attrs: {
+                                              rules: [
+                                                function(v) {
+                                                  return (
+                                                    !!v ||
+                                                    "Zip code is required"
+                                                  )
+                                                }
+                                              ],
+                                              disabled: _vm.disabled == 0,
+                                              required: ""
+                                            },
+                                            model: {
+                                              value:
+                                                _vm.addForm.manager_zipcode,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.addForm,
+                                                  "manager_zipcode",
+                                                  $$v
+                                                )
+                                              },
+                                              expression:
+                                                "addForm.manager_zipcode"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-col",
+                                    { attrs: { cols: "3", md: "3" } },
+                                    [
+                                      _c(
+                                        "v-col",
+                                        {
+                                          staticClass: "pl-0 pt-0 pb-0",
+                                          attrs: { cols: "4", sm: "4" }
+                                        },
+                                        [
+                                          _c(
+                                            "label",
+                                            { staticClass: "ft-normal" },
+                                            [_vm._v("Id CardNo")]
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        {
+                                          staticClass: "p-0 ml-m4",
+                                          attrs: { cols: "8", sm: "8" }
+                                        },
+                                        [
+                                          _c("v-text-field", {
+                                            staticClass: "disabled-tag",
+                                            attrs: {
+                                              rules: [
+                                                function(v) {
+                                                  return (
+                                                    !!v ||
+                                                    "Card Id number is required"
+                                                  )
+                                                }
+                                              ],
+                                              disabled: _vm.disabled == 0,
+                                              required: ""
+                                            },
+                                            model: {
+                                              value:
+                                                _vm.addForm.manager_id_card,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.addForm,
+                                                  "manager_id_card",
+                                                  $$v
+                                                )
+                                              },
+                                              expression:
+                                                "addForm.manager_id_card"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      )
                                     ],
                                     1
                                   ),
@@ -999,10 +1454,36 @@ var render = function() {
                                           files: _vm.myFiles,
                                           "allow-file-type-validation": "true",
                                           "accepted-file-types":
-                                            "image/jpeg, image/png"
+                                            "image/jpeg, image/png",
+                                          disabled: _vm.disabled == 0
                                         },
                                         on: {
                                           processfile: _vm.handleProcessFile3
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-col",
+                                    { attrs: { cols: "2", md: "2" } },
+                                    [
+                                      _c("v-switch", {
+                                        staticClass: "mx-2",
+                                        attrs: { label: "Edit" },
+                                        on: {
+                                          click: function($event) {
+                                            _vm.disabled =
+                                              (_vm.disabled + 1) % 2
+                                          }
+                                        },
+                                        model: {
+                                          value: _vm.editSwitch,
+                                          callback: function($$v) {
+                                            _vm.editSwitch = $$v
+                                          },
+                                          expression: "editSwitch"
                                         }
                                       })
                                     ],

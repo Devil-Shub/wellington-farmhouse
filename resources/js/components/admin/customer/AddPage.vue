@@ -120,7 +120,7 @@
                     <vue-google-autocomplete
                       ref="address"
                       id="map"
-                      class="form-control"
+                      class="form-control ht-auto"
                       placeholder="Please type your address"
                       v-on:placechanged="getAddressData"
                       country="us"

@@ -174,6 +174,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -406,7 +407,8 @@ var render = function() {
                                           files: _vm.myFiles,
                                           "allow-file-type-validation": "true",
                                           "accepted-file-types":
-                                            "image/jpeg, image/png"
+                                            "image/jpeg, image/png",
+                                          disabled: _vm.disabled == 0
                                         },
                                         on: {
                                           processfile: _vm.handleProcessFile
