@@ -314,4 +314,66 @@ class CustomerController extends Controller
             'data' => $records
         ], 200);
     }
+
+    /*
+   * update farm and customer details
+   */
+    public function updateFarmManager(Request $request)
+    {
+        try {
+            //validate request
+            $validator = Validator::make($request->all(), [
+                'manager_name' => 'required|string',
+                'manager_email' => 'required|string|email|unique:users,email,' . $request->manager_id,
+                'manager_prefix' => 'required'
+            ]);
+
+            //update manager details
+            $updateUser = User::whereId($request->manager_id)->update([
+                'first_name' => $request->manager_name,
+                'prefix' => $request->manager_prefix,
+                'email' => $request->manager_email,
+                'phone' => $request->manager_phone,
+                'user_image' => $request->manager_image,
+                'address' => $request->manager_address,
+                'city' => $request->manager_city,
+                'state' => $request->manager_province,
+                'zip_code' => $request->manager_zipcode
+            ]);
+
+            $mangerDetails = ManagerDetail::whereUserId($request->manager_id)->update([
+                'identification_number' => $request->manager_id_card,
+                'document' => $request->manager_card_image
+            ]);
+
+            //save customer farm details
+            $farmDetails = CustomerFarm::whereId($request->farm_id)->update([
+                'farm_address' => $request->farm_address,
+                'farm_city' => $request->farm_city,
+                'farm_image' => json_encode($request->farm_images),
+                'farm_province' => $request->farm_province,
+                'farm_unit' => $request->farm_unit,
+                'farm_zipcode' => $request->farm_zipcode,
+                'farm_active' => $request->farm_active,
+                'latitude' => $request->latitude,
+                'longitude' => $request->longitude
+            ]);
+
+            //return success response
+            return response()->json([
+                'status' => true,
+                'message' => 'Manager and Farm details updated successfully.',
+                'data' => $request->all()
+            ], 200);
+        } catch (\Exception $e) {
+            //make log of errors
+            Log::error(json_encode($e->getMessage()));
+            //return with error
+            return response()->json([
+                'status' => false,
+                'message' => 'Internal server error!',
+                'data' => []
+            ], 500);
+        }
+    }
 }

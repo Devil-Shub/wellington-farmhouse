@@ -86,6 +86,7 @@ Route::group(['prefix' => 'auth'], function () {
             Route::post('update-customer/{customer_id}', 'CustomerController@updateCustomer');
             Route::get('card-list/{customer_id}', 'CustomerController@getAllCard');
             Route::get('record-list/{customer_id}', 'CustomerController@getAllRecords');
+            Route::post('update-farm-manager', 'CustomerController@updateFarmManager');
             //Route::delete('delete-driver/{driver_id}', 'CustomerController@deleteDriver');
 
             //jobs
