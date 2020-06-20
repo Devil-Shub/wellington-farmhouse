@@ -60,6 +60,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -93,6 +96,13 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     }
+  },
+  updated: function updated() {
+    setTimeout(function () {
+      $(document).ready(function () {
+        $('#example').DataTable();
+      });
+    }, 1000);
   }
 });
 
@@ -175,9 +185,9 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\n                   " +
+                                "\n                     " +
                                   _vm._s(invoice.customer.first_name) +
-                                  "\n                  "
+                                  "\n                    "
                               )
                             ]
                           )
@@ -196,9 +206,9 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\n                    " +
+                                "\n                      " +
                                   _vm._s(invoice.id) +
-                                  "\n                  "
+                                  "\n                    "
                               )
                             ]
                           )
@@ -219,9 +229,9 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\n                    " +
+                                "\n                      " +
                                   _vm._s(invoice.service.service_name) +
-                                  "\n                  "
+                                  "\n                    "
                               )
                             ]
                           )
@@ -231,7 +241,15 @@ var render = function() {
                       _vm._v(" "),
                       _c("td", [_vm._v("$" + _vm._s(invoice.job_amount))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v("Sync")]),
+                      _c(
+                        "td",
+                        [
+                          !invoice.quick_book ? [_vm._v("Not Sync")] : _vm._e(),
+                          _vm._v(" "),
+                          invoice.quick_book ? [_vm._v("Sync")] : _vm._e()
+                        ],
+                        2
+                      ),
                       _vm._v(" "),
                       _c("td", [_vm._v("Email")]),
                       _vm._v(" "),
@@ -278,6 +296,8 @@ __webpack_require__.r(__webpack_exports__);
 var currentUserSubject = new rxjs__WEBPACK_IMPORTED_MODULE_0__["BehaviorSubject"](JSON.parse(localStorage.getItem("currentUser")));
 var accountingService = {
   jobInvoices: jobInvoices,
+  jobPayments: jobPayments,
+  jobSalary: jobSalary,
   apiUrl: _config_test_env__WEBPACK_IMPORTED_MODULE_3__["environment"].apiUrl,
   currentUrl: '',
   currentUser: currentUserSubject.asObservable(),
@@ -290,6 +310,20 @@ var accountingService = {
 
 function jobInvoices() {
   return fetch(this.apiUrl + "admin/job-invoices", _helpers_request_options__WEBPACK_IMPORTED_MODULE_1__["requestOptions"].get()).then(_helpers_handle_response__WEBPACK_IMPORTED_MODULE_2__["handleResponse"]).then(function (user) {
+    // store user details and passport token in local storage to keep user logged in between page refreshes
+    return user;
+  });
+}
+
+function jobPayments() {
+  return fetch(this.apiUrl + "admin/job-payment", _helpers_request_options__WEBPACK_IMPORTED_MODULE_1__["requestOptions"].get()).then(_helpers_handle_response__WEBPACK_IMPORTED_MODULE_2__["handleResponse"]).then(function (user) {
+    // store user details and passport token in local storage to keep user logged in between page refreshes
+    return user;
+  });
+}
+
+function jobSalary() {
+  return fetch(this.apiUrl + "admin/job-salary", _helpers_request_options__WEBPACK_IMPORTED_MODULE_1__["requestOptions"].get()).then(_helpers_handle_response__WEBPACK_IMPORTED_MODULE_2__["handleResponse"]).then(function (user) {
     // store user details and passport token in local storage to keep user logged in between page refreshes
     return user;
   });

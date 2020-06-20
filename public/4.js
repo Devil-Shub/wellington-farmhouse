@@ -12,6 +12,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _helpers_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../_helpers/router */ "./resources/js/_helpers/router.js");
 /* harmony import */ var _config_test_env__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../config/test.env */ "./resources/js/config/test.env.js");
 /* harmony import */ var vue_feather_icons__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-feather-icons */ "./node_modules/vue-feather-icons/dist/vue-feather-icons.es.js");
+/* harmony import */ var _services_accounting_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../_services/accounting.service */ "./resources/js/_services/accounting.service.js");
 //
 //
 //
@@ -53,6 +54,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+
 
 
 
@@ -61,7 +67,37 @@ __webpack_require__.r(__webpack_exports__);
     PlusCircleIcon: vue_feather_icons__WEBPACK_IMPORTED_MODULE_2__["PlusCircleIcon"]
   },
   data: function data() {
-    return {};
+    return {
+      salaryJobs: ''
+    };
+  },
+  mounted: function mounted() {
+    this.invoiceList();
+  },
+  methods: {
+    invoiceList: function invoiceList() {
+      var _this = this;
+
+      _services_accounting_service__WEBPACK_IMPORTED_MODULE_3__["accountingService"].jobSalary().then(function (response) {
+        //handle response
+        if (response.status) {
+          _this.salaryJobs = response.data;
+        } else {
+          _this.$toast.open({
+            message: response.message,
+            type: "error",
+            position: "top-right"
+          });
+        }
+      });
+    }
+  },
+  updated: function updated() {
+    setTimeout(function () {
+      $(document).ready(function () {
+        $('#jobpayment').DataTable();
+      });
+    }, 1000);
   }
 });
 
@@ -121,25 +157,60 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
-                _c("tbody", [
-                  _c("tr", [
-                    _c("td"),
-                    _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _c("td")
-                  ])
-                ])
+                _c(
+                  "tbody",
+                  _vm._l(_vm.salaryJobs, function(salary, index) {
+                    return _c("tr", [
+                      _c("td", [_vm._v(_vm._s(index + 1))]),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        [
+                          _c(
+                            "router-link",
+                            {
+                              staticClass: "nav-item nav-link",
+                              attrs: {
+                                to: "/admin/truckdriver/edit/" + salary.user.id
+                              }
+                            },
+                            [_vm._v(_vm._s(salary.user.first_name))]
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(salary.user.phone))]),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        [
+                          salary.user.driver.driver_type
+                            ? [_vm._v("Truck Driver")]
+                            : _vm._e(),
+                          _vm._v(" "),
+                          !salary.user.driver.driver_type
+                            ? [_vm._v("Skidsteer Driver")]
+                            : _vm._e()
+                        ],
+                        2
+                      ),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(_vm._s(_vm._f("formatMonth")(salary.updated_at)))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(_vm._s(_vm._f("formatYear")(salary.updated_at)))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v("$" + _vm._s(salary.salary))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v("View Details")])
+                    ])
+                  }),
+                  0
+                )
               ]
             )
           ])
@@ -154,6 +225,62 @@ var staticRenderFns = []
 render._withStripped = true
 
 
+
+/***/ }),
+
+/***/ "./resources/js/_services/accounting.service.js":
+/*!******************************************************!*\
+  !*** ./resources/js/_services/accounting.service.js ***!
+  \******************************************************/
+/*! exports provided: accountingService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "accountingService", function() { return accountingService; });
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _helpers_request_options__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../_helpers/request-options */ "./resources/js/_helpers/request-options.js");
+/* harmony import */ var _helpers_handle_response__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../_helpers/handle-response */ "./resources/js/_helpers/handle-response.js");
+/* harmony import */ var _config_test_env__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../config/test.env */ "./resources/js/config/test.env.js");
+
+
+
+
+var currentUserSubject = new rxjs__WEBPACK_IMPORTED_MODULE_0__["BehaviorSubject"](JSON.parse(localStorage.getItem("currentUser")));
+var accountingService = {
+  jobInvoices: jobInvoices,
+  jobPayments: jobPayments,
+  jobSalary: jobSalary,
+  apiUrl: _config_test_env__WEBPACK_IMPORTED_MODULE_3__["environment"].apiUrl,
+  currentUrl: '',
+  currentUser: currentUserSubject.asObservable(),
+
+  get currentUserValue() {
+    return currentUserSubject.value;
+  }
+
+};
+
+function jobInvoices() {
+  return fetch(this.apiUrl + "admin/job-invoices", _helpers_request_options__WEBPACK_IMPORTED_MODULE_1__["requestOptions"].get()).then(_helpers_handle_response__WEBPACK_IMPORTED_MODULE_2__["handleResponse"]).then(function (user) {
+    // store user details and passport token in local storage to keep user logged in between page refreshes
+    return user;
+  });
+}
+
+function jobPayments() {
+  return fetch(this.apiUrl + "admin/job-payment", _helpers_request_options__WEBPACK_IMPORTED_MODULE_1__["requestOptions"].get()).then(_helpers_handle_response__WEBPACK_IMPORTED_MODULE_2__["handleResponse"]).then(function (user) {
+    // store user details and passport token in local storage to keep user logged in between page refreshes
+    return user;
+  });
+}
+
+function jobSalary() {
+  return fetch(this.apiUrl + "admin/job-salary", _helpers_request_options__WEBPACK_IMPORTED_MODULE_1__["requestOptions"].get()).then(_helpers_handle_response__WEBPACK_IMPORTED_MODULE_2__["handleResponse"]).then(function (user) {
+    // store user details and passport token in local storage to keep user logged in between page refreshes
+    return user;
+  });
+}
 
 /***/ }),
 

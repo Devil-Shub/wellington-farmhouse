@@ -42,7 +42,15 @@
                     :rules="killometerRules"
                   ></v-text-field>
                 </v-col>
-
+                <v-col cols="12" md="12">
+		 <v-textarea
+		      filled
+		      label="Service Note"
+                      max-lenght="2000"
+		      auto-grow
+		      v-model="addForm.note"
+		    ></v-textarea>
+		 </v-col>
                <v-col cols="12" md="12">
                   <file-pond
                     name="uploadImage"
@@ -112,7 +120,8 @@ export default {
         service_date: "",
         total_killometer: "",
         receipt: '',
-        document: ''
+        document: '',
+        note:''
       },
      killometerRules: [
         v => !!v || "Truck Miles is required",

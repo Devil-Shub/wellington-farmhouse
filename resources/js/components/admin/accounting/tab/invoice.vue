@@ -34,7 +34,10 @@
                       {{invoice.service.service_name}}
                     </router-link></td>
                         <td>${{invoice.job_amount}}</td>
-                        <td>Sync</td>
+                        <td>
+			    <template v-if="!invoice.quick_book">Not Sync</template>
+			    <template v-if="invoice.quick_book">Sync</template>
+			</td>
                         <td>Email</td>
                         <td>Download</td>
                     </tr>
@@ -57,7 +60,7 @@ export default {
   data() {
     return {
       invoiceJobs:'',
-    };
+  };
   },
   mounted: function() {
     this.invoiceList();
@@ -78,6 +81,13 @@ export default {
       });
 	}
   },
+updated() {
+setTimeout(function() {
+     $(document).ready(function() {
+	    $('#example').DataTable();
+	} );
+  }, 1000);
+    }
 }
 
 </script>

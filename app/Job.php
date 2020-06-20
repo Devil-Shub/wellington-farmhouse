@@ -69,8 +69,13 @@ class Job extends Model
         return $this->belongsTo('App\TimeSlots', 'time_slots_id', 'id');
     }
 
-    // public function timeslots()
-    // {
-    //     return $this->belongsTo('App\TimeSlots', 'options->time_slots_id');
-    // }
+    public function jobpayment()
+    {
+        return $this->hasOne('App\JobPayment', 'job_id');
+    }
+
+    public function employeeSalaries()
+    {
+        return $this->hasOne('App\EmployeeSalaries', 'user_id');
+    }
 }

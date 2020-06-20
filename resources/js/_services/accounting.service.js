@@ -11,6 +11,8 @@ const currentUserSubject = new BehaviorSubject(
 
 export const accountingService = {
   jobInvoices,
+  jobPayments,
+  jobSalary,
   apiUrl: environment.apiUrl,
   currentUrl: '',
   currentUser: currentUserSubject.asObservable(),
@@ -22,6 +24,32 @@ export const accountingService = {
 function jobInvoices() {
   return fetch(
     this.apiUrl+`admin/job-invoices`,
+    requestOptions.get()
+  )
+    .then(handleResponse)
+    .then(user => {
+      // store user details and passport token in local storage to keep user logged in between page refreshes
+
+      return user;
+    });
+}
+
+function jobPayments() {
+  return fetch(
+    this.apiUrl+`admin/job-payment`,
+    requestOptions.get()
+  )
+    .then(handleResponse)
+    .then(user => {
+      // store user details and passport token in local storage to keep user logged in between page refreshes
+
+      return user;
+    });
+}
+
+function jobSalary() {
+  return fetch(
+    this.apiUrl+`admin/job-salary`,
     requestOptions.get()
   )
     .then(handleResponse)

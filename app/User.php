@@ -74,4 +74,9 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Job', 'skidsteer_driver_id');
     }
+
+    public function employeeSalaries()
+    {
+        return $this->hasOne('App\EmployeeSalaries', 'user_id');
+    }
 }

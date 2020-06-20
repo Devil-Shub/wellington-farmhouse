@@ -105,6 +105,8 @@ Route::group(['prefix' => 'auth'], function () {
 
             //accounting
             Route::get('/job-invoices', 'AccountingController@getAllJobInvoices');
+            Route::get('/job-payment', 'AccountingController@getAllJobPayment');
+	    Route::get('/job-salary', 'AccountingController@getAllJobSalary');
 
             //message
             Route::get('/message', 'MessageController@index')->name('message');

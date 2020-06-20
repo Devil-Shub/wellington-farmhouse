@@ -62,7 +62,8 @@ class CreateJobsTable extends Migration
             $table->longText('notes')->nullable();
 
             $table->json('job_images')->nullable();
-
+	    $table->tinyInteger("quick_book")->comment("0:Not Sync, 1: Sync")->nullable();
+            $table->string('invoice_number')->nullable();
             $table->timestamps();
             $table->softDeletes('deleted_at', 0);
         });

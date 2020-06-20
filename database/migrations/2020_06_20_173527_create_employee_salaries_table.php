@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDriversTable extends Migration
+class CreateEmployeeSalariesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,15 @@ class CreateDriversTable extends Migration
      */
     public function up()
     {
-        Schema::create('drivers', function (Blueprint $table) {
+        Schema::create('employee_salaries', function (Blueprint $table) {
             $table->id();
-
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-
-            $table->string("driver_licence")->nullable();
-            $table->dateTime("expiry_date")->nullable();
-            $table->tinyInteger("salary_type")->comments("0: Per Hour, 1: Per Load")->nullable();
+            $table->unsignedBigInteger('job_id');
+            $table->foreign('job_id')->references('id')->on('jobs')->onDelete('cascade');
+            $table->integer("distance")->nullable();
+            $table->integer("load")->nullable();
+            $table->float("salary")->nullable();
             $table->string("document")->nullable();
 
             $table->timestamps();
@@ -35,8 +35,6 @@ class CreateDriversTable extends Migration
      */
     public function down()
     {
-       Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('drivers');
-      
+        Schema::dropIfExists('employee_salaries');
     }
 }
