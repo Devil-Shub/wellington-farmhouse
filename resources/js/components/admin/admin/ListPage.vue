@@ -1,5 +1,15 @@
 <template>
   <v-app>
+  <v-dialog v-model="loading" fullscreen loading>
+  <v-container fluid fill-height style="background-color: rgba(255, 255, 255, 0.5);">
+    <v-layout justify-center align-center>
+      <v-progress-circular
+	indeterminate
+	color="primary">
+      </v-progress-circular>
+    </v-layout>
+  </v-container>
+</v-dialog>
     <v-container>
       <v-row>
         <v-col cols="12" md="12">
@@ -90,6 +100,7 @@ export default {
   },
   data() {
     return {
+     loading: false,
       dialog: false,
       on: false,
       managers: [],
@@ -106,6 +117,7 @@ export default {
 
     //list admin
     listAdmin() {
+      this.loading = true;
       adminService.listAdmin().then(response => {
         //handle response
         if (response.status) {
@@ -117,11 +129,13 @@ export default {
             position: "top-right"
           });
         }
+       this.loading = false;
       });
     },
 
     Delete(e) {
       if (e) {
+       this.loading = true;
         adminService.Delete(e).then(response => {
           //handle response
           if (response.status) {
@@ -144,6 +158,7 @@ export default {
               position: "top-right"
             });
           }
+         this.loading = false;
         });
       }
     },

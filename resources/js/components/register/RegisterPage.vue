@@ -1,5 +1,15 @@
 <template>
   <v-app>
+   <v-dialog v-model="loading" fullscreen fluid>
+  <v-container fluid fill-height style="background-color: rgba(255, 255, 255, 0.5);">
+    <v-layout justify-center align-center>
+      <v-progress-circular
+	indeterminate
+	color="primary">
+      </v-progress-circular>
+    </v-layout>
+  </v-container>
+</v-dialog>
     <v-container>
       <v-row>
         <v-col cols="6" md="6"></v-col>
@@ -46,6 +56,12 @@
                 @click:append="show2 = !show2"
               ></v-text-field>
             </v-col>
+
+	    <v-radio-group v-model="registerForm.role_id" :mandatory="false">
+	      <v-radio label="As Customer" value="4"></v-radio>
+	      <v-radio label="As Haulers" value="6"></v-radio>
+	    </v-radio-group>
+
             <v-btn color="success" class="mr-4" @click="validate">Submit</v-btn>
 
             <v-col cols="12" sm="12">
@@ -65,11 +81,12 @@ import { router } from "../../_helpers/router";
 import { authenticationService } from "../../_services/authentication.service";
 export default {
   data: () => ({
+    loading: false,
     registerForm: {
       first_name: "",
       last_name: "",
       email: "",
-      role_id: 4,
+      role_id: "",
       password: ""
     },
     valid: true,
@@ -100,17 +117,15 @@ export default {
   methods: {
     validate() {
       if (this.$refs.form.validate()) {
-        // this.submitted = true;
-        // this.loading = true;
-
+        this.loading = true;
         this.registerForm.first_name = this.firstname;
         this.registerForm.last_name = this.lastname;
         this.registerForm.email = this.email;
         this.registerForm.password = this.password;
         this.registerForm.password_confirmation = this.confirm_password;
-        this.registerForm.user_image = "";
         authenticationService.register(this.registerForm).then(response => {
           //handle response
+          this.loading = false;
           if (response.status) {
             this.$toast.open({
               message: response.message,

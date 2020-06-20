@@ -92,9 +92,18 @@
                 <v-col cols="12" md="12">
                   <v-text-field
                     v-model="addForm.total_killometer"
-                    label="Total Kilometer"
+                    label="Total Miles"
                     required
                     :rules="killometerRules"
+                  ></v-text-field>
+                </v-col>
+		<v-col cols="12" md="12">
+                  <v-text-field
+                   type="number"
+                    v-model="addForm.capacity"
+                    label="Truck Capacity"
+                    required
+                    :rules="[v => !!v || 'Truck capacity is required']"
                   ></v-text-field>
                 </v-col>
 
@@ -182,11 +191,12 @@ export default {
         document: "",
 	insurance_document: "",
         total_killometer: "",
+        capacity: '',
         insurance_expiry: "",
 	is_active: true
       },
      killometerRules: [
-        v => !!v || "Truck kilometer is required",
+        v => !!v || "Truck Miles is required",
         v => /^\d*$/.test(v) || "Enter valid number",
       ],
       myFiles: []

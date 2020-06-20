@@ -49,7 +49,7 @@ class VehicleController extends Controller
                 'truck_number' => $request->truck_number,
                 'chaase_number' => $request->chaase_number,
                 'killometer' => $request->total_killometer,
-                // 'capacity' => $request->insurance_date,
+                'capacity' => $request->capacity,
                 'document' => $request->document,
                 'insurance_document' => $request->insurance_document,
 		'status' => $request->is_active
@@ -120,6 +120,7 @@ class VehicleController extends Controller
                 'truck_number' => $request->truck_number,
                 'chaase_number' => $request->chaase_number,
                 'killometer' => $request->total_killometer,
+	        'capacity' => $request->capacity,
                 'document' => $request->document,
 	        'insurance_document' => $request->insurance_document,
 		'status' => $request->is_active
