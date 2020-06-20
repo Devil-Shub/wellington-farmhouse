@@ -271,7 +271,13 @@
                   </v-col>
                 </v-row>
               </v-col>
-              <v-btn color="success" class="mr-4 custom-save-btn ml-4" @click="update">Submit</v-btn>
+              <v-btn
+                :loading="loading"
+                :disabled="loading"
+                color="success"
+                class="mr-4 custom-save-btn ml-4"
+                @click="update"
+              >Submit</v-btn>
             </v-row>
           </v-form>
         </v-col>
@@ -292,6 +298,7 @@ export default {
   },
   data() {
     return {
+      loading: false,
       docError: false,
       editSwitch: false,
       disabled: 0,
@@ -355,7 +362,7 @@ export default {
         //set farm values
         this.addForm = {
           farm_id: farmDetails.id,
-          farm_images: [],
+          farm_images: farmDetails.farm_image,
           latitude: farmDetails.latitude,
           longitude: farmDetails.longitude,
           farm_address: farmDetails.farm_address,
@@ -375,7 +382,7 @@ export default {
           manager_province: managerDetails.state,
           manager_zipcode: managerDetails.zip_code,
           manager_id_card: managerDetails.manager.identification_number,
-          manager_card_image: managerDetails.document
+          manager_card_image: managerDetails.manager.document
         };
       } else {
         this.$toast.open({
@@ -433,9 +440,12 @@ export default {
       //this.docError = false;
     },
     update() {
-      console.log(this.addForm);
       if (this.$refs.form.validate()) {
-        customerService.add(this.addForm).then(response => {
+        //start loading
+        this.loading = true;
+        customerService.updateFarmManager(this.addForm).then(response => {
+          //stop loading
+          this.loading = false;
           //handle response
           if (response.status) {
             this.$toast.open({
@@ -443,8 +453,6 @@ export default {
               type: "success",
               position: "top-right"
             });
-            //redirect to login
-            //router.push("/admin/customer");
           } else {
             this.$toast.open({
               message: response.message,
