@@ -253,6 +253,8 @@ class VehicleController extends Controller
                 'vehicle_id' => $request->vehicle_id,
                 'service_date' => $request->service_date,
                 'service_killometer' => $request->total_killometer,
+                 'receipt' => $request->receipt,
+                 'document' => $request->document, 
             ]);
 	    $vechicle->Save();
             //commit all transactions now
@@ -375,7 +377,9 @@ class VehicleController extends Controller
         try {
             VehicleService::whereId($request->service_id)->update([
                 'service_killometer' => $request->service_killometer,
-                'service_date' => $request->service_date
+                'service_date' => $request->service_date,
+                'receipt' => $request->receipt,
+               'document' => $request->document
             ]);
 
             return response()->json([
