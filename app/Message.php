@@ -9,7 +9,7 @@ class Message extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['body'];
+    protected $fillable = ['body', 'receiver_id'];
 
     protected $appends = ['selfMessage'];
 

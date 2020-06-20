@@ -52,7 +52,7 @@ Route::group(['prefix' => 'auth'], function () {
             Route::get('list-services', 'ServicesController@listServices');
             Route::get('get-service/{service_id}', 'ServicesController@getService');
             Route::delete('delete-service/{service_id}', 'ServicesController@deleteService');
-            Route::get('get-timeslots/{slot_type}', 'ServicesController@getTimeSlots');
+            Route::post('get-timeslots', 'ServicesController@getTimeSlots');
 
             //driver
             Route::post('create-driver', 'DriverController@createDriver');

@@ -97,6 +97,7 @@ export const router = new Router({
   routes: [
     { path: "/", component: HomePage, meta: { requiresAuth: [Role.Customer] } },
     { path: "/home", component: HomePage, name: 'Home', meta: { requiresAuth: [Role.Customer] } },
+ { path: "/chat", component: ChatPage, name: 'F_chat', meta: { requiresAuth: [Role.Customer] } },
     { path: "/payment/:unique_id", component: PaymentPage, name: 'Payment', meta: { requiresAuth: [Role.Customer] } },
     //{ path: "/confirm-email", component: HomePage },
     //admin routes

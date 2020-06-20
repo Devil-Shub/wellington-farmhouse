@@ -1,246 +1,370 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[5],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/layout/Drawer.vue?vue&type=script&lang=js&":
-/*!************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/layout/Drawer.vue?vue&type=script&lang=js& ***!
-  \************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/company/tab/farm.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/company/tab/farm.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _services_customer_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../_services/customer.service */ "./resources/js/_services/customer.service.js");
+/* harmony import */ var _helpers_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../_helpers/router */ "./resources/js/_helpers/router.js");
+/* harmony import */ var _config_test_env__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../config/test.env */ "./resources/js/config/test.env.js");
+/* harmony import */ var vue_google_autocomplete__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-google-autocomplete */ "./node_modules/vue-google-autocomplete/src/VueGoogleAutocomplete.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-// Utilities
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'DashboardCoreDrawer',
-  props: {
-    expandOnHover: {
-      type: Boolean,
-      "default": false
-    }
+  components: {
+    VueGoogleAutocomplete: vue_google_autocomplete__WEBPACK_IMPORTED_MODULE_4__["default"]
   },
   data: function data() {
     return {
-      items: [{
-        action: 'local_activity',
-        title: 'Main',
-        active: true,
-        items: [{
-          title: 'Overview',
-          url: '/admin/dashboard'
-        }, {
-          title: 'Jobs',
-          url: '/admin/jobs'
-        }, {
-          title: 'Dispatches',
-          url: '/admin/dispatches'
-        }, {
-          title: 'Services',
-          url: '/admin/services'
-        }]
-      }, {
-        action: 'local_activity',
-        title: 'Customer',
-        items: [{
-          title: 'Customer',
-          url: '/admin/customer'
-        }, {
-          title: 'Customer Compnay',
-          url: '/admin/company'
-        }]
-      }, {
-        action: 'local_activity',
-        title: 'Employee',
-        items: [{
-          title: 'Managers',
-          url: '/admin/manager'
-        }, {
-          title: 'Drivers',
-          url: '/admin/truckdrivers'
-        }]
-      }, {
-        action: 'local_activity',
-        title: 'Fleet',
-        items: [{
-          title: 'Truck',
-          url: '/admin/trucks'
-        }, {
-          title: 'SkidSteer',
-          url: '/admin/skidsteers'
-        }]
-      }, {
-        action: 'local_activity',
-        title: 'Accounts',
-        items: [{
-          title: 'Accountings',
-          url: '/admin/accounting'
-        }, {
-          title: 'Reports',
-          url: '/admin/reports'
-        }]
-      }]
+      docError: false,
+      prefixs: ['Ms.', 'Mr.', 'Mrs.'],
+      isLoading: false,
+      items: [],
+      model: null,
+      valid: true,
+      manager_img: "",
+      apiUrl: _config_test_env__WEBPACK_IMPORTED_MODULE_3__["environment"].apiUrl,
+      addForm: {
+        farm_id: '',
+        farm_images: [],
+        latitude: '',
+        longitude: '',
+        farm_address: '',
+        farm_unit: '',
+        farm_city: '',
+        farm_province: '',
+        farm_zipcode: '',
+        farm_active: true,
+        manager_id: '',
+        manager_image: '',
+        manager_prefix: '',
+        manager_name: '',
+        manager_email: '',
+        manager_phone: '',
+        manager_address: '',
+        manager_city: '',
+        manager_province: '',
+        manager_zipcode: '',
+        manager_id_card: '',
+        manager_card_image: ''
+      },
+      emailRules: [function (v) {
+        return !!v || "E-mail is required";
+      }, function (v) {
+        return /.+@.+/.test(v) || "E-mail must be valid";
+      }],
+      phoneRules: [function (v) {
+        return !!v || "Phone number is required";
+      }, function (v) {
+        return /^\d*$/.test(v) || "Enter valid number";
+      }, function (v) {
+        return v.length >= 10 || "Enter valid number length";
+      }],
+      rules: [function (value) {
+        return !value || value.size < 2000000 || "Avatar size should be less than 2 MB!";
+      }],
+      myFiles: []
     };
   },
-  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['barColor', 'barImage'])), {}, {
-    drawer: {
-      get: function get() {
-        return this.$store.state.drawer;
-      },
-      set: function set(val) {
-        this.$store.commit('SET_DRAWER', val);
+  mounted: function mounted() {
+    var _this = this;
+
+    this.$refs.address.focus();
+    _services_customer_service__WEBPACK_IMPORTED_MODULE_1__["customerService"].getCustomer(this.$route.params.id).then(function (response) {
+      //handle response
+      if (response.status) {
+        console.log(response.data.customer_manager);
+      } else {
+        _this.$toast.open({
+          message: response.message,
+          type: "error",
+          position: "top-right"
+        });
       }
-    },
-    computedItems: function computedItems() {
-      return this.items.map(this.mapItem);
-    },
-    profile: function profile() {
+    });
+  },
+  computed: {
+    serverOptions: function serverOptions() {
+      var currentUser = JSON.parse(localStorage.getItem("currentUser"));
       return {
-        avatar: true // title: this.$t('avatar'),
-
+        url: this.apiUrl,
+        withCredentials: false,
+        process: {
+          url: "uploadImage",
+          headers: {
+            Authorization: "Bearer " + currentUser.data.access_token
+          }
+        }
       };
+    },
+    url: function url() {
+      if (this.file) {
+        var parsedUrl = new URL(this.file);
+        return [parsedUrl.pathname];
+      } else {
+        return null;
+      }
     }
-  }),
+  },
+  created: function created() {
+    this.manager_image = "/images/avatar.png";
+  },
   methods: {
-    mapItem: function mapItem(item) {
-      return _objectSpread(_objectSpread({}, item), {}, {
-        children: item.children ? item.children.map(this.mapItem) : undefined //title: this.$t(item.title),
+    getAddressData: function getAddressData(addressData, placeResultData, id) {
+      this.addForm.latitude = addressData.latitude;
+      this.addForm.longitude = addressData.longitude;
+      this.addForm.farm_address = addressData.route;
+    },
+    //farm images process
+    handleProcessFile1: function handleProcessFile1(error, file) {
+      this.addForm.farm_images.push(file.serverId);
+    },
+    //manager image process
+    handleProcessFile2: function handleProcessFile2(error, file) {
+      this.manager_img = "../../" + file.serverId;
+      this.addForm.manager_image = file.serverId;
+    },
+    //manager id card image process
+    handleProcessFile3: function handleProcessFile3(error, file) {
+      this.addForm.manager_card_image = file.serverId; //this.docError = false;
+    },
+    update: function update() {
+      var _this2 = this;
 
-      });
+      console.log(this.addForm);
+
+      if (this.$refs.form.validate()) {
+        _services_customer_service__WEBPACK_IMPORTED_MODULE_1__["customerService"].add(this.addForm).then(function (response) {
+          //handle response
+          if (response.status) {
+            _this2.$toast.open({
+              message: response.message,
+              type: "success",
+              position: "top-right"
+            }); //redirect to login
+            //router.push("/admin/customer");
+
+          } else {
+            _this2.$toast.open({
+              message: response.message,
+              type: "error",
+              position: "top-right"
+            });
+          }
+        });
+      }
     }
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/layout/Drawer.vue?vue&type=style&index=0&lang=sass&":
-/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--8-2!./node_modules/sass-loader/dist/cjs.js??ref--8-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/layout/Drawer.vue?vue&type=style&index=0&lang=sass& ***!
-  \***********************************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "#core-navigation-drawer .v-list-group__header.v-list-item--active:before {\n  opacity: 0.24;\n}\n#core-navigation-drawer .v-list-item__icon--text, #core-navigation-drawer .v-list-item__icon:first-child {\n  justify-content: center;\n  text-align: center;\n  width: 20px;\n}\n.v-application--is-ltr #core-navigation-drawer .v-list-item__icon--text, .v-application--is-ltr #core-navigation-drawer .v-list-item__icon:first-child {\n  margin-right: 24px;\n  margin-left: 12px !important;\n}\n.v-application--is-rtl #core-navigation-drawer .v-list-item__icon--text, .v-application--is-rtl #core-navigation-drawer .v-list-item__icon:first-child {\n  margin-left: 24px;\n  margin-right: 12px !important;\n}\n#core-navigation-drawer .v-list--dense .v-list-item__icon--text, #core-navigation-drawer .v-list--dense .v-list-item__icon:first-child {\n  margin-top: 10px;\n}\n.v-application--is-ltr #core-navigation-drawer .v-list-group--sub-group .v-list-item {\n  padding-left: 8px;\n}\n.v-application--is-rtl #core-navigation-drawer .v-list-group--sub-group .v-list-item {\n  padding-right: 8px;\n}\n.v-application--is-ltr #core-navigation-drawer .v-list-group--sub-group .v-list-group__header {\n  padding-right: 0;\n}\n.v-application--is-rtl #core-navigation-drawer .v-list-group--sub-group .v-list-group__header {\n  padding-right: 0;\n}\n#core-navigation-drawer .v-list-group--sub-group .v-list-group__header .v-list-item__icon--text {\n  margin-top: 19px;\n  order: 0;\n}\n#core-navigation-drawer .v-list-group--sub-group .v-list-group__header .v-list-group__header__prepend-icon {\n  order: 2;\n}\n.v-application--is-ltr #core-navigation-drawer .v-list-group--sub-group .v-list-group__header .v-list-group__header__prepend-icon {\n  margin-right: 8px;\n}\n.v-application--is-rtl #core-navigation-drawer .v-list-group--sub-group .v-list-group__header .v-list-group__header__prepend-icon {\n  margin-left: 8px;\n}", ""]);
-
-// exports
-
-
-/***/ }),
-
-/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/layout/Drawer.vue?vue&type=style&index=0&lang=sass&":
-/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--8-2!./node_modules/sass-loader/dist/cjs.js??ref--8-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/layout/Drawer.vue?vue&type=style&index=0&lang=sass& ***!
-  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-var content = __webpack_require__(/*! !../../../../node_modules/css-loader!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--8-2!../../../../node_modules/sass-loader/dist/cjs.js??ref--8-3!../../../../node_modules/vue-loader/lib??vue-loader-options!./Drawer.vue?vue&type=style&index=0&lang=sass& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/layout/Drawer.vue?vue&type=style&index=0&lang=sass&");
-
-if(typeof content === 'string') content = [[module.i, content, '']];
-
-var transform;
-var insertInto;
-
-
-
-var options = {"hmr":true}
-
-options.transform = transform
-options.insertInto = undefined;
-
-var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
-
-if(content.locals) module.exports = content.locals;
-
-if(false) {}
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/layout/Drawer.vue?vue&type=template&id=522ce85b&":
-/*!****************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/layout/Drawer.vue?vue&type=template&id=522ce85b& ***!
-  \****************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/company/tab/farm.vue?vue&type=template&id=4921bce6&":
+/*!*************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/company/tab/farm.vue?vue&type=template&id=4921bce6& ***!
+  \*************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -253,151 +377,640 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "v-navigation-drawer",
-    _vm._b(
-      {
-        staticClass: "sidebar-nav",
-        attrs: {
-          id: "core-navigation-drawer",
-          dark:
-            _vm.barColor !== "rgba(228, 226, 226, 1), rgba(255, 255, 255, 0.7)",
-          "expand-on-hover": _vm.expandOnHover,
-          right: _vm.$vuetify.rtl,
-          "mobile-break-point": "960",
-          app: "",
-          width: "260"
-        },
-        scopedSlots: _vm._u([
-          {
-            key: "img",
-            fn: function(props) {
-              return [
-                _c(
-                  "v-img",
-                  _vm._b(
-                    { attrs: { gradient: "to bottom, " + _vm.barColor } },
-                    "v-img",
-                    props,
-                    false
-                  )
-                )
-              ]
-            }
-          }
-        ]),
-        model: {
-          value: _vm.drawer,
-          callback: function($$v) {
-            _vm.drawer = $$v
-          },
-          expression: "drawer"
-        }
-      },
-      "v-navigation-drawer",
-      _vm.$attrs,
-      false
-    ),
+    "v-app",
     [
-      _vm._v(" "),
       _c(
-        "v-list",
-        { attrs: { expand: "", nav: "" } },
+        "v-container",
         [
-          _c("div"),
-          _vm._v(" "),
           _c(
-            "v-list",
-            _vm._l(_vm.items, function(item) {
-              return _c(
-                "v-list-group",
-                {
-                  key: item.title,
-                  attrs: { "prepend-icon": item.action, "no-action": "" },
-                  scopedSlots: _vm._u(
-                    [
-                      {
-                        key: "activator",
-                        fn: function() {
-                          return [
-                            _c(
-                              "v-list-item",
-                              [
-                                _c(
-                                  "v-list-item-content",
-                                  [
-                                    _c("v-list-item-title", [
-                                      _vm._v(_vm._s(item.title))
-                                    ])
-                                  ],
-                                  1
-                                )
-                              ],
-                              1
-                            )
-                          ]
-                        },
-                        proxy: true
-                      }
-                    ],
-                    null,
-                    true
-                  ),
-                  model: {
-                    value: item.active,
-                    callback: function($$v) {
-                      _vm.$set(item, "active", $$v)
-                    },
-                    expression: "item.active"
-                  }
-                },
+            "v-row",
+            [
+              _c(
+                "v-col",
+                { attrs: { cols: "12", md: "12" } },
                 [
-                  _vm._v(" "),
-                  _vm._l(item.items, function(subItem) {
-                    return _c(
-                      "v-list-item",
-                      {
-                        key: subItem.title,
-                        on: { click: function($event) {} }
-                      },
-                      [
-                        _c(
-                          "v-list-item-content",
-                          [
-                            _c(
-                              "v-list-item-title",
-                              [
-                                _c(
-                                  "router-link",
-                                  {
-                                    staticClass: "nav-item nav-link",
-                                    attrs: { to: subItem.url }
-                                  },
-                                  [_vm._v(_vm._s(subItem.title))]
-                                )
-                              ],
-                              1
-                            )
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "v-list-item-action",
-                          [_c("v-icon", [_vm._v(_vm._s(subItem.action))])],
-                          1
-                        )
-                      ],
-                      1
-                    )
-                  })
+                  _c(
+                    "v-form",
+                    {
+                      ref: "form",
+                      attrs: { "lazy-validation": "" },
+                      model: {
+                        value: _vm.valid,
+                        callback: function($$v) {
+                          _vm.valid = $$v
+                        },
+                        expression: "valid"
+                      }
+                    },
+                    [
+                      _c(
+                        "v-row",
+                        [
+                          _c(
+                            "v-col",
+                            { attrs: { cols: "12", md: "12" } },
+                            [
+                              _c("h4", { staticClass: "main-title" }, [
+                                _vm._v("Farm Section")
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "v-row",
+                                [
+                                  _c(
+                                    "v-col",
+                                    { attrs: { cols: "12", md: "12" } },
+                                    [
+                                      _c("file-pond", {
+                                        ref: "pond",
+                                        attrs: {
+                                          name: "uploadImage",
+                                          "label-idle": "Farm Images",
+                                          "allow-multiple": "true",
+                                          server: _vm.serverOptions,
+                                          files: _vm.myFiles,
+                                          "allow-file-type-validation": "true",
+                                          "accepted-file-types":
+                                            "image/jpeg, image/png"
+                                        },
+                                        on: {
+                                          processfile: _vm.handleProcessFile1
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-col",
+                                    { attrs: { cols: "3", md: "3" } },
+                                    [
+                                      _c("vue-google-autocomplete", {
+                                        ref: "address",
+                                        staticClass: "form-control mt-4",
+                                        attrs: {
+                                          id: "map",
+                                          placeholder:
+                                            "Please type your address",
+                                          country: "us"
+                                        },
+                                        on: {
+                                          placechanged: _vm.getAddressData
+                                        },
+                                        model: {
+                                          value: _vm.addForm.farm_address,
+                                          callback: function($$v) {
+                                            _vm.$set(
+                                              _vm.addForm,
+                                              "farm_address",
+                                              $$v
+                                            )
+                                          },
+                                          expression: "addForm.farm_address"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-col",
+                                    { attrs: { cols: "3", md: "3" } },
+                                    [
+                                      _c("v-text-field", {
+                                        attrs: {
+                                          label: "Apt/Unit",
+                                          required: "",
+                                          rules: [
+                                            function(v) {
+                                              return (
+                                                !!v ||
+                                                "Farm apt/unit is required"
+                                              )
+                                            }
+                                          ]
+                                        },
+                                        model: {
+                                          value: _vm.addForm.farm_unit,
+                                          callback: function($$v) {
+                                            _vm.$set(
+                                              _vm.addForm,
+                                              "farm_unit",
+                                              $$v
+                                            )
+                                          },
+                                          expression: "addForm.farm_unit"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-col",
+                                    { attrs: { cols: "3", md: "3" } },
+                                    [
+                                      _c("v-text-field", {
+                                        attrs: {
+                                          label: "City",
+                                          required: "",
+                                          rules: [
+                                            function(v) {
+                                              return (
+                                                !!v || "Farm city is required"
+                                              )
+                                            }
+                                          ]
+                                        },
+                                        model: {
+                                          value: _vm.addForm.farm_city,
+                                          callback: function($$v) {
+                                            _vm.$set(
+                                              _vm.addForm,
+                                              "farm_city",
+                                              $$v
+                                            )
+                                          },
+                                          expression: "addForm.farm_city"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-col",
+                                    { attrs: { cols: "3", md: "3" } },
+                                    [
+                                      _c("v-text-field", {
+                                        attrs: {
+                                          label: "Province",
+                                          required: "",
+                                          rules: [
+                                            function(v) {
+                                              return (
+                                                !!v ||
+                                                "Farm province is required"
+                                              )
+                                            }
+                                          ]
+                                        },
+                                        model: {
+                                          value: _vm.addForm.farm_province,
+                                          callback: function($$v) {
+                                            _vm.$set(
+                                              _vm.addForm,
+                                              "farm_province",
+                                              $$v
+                                            )
+                                          },
+                                          expression: "addForm.farm_province"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-col",
+                                    { attrs: { cols: "3", md: "3" } },
+                                    [
+                                      _c("v-text-field", {
+                                        attrs: {
+                                          label: "Zip Code",
+                                          required: "",
+                                          rules: [
+                                            function(v) {
+                                              return (
+                                                !!v ||
+                                                "Farm zip code is required"
+                                              )
+                                            }
+                                          ]
+                                        },
+                                        model: {
+                                          value: _vm.addForm.farm_zipcode,
+                                          callback: function($$v) {
+                                            _vm.$set(
+                                              _vm.addForm,
+                                              "farm_zipcode",
+                                              $$v
+                                            )
+                                          },
+                                          expression: "addForm.farm_zipcode"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-col",
+                                    { attrs: { cols: "3", md: "3" } },
+                                    [
+                                      _c("v-switch", {
+                                        staticClass: "mx-2",
+                                        attrs: { label: "Is Active" },
+                                        model: {
+                                          value: _vm.addForm.farm_active,
+                                          callback: function($$v) {
+                                            _vm.$set(
+                                              _vm.addForm,
+                                              "farm_active",
+                                              $$v
+                                            )
+                                          },
+                                          expression: "addForm.farm_active"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-col",
+                            { attrs: { cols: "12", md: "12" } },
+                            [
+                              _c("h3", [_vm._v("Manager Details")]),
+                              _vm._v(" "),
+                              _c(
+                                "v-row",
+                                [
+                                  _c(
+                                    "v-col",
+                                    { attrs: { cols: "12", md: "12" } },
+                                    [
+                                      _c(
+                                        "div",
+                                        {
+                                          staticClass:
+                                            "v-avatar v-list-item__avatar",
+                                          staticStyle: {
+                                            height: "40px",
+                                            "min-width": "40px",
+                                            width: "40px"
+                                          }
+                                        },
+                                        [
+                                          _c("img", {
+                                            attrs: { src: _vm.manager_img }
+                                          })
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c("file-pond", {
+                                        ref: "pond",
+                                        attrs: {
+                                          name: "uploadImage",
+                                          "label-idle": "Add Profile Pic",
+                                          "allow-multiple": "false",
+                                          server: _vm.serverOptions,
+                                          files: _vm.myFiles,
+                                          "allow-file-type-validation": "true",
+                                          "accepted-file-types":
+                                            "image/jpeg, image/png"
+                                        },
+                                        on: {
+                                          processfile: _vm.handleProcessFile2
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-col",
+                                    { attrs: { cols: "3", md: "3" } },
+                                    [
+                                      _c("v-select", {
+                                        attrs: {
+                                          items: _vm.prefixs,
+                                          label: "Prefix",
+                                          rules: [
+                                            function(v) {
+                                              return !!v || "Prefix is required"
+                                            }
+                                          ]
+                                        },
+                                        model: {
+                                          value: _vm.addForm.manager_prefix,
+                                          callback: function($$v) {
+                                            _vm.$set(
+                                              _vm.addForm,
+                                              "manager_prefix",
+                                              $$v
+                                            )
+                                          },
+                                          expression: "addForm.manager_prefix"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-col",
+                                    { attrs: { cols: "3", md: "3" } },
+                                    [
+                                      _c("v-text-field", {
+                                        attrs: {
+                                          label: "Name",
+                                          required: "",
+                                          rules: [
+                                            function(v) {
+                                              return (
+                                                !!v ||
+                                                "Manager name is required"
+                                              )
+                                            }
+                                          ]
+                                        },
+                                        model: {
+                                          value: _vm.addForm.manager_name,
+                                          callback: function($$v) {
+                                            _vm.$set(
+                                              _vm.addForm,
+                                              "manager_name",
+                                              $$v
+                                            )
+                                          },
+                                          expression: "addForm.manager_name"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-col",
+                                    { attrs: { cols: "3", md: "3" } },
+                                    [
+                                      _c("v-text-field", {
+                                        attrs: {
+                                          rules: _vm.emailRules,
+                                          name: "email",
+                                          label: "E-mail",
+                                          required: ""
+                                        },
+                                        model: {
+                                          value: _vm.addForm.manager_email,
+                                          callback: function($$v) {
+                                            _vm.$set(
+                                              _vm.addForm,
+                                              "manager_email",
+                                              $$v
+                                            )
+                                          },
+                                          expression: "addForm.manager_email"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-col",
+                                    { attrs: { cols: "3", md: "3" } },
+                                    [
+                                      _c("v-text-field", {
+                                        attrs: {
+                                          rules: _vm.phoneRules,
+                                          label: "Phone",
+                                          required: "",
+                                          maxlength: "10"
+                                        },
+                                        model: {
+                                          value: _vm.addForm.manager_phone,
+                                          callback: function($$v) {
+                                            _vm.$set(
+                                              _vm.addForm,
+                                              "manager_phone",
+                                              $$v
+                                            )
+                                          },
+                                          expression: "addForm.manager_phone"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-col",
+                                    { attrs: { cols: "3", md: "3" } },
+                                    [
+                                      _c("v-text-field", {
+                                        attrs: {
+                                          label: "Address",
+                                          required: "",
+                                          rules: [
+                                            function(v) {
+                                              return (
+                                                !!v || "address is required"
+                                              )
+                                            }
+                                          ]
+                                        },
+                                        model: {
+                                          value: _vm.addForm.manager_address,
+                                          callback: function($$v) {
+                                            _vm.$set(
+                                              _vm.addForm,
+                                              "manager_address",
+                                              $$v
+                                            )
+                                          },
+                                          expression: "addForm.manager_address"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-col",
+                                    { attrs: { cols: "3", md: "3" } },
+                                    [
+                                      _c("v-text-field", {
+                                        attrs: {
+                                          label: "City",
+                                          required: "",
+                                          rules: [
+                                            function(v) {
+                                              return !!v || "City is required"
+                                            }
+                                          ]
+                                        },
+                                        model: {
+                                          value: _vm.addForm.manager_city,
+                                          callback: function($$v) {
+                                            _vm.$set(
+                                              _vm.addForm,
+                                              "manager_city",
+                                              $$v
+                                            )
+                                          },
+                                          expression: "addForm.manager_city"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-col",
+                                    { attrs: { cols: "3", md: "3" } },
+                                    [
+                                      _c("v-text-field", {
+                                        attrs: {
+                                          label: "State",
+                                          required: "",
+                                          rules: [
+                                            function(v) {
+                                              return (
+                                                !!v || "Province is required"
+                                              )
+                                            }
+                                          ]
+                                        },
+                                        model: {
+                                          value: _vm.addForm.manager_province,
+                                          callback: function($$v) {
+                                            _vm.$set(
+                                              _vm.addForm,
+                                              "manager_province",
+                                              $$v
+                                            )
+                                          },
+                                          expression: "addForm.manager_province"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-col",
+                                    { attrs: { cols: "3", md: "3" } },
+                                    [
+                                      _c("v-text-field", {
+                                        attrs: {
+                                          rules: [
+                                            function(v) {
+                                              return (
+                                                !!v || "Zip code is required"
+                                              )
+                                            }
+                                          ],
+                                          label: "zipcode",
+                                          required: ""
+                                        },
+                                        model: {
+                                          value: _vm.addForm.manager_zipcode,
+                                          callback: function($$v) {
+                                            _vm.$set(
+                                              _vm.addForm,
+                                              "manager_zipcode",
+                                              $$v
+                                            )
+                                          },
+                                          expression: "addForm.manager_zipcode"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-col",
+                                    { attrs: { cols: "3", md: "3" } },
+                                    [
+                                      _c("v-text-field", {
+                                        attrs: {
+                                          rules: [
+                                            function(v) {
+                                              return (
+                                                !!v ||
+                                                "Card Id number is required"
+                                              )
+                                            }
+                                          ],
+                                          label: "Id CradNo",
+                                          required: ""
+                                        },
+                                        model: {
+                                          value: _vm.addForm.manager_id_card,
+                                          callback: function($$v) {
+                                            _vm.$set(
+                                              _vm.addForm,
+                                              "manager_id_card",
+                                              $$v
+                                            )
+                                          },
+                                          expression: "addForm.manager_id_card"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-col",
+                                    { attrs: { cols: "4", md: "4" } },
+                                    [
+                                      _c("file-pond", {
+                                        ref: "pond",
+                                        attrs: {
+                                          name: "uploadImage",
+                                          "label-idle": "Upload Id Card Image",
+                                          "allow-multiple": "false",
+                                          server: _vm.serverOptions,
+                                          files: _vm.myFiles,
+                                          "allow-file-type-validation": "true",
+                                          "accepted-file-types":
+                                            "image/jpeg, image/png"
+                                        },
+                                        on: {
+                                          processfile: _vm.handleProcessFile3
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-btn",
+                            {
+                              staticClass: "mr-4 custom-save-btn ml-4",
+                              attrs: { color: "success" },
+                              on: { click: _vm.update }
+                            },
+                            [_vm._v("Submit")]
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
                 ],
-                2
+                1
               )
-            }),
+            ],
             1
-          ),
-          _vm._v(" "),
-          _c("div")
+          )
         ],
         1
       )
@@ -412,20 +1025,18 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/layout/Drawer.vue":
-/*!***************************************************!*\
-  !*** ./resources/js/components/layout/Drawer.vue ***!
-  \***************************************************/
+/***/ "./resources/js/components/admin/company/tab/farm.vue":
+/*!************************************************************!*\
+  !*** ./resources/js/components/admin/company/tab/farm.vue ***!
+  \************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Drawer_vue_vue_type_template_id_522ce85b___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Drawer.vue?vue&type=template&id=522ce85b& */ "./resources/js/components/layout/Drawer.vue?vue&type=template&id=522ce85b&");
-/* harmony import */ var _Drawer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Drawer.vue?vue&type=script&lang=js& */ "./resources/js/components/layout/Drawer.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _Drawer_vue_vue_type_style_index_0_lang_sass___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Drawer.vue?vue&type=style&index=0&lang=sass& */ "./resources/js/components/layout/Drawer.vue?vue&type=style&index=0&lang=sass&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
+/* harmony import */ var _farm_vue_vue_type_template_id_4921bce6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./farm.vue?vue&type=template&id=4921bce6& */ "./resources/js/components/admin/company/tab/farm.vue?vue&type=template&id=4921bce6&");
+/* harmony import */ var _farm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./farm.vue?vue&type=script&lang=js& */ "./resources/js/components/admin/company/tab/farm.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -433,10 +1044,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
-  _Drawer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Drawer_vue_vue_type_template_id_522ce85b___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Drawer_vue_vue_type_template_id_522ce85b___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _farm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _farm_vue_vue_type_template_id_4921bce6___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _farm_vue_vue_type_template_id_4921bce6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -446,54 +1057,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/layout/Drawer.vue"
+component.options.__file = "resources/js/components/admin/company/tab/farm.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/layout/Drawer.vue?vue&type=script&lang=js&":
-/*!****************************************************************************!*\
-  !*** ./resources/js/components/layout/Drawer.vue?vue&type=script&lang=js& ***!
-  \****************************************************************************/
+/***/ "./resources/js/components/admin/company/tab/farm.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/components/admin/company/tab/farm.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Drawer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Drawer.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/layout/Drawer.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Drawer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_farm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./farm.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/company/tab/farm.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_farm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/layout/Drawer.vue?vue&type=style&index=0&lang=sass&":
-/*!*************************************************************************************!*\
-  !*** ./resources/js/components/layout/Drawer.vue?vue&type=style&index=0&lang=sass& ***!
-  \*************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Drawer_vue_vue_type_style_index_0_lang_sass___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--8-2!../../../../node_modules/sass-loader/dist/cjs.js??ref--8-3!../../../../node_modules/vue-loader/lib??vue-loader-options!./Drawer.vue?vue&type=style&index=0&lang=sass& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/layout/Drawer.vue?vue&type=style&index=0&lang=sass&");
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Drawer_vue_vue_type_style_index_0_lang_sass___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Drawer_vue_vue_type_style_index_0_lang_sass___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Drawer_vue_vue_type_style_index_0_lang_sass___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Drawer_vue_vue_type_style_index_0_lang_sass___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Drawer_vue_vue_type_style_index_0_lang_sass___WEBPACK_IMPORTED_MODULE_0___default.a); 
-
-/***/ }),
-
-/***/ "./resources/js/components/layout/Drawer.vue?vue&type=template&id=522ce85b&":
-/*!**********************************************************************************!*\
-  !*** ./resources/js/components/layout/Drawer.vue?vue&type=template&id=522ce85b& ***!
-  \**********************************************************************************/
+/***/ "./resources/js/components/admin/company/tab/farm.vue?vue&type=template&id=4921bce6&":
+/*!*******************************************************************************************!*\
+  !*** ./resources/js/components/admin/company/tab/farm.vue?vue&type=template&id=4921bce6& ***!
+  \*******************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Drawer_vue_vue_type_template_id_522ce85b___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Drawer.vue?vue&type=template&id=522ce85b& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/layout/Drawer.vue?vue&type=template&id=522ce85b&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Drawer_vue_vue_type_template_id_522ce85b___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_farm_vue_vue_type_template_id_4921bce6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./farm.vue?vue&type=template&id=4921bce6& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/company/tab/farm.vue?vue&type=template&id=4921bce6&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_farm_vue_vue_type_template_id_4921bce6___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Drawer_vue_vue_type_template_id_522ce85b___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_farm_vue_vue_type_template_id_4921bce6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

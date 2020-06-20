@@ -17,17 +17,9 @@
             </v-col>
             <v-col cols="12" md="12">
               <header>Service Time Period</header>
-              <v-radio-group
-                row
-                v-model="editForm.slot_type"
-                @change="getTime()"
-                :mandatory="false"
-                required
-                :rules="[v => !!v || 'Service time period is required']"
-              >
-                <v-radio label="Morning" value="morning"></v-radio>
-                <v-radio label="Afternoon" value="afternoon"></v-radio>
-              </v-radio-group>
+<v-checkbox class="pr-6" v-model="editForm.slot_type" @change="getTime()" label="Morning" value="1"></v-checkbox>
+<v-checkbox class="pr-6" v-model="editForm.slot_type" @change="getTime()" label="Afternoon" value="2"></v-checkbox>
+
             </v-col>
             <v-col class="time-slots pt-0" cols="12" md="12" v-if="timeSlots.length">
               <template v-for="timeSlot in timeSlots">
@@ -125,7 +117,7 @@ export default {
         description: "",
         service_image: "",
 	service_rate: "",
-        slot_type: "",
+        slot_type: [],
         slot_time: []
       },
       timeSlots: [],
@@ -168,12 +160,7 @@ export default {
         this.editForm.description = response.data.description;
         this.editForm.service_image = response.data.service_image;
         this.editForm.slot_time = JSON.parse(response.data.slot_time);
-        if (response.data.slot_type == 1) {
-          this.editForm.slot_type = "morning";
-        } else {
-          this.editForm.slot_type = "afternoon";
-        }
-
+        this.editForm.slot_type = JSON.parse(response.data.slot_type);
        if (response.data.service_rate == 1) {
           this.editForm.service_rate = "perload";
         } else {
@@ -199,12 +186,8 @@ export default {
       }
       //make empty initially
       this.timeSlots = [];
-      if (this.editForm.slot_type == "morning") {
-        var type = 1;
-      } else {
-        var type = 2;
-      }
-      serviceService.getTimeSlots(type).then(response => {
+    
+      serviceService.getTimeSlots({slot_type: this.editForm.slot_type}).then(response => {
         //handle response
         if (response.status) {
           this.timeSlots = response.data;
@@ -231,11 +214,6 @@ export default {
       this.editForm.service_image = file.serverId;
     },
     update() {
-     if (this.editForm.slot_type == "morning") {
-        this.editForm.slot_type = 1;
-      } else {
-        this.editForm.slot_type = 2;
-      }
       if (this.editForm.service_rate == "perload") {
         this.editForm.service_rate = 1;
       } else {

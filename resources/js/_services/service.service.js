@@ -91,8 +91,8 @@ function listService() {
 
 function getTimeSlots(data) {
   return fetch(
-    this.apiUrl+`admin/get-timeslots/`+data,
-    requestOptions.get()
+    this.apiUrl+`admin/get-timeslots`,
+    requestOptions.post(data)
   )
     .then(handleResponse)
     .then(user => {

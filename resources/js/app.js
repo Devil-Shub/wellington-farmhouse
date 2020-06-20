@@ -1,3 +1,5 @@
+require('./bootstrap');
+
 import '@mdi/font/css/materialdesignicons.css';
 import 'vuetify/dist/vuetify.min.css';
 // Import one of available themes
@@ -76,36 +78,6 @@ Vue.filter('formatDate', function(value) {
     }
 });
 
-//chat system
-
-import Echo from 'laravel-echo'
-
-window._ = require('lodash');
-window.Popper = require('popper.js').default;
-window.Pusher = require('pusher-js');
-
-try {
-  window.$ = window.jQuery = require('jquery');
-
-  require('bootstrap');
-} catch (e) {}
-
-window.axios = require('axios');
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-let token = document.head.querySelector('meta[name="csrf-token"]');
-
-if (token) {
-  window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
-} else {
-  console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
-}
-
-window.Echo = new Echo({
-    broadcaster: 'pusher',
-    key: 'd608cfd55d17f1ce3c41',
-    cluster: 'ap2',
-    encrypted: true
-});
 
 //chat system
 

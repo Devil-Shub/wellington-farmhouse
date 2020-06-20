@@ -47,7 +47,7 @@ class ServicesController extends Controller
                 'description' => $request->description,
                 'service_image' => $request->service_image,
                 'service_rate' => $request->service_rate,
-                'slot_type' => $request->slot_type,
+                'slot_type' => json_encode($request->slot_type),
                 'slot_time' => json_encode($request->slot_time),
             ]);
             //save service
@@ -102,7 +102,7 @@ class ServicesController extends Controller
                 'price' => $request->price,
                 'description' => $request->description,
 		'service_rate' => $request->service_rate,
-                'slot_type' => $request->slot_type,
+                'slot_type' => json_encode($request->slot_type),
                 'slot_time' => json_encode($request->slot_time),
                 'service_image' => $request->service_image
             ]);
@@ -197,7 +197,7 @@ class ServicesController extends Controller
      */
     public function getTimeSlots(Request $request){
 
-	     $getTime = TimeSlots::where('slot_type', $request->slot_type)->get();
+	     $getTime = TimeSlots::whereIn('slot_type', $request->slot_type)->get();
 	     if($getTime->count()){
             return response()->json([
                 'status' => true,

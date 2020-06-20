@@ -1,9 +1,8 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Events\MessageCreated;
+use App\Events\ChatEvent;
 use App\Message;
 
 class MessageController extends Controller
@@ -12,18 +11,23 @@ class MessageController extends Controller
     {
         $messages = Message::with(['user'])->get();
 
-        return response()->json($messages);
+           return response()->json([
+                'status' => true,
+                'message' => 'messages successful',
+                'data' => $messages
+            ], 200);
     }
 
     public function store(Request $request)
     {
+
         $message = $request->user()->messages()->create([
-            'body' => $request->body
+            'body' => $request->message,
+	    'receiver_id' => $request->receiver_id
         ]);
 
-        broadcast(new MessageCreated($message))
-                ->toOthers();
-
-        return response()->json($message);
+        broadcast(new ChatEvent($message->load('user')))->toOthers();
+	$mesaage[] = $message;
+        return response()->json($mesaage);
     }
 }
