@@ -1,5 +1,15 @@
 <template>
       <v-app>
+   <v-dialog v-model="loading" fullscreen full-width>
+  <v-container fluid fill-height style="background-color: rgba(255, 255, 255, 0.5);">
+    <v-layout justify-center align-center>
+      <v-progress-circular
+	indeterminate
+	color="primary">
+      </v-progress-circular>
+    </v-layout>
+  </v-container>
+</v-dialog>
              <v-container>
       <v-row>
    <h2>Add New Admin Password</h2>
@@ -83,6 +93,7 @@ export default {
   },
   data() {
     return {
+        loading: false,
         valid: true,
         avatar: null,
         apiUrl: environment.apiUrl,
@@ -147,6 +158,7 @@ export default {
         },
        update () {
           if( this.$refs.form.validate() ){
+             this.loading = true;
              adminService.add(this.addForm).then(response => {
               //handle response
               if(response.status) {
@@ -164,6 +176,7 @@ export default {
                     position: 'top-right'
                   })
               }
+             this.loading = false;
             });
           }
       }

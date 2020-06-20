@@ -1,16 +1,26 @@
 <template>
   <v-app>
+   <v-dialog v-model="loading" fullscreen loading>
+  <v-container fluid fill-height style="background-color: rgba(255, 255, 255, 0.5);">
+    <v-layout justify-center align-center>
+      <v-progress-circular
+	indeterminate
+	color="primary">
+      </v-progress-circular>
+    </v-layout>
+  </v-container>
+</v-dialog>
     <v-container>
       <v-row>
      <h2>Edit Admin</h2>
         <v-col cols="12" md="12">
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-col cols="12" md="12">
-              <div
+              <div v-if="avatar"
                 class="v-avatar v-list-item__avatar"
                 style="height: 40px; min-width: 40px; width: 40px;"
               >
-                <img :src="'../../../'+addForm.user_image" />
+                <img :src="avatar" />
               </div>
 
               <file-pond
@@ -74,6 +84,7 @@ export default {
       valid: true,
       avatar: null,
       apiUrl: environment.apiUrl,
+      imgUrl: environment.imgUrl,
       addForm: {
         first_name: "",
         last_name: "",
@@ -120,6 +131,7 @@ export default {
     }
   },
   created() {
+   this.loading = true;
     adminService.getAdmin(this.$route.params.id).then(response => {
       if (response.status) {
         this.addForm.user_id = response.data.id;
@@ -127,7 +139,7 @@ export default {
           this.addForm.user_image = response.data.user_image;
         }
         if (response.data.user_image) {
-          this.avatar = '../../../'+response.data.user_image;
+          this.avatar = this.imgUrl+response.data.user_image;
         } else {
           this.avatar = "/images/avatar.png";
         }
@@ -143,6 +155,7 @@ export default {
           position: "top-right"
         });
       }
+      this.loading = false;
     });
   },
   methods: {
@@ -152,6 +165,7 @@ export default {
     },
     handleProcessFile: function(error, file) {
       this.addForm.user_image = file.serverId;
+      this.avatar = this.imgUrl+file.serverId;
     },
     handleFilePondUpdateFile(files) {
       const reader = new FileReader();
@@ -163,6 +177,7 @@ export default {
 
     update() {
       if (this.$refs.form.validate()) {
+        this.loading = true;
         adminService.edit(this.addForm, this.$route.params.id).then(response => {
           //handle response
           if (response.status) {
@@ -180,6 +195,7 @@ export default {
               position: "top-right"
             });
           }
+          this.loading = false;
         });
       }
     }

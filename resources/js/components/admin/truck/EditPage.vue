@@ -92,9 +92,18 @@
                 <v-col cols="12" md="12">
                   <v-text-field
                     v-model="addForm.total_killometer"
-                    label="Total Kilometer"
+                    label="Total Miles"
                     required
                    :rules="killometerRules"
+                  ></v-text-field>
+                </v-col>
+<v-col cols="12" md="12">
+                  <v-text-field
+                   type="number"
+                    v-model="addForm.capacity"
+                    label="Truck Capacity"
+                    required
+                    :rules="[v => !!v || 'Truck capacity is required']"
                   ></v-text-field>
                 </v-col>
 <v-col cols="12" md="12">
@@ -188,11 +197,12 @@ export default {
         document: "",
 	insurance_document: "",
         total_killometer: "",
+        capacity:'',
         insurance_expiry: "",
 	is_active: ''
       },
           killometerRules: [
-        v => !!v || "Truck kilometer is required",
+        v => !!v || "Truck miles is required",
         v => /^\d*$/.test(v) || "Enter valid number",
       ],
       myFiles: []
@@ -231,6 +241,7 @@ export default {
         this.addForm.chaase_number = response.data.chaase_number;
         this.addForm.insurance_number = response.data.vehicle_insurance.insurance_number;
         this.addForm.total_killometer = response.data.killometer;
+        this.addForm.capacity = response.data.capacity;
         this.addForm.document = response.data.document;
         this.addForm.insurance_document = response.data.insurance_document;
         this.addForm.is_active = response.data.status;
