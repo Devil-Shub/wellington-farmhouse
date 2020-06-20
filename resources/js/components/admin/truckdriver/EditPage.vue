@@ -172,7 +172,12 @@
                 </div>
 
               </v-col>
-
+             <v-col cols="12" md="12">
+  <v-radio-group  row v-model="addForm.driver_type"  :mandatory="false" required :rules="[v => !!v || 'Truck type is required']">
+              <v-radio label="Truck" value="1" ></v-radio>
+              <v-radio label="Skidsteer" value="0"></v-radio>
+	           </v-radio-group>
+</v-col>
               <v-col cols="12" md="12">
                 <v-btn color="success" class="mr-4" @click="save">Submit</v-btn>
               </v-col>
@@ -222,7 +227,7 @@ export default {
         driver_country: "",
         driver_zipcode: "",
         driver_phone: "",
-        driver_type: 1
+        driver_type: ''
       },
       emailRules: [
         v => !!v || "E-mail is required",
@@ -288,7 +293,8 @@ export default {
         this.addForm.driver_country = response.data.user.country;
         this.addForm.driver_zipcode = response.data.user.zip_code;
         this.active = response.data.salary_type;
-        this.addForm.driver_licence = response.data.driver_licence;
+        this.addForm.driver_type = response.data.driver_type;
+	this.addForm.driver_licence = response.data.driver_licence;
         this.date = new Date(response.data.expiry_date).toISOString().substr(0, 10);
 	if(response.data.salary_type == 0){
  	this.addForm.salary_type = "per_hour";

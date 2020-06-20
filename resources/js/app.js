@@ -78,6 +78,17 @@ Vue.filter('formatDate', function(value) {
     }
 });
 
+Vue.filter('formatMonth', function(value) {
+    if (value) {
+        return moment(String(value)).format('MMM')
+    }
+});
+
+Vue.filter('formatYear', function(value) {
+    if (value) {
+        return moment(String(value)).format('YYYY')
+    }
+});
 
 //chat system
 

@@ -22,15 +22,19 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                    <tr v-for="(salary, index ) in salaryJobs">
+                        <td>{{index+1}}</td>
+                        <td>
+<router-link :to="'/admin/truckdriver/edit/' + salary.user.id" class="nav-item nav-link">{{salary.user.first_name}}</router-link></td>
+                        <td>{{salary.user.phone}}</td>
+                        <td>
+			<template v-if="salary.user.driver.driver_type">Truck Driver</template>
+	  		<template v-if="!salary.user.driver.driver_type">Skidsteer Driver</template>
+			</td>
+                        <td>{{salary.updated_at | formatMonth}}</td>
+                        <td>{{salary.updated_at | formatYear}}</td>
+                        <td>${{salary.salary}}</td>
+                        <td>View Details</td>
                     </tr>
                 </tbody>
             </table>
@@ -43,15 +47,42 @@
 import { router } from "../../../../_helpers/router";
 import { environment } from "../../../../config/test.env";
 import { PlusCircleIcon } from "vue-feather-icons";
+import { accountingService } from "../../../../_services/accounting.service";
 export default {
   components: {
     PlusCircleIcon
   },
   data() {
     return {
-      
-    };
+      salaryJobs:'',
+  };
   },
+  mounted: function() {
+    this.invoiceList();
+  },
+  methods: {
+	invoiceList(){
+        accountingService.jobSalary().then(response => {
+        //handle response
+        if (response.status) {
+          this.salaryJobs = response.data;
+        } else {
+          this.$toast.open({
+            message: response.message,
+            type: "error",
+            position: "top-right"
+          });
+        }
+      });
+	}
+  },
+updated() {
+setTimeout(function() {
+     $(document).ready(function() {
+	    $('#jobpayment').DataTable();
+	} );
+  }, 1000);
+    }
 }
 
 </script>

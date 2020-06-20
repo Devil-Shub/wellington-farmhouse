@@ -42,6 +42,15 @@
                     :rules="killometerRules"
                   ></v-text-field>
                 </v-col>
+                <v-col cols="12" md="12">
+		 <v-textarea
+		      filled
+		      label="Service Note"
+                      max-lenght="2000"
+		      auto-grow
+		      v-model="addForm.note"
+		    ></v-textarea>
+		 </v-col>
 
                 <v-col cols="12" md="12">
                   <file-pond
@@ -112,7 +121,8 @@ export default {
         service_date: "",
         service_killometer: "",
         receipt: '',
-        document: ''
+        document: '',
+        note: ''
       },
      killometerRules: [
         v => !!v || "Truck miles is required",
@@ -129,6 +139,7 @@ export default {
 		this.addForm.vehicle_id=response.data.vehicle_id;
 		this.addForm.receipt=response.data.receipt;
 		this.addForm.document=response.data.document;
+                this.addForm.note=response.data.note;
 		this.date=new Date(response.data.service_date).toISOString().substr(0, 10);
 		this.addForm.service_killometer=response.data.service_killometer;
 		}

@@ -18,7 +18,7 @@
                   class="elevation-1"
                 >
 		<template v-slot:item.receipt="{ item }"><img src="item.receipt"></template>
-<template v-slot:item.document="{ item }">sdsfsfdfdf</template>
+                <template v-slot:item.document="{ item }">sdsfsfdfdf</template>
                   <template v-slot:item.id="{ item }">
                      <span class="custom-action-btn"> <router-link :to="'/admin/truck/editservice/' +item.id">
                Edit
@@ -78,6 +78,7 @@ export default {
           sortable: false,
           value: "service_date"
         },
+        { text: "Note", value: "note" },
 	{ text: "Doc", value: "document" },
 	{ text: "Receipt", value: "receipt" },
         { text: "Action", value: "id" }

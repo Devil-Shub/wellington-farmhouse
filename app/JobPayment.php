@@ -17,4 +17,9 @@ class JobPayment extends Model
     protected $fillable = [
         'job_id', 'user_id', 'customer_id', 'payment_id', 'payment_mode', 'payment_method', 'currency', 'amount', 'payment_status'
     ];
+
+    public function job()
+    {
+        return $this->belongsTo('App\Job', 'job_id', 'id');
+    }
 }
