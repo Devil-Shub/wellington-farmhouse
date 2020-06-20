@@ -31,8 +31,8 @@
 			<template v-if="salary.user.driver.driver_type">Truck Driver</template>
 	  		<template v-if="!salary.user.driver.driver_type">Skidsteer Driver</template>
 			</td>
-                        <td>{{salary.updated_at | formatMonth}}</td>
-                        <td>{{salary.updated_at | formatYear}}</td>
+                        <td>{{salary.month}}</td>
+                        <td>{{salary.year}}</td>
                         <td>${{salary.salary}}</td>
                         <td>View Details</td>
                     </tr>

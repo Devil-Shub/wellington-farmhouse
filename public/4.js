@@ -196,13 +196,9 @@ var render = function() {
                         2
                       ),
                       _vm._v(" "),
-                      _c("td", [
-                        _vm._v(_vm._s(_vm._f("formatMonth")(salary.updated_at)))
-                      ]),
+                      _c("td", [_vm._v(_vm._s(salary.month))]),
                       _vm._v(" "),
-                      _c("td", [
-                        _vm._v(_vm._s(_vm._f("formatYear")(salary.updated_at)))
-                      ]),
+                      _c("td", [_vm._v(_vm._s(salary.year))]),
                       _vm._v(" "),
                       _c("td", [_vm._v("$" + _vm._s(salary.salary))]),
                       _vm._v(" "),
