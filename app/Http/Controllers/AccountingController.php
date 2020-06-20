@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Validator;
 use Mail;
+use Illuminate\Support\Facades\DB;
 use App\User;
 use App\Service;
 use App\TimeSlots;
@@ -16,8 +17,8 @@ class AccountingController extends Controller
 {
 
     /**
-    * get all jobs invoice
-    */
+     * get all jobs invoice
+     */
     public function getAllJobInvoices()
     {
         $getAllJobs = Job::with(
@@ -33,8 +34,8 @@ class AccountingController extends Controller
     }
 
     /**
-    * get all jobs payment
-    */
+     * get all jobs payment
+     */
     public function getAllJobPayment()
     {
         $getAllJobs = Job::where('payment_status', 1)->with(
@@ -50,19 +51,14 @@ class AccountingController extends Controller
     }
 
     /**
-    * get all jobs salary
-    */
+     * get all jobs salary
+     */
     public function getAllJobSalary()
     {
-     
-      $getAllJobs = EmployeeSalaries::with(["user" => function($q)
-                   {
-		      $q->with('driver'); 
-		   },
-		   "job"])->selectRaw('year(created_at) year, monthname(created_at) month, sum(salary) salary')
-                ->groupBy('year', 'month')
-                ->orderBy('year', 'desc')->get();
-
+        $getAllJobs = EmployeeSalaries::with("user.driver", "job")
+            ->selectRaw('year(created_at) year, monthname(created_at) month, sum(salary) salary, user_id, job_id')
+            ->groupBy('year', 'month', 'user_id', 'job_id')
+            ->orderBy('year', 'desc')->get();
 
         return response()->json([
             'status' => true,
