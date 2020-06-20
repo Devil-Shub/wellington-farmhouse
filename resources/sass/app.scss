@@ -167,6 +167,9 @@ $hover-white: #fff;
     .col-sm-12 {
       display: inline-block;
     }
+    .ht-auto {
+      height: auto;
+    }
     .disabled-tag > .v-input__control > .v-input__slot:before,
     .disabled-tag > .v-input__control > .v-input__slot:after {
       display: none;
@@ -722,6 +725,8 @@ $hover-white: #fff;
     .custom-table {
       table {
         margin-left: -1px;
+        border-collapse: separate;
+        border-spacing: 0 5px;
         tr {
           &.multi-customers {
             border: 1px solid #bababa !important;
@@ -738,6 +743,7 @@ $hover-white: #fff;
             &.single-customer {
               padding-left: 0 !important;
               padding-right: 0;
+              border: 1px solid #bababa !important;
               .v-data-table__wrapper {
                 overflow: hidden;
                 table {
@@ -882,5 +888,49 @@ $hover-white: #fff;
     table td,
     table th {
       border: none;
+    }
+    .dataTables_wrapper {
+      overflow-x: auto;
+      .dataTables_filter {
+        input {
+          border: 1px solid #ccc;
+          padding: 6px 15px;
+          border-radius: 24px;
+          cursor: text;
+          &:focus {
+            outline: none;
+          }
+        }
+      }
+      table {
+        min-width: 900px;
+        width: 100% !important;
+        &.table-lg {
+          min-width: 1100px;
+        }
+        &.all_jobs {
+          thead {
+            tr {
+              th {
+                &.job-summ {
+                  width: 110px;
+                }
+              }
+            }
+          }
+          tbody {
+            tr {
+              td {
+                padding-left: 18px;
+              }
+            }
+          }
+        }
+      }
+    }
+    .customer-form {
+      #map {
+        height: auto;
+      }
     }
   }

@@ -11061,6 +11061,10 @@ a.text-dark:focus {
   display: inline-block;
 }
 
+#app .ht-auto {
+  height: auto;
+}
+
 #app .disabled-tag > .v-input__control > .v-input__slot:before,
 #app .disabled-tag > .v-input__control > .v-input__slot:after {
   display: none;
@@ -11606,6 +11610,8 @@ a.text-dark:focus {
 
 #app .custom-table table {
   margin-left: -1px;
+  border-collapse: separate;
+  border-spacing: 0 5px;
 }
 
 #app .custom-table table tr.multi-customers {
@@ -11625,6 +11631,7 @@ a.text-dark:focus {
 #app .custom-table table tr td.single-customer {
   padding-left: 0 !important;
   padding-right: 0;
+  border: 1px solid #bababa !important;
 }
 
 #app .custom-table table tr td.single-customer .v-data-table__wrapper {
@@ -11791,5 +11798,41 @@ a.text-dark:focus {
 #app table td,
 #app table th {
   border: none;
+}
+
+#app .dataTables_wrapper {
+  overflow-x: auto;
+}
+
+#app .dataTables_wrapper .dataTables_filter input {
+  border: 1px solid #ccc;
+  padding: 6px 15px;
+  border-radius: 24px;
+  cursor: text;
+}
+
+#app .dataTables_wrapper .dataTables_filter input:focus {
+  outline: none;
+}
+
+#app .dataTables_wrapper table {
+  min-width: 900px;
+  width: 100% !important;
+}
+
+#app .dataTables_wrapper table.table-lg {
+  min-width: 1100px;
+}
+
+#app .dataTables_wrapper table.all_jobs thead tr th.job-summ {
+  width: 110px;
+}
+
+#app .dataTables_wrapper table.all_jobs tbody tr td {
+  padding-left: 18px;
+}
+
+#app .customer-form #map {
+  height: auto;
 }
 
