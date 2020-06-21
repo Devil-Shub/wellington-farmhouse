@@ -8,7 +8,7 @@
     <v-row>
         <v-col sm="12" cols="12">
         <!-- all jobs -->
-            <table id="example" class="table table-striped table-bordered" style="width:100%">
+            <table id="jobsalary" class="table table-striped table-bordered" style="width:100%">
                 <thead>
                     <tr>
                         <th>Image</th>
@@ -34,7 +34,7 @@
                         <td>{{salary.month}}</td>
                         <td>{{salary.year}}</td>
                         <td>${{salary.salary}}</td>
-                        <td>View Details</td>
+                        <td><router-link :to="'/admin/accounting/details/' + salary.user.id" class="nav-item nav-link">View Details</router-link></td>
                     </tr>
                 </tbody>
             </table>
@@ -79,7 +79,7 @@ export default {
 updated() {
 setTimeout(function() {
      $(document).ready(function() {
-	    $('#jobpayment').DataTable();
+	    $('#jobsalary').DataTable();
 	} );
   }, 1000);
     }

@@ -163,7 +163,7 @@ export const router = new Router({
         { path: 'jobs/chat/:id', component: JobsChatPage, name: 'JobsChat', meta: { requiresAuth: [Role.Admin] } },
         { path: 'jobs/chat', component: ChatPage, name: 'Chat', meta: { requiresAuth: [Role.Admin] } },
         { path: 'dispatches', component: DispatchesViewPage, name: 'Dispatches', meta: { requiresAuth: [Role.Admin] } },
-        { path: 'accounting/details', component: AccountingViewPage, name: 'Accounting', meta: { requiresAuth: [Role.Admin] } },
+        { path: 'accounting/details/:id', component: AccountingViewPage, name: 'Accounting', meta: { requiresAuth: [Role.Admin] } },
         { path: 'accounting', component: AccountingDetails, name: 'AccountingDetails', meta: { requiresAuth: [Role.Admin] } },
         { path: 'reports', component: ReportsViewPage, name: 'Reports', meta: { requiresAuth: [Role.Admin] } },
       ]

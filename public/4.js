@@ -95,7 +95,7 @@ __webpack_require__.r(__webpack_exports__);
   updated: function updated() {
     setTimeout(function () {
       $(document).ready(function () {
-        $('#jobpayment').DataTable();
+        $('#jobsalary').DataTable();
       });
     }, 1000);
   }
@@ -134,7 +134,7 @@ var render = function() {
               {
                 staticClass: "table table-striped table-bordered",
                 staticStyle: { width: "100%" },
-                attrs: { id: "example" }
+                attrs: { id: "jobsalary" }
               },
               [
                 _c("thead", [
@@ -202,7 +202,23 @@ var render = function() {
                       _vm._v(" "),
                       _c("td", [_vm._v("$" + _vm._s(salary.salary))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v("View Details")])
+                      _c(
+                        "td",
+                        [
+                          _c(
+                            "router-link",
+                            {
+                              staticClass: "nav-item nav-link",
+                              attrs: {
+                                to:
+                                  "/admin/accounting/details/" + salary.user.id
+                              }
+                            },
+                            [_vm._v("View Details")]
+                          )
+                        ],
+                        1
+                      )
                     ])
                   }),
                   0

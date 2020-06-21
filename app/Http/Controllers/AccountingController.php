@@ -55,8 +55,8 @@ class AccountingController extends Controller
      */
     public function getAllJobSalary()
     {
-        $getAllJobs = EmployeeSalaries::with("user.driver", "job")
-            ->selectRaw('year(created_at) year, monthname(created_at) month, sum(salary) salary, user_id, job_id')
+        $getAllJobs = EmployeeSalaries::with("user.driver")
+            ->selectRaw('year(created_at) year, monthname(created_at) month, sum(salary) salary, user_id')
             ->groupBy('year', 'month', 'user_id', 'job_id')
             ->orderBy('year', 'desc')->get();
 
@@ -66,4 +66,5 @@ class AccountingController extends Controller
             'data' => $getAllJobs
         ], 200);
     }
+
 }
