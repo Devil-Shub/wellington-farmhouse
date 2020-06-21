@@ -19,6 +19,7 @@
                         v-bind:files="myFiles"
                         allow-file-type-validation="true"
                         accepted-file-types="image/jpeg, image/png"
+                        v-on:addfilestart="setUploadIndex(index)"
                         v-on:processfile="handleProcessFile1"
                         :disabled="formDisable.includes(index) ? true:false"
                       />
@@ -104,7 +105,7 @@
                         class="v-avatar v-list-item__avatar"
                         style="height: 40px; min-width: 40px; width: 40px;"
                       >
-                        <img :src="manager_img" />
+                        <img :src="'../../../'+updateForm.manager_image" />
                       </div>
                       <file-pond
                         name="uploadImage"
@@ -115,6 +116,7 @@
                         v-bind:files="myFiles"
                         allow-file-type-validation="true"
                         accepted-file-types="image/jpeg, image/png"
+                        v-on:addfilestart="setUploadIndex(index)"
                         v-on:processfile="handleProcessFile2"
                         :disabled="formDisable.includes(index) ? true:false"
                       />
@@ -258,13 +260,13 @@
                         v-bind:files="myFiles"
                         allow-file-type-validation="true"
                         accepted-file-types="image/jpeg, image/png"
+                        v-on:addfilestart="setUploadIndex(index)"
                         v-on:processfile="handleProcessFile3"
                         :disabled="formDisable.includes(index) ? true:false"
                       />
                     </v-col>
                     <v-col cols="2" md="2">
                       <v-switch
-                        v-model="editSwitch"
                         class="mx-2"
                         label="Edit"
                         @click="enableForm(index)"
@@ -305,6 +307,7 @@ export default {
       editSwitch: false,
       prefixs: ["Ms.", "Mr.", "Mrs."],
       isLoading: false,
+      uploadIndex: null,
       items: [],
       model: null,
       valid: true,
@@ -369,7 +372,7 @@ export default {
           //set farm values
           this.addForm = {
             farm_id: farmDetails.id,
-            farm_images: farmDetails.farm_image,
+            farm_images: JSON.parse(farmDetails.farm_image),
             latitude: farmDetails.latitude,
             longitude: farmDetails.longitude,
             farm_address: farmDetails.farm_address,
@@ -438,19 +441,20 @@ export default {
       this.addForm.longitude = addressData.longitude;
       this.addForm.farm_address = addressData.route;
     },
+    setUploadIndex(index) {
+      this.uploadIndex = index;
+    },
     //farm images process
     handleProcessFile1: function(error, file) {
-      this.addForm.farm_images.push(file.serverId);
+      this.totalForm[this.uploadIndex].farm_images.push(file.serverId);
     },
     //manager image process
     handleProcessFile2: function(error, file) {
-      this.manager_img = "../../" + file.serverId;
-      this.addForm.manager_image = file.serverId;
+      this.totalForm[this.uploadIndex].manager_image = file.serverId;
     },
     //manager id card image process
     handleProcessFile3: function(error, file) {
-      this.addForm.manager_card_image = file.serverId;
-      //this.docError = false;
+      this.totalForm[this.uploadIndex].manager_card_image = file.serverId;
     },
     enableForm(formId) {
       var index = this.formDisable.indexOf(formId);
