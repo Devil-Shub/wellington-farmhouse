@@ -21,8 +21,7 @@
         <th class="text-left">Service Details</th>
         <th class="text-left">Documents</th>
         <th class="text-left">Status</th>
-        <th class="text-left">Action</th>
-       
+        <th class="text-left"></th>
         </tr>
       </thead>
       <tbody>

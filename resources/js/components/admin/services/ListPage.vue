@@ -20,7 +20,7 @@
                   <th class="text-left">type</th>
                   <th class="text-left">time</th>
                   <th class="text-left">Descriptions</th>
-                  <th class="text-left">Action</th>
+                  <th class="text-left"></th>
                 </tr>
               </thead>
               <tbody>

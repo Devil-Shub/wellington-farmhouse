@@ -11291,8 +11291,12 @@ a.text-dark:focus {
   padding-left: 1px;
 }
 
+#app main.v-content .v-data-table__wrapper table tr td.action-col {
+  min-width: 215px;
+}
+
 #app main.v-content .v-data-table__wrapper table tr td.action-col a {
-  margin-right: 15px;
+  margin-right: 5px;
 }
 
 #app main.v-content .v-data-table__wrapper table tr td.action-col a,
@@ -11309,8 +11313,12 @@ a.text-dark:focus {
   line-height: 20px;
 }
 
+#app main.v-content .v-data-table__wrapper table tr td span label {
+  margin-bottom: 0;
+}
+
 #app main.v-content .v-data-table__wrapper table tr td span.custom-action-btn {
-  min-width: 90px;
+  min-width: 85px;
   display: block;
   padding: 3px 8px;
   background-color: #717171;
@@ -11395,6 +11403,8 @@ a.text-dark:focus {
   border: 1px solid #ccc;
   padding: 4px 8px 2px;
   margin-right: 15px;
+  display: inline-block;
+  margin-bottom: 5px;
   cursor: pointer;
 }
 

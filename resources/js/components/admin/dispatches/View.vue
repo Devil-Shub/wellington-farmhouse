@@ -8,7 +8,7 @@
               <label>Date</label>
               <span>21/06/2020</span>
             </div>
-            <h4 class="main-title">All Jobs</h4>
+            <h4 class="main-title pl-0">All Jobs</h4>
           </div>
           <table id="table" class="table table-striped table-bordered" style="width:100%">
             <thead>

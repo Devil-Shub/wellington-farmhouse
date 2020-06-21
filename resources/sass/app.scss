@@ -372,8 +372,9 @@ $hover-white: #fff;
                 padding-left: 1px;
               }
               &.action-col {
+                min-width: 215px;
                 a {
-                  margin-right: 15px;
+                  margin-right: 5px;
                 }
                 a, button {
                   display: inline-block;
@@ -389,8 +390,13 @@ $hover-white: #fff;
                   }
                 }
               }
+              span {
+                label {
+                  margin-bottom: 0;
+                }
+              }
               span.custom-action-btn {
-                min-width: 90px;
+                min-width: 85px;
                 display: block;
                 padding: 3px 8px;
                 background-color: #717171;
@@ -516,6 +522,8 @@ $hover-white: #fff;
             border: 1px solid #ccc;
             padding: 4px 8px 2px;
             margin-right: 15px;
+            display: inline-block;
+            margin-bottom: 5px;
             cursor: pointer;
             &.activeClass {
               background-color: #b9b9b9;
