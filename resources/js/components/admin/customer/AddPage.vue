@@ -116,28 +116,22 @@
                     />
                   </v-col>
                   <v-col cols="3" md="3" class="mt-4">
-		  <v-text-field
-		    type="text"
-		    @input="onChange"
-		    v-model="search"
-	             label="Search Place"
+                    <v-text-field
+                      type="text"
+                      @input="onChange"
+                      v-model="search"
+                      label="Search Place"
                       required
                       :rules="[v => !!v || 'Place is required']"
-		  ></v-text-field>
-		  <ul
-		    v-show="isOpen"
-		    class="autocomplete-results"
-		  >
-		    <li
-		      v-for="(result, i) in items"
-		      :key="i"
-		      @click="setResult(result)"
-		      class="autocomplete-result"
-		    >
-		      {{ result.place_name }}
-		    </li>
-		  </ul>
-
+                    ></v-text-field>
+                    <ul v-show="isOpen" class="autocomplete-results">
+                      <li
+                        v-for="(result, i) in items"
+                        :key="i"
+                        @click="setResult(result)"
+                        class="autocomplete-result"
+                      >{{ result.place_name }}</li>
+                    </ul>
                   </v-col>
                   <v-col cols="3" md="3">
                     <v-text-field
@@ -335,6 +329,8 @@ export default {
       customer_img: "",
       manager_img: "",
       apiUrl: environment.apiUrl,
+      uberMapApiUrl: environment.uberMapApiUrl,
+      uberMapToken: environment.uberMapToken,
       addForm: {
         prefix: "",
         customer_name: "",
@@ -415,25 +411,32 @@ export default {
     this.manager_image = "/images/avatar.png";
   },
   methods: {
-     onChange (val) {
-        this.items = '';
-	// Items have already been loaded
-	if (this.items.length > 1) return
+    onChange(val) {
+      this.items = "";
+      // Items have already been loaded
+      if (this.items.length > 1) return false;
 
-	this.isLoading = true
-        console.log(val)
-	// Lazily load input items
- axios.get('https://api.mapbox.com/geocoding/v5/mapbox.places/'+val+'.json?access_token=pk.eyJ1IjoibG9jb25lIiwiYSI6ImNrYmZkMzNzbDB1ZzUyenM3empmbXE3ODQifQ.SiBnr9-6jpC1Wa8OTAmgVA')
-      .then(response => { this.items = response.data.features; this.isLoading = false;  this.isOpen = true; } );
-
-     },
-      setResult(result) {
-       this.search = result.text;
-       this.addForm.latitude = result.center[0];
-       this.addForm.longitude = result.center[1];
-       this.addForm.farm_address = result.text;
-       this.isOpen = false;
-      },
+      this.isLoading = true;
+      // Lazily load input items
+      axios
+        .get(
+          this.uberMapApiUrl +
+            val +
+            ".json?access_token="+this.uberMapToken
+        )
+        .then(response => {
+          this.items = response.data.features;
+          this.isLoading = false;
+          this.isOpen = true;
+        });
+    },
+    setResult(result) {
+      this.search = result.text;
+      this.addForm.latitude = result.center[0];
+      this.addForm.longitude = result.center[1];
+      this.addForm.farm_address = result.text;
+      this.isOpen = false;
+    },
     handleProcessFile: function(error, file) {
       this.customer_img = "../../" + file.serverId;
       this.addForm.user_image = file.serverId;
@@ -453,7 +456,6 @@ export default {
       //this.docError = false;
     },
     update() {
-      
       if (this.$refs.form.validate()) {
         //start loading
         this.loading = true;
