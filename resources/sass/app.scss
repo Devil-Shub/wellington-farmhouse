@@ -153,6 +153,12 @@ $hover-white: #fff;
   // june 6th
   #app {
     padding-right: 25px;
+    &.dispatcher-area {
+      padding-right: 0;
+      #app {
+        padding-right: 0;
+      }
+    }
     .col-sm-1,
     .col-sm-2,
     .col-sm-3,

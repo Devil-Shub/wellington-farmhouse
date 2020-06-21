@@ -11046,6 +11046,14 @@ a.text-dark:focus {
   padding-right: 25px;
 }
 
+#app.dispatcher-area {
+  padding-right: 0;
+}
+
+#app.dispatcher-area #app {
+  padding-right: 0;
+}
+
 #app .col-sm-1,
 #app .col-sm-2,
 #app .col-sm-3,
