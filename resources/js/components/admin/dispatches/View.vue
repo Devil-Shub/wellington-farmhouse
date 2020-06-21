@@ -25,14 +25,14 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>1</td>
-                <td>34567A12</td>
-                <td>$2500</td>
-                <td>08:30AM</td>
-                <td>11:20AM</td>
-                <td>Meanure Picking</td>
-                <td>Jason Statham</td>
+              <tr v-for="(job, index) in alljobs">
+                <td>{{index+1}}</td>
+                <td>{{job.id}}</td>
+                <td>{{job.job_amount}}</td>
+                <td>{{job.start_date}}</td>
+                <td>{{job.start_time}}</td>
+                <td>{{job.service.service_name}}</td>
+                <td>{{job.truck_driver == null ? job.truck_driver_id:job.truck_driver.first_name}}</td>
                 <td>Edit Job</td>
                 <td>View Map</td>
               </tr>
@@ -48,7 +48,7 @@
                 center: [-96, 37.8],
                 zoom: 3,
               }"
-        :geolocate-control="{
+              :geolocate-control="{
                 show: true,
                 position: 'top-left',
               }"
@@ -61,7 +61,6 @@
                 position: 'top-left',
               }"
             />
-
           </div>
         </v-col>
       </v-row>
@@ -69,24 +68,43 @@
   </v-app>
 </template>
 <script>
-import Mapbox from 'mapbox-gl-vue';
+import Mapbox from "mapbox-gl-vue";
 import { jobService } from "../../../_services/job.service";
 import { environment } from "../../../config/test.env";
 export default {
-components: { Mapbox },
+  components: { Mapbox },
   data() {
     return {
-   
+      alljobs: []
     };
   },
-  created() {
-  
+  created() {},
+  mounted() {
+    this.getResults();
+  },
+  methods: {
+    getResults() {
+      jobService.joblist().then(response => {
+        //handle response
+        if (response.status) {
+          this.alljobs = response.data;
+
+          console.log(this.alljobs);
+        } else {
+          this.$toast.open({
+            message: response.message,
+            type: "error",
+            position: "top-right"
+          });
+        }
+      });
+    }
   },
   updated() {
     setTimeout(function() {
-        $(document).ready(function() {
-          $('#table').DataTable();
-      } );
+      $(document).ready(function() {
+        $("#table").DataTable();
+      });
     }, 1000);
   }
 };
