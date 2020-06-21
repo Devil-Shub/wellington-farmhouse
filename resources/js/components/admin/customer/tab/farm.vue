@@ -24,18 +24,27 @@
                         :disabled="formDisable.includes(index) ? true:false"
                       />
                     </v-col>
-                    <v-col cols="3" md="3">
-                      <vue-google-autocomplete
-                        ref="address"
-                        id="map"
-                        class="form-control mt-4"
-                        placeholder="Please type your address"
-                        v-on:placechanged="getAddressData"
-                        country="us"
+
+                    <v-col cols="3" md="3" class="mt-4">
+                      <v-text-field
+                        type="text"
+                        @input="onChange(updateForm.farm_address)"
                         v-model="updateForm.farm_address"
+                        label="Search Place"
+                        required
+                        :rules="[v => !!v || 'Place is required']"
                         :disabled="formDisable.includes(index) ? true:false"
-                      ></vue-google-autocomplete>
+                      ></v-text-field>
+                      <ul v-show="isOpen && !formDisable.includes(index)" class="autocomplete-results">
+                        <li
+                          v-for="(result, i) in items"
+                          :key="i"
+                          @click="setResult(result, index)"
+                          class="autocomplete-result"
+                        >{{ result.place_name }}</li>
+                      </ul>
                     </v-col>
+
                     <v-col cols="3" md="3">
                       <v-col cols="4" sm="4" class="pl-0 pt-0 pb-0">
                         <label class="ft-normal">Apt/Unit</label>
@@ -266,11 +275,7 @@
                       />
                     </v-col>
                     <v-col cols="2" md="2">
-                      <v-switch
-                        class="mx-2"
-                        label="Edit"
-                        @click="enableForm(index)"
-                      ></v-switch>
+                      <v-switch class="mx-2" label="Edit" @click="enableForm(index)"></v-switch>
                     </v-col>
                   </v-row>
                 </v-col>
@@ -305,6 +310,8 @@ export default {
       loading: null,
       docError: false,
       editSwitch: false,
+      search: null,
+      isOpen: false,
       prefixs: ["Ms.", "Mr.", "Mrs."],
       isLoading: false,
       uploadIndex: null,
@@ -313,6 +320,8 @@ export default {
       valid: true,
       manager_img: "",
       apiUrl: environment.apiUrl,
+      uberMapApiUrl: environment.uberMapApiUrl,
+      uberMapToken: environment.uberMapToken,
       totalForm: Array(),
       formDisable: Array(),
       addForm: {
@@ -436,10 +445,31 @@ export default {
     this.manager_image = "/images/avatar.png";
   },
   methods: {
-    getAddressData: function(addressData, placeResultData, id) {
-      this.addForm.latitude = addressData.latitude;
-      this.addForm.longitude = addressData.longitude;
-      this.addForm.farm_address = addressData.route;
+    onChange(val) {
+      this.items = "";
+      // Items have already been loaded
+      if (this.items.length > 1) return false;
+
+      this.isLoading = true;
+      // Lazily load input items
+      axios
+        .get(
+          this.uberMapApiUrl + val + ".json?access_token=" + this.uberMapToken
+        )
+        .then(response => {
+          this.items = response.data.features;
+          this.isLoading = false;
+          this.isOpen = true;
+        });
+    },
+    setResult(result, index) {
+      this.search = result.text;
+      
+      this.totalForm[index].latitude = result.center[0];
+      this.totalForm[index].longitude = result.center[1];
+      this.totalForm[index].farm_address = result.text;
+
+      this.isOpen = false;
     },
     setUploadIndex(index) {
       this.uploadIndex = index;

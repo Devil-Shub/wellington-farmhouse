@@ -318,7 +318,6 @@ export default {
       docError: false,
       prefixs: ["Ms.", "Mr.", "Mrs."],
       isLoading: false,
-      items: [],
       model: null,
       valid: true,
       avatar: null,
@@ -420,9 +419,7 @@ export default {
       // Lazily load input items
       axios
         .get(
-          this.uberMapApiUrl +
-            val +
-            ".json?access_token="+this.uberMapToken
+          this.uberMapApiUrl + val + ".json?access_token=" + this.uberMapToken
         )
         .then(response => {
           this.items = response.data.features;

@@ -307,6 +307,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -321,6 +326,8 @@ __webpack_require__.r(__webpack_exports__);
       loading: null,
       docError: false,
       editSwitch: false,
+      search: null,
+      isOpen: false,
       prefixs: ["Ms.", "Mr.", "Mrs."],
       isLoading: false,
       uploadIndex: null,
@@ -329,6 +336,8 @@ __webpack_require__.r(__webpack_exports__);
       valid: true,
       manager_img: "",
       apiUrl: _config_test_env__WEBPACK_IMPORTED_MODULE_3__["environment"].apiUrl,
+      uberMapApiUrl: _config_test_env__WEBPACK_IMPORTED_MODULE_3__["environment"].uberMapApiUrl,
+      uberMapToken: _config_test_env__WEBPACK_IMPORTED_MODULE_3__["environment"].uberMapToken,
       totalForm: Array(),
       formDisable: Array(),
       addForm: {
@@ -450,10 +459,26 @@ __webpack_require__.r(__webpack_exports__);
     this.manager_image = "/images/avatar.png";
   },
   methods: {
-    getAddressData: function getAddressData(addressData, placeResultData, id) {
-      this.addForm.latitude = addressData.latitude;
-      this.addForm.longitude = addressData.longitude;
-      this.addForm.farm_address = addressData.route;
+    onChange: function onChange(val) {
+      var _this2 = this;
+
+      this.items = ""; // Items have already been loaded
+
+      if (this.items.length > 1) return false;
+      this.isLoading = true; // Lazily load input items
+
+      axios.get(this.uberMapApiUrl + val + ".json?access_token=" + this.uberMapToken).then(function (response) {
+        _this2.items = response.data.features;
+        _this2.isLoading = false;
+        _this2.isOpen = true;
+      });
+    },
+    setResult: function setResult(result, index) {
+      this.search = result.text;
+      this.totalForm[index].latitude = result.center[0];
+      this.totalForm[index].longitude = result.center[1];
+      this.totalForm[index].farm_address = result.text;
+      this.isOpen = false;
     },
     setUploadIndex: function setUploadIndex(index) {
       this.uploadIndex = index;
@@ -482,23 +507,23 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     update: function update(formId) {
-      var _this2 = this;
+      var _this3 = this;
 
       // if (this.$refs.form.validate()) {
       //start loading
       this.loading = formId;
       _services_customer_service__WEBPACK_IMPORTED_MODULE_1__["customerService"].updateFarmManager(this.totalForm[formId]).then(function (response) {
         //stop loading
-        _this2.loading = null; //handle response
+        _this3.loading = null; //handle response
 
         if (response.status) {
-          _this2.$toast.open({
+          _this3.$toast.open({
             message: response.message,
             type: "success",
             position: "top-right"
           });
         } else {
-          _this2.$toast.open({
+          _this3.$toast.open({
             message: response.message,
             type: "error",
             position: "top-right"
@@ -609,17 +634,23 @@ var render = function() {
                                       _vm._v(" "),
                                       _c(
                                         "v-col",
-                                        { attrs: { cols: "3", md: "3" } },
+                                        {
+                                          staticClass: "mt-4",
+                                          attrs: { cols: "3", md: "3" }
+                                        },
                                         [
-                                          _c("vue-google-autocomplete", {
-                                            ref: "address",
-                                            refInFor: true,
-                                            staticClass: "form-control mt-4",
+                                          _c("v-text-field", {
                                             attrs: {
-                                              id: "map",
-                                              placeholder:
-                                                "Please type your address",
-                                              country: "us",
+                                              type: "text",
+                                              label: "Search Place",
+                                              required: "",
+                                              rules: [
+                                                function(v) {
+                                                  return (
+                                                    !!v || "Place is required"
+                                                  )
+                                                }
+                                              ],
                                               disabled: _vm.formDisable.includes(
                                                 index
                                               )
@@ -627,7 +658,11 @@ var render = function() {
                                                 : false
                                             },
                                             on: {
-                                              placechanged: _vm.getAddressData
+                                              input: function($event) {
+                                                return _vm.onChange(
+                                                  updateForm.farm_address
+                                                )
+                                              }
                                             },
                                             model: {
                                               value: updateForm.farm_address,
@@ -641,7 +676,55 @@ var render = function() {
                                               expression:
                                                 "updateForm.farm_address"
                                             }
-                                          })
+                                          }),
+                                          _vm._v(" "),
+                                          _c(
+                                            "ul",
+                                            {
+                                              directives: [
+                                                {
+                                                  name: "show",
+                                                  rawName: "v-show",
+                                                  value:
+                                                    _vm.isOpen &&
+                                                    !_vm.formDisable.includes(
+                                                      index
+                                                    ),
+                                                  expression:
+                                                    "isOpen && !formDisable.includes(index)"
+                                                }
+                                              ],
+                                              staticClass:
+                                                "autocomplete-results"
+                                            },
+                                            _vm._l(_vm.items, function(
+                                              result,
+                                              i
+                                            ) {
+                                              return _c(
+                                                "li",
+                                                {
+                                                  key: i,
+                                                  staticClass:
+                                                    "autocomplete-result",
+                                                  on: {
+                                                    click: function($event) {
+                                                      return _vm.setResult(
+                                                        result,
+                                                        index
+                                                      )
+                                                    }
+                                                  }
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    _vm._s(result.place_name)
+                                                  )
+                                                ]
+                                              )
+                                            }),
+                                            0
+                                          )
                                         ],
                                         1
                                       ),
