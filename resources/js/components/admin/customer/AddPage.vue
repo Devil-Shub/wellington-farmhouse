@@ -116,15 +116,28 @@
                     />
                   </v-col>
                   <v-col cols="3" md="3" class="mt-4">
-                    <vue-google-autocomplete
-                      ref="address"
-                      id="map"
-                      class="form-control ht-auto"
-                      placeholder="Please type your address"
-                      v-on:placechanged="getAddressData"
-                      country="us"
-                      v-model="addForm.farm_address"
-                    ></vue-google-autocomplete>
+		  <v-text-field
+		    type="text"
+		    @input="onChange"
+		    v-model="search"
+	             label="Search Place"
+                      required
+                      :rules="[v => !!v || 'Place is required']"
+		  ></v-text-field>
+		  <ul
+		    v-show="isOpen"
+		    class="autocomplete-results"
+		  >
+		    <li
+		      v-for="(result, i) in items"
+		      :key="i"
+		      @click="setResult(result)"
+		      class="autocomplete-result"
+		    >
+		      {{ result.place_name }}
+		    </li>
+		  </ul>
+
                   </v-col>
                   <v-col cols="3" md="3">
                     <v-text-field
@@ -302,6 +315,11 @@ export default {
   },
   data() {
     return {
+      isLoading: false,
+      items: [],
+      isOpen: false,
+      model: null,
+      search: null,
       loading: false,
       docError: false,
       prefixs: ["Ms.", "Mr.", "Mrs."],
@@ -369,9 +387,6 @@ export default {
       myFiles: []
     };
   },
-  mounted() {
-    this.$refs.address.focus();
-  },
   computed: {
     serverOptions() {
       const currentUser = JSON.parse(localStorage.getItem("currentUser"));
@@ -400,12 +415,25 @@ export default {
     this.manager_image = "/images/avatar.png";
   },
   methods: {
-    getAddressData: function(addressData, placeResultData, id) {
-      console.log(addressData.route);
-      this.addForm.latitude = addressData.latitude;
-      this.addForm.longitude = addressData.longitude;
-      this.addForm.farm_address = addressData.route;
-    },
+     onChange (val) {
+        this.items = '';
+	// Items have already been loaded
+	if (this.items.length > 1) return
+
+	this.isLoading = true
+        console.log(val)
+	// Lazily load input items
+ axios.get('https://api.mapbox.com/geocoding/v5/mapbox.places/'+val+'.json?access_token=pk.eyJ1IjoibG9jb25lIiwiYSI6ImNrYmZkMzNzbDB1ZzUyenM3empmbXE3ODQifQ.SiBnr9-6jpC1Wa8OTAmgVA')
+      .then(response => { this.items = response.data.features; this.isLoading = false;  this.isOpen = true; } );
+
+     },
+      setResult(result) {
+       this.search = result.text;
+       this.addForm.latitude = result.center[0];
+       this.addForm.longitude = result.center[1];
+       this.addForm.farm_address = result.text;
+       this.isOpen = false;
+      },
     handleProcessFile: function(error, file) {
       this.customer_img = "../../" + file.serverId;
       this.addForm.user_image = file.serverId;
