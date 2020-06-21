@@ -1,6 +1,6 @@
 <template>
   <v-app class="dispatcher-area">
-    <v-container class="pr-0">
+    <v-container fluid class="pr-0">
       <v-row>
         <v-col cols="7" md="7">
           <div class="dispatch-top">
