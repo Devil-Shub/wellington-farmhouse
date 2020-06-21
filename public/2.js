@@ -275,62 +275,6 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/_services/accounting.service.js":
-/*!******************************************************!*\
-  !*** ./resources/js/_services/accounting.service.js ***!
-  \******************************************************/
-/*! exports provided: accountingService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "accountingService", function() { return accountingService; });
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var _helpers_request_options__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../_helpers/request-options */ "./resources/js/_helpers/request-options.js");
-/* harmony import */ var _helpers_handle_response__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../_helpers/handle-response */ "./resources/js/_helpers/handle-response.js");
-/* harmony import */ var _config_test_env__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../config/test.env */ "./resources/js/config/test.env.js");
-
-
-
-
-var currentUserSubject = new rxjs__WEBPACK_IMPORTED_MODULE_0__["BehaviorSubject"](JSON.parse(localStorage.getItem("currentUser")));
-var accountingService = {
-  jobInvoices: jobInvoices,
-  jobPayments: jobPayments,
-  jobSalary: jobSalary,
-  apiUrl: _config_test_env__WEBPACK_IMPORTED_MODULE_3__["environment"].apiUrl,
-  currentUrl: '',
-  currentUser: currentUserSubject.asObservable(),
-
-  get currentUserValue() {
-    return currentUserSubject.value;
-  }
-
-};
-
-function jobInvoices() {
-  return fetch(this.apiUrl + "admin/job-invoices", _helpers_request_options__WEBPACK_IMPORTED_MODULE_1__["requestOptions"].get()).then(_helpers_handle_response__WEBPACK_IMPORTED_MODULE_2__["handleResponse"]).then(function (user) {
-    // store user details and passport token in local storage to keep user logged in between page refreshes
-    return user;
-  });
-}
-
-function jobPayments() {
-  return fetch(this.apiUrl + "admin/job-payment", _helpers_request_options__WEBPACK_IMPORTED_MODULE_1__["requestOptions"].get()).then(_helpers_handle_response__WEBPACK_IMPORTED_MODULE_2__["handleResponse"]).then(function (user) {
-    // store user details and passport token in local storage to keep user logged in between page refreshes
-    return user;
-  });
-}
-
-function jobSalary() {
-  return fetch(this.apiUrl + "admin/job-salary", _helpers_request_options__WEBPACK_IMPORTED_MODULE_1__["requestOptions"].get()).then(_helpers_handle_response__WEBPACK_IMPORTED_MODULE_2__["handleResponse"]).then(function (user) {
-    // store user details and passport token in local storage to keep user logged in between page refreshes
-    return user;
-  });
-}
-
-/***/ }),
-
 /***/ "./resources/js/components/admin/accounting/tab/invoice.vue":
 /*!******************************************************************!*\
   !*** ./resources/js/components/admin/accounting/tab/invoice.vue ***!

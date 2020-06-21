@@ -54,7 +54,7 @@
             </v-col>
             <v-btn color="success" class="mr-4" @click="update">Submit</v-btn>
 
-            <v-btn color="success" class="mr-4" @click="Delete(updateForm.user_id)">Delete Account</v-btn>
+            <v-btn color="success" v-if="updateForm.user_id != 1" class="mr-4" @click="Delete(updateForm.user_id)">Delete Account</v-btn>
           </v-form>
         </v-col>
       </v-row>

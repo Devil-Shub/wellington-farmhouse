@@ -174,8 +174,8 @@
               </v-col>
              <v-col cols="12" md="12">
   <v-radio-group  row v-model="addForm.driver_type"  :mandatory="false" required :rules="[v => !!v || 'Truck type is required']">
-              <v-radio label="Truck" value="1" ></v-radio>
-              <v-radio label="Skidsteer" value="0"></v-radio>
+              <v-radio label="Truck" value="Truck" ></v-radio>
+              <v-radio label="Skidsteer" value="Skidsteer"></v-radio>
 	           </v-radio-group>
 </v-col>
               <v-col cols="12" md="12">
@@ -301,6 +301,11 @@ export default {
 	}else{
 	this.addForm.salary_type = "per_load";
 	}
+	if(response.data.driver_type == 1){
+ 	this.addForm.driver_type = "Truck";
+	}else{
+	this.addForm.driver_type = "Skidsteer";
+	}
        
         this.addForm.document = response.data.document;
         this.addForm.driver_salary = response.data.driver_salary;
@@ -317,13 +322,14 @@ export default {
   methods: {
     handleProcessFile: function(error, file) {
       this.addForm.user_image = file.serverId;
+	console.log(this.addForm.user_image)
     },
     handleProcessFile1: function(error, file) {
       this.addForm.document = file.serverId;
 	this.docError = false;
     },
     save() {
-         if(this.addForm.document == ''){
+      if(this.addForm.document == ''){
 	this.docError = true;
        }
       this.addForm.expiry_date = this.date;
@@ -332,6 +338,12 @@ export default {
       }else{
 	this.addForm.salary_type = 1;
       }
+      if( this.addForm.driver_type == 'Skidsteer'){
+ 	this.addForm.driver_type = 0;
+      }else{
+	this.addForm.driver_type = 1;
+      }
+      
       if (this.$refs.form.validate() && (!this.docError)) {
         driverService
           .edit(this.addForm, this.$route.params.id)

@@ -57,13 +57,32 @@ class AccountingController extends Controller
     {
         $getAllJobs = EmployeeSalaries::with("user.driver")
             ->selectRaw('year(created_at) year, monthname(created_at) month, sum(salary) salary, user_id')
-            ->groupBy('year', 'month', 'user_id', 'job_id')
+            ->groupBy('year', 'month', 'user_id')
             ->orderBy('year', 'desc')->get();
 
         return response()->json([
             'status' => true,
             'message' => 'job salary Details',
             'data' => $getAllJobs
+        ], 200);
+    }
+
+    /**
+     * get all single jobs salary
+     */
+    public function getSingleJobSalary($driver_id)
+    {
+        $data = array();
+        $getAllJobs = EmployeeSalaries::where('user_id', $driver_id)->with(["user.driver", "job.service"])->get();
+        $total = EmployeeSalaries::where('user_id', $driver_id)->sum('salary');
+        $driver = EmployeeSalaries::where('user_id', $driver_id)->with(["user.driver"])->first();
+        $data['salary'] = $getAllJobs;
+        $data['total'] = $total;
+        $data['driver'] = $driver;
+        return response()->json([
+            'status' => true,
+            'message' => 'job salary Details',
+            'data' => $data
         ], 200);
     }
 

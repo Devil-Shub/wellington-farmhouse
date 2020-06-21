@@ -13,6 +13,7 @@ export const accountingService = {
   jobInvoices,
   jobPayments,
   jobSalary,
+  jobSingleSalary,
   apiUrl: environment.apiUrl,
   currentUrl: '',
   currentUser: currentUserSubject.asObservable(),
@@ -50,6 +51,19 @@ function jobPayments() {
 function jobSalary() {
   return fetch(
     this.apiUrl+`admin/job-salary`,
+    requestOptions.get()
+  )
+    .then(handleResponse)
+    .then(user => {
+      // store user details and passport token in local storage to keep user logged in between page refreshes
+
+      return user;
+    });
+}
+
+function jobSingleSalary(driver_id){
+  return fetch(
+    this.apiUrl+`admin/job-salary-details/`+driver_id,
     requestOptions.get()
   )
     .then(handleResponse)
