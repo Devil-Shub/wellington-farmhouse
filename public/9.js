@@ -305,6 +305,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -321,6 +323,7 @@ __webpack_require__.r(__webpack_exports__);
       editSwitch: false,
       prefixs: ["Ms.", "Mr.", "Mrs."],
       isLoading: false,
+      uploadIndex: null,
       items: [],
       model: null,
       valid: true,
@@ -383,7 +386,7 @@ __webpack_require__.r(__webpack_exports__);
 
           _this.addForm = {
             farm_id: farmDetails.id,
-            farm_images: farmDetails.farm_image,
+            farm_images: JSON.parse(farmDetails.farm_image),
             latitude: farmDetails.latitude,
             longitude: farmDetails.longitude,
             farm_address: farmDetails.farm_address,
@@ -452,18 +455,20 @@ __webpack_require__.r(__webpack_exports__);
       this.addForm.longitude = addressData.longitude;
       this.addForm.farm_address = addressData.route;
     },
+    setUploadIndex: function setUploadIndex(index) {
+      this.uploadIndex = index;
+    },
     //farm images process
     handleProcessFile1: function handleProcessFile1(error, file) {
-      this.addForm.farm_images.push(file.serverId);
+      this.totalForm[this.uploadIndex].farm_images.push(file.serverId);
     },
     //manager image process
     handleProcessFile2: function handleProcessFile2(error, file) {
-      this.manager_img = "../../" + file.serverId;
-      this.addForm.manager_image = file.serverId;
+      this.totalForm[this.uploadIndex].manager_image = file.serverId;
     },
     //manager id card image process
     handleProcessFile3: function handleProcessFile3(error, file) {
-      this.addForm.manager_card_image = file.serverId; //this.docError = false;
+      this.totalForm[this.uploadIndex].manager_card_image = file.serverId;
     },
     enableForm: function enableForm(formId) {
       var index = this.formDisable.indexOf(formId);
@@ -591,6 +596,9 @@ var render = function() {
                                                 : false
                                             },
                                             on: {
+                                              addfilestart: function($event) {
+                                                return _vm.setUploadIndex(index)
+                                              },
                                               processfile:
                                                 _vm.handleProcessFile1
                                             }
@@ -952,7 +960,11 @@ var render = function() {
                                             },
                                             [
                                               _c("img", {
-                                                attrs: { src: _vm.manager_img }
+                                                attrs: {
+                                                  src:
+                                                    "../../../" +
+                                                    updateForm.manager_image
+                                                }
                                               })
                                             ]
                                           ),
@@ -977,6 +989,9 @@ var render = function() {
                                                 : false
                                             },
                                             on: {
+                                              addfilestart: function($event) {
+                                                return _vm.setUploadIndex(index)
+                                              },
                                               processfile:
                                                 _vm.handleProcessFile2
                                             }
@@ -1584,6 +1599,9 @@ var render = function() {
                                                 : false
                                             },
                                             on: {
+                                              addfilestart: function($event) {
+                                                return _vm.setUploadIndex(index)
+                                              },
                                               processfile:
                                                 _vm.handleProcessFile3
                                             }
@@ -1603,13 +1621,6 @@ var render = function() {
                                               click: function($event) {
                                                 return _vm.enableForm(index)
                                               }
-                                            },
-                                            model: {
-                                              value: _vm.editSwitch,
-                                              callback: function($$v) {
-                                                _vm.editSwitch = $$v
-                                              },
-                                              expression: "editSwitch"
                                             }
                                           })
                                         ],
