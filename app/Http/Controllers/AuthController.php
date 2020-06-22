@@ -230,20 +230,26 @@ class AuthController extends Controller
             $loggedInUser = $request->user();
 
             Log::info($request->user_image);
-
             $loggedInUser->first_name = $request->first_name;
             $loggedInUser->last_name = $request->last_name;
-            $loggedInUser->email = $request->email;
+           // $loggedInUser->email = $request->email;
             $loggedInUser->phone = $request->phone;
             $loggedInUser->user_image = $request->user_image;
 
             $loggedInUser->save();
+	    $checkemail =  User::where('email', $request->email)->first();
+	    if(empty($checkemail)){
+             $this->_updateEmail($loggedInUser, $request->email);
+             $msg = "User Profile edit successfully. We have sent you an e-mail to confirm your email address.'";
+            }else{
+	     $msg = "User Profile edit successfully.";
+            }
 
             Log::info($loggedInUser);
             //return success response
              return response()->json([
                 'status' => true,
-                'message' => 'User Profile edit successfully.',
+                'message' => $msg,
                 'data' => $loggedInUser
             ]);
         } catch (\Exception $e) {
@@ -259,7 +265,7 @@ class AuthController extends Controller
     }
 
     /**
-     * email for email confirmation
+     * email for new account email confirmation
      */
     public function _welcomeEmail($user)
     {
@@ -275,6 +281,25 @@ class AuthController extends Controller
             $message->from(env('MAIL_USERNAME'), env('MAIL_USERNAME'));
         });
     }
+
+    /**
+     * email for email address confirmation
+     */
+    public function _updateEmail($user, $email)
+    {
+        $name = $user->first_name . ' ' . $user->last_name;
+        $data = array(
+            'name' => $name,
+            'email' => $email,
+            'verificationLink' => env('APP_URL') . 'confirm-update-email/' . base64_encode($email).'/'.base64_encode($user->id)
+        );
+
+        Mail::send('email_templates.welcome_email', $data, function ($message) use ($name, $email) {
+            $message->to($email, $name)->subject('Email Address Confirmation');
+            $message->from(env('MAIL_USERNAME'), env('MAIL_USERNAME'));
+        });
+    }
+
 
     public function confirmEmail(Request $request)
     {
@@ -415,5 +440,38 @@ class AuthController extends Controller
             'message' => $message,
             'data' => []
         ], $errCode);
+    }
+
+    public function confirmUpdateEmail(Request $request)
+    {
+       
+        $id = base64_decode($request->id);
+        $email = base64_decode($request->email);
+
+        $getUser = User::whereId($id)->first();
+        //check if email exist
+        if ($getUser != null) {
+            $getUser->email = $email;
+            $getUser->save();
+            $message = "Your email address has been successfully confirmed. Please login to proceed further.";
+            $status = true;
+            $errCode = 200;
+        } else {
+            $status = false;
+            $message = "Your confirmation link has been expired.";
+            $errCode = 400;
+        }
+
+        // return response()->json([
+        //     'status' => $status,
+        //     'message' => $message,
+        //     'data' => []
+        // ], $errCode);
+
+        // return redirect()->route('test.index');
+
+        return redirect()->route('/');
+
+        // return Redirect::back();
     }
 }
