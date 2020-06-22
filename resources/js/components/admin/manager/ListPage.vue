@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-container>
+    <v-container fluid>
       <v-row>
 <h4 class="main-title">List Manager</h4>
         <div class="add-icon">

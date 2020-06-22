@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-container>
+    <v-container fluid>
       <v-row>
         <v-col cols="12" md="12" class="pl-0">
             <v-form ref="form" v-model="valid" lazy-validation>
