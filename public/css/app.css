@@ -11033,7 +11033,7 @@ a.text-dark:focus {
 
 .v-menu__content .header-right-menu .v-list-item a:hover {
   background-color: #405f6e;
-  color: #fff;
+  color: #fff !important;
 }
 
 .v-menu__content .header-right-menu .v-list-item button {
@@ -11232,7 +11232,7 @@ a.text-dark:focus {
 
 #app .add-icon {
   position: absolute;
-  top: 5px;
+  top: 3px;
   right: 22px;
   z-index: 1;
 }
