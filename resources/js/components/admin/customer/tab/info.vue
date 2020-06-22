@@ -12,7 +12,7 @@
                       class="v-avatar v-list-item__avatar"
                       style="height: 40px; min-width: 40px; width: 40px;"
                     >
-                      <img :src="avatar" />
+                      <img :src="'../../../'+addForm.user_image" />
                     </div>
                     <file-pond
                       name="uploadImage"
