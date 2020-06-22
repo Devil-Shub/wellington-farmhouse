@@ -290,6 +290,7 @@ export default {
       this.addForm.document = file.serverId;
     },
     update() {
+alert(this.addForm.document);
       if(this.addForm.document == ''){
 	this.docError = true
        }
