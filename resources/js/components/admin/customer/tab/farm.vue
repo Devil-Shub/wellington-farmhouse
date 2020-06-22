@@ -466,8 +466,8 @@ export default {
     setResult(result, index) {
       this.search = result.text;
       
-      this.totalForm[index].latitude = result.center[0];
-      this.totalForm[index].longitude = result.center[1];
+      this.totalForm[index].latitude = result.center[1];
+      this.totalForm[index].longitude = result.center[0];
       this.totalForm[index].farm_address = result.text;
 
       this.isOpen = false;

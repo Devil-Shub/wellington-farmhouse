@@ -430,8 +430,8 @@ export default {
     },
     setResult(result) {
       this.search = result.text;
-      this.addForm.latitude = result.center[0];
-      this.addForm.longitude = result.center[1];
+      this.addForm.latitude = result.center[1];
+      this.addForm.longitude = result.center[0];
       this.addForm.farm_address = result.text;
       this.isOpen = false;
     },
