@@ -20,6 +20,7 @@ export const jobService = {
   chatList,
   storeMessage,
   joblist,
+  dispatchJobList,
   jobassigned,
   jobcomplete,
   jobopned,
@@ -115,6 +116,19 @@ function getFrams(data) {
 function joblist() {
   return fetch(
     this.apiUrl+`admin/job-list`,
+    requestOptions.get()
+  )
+    .then(handleResponse)
+    .then(user => {
+      // store user details and passport token in local storage to keep user logged in between page refreshes
+
+      return user;
+    });
+}
+
+function dispatchJobList() {
+  return fetch(
+    this.apiUrl+`admin/dispatch-job-list`,
     requestOptions.get()
   )
     .then(handleResponse)
