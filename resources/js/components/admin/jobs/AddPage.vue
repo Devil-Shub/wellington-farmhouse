@@ -64,6 +64,21 @@
                         ></v-textarea>
                     </v-col>
                 </v-col>
+
+<v-col cols="12" class="textarea-parent d-flex pt-0">
+              <v-col sm="2" class="label-align pt-0">
+                <label>Gate Number</label>
+              </v-col>
+              <v-col sm="4" class="pt-0">
+                <v-text-field
+                  label
+                  v-model="addForm.gate_no"
+                  required
+                  :rules="[v => !!v || 'Gate number is required']"
+                ></v-text-field>
+              </v-col>
+            </v-col>
+
                 <v-col class="d-flex pt-0" cols="12">
                     <v-col sm="2" class="label-align pt-0">
                         <label>Service Name</label>
@@ -148,7 +163,7 @@
                 allow-file-type-validation="true"
                 accepted-file-types="image/jpeg, image/png"/>
                   </v-col>
-                <v-btn color="success" class="mr-4 custom-save-btn ml-4" @click="submit">Submit</v-btn>
+                <v-btn color="success" :loading="loading" :disabled="loading" class="mr-4 custom-save-btn ml-4" @click="submit">Submit</v-btn>
             </v-form>
         </v-col>
       </v-row>
@@ -169,7 +184,8 @@ export default {
           valid: true,
           setDate:new Date().toISOString().substr(0, 10),
           menu1: false,
-	         weightShow: false,
+          loading: false,
+	        weightShow: false,
           date: "",
           start_date: "",
           apiUrl: environment.apiUrl,
@@ -183,6 +199,7 @@ export default {
               manager_id: "",
               service_id: "",
               job_description: "",
+              gate_no: "",
               farm_add: "",
 	            farm_id: "",
               job_images: [],
@@ -317,10 +334,14 @@ export default {
 	      });
        },
       submit() {
+        //start loading
+        this.loading = true;
      this.addForm.start_date = this.date;
     
         if (this.$refs.form.validate()) {
         jobService.createJob(this.addForm).then(response => {
+          //stop loading
+          this.loading = false;
          //handle response
          if(response.status) {
              this.$toast.open({

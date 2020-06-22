@@ -20,6 +20,7 @@ class CreateJobsTable extends Migration
             $table->tinyInteger("payment_status")->default(0)->nullable()->comment("0: pending, 1:complete");
             $table->tinyInteger("job_status")->default(0)->nullable()->comment("0: open, 1:close");
             $table->tinyInteger("repeating_job")->default(0)->nullable()->comment("0: false, 1:true");
+            $table->tinyInteger("gate_no")->nullable();
 
             $table->unsignedBigInteger('customer_id')->nullable();
             $table->foreign('customer_id')->references('id')->on('users');

@@ -26,7 +26,7 @@
             </thead>
             <tbody>
               <tr v-for="(job, index) in alljobs">
-                <td>{{index+1}}</td>
+                <td>00{{index+1}}00</td>
                 <td>{{job.id}}</td>
                 <td>{{job.job_amount}}</td>
                 <td>{{job.start_date}}</td>
@@ -84,7 +84,7 @@ export default {
   },
   methods: {
     getResults() {
-      jobService.joblist().then(response => {
+      jobService.dispatchJobList().then(response => {
         //handle response
         if (response.status) {
           this.alljobs = response.data;

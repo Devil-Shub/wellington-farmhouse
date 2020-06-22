@@ -102,6 +102,7 @@ Route::group(['prefix' => 'auth'], function () {
             Route::get('repeating-job-list', 'JobsController@getRepeatingJob');
             Route::get('unpaid-job-list', 'JobsController@getUnpaidJob');
             Route::get('single-job/{job_id}', 'JobsController@getSingleJob');
+            Route::get('dispatch-job-list', 'JobsController@getDispatchJob');
 
             //accounting
             Route::get('/job-invoices', 'AccountingController@getAllJobInvoices');

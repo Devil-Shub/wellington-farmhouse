@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 use Validator;
 use Mail;
 use App\User;
@@ -71,6 +72,7 @@ class JobsController extends Controller
             'manager_id' => 'required',
             'farm_id' => 'required',
             'job_description' => 'required',
+            'gate_no' => 'required',
             'service_id' => 'required',
             'start_date' => 'required',
             'time_slots_id' => 'required'
@@ -94,6 +96,7 @@ class JobsController extends Controller
                 'manager_id' => $request->manager_id,
                 'farm_id' => $request->farm_id,
                 'job_description' => $request->job_description,
+                'gate_no' => $request->gate_no,
                 'service_id' => $request->service_id,
                 'time_slots_id' => $request->time_slots_id,
                 'start_date' => $request->start_date,
@@ -182,6 +185,30 @@ class JobsController extends Controller
             "truck_driver",
             "skidsteer_driver"
         )->get();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'job Details',
+            'data' => $getAllJobs
+        ], 200);
+    }
+
+    /**
+     * get dispatch jobs
+     */
+    public function getDispatchJob()
+    {
+        $getAllJobs = Job::with(
+            "customer",
+            "manager",
+            "farm",
+            "service",
+            "timeslots",
+            "truck",
+            "skidsteer",
+            "truck_driver",
+            "skidsteer_driver"
+        )->whereStartDate(Carbon::today())->get();
 
         return response()->json([
             'status' => true,
