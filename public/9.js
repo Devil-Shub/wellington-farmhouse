@@ -312,6 +312,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -641,6 +642,7 @@ var render = function() {
                                         },
                                         [
                                           _c("v-text-field", {
+                                            staticClass: "mt-m11",
                                             attrs: {
                                               type: "text",
                                               label: "Search Place",
