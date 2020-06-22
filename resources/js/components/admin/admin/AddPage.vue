@@ -12,7 +12,7 @@
 </v-dialog>
              <v-container>
       <v-row>
-   <h2>Add New Admin Password</h2>
+   <h2>Add New Admin</h2>
              <v-col
           cols="12"
           md="12"
