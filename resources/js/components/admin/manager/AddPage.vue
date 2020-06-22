@@ -2,7 +2,7 @@
   <v-app>
     <v-container fluid>
       <v-row>
-     <h4 class="main-title">Add Manager</h4>
+     <h4 class="main-title">Add New Manager</h4>
         <v-col cols="12" md="12">
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-row>
@@ -290,7 +290,6 @@ export default {
       this.addForm.document = file.serverId;
     },
     update() {
-alert(this.addForm.document);
       if(this.addForm.document == ''){
 	this.docError = true
        }
