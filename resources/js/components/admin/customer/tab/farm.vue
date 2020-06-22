@@ -30,6 +30,7 @@
                         type="text"
                         @input="onChange(updateForm.farm_address)"
                         v-model="updateForm.farm_address"
+                        class="mt-m11"
                         label="Search Place"
                         required
                         :rules="[v => !!v || 'Place is required']"
