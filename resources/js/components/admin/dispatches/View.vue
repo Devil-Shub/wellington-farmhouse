@@ -45,7 +45,7 @@
               access-token="pk.eyJ1IjoibG9jb25lIiwiYSI6ImNrYmZkMzNzbDB1ZzUyenM3empmbXE3ODQifQ.SiBnr9-6jpC1Wa8OTAmgVA"
               :map-options="{
                 style: 'mapbox://styles/mapbox/light-v9',
-                center: [-96, 37.8],
+                center: [-80.2853179, 26.6094155],
                 zoom: 3,
               }"
               :geolocate-control="{

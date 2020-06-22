@@ -11054,6 +11054,10 @@ a.text-dark:focus {
   padding-right: 0;
 }
 
+#app .mt-m11 {
+  margin-top: -11px;
+}
+
 #app .col-sm-1,
 #app .col-sm-2,
 #app .col-sm-3,
