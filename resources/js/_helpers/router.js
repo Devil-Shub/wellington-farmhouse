@@ -8,6 +8,7 @@ import HomePage from "../frontend/HomePage";
 import PaymentPage from "../frontend/PaymentPage";
 //layouts
 import AdminLayout from "../components/layout/AdminLayout";
+import UserLayout from "../frontend/layout/UserLayout";
 //admin components
 import Dashboard from "../components/admin/Dashboard";
 import Settings from "../components/admin/Settings";
@@ -75,6 +76,7 @@ import SkidsteerAddServicePage from "../components/admin/skidsteer/AddServicePag
 import JobsViewPage from "../components/admin/jobs/View";
 import JobsAddPage from "../components/admin/jobs/AddPage";
 import JobsChatPage from "../components/admin/jobs/JobChat";
+import ChatPage from "../components/chat/Chat";
 //dispatches
 import DispatchesViewPage from "../components/admin/dispatches/View";
 
@@ -82,6 +84,7 @@ import DispatchesViewPage from "../components/admin/dispatches/View";
 import ReportsViewPage from "../components/admin/reports/View";
 //AccountingViewPage
 import AccountingViewPage from "../components/admin/accounting/View";
+import AccountingDetails from "../components/admin/accounting/Details";
 
 import LoginPage from "../components/login/LoginPage";
 import RegisterPage from "../components/register/RegisterPage";
@@ -94,7 +97,9 @@ export const router = new Router({
   mode: "history",
   routes: [
     { path: "/", component: HomePage, meta: { requiresAuth: [Role.Customer] } },
+    { path: '/chat', component: ChatPage, name: 'CustomerChat', meta: { requiresAuth: [Role.Customer] } },
     { path: "/home", component: HomePage, name: 'Home', meta: { requiresAuth: [Role.Customer] } },
+ { path: "/chat", component: ChatPage, name: 'F_chat', meta: { requiresAuth: [Role.Customer] } },
     { path: "/payment/:unique_id", component: PaymentPage, name: 'Payment', meta: { requiresAuth: [Role.Customer] } },
     //{ path: "/confirm-email", component: HomePage },
     //admin routes
@@ -156,8 +161,10 @@ export const router = new Router({
         { path: 'jobs', component: JobsViewPage, name: 'Jobs', meta: { requiresAuth: [Role.Admin] } },
         { path: 'jobs/add', component: JobsAddPage, name: 'JobsAdd', meta: { requiresAuth: [Role.Admin] } },
         { path: 'jobs/chat/:id', component: JobsChatPage, name: 'JobsChat', meta: { requiresAuth: [Role.Admin] } },
+        { path: 'jobs/chat', component: ChatPage, name: 'Chat', meta: { requiresAuth: [Role.Admin] } },
         { path: 'dispatches', component: DispatchesViewPage, name: 'Dispatches', meta: { requiresAuth: [Role.Admin] } },
-        { path: 'accounting', component: AccountingViewPage, name: 'Accounting', meta: { requiresAuth: [Role.Admin] } },
+        { path: 'accounting/details/:id', component: AccountingViewPage, name: 'Accounting', meta: { requiresAuth: [Role.Admin] } },
+        { path: 'accounting', component: AccountingDetails, name: 'AccountingDetails', meta: { requiresAuth: [Role.Admin] } },
         { path: 'reports', component: ReportsViewPage, name: 'Reports', meta: { requiresAuth: [Role.Admin] } },
       ]
     },
@@ -170,8 +177,11 @@ export const router = new Router({
       meta: { requiresAuth: Role.Admin_Manager },
       children: [
         { path: 'dashboard', component: Dashboard, name: 'Manager_Dashboard', meta: { requiresAuth: [Role.Admin_Manager] } },
-        { path: 'settings', component: Settings, name: 'Manager_Settings', meta: { requiresAuth: [Role.Admin_Manager] } },
         { path: 'changepassword', component: ChangePasswordPage, name: 'MChangepassword', meta: { requiresAuth: [Role.Admin_Manager] } },
+        { path: 'jobs', component: JobsViewPage, name: 'manager_Jobs', meta: { requiresAuth: [Role.Admin_Manager] } },
+        { path: 'jobs/add', component: JobsAddPage, name: 'manager_JobsAdd', meta: { requiresAuth: [Role.Admin_Manager] } },
+        { path: 'jobs/chat/:id', component: JobsChatPage, name: 'manager_JobsChat', meta: { requiresAuth: [Role.Admin_Manager] } },
+        { path: 'jobs/chat', component: ChatPage, name: 'manager_Chat', meta: { requiresAuth: [Role.Admin_Manager] } },
       ]
     },
     //driver routes

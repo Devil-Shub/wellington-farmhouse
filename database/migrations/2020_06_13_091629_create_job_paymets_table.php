@@ -29,7 +29,6 @@ class CreateJobPaymetsTable extends Migration
             $table->string("currency")->nullable();
             $table->float("amount")->nullable();
             $table->string("payment_status", 100)->nullable();
-            
             $table->timestamps();
             $table->softDeletes('deleted_at', 0);
         });

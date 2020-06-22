@@ -20,7 +20,7 @@
                   <th class="text-left">type</th>
                   <th class="text-left">time</th>
                   <th class="text-left">Descriptions</th>
-                  <th class="text-left">Action</th>
+                  <th class="text-left"></th>
                 </tr>
               </thead>
               <tbody>
@@ -37,8 +37,12 @@
                   <td v-if="item.service_rate == 1">Per Load</td>
                   <td v-if="item.service_rate == 2">Round</td>
                   <td>${{ item.price }}</td>
-                  <td v-if="item.slot_type == 1">Morning</td>
-                  <td v-if="item.slot_type == 2">Afternoon</td>
+		  <td>
+		    <span v-for="(type, index) in item.slot_type">
+	               <label v-if="type == 1">Morning</label>
+		       <label v-if="type == 2">Afternoon</label>
+		   </span>
+                  </td>
                   <td>
                     <span v-for="(tSlot, index) in item.timeSlots">
                       <label>{{tSlot.slot_start+'-'+tSlot.slot_end}}</label>

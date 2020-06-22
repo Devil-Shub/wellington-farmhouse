@@ -32,6 +32,18 @@
             </div>
           </div>
          </v-col>
+
+          <v-col sm="12" cols="12" class="p-0">
+            <div class="type_msg">
+              <div class="input_msg_write">
+                <input type="text" class="write_msg" placeholder="Type a message" />
+                <button class="msg_send_btn" type="button">
+                  <send-icon size="1.5x" class="custom-class"></send-icon>
+                </button>
+              </div>
+            </div>
+          </v-col>
+
       </v-row>
     </v-container>
   </v-app>
@@ -42,9 +54,11 @@ import { router } from "../../../_helpers/router";
 import { jobService } from "../../../_services/job.service";
 import { environment } from "../../../config/test.env";
 import { PlusCircleIcon } from "vue-feather-icons";
+import { SendIcon } from 'vue-feather-icons'
 export default {
   components: {
-    PlusCircleIcon
+    PlusCircleIcon,
+    SendIcon
   },
   data() {
     return {

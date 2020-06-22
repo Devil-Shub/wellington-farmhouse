@@ -8,11 +8,11 @@
     <v-row>
  <v-col sm="12" cols="12">
       <!-- all jobs -->
-  	    <table id="example" class="table table-striped table-bordered" style="width:100%">
+  	    <table id="example" class="table table-striped table-bordered table-lg all_jobs" style="width:100%">
         <thead>
             <tr>
                 <th>Sno</th>
-                <th>Job Summary</th>
+                <th class="job-summ">Job Summary</th>
                 <th>Sort By</th>
                 <th>Techs</th>
                 <th>Time</th>
@@ -43,7 +43,7 @@ Time Taken<br><template>3</template>
 </td>
 <td>3000 dummy</td>
 <td><template v-if="job.payment_status">Paid</template> <template v-if="!job.payment_status">Unpaid</template></td>
-<td> <router-link :to="'/admin/jobs/chart/' + job.id" class="nav-item nav-link">View chat</router-link></td>
+<td> <router-link :to="'/admin/jobs/chat/' + job.id" class="nav-item nav-link">View chat</router-link></td>
 <td><template v-if="!job.job_status">Open</template> <template v-if="job.job_status">Close</template></td>
                
                 </tr>

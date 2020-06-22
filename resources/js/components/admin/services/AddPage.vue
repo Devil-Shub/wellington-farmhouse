@@ -16,10 +16,11 @@
             </v-col>
 	          <v-col cols="12" md="12">
              <header>Service Time Period</header>
-	           <v-radio-group  row v-model="addForm.slot_type" @change="getTime()" :mandatory="false" required :rules="[v => !!v || 'Service time period is required']">
-              <v-radio label="Morning" value="1" ></v-radio>
-              <v-radio label="Afternoon" value="2"></v-radio>
-	           </v-radio-group>
+	       
+<v-checkbox class="pr-6" v-model="addForm.slot_type" @change="getTime()" label="Morning" value="1"></v-checkbox>
+<v-checkbox class="pr-6" v-model="addForm.slot_type" @change="getTime()" label="Afternoon" value="2"></v-checkbox>
+             
+	         
 	          </v-col>
 
 	          <v-col class="time-slots pt-0" cols="12" md="12" v-if="timeSlots.length">
@@ -106,7 +107,7 @@ export default {
         description: "",
         service_image: "",
         service_rate: '1',
-	      slot_type: '1',
+	slot_type: ['1'],
         slot_time:[],
       },
       timeSlots: [],
@@ -151,7 +152,7 @@ export default {
         this.addForm.slot_time = [];
       }
       this.timeSlots = [];
-     serviceService.getTimeSlots(this.addForm.slot_type).then(response => {
+     serviceService.getTimeSlots({slot_type: this.addForm.slot_type}).then(response => {
           //handle response
           if (response.status) {
             this.timeSlots = response.data; 

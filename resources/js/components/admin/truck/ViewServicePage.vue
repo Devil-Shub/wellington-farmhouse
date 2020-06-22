@@ -2,11 +2,11 @@
   <v-app>
     <v-container>
       <v-row>
-        <v-tabs class="custom-tabs" v-model="tab" background-color="transparent" color="basil" grow>
+        <v-tabs v-model="tab" background-color="transparent" color="basil" grow>
           <v-tab v-for="item in items" :key="item">{{ item }}</v-tab>
         </v-tabs>
 
-        <v-tabs-items v-model="tab" class="custom-tab-content">
+        <v-tabs-items v-model="tab" >
           <v-tab-item v-for="item in items" :key="item">
             <v-card class="service-tab-content" color="basil" flat v-if="item == 'Service'">
               <v-card-text>
@@ -17,6 +17,8 @@
                   multi-sort
                   class="elevation-1"
                 >
+                <template v-slot:item.document="{ item }"><img style="height: 60px; min-width: 60px; width: 60px;" :src="'/'+item.document" alt="John" /></template>
+		<template v-slot:item.receipt="{ item }"><img style="height: 60px; min-width: 60px; width: 60px;" :src="'/'+item.receipt"></template>
                   <template v-slot:item.id="{ item }">
                      <span class="custom-action-btn"> <router-link :to="'/admin/truck/editservice/' +item.id">
                Edit
@@ -76,6 +78,9 @@ export default {
           sortable: false,
           value: "service_date"
         },
+	{ text: "Note", value: "note" },
+	{ text: "Doc", value: "document" },
+	{ text: "Receipt", value: "receipt" },
         { text: "Action", value: "id" }
       ],
       headers1: [

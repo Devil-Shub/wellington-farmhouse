@@ -42,7 +42,7 @@ Time Taken<br><template>3</template>
 </td>
 <td>3000 dummy</td>
 <td><template v-if="job.payment_status">Paid</template> <template v-if="!job.payment_status">Unpaid</template></td>
-<td> <router-link :to="'/admin/jobs/chart/' + job.id" class="nav-item nav-link">View chat</router-link></td>
+<td> <router-link :to="'/admin/jobs/chat/' + job.id" class="nav-item nav-link">View chat</router-link></td>
                 </tr>
 </tbody>
     </table>

@@ -37,10 +37,51 @@
                 <v-col cols="12" md="12">
                   <v-text-field
                     v-model="addForm.service_killometer"
-                    label="Total Killometer"
+                    label="Total miles"
                      required
                     :rules="killometerRules"
                   ></v-text-field>
+                </v-col>
+                <v-col cols="12" md="12">
+		 <v-textarea
+		      filled
+		      label="Service Note"
+                      max-lenght="2000"
+		      auto-grow
+		      v-model="addForm.note"
+		    ></v-textarea>
+		 </v-col>
+                <v-col cols="12" md="12">
+                  <file-pond
+                    name="uploadImage"
+                    ref="pond"
+                    label-idle="Upload Document"
+                    allow-multiple="false"
+                    v-bind:server="serverOptions"
+                    v-bind:files="myFiles"
+                    v-on:processfile="handleProcessFile1"
+		    allow-file-type-validation="true"
+                  />
+                <div class="v-messages theme--light error--text" role="alert" v-if="docError">
+		<div class="v-messages__wrapper"><div class="v-messages__message">Service image upload is required</div></div>
+		</div>
+                </v-col>
+
+                <v-col cols="12" md="12">
+                  <file-pond
+                    name="uploadImage"
+                    ref="pond"
+                    label-idle="Upload Receipt"
+                    allow-multiple="false"
+                    v-bind:server="serverOptions"
+                    v-bind:files="myFiles"
+                    v-on:processfile="handleProcessFile2"
+		    allow-file-type-validation="true"
+		    accepted-file-types="image/jpeg, image/png"
+                  />
+                <div class="v-messages theme--light error--text" role="alert" v-if="insdocError">
+		<div class="v-messages__wrapper"><div class="v-messages__message">Receipt document upload is required</div></div>
+		</div>
                 </v-col>
               </v-col>
 
@@ -63,6 +104,8 @@ import { environment } from "../../../config/test.env";
 export default {
   data() {
     return {
+      docError: false,
+      insdocError: false,
       menu2: false,
       menu1: false,
       valid: true,
@@ -75,18 +118,48 @@ export default {
         vehicle_id: "",
         service_date: "",
         service_killometer: "",
+        receipt: '',
+        document: '',
+        note:''
       },
      killometerRules: [
-        v => !!v || "Truck kilometer is required",
+        v => !!v || "Truck miles is required",
         v => /^\d*$/.test(v) || "Enter valid number",
       ],
+    myFiles: [],
     };
+  },
+  computed: {
+    serverOptions() {
+      const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+      return {
+        url: this.apiUrl,
+        withCredentials: false,
+        process: {
+          url: "uploadImage",
+          headers: {
+            Authorization: "Bearer " + currentUser.data.access_token
+          }
+        }
+      };
+    },
+    url() {
+      if (this.file) {
+        let parsedUrl = new URL(this.file);
+        return [parsedUrl.pathname];
+      } else {
+        return null;
+      }
+    }
   },
   mounted: function() {
 	truckService.getTruckSingleService(this.$route.params.id).then(response => {
 		//handle response
 		if (response.status) {
 		this.addForm.id=response.data.id;
+		this.addForm.receipt=response.data.receipt;
+		this.addForm.document=response.data.document;
+                this.addForm.note=response.data.note;
 		this.addForm.vehicle_id=response.data.vehicle_id;
 		this.date=new Date(response.data.service_date).toISOString().substr(0, 10);
 		this.addForm.service_killometer=response.data.service_killometer;
@@ -94,9 +167,23 @@ export default {
 	});
  },
   methods: {
+   handleProcessFile1: function(error, file) {
+      this.addForm.document = file.serverId;
+      this.docError = false;
+    },
+    handleProcessFile2: function(error, file) {
+      this.addForm.receipt = file.serverId;
+      this.insdocError = false;
+    },
     save() {
+      if(this.addForm.document == ''){
+		this.docError = true;
+	}
+        if(this.addForm.receipt == ''){
+		this.insdocError = true;
+	}
       this.addForm.service_date = this.date;
-      if (this.$refs.form.validate()) {
+      if (this.$refs.form.validate() && (!this.insdocError) && (!this.docError)) {
         truckService.updateTruckService(this.addForm).then(response => {
          //handle response
          if(response.status) {

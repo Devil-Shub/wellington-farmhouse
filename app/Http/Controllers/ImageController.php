@@ -11,6 +11,7 @@ class ImageController extends Controller
 {
     public function uploadImage(Request $request)
     {
+
         //set path blank initially
         $file = "";
         if ($request->uploadImage != null && $request->uploadImage != '') {

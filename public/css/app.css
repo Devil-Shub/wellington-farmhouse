@@ -11046,6 +11046,14 @@ a.text-dark:focus {
   padding-right: 25px;
 }
 
+#app.dispatcher-area {
+  padding-right: 0;
+}
+
+#app.dispatcher-area #app {
+  padding-right: 0;
+}
+
 #app .col-sm-1,
 #app .col-sm-2,
 #app .col-sm-3,
@@ -11059,6 +11067,10 @@ a.text-dark:focus {
 #app .col-sm-11,
 #app .col-sm-12 {
   display: inline-block;
+}
+
+#app .ht-auto {
+  height: auto;
 }
 
 #app .disabled-tag > .v-input__control > .v-input__slot:before,
@@ -11279,8 +11291,12 @@ a.text-dark:focus {
   padding-left: 1px;
 }
 
+#app main.v-content .v-data-table__wrapper table tr td.action-col {
+  min-width: 215px;
+}
+
 #app main.v-content .v-data-table__wrapper table tr td.action-col a {
-  margin-right: 15px;
+  margin-right: 5px;
 }
 
 #app main.v-content .v-data-table__wrapper table tr td.action-col a,
@@ -11297,8 +11313,12 @@ a.text-dark:focus {
   line-height: 20px;
 }
 
+#app main.v-content .v-data-table__wrapper table tr td span label {
+  margin-bottom: 0;
+}
+
 #app main.v-content .v-data-table__wrapper table tr td span.custom-action-btn {
-  min-width: 90px;
+  min-width: 85px;
   display: block;
   padding: 3px 8px;
   background-color: #717171;
@@ -11383,6 +11403,8 @@ a.text-dark:focus {
   border: 1px solid #ccc;
   padding: 4px 8px 2px;
   margin-right: 15px;
+  display: inline-block;
+  margin-bottom: 5px;
   cursor: pointer;
 }
 
@@ -11606,6 +11628,8 @@ a.text-dark:focus {
 
 #app .custom-table table {
   margin-left: -1px;
+  border-collapse: separate;
+  border-spacing: 0 5px;
 }
 
 #app .custom-table table tr.multi-customers {
@@ -11625,6 +11649,7 @@ a.text-dark:focus {
 #app .custom-table table tr td.single-customer {
   padding-left: 0 !important;
   padding-right: 0;
+  border: 1px solid #bababa !important;
 }
 
 #app .custom-table table tr td.single-customer .v-data-table__wrapper {
@@ -11710,5 +11735,122 @@ a.text-dark:focus {
 
 #app .chat-area .chat-receiver .chat-img {
   float: right;
+}
+
+#app .type_msg {
+  border-top: 1px solid #ebebeb;
+  padding-top: 35px;
+}
+
+#app .type_msg .input_msg_write input {
+  width: 92.3%;
+  padding: 12px 10px 12px 30px;
+  background-color: #ebebeb;
+}
+
+#app .type_msg .input_msg_write input:focus {
+  outline: none;
+}
+
+#app .type_msg .input_msg_write button.msg_send_btn {
+  background-color: #c8c8c8;
+  height: 45px;
+  width: 45px;
+  border-radius: 50%;
+  color: #fff;
+  margin-left: 10px;
+}
+
+#app .type_msg .input_msg_write button.msg_send_btn svg {
+  padding-top: 2px;
+  height: 25px;
+}
+
+#app .account-upper {
+  margin-bottom: 50px;
+}
+
+#app .account-upper .account-left {
+  display: inline-block;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  vertical-align: top;
+}
+
+#app .account-upper .account-left img {
+  max-width: 100%;
+  text-align: center;
+}
+
+#app .account-upper .account-right {
+  display: inline-block;
+  padding-left: 35px;
+  color: #717171;
+}
+
+#app .account-upper .account-right h5 {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+#app .account-upper .account-right button.custom-save-btn {
+  background-color: #717171 !important;
+  color: #fff;
+  font-size: 12px;
+  padding: 0 20px;
+  height: 32px;
+}
+
+#app .account-bottom {
+  text-align: right;
+  padding-right: 10px;
+}
+
+#app .account-bottom span {
+  padding: 15px 0 15px 15px;
+}
+
+#app table,
+#app table td,
+#app table th {
+  border: none;
+}
+
+#app .dataTables_wrapper {
+  overflow-x: auto;
+}
+
+#app .dataTables_wrapper .dataTables_filter input {
+  border: 1px solid #ccc;
+  padding: 6px 15px;
+  border-radius: 24px;
+  cursor: text;
+}
+
+#app .dataTables_wrapper .dataTables_filter input:focus {
+  outline: none;
+}
+
+#app .dataTables_wrapper table {
+  min-width: 900px;
+  width: 100% !important;
+}
+
+#app .dataTables_wrapper table.table-lg {
+  min-width: 1100px;
+}
+
+#app .dataTables_wrapper table.all_jobs thead tr th.job-summ {
+  width: 110px;
+}
+
+#app .dataTables_wrapper table.all_jobs tbody tr td {
+  padding-left: 18px;
+}
+
+#app .customer-form #map {
+  height: auto;
 }
 

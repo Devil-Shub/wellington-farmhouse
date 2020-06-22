@@ -17,7 +17,10 @@ export const jobService = {
   servicesTimeSlots,
   createJob,
   singleJob,
+  chatList,
+  storeMessage,
   joblist,
+  dispatchJobList,
   jobassigned,
   jobcomplete,
   jobopned,
@@ -123,6 +126,19 @@ function joblist() {
     });
 }
 
+function dispatchJobList() {
+  return fetch(
+    this.apiUrl+`admin/dispatch-job-list`,
+    requestOptions.get()
+  )
+    .then(handleResponse)
+    .then(user => {
+      // store user details and passport token in local storage to keep user logged in between page refreshes
+
+      return user;
+    });
+}
+
 function jobassigned() {
   return fetch(
     this.apiUrl+`admin/assigned-job-list`,
@@ -199,6 +215,28 @@ function singleJob(job_id) {
       // store user details and passport token in local storage to keep user logged in between page refreshes
 
       return user;
+    });
+}
+
+function chatList() {
+  return fetch(
+    this.apiUrl + `admin/message`,
+    requestOptions.get()
+  )
+    .then(handleResponse)
+    .then(chat => {
+      return chat;
+    });
+}
+
+function storeMessage(data) {
+  return fetch(
+    this.apiUrl + `admin/message`,
+    requestOptions.post(data)
+  )
+    .then(handleResponse)
+    .then(chat => {
+      return chat;
     });
 }
 

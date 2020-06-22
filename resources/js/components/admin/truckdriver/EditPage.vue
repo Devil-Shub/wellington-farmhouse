@@ -172,7 +172,12 @@
                 </div>
 
               </v-col>
-
+             <v-col cols="12" md="12">
+  <v-radio-group  row v-model="addForm.driver_type"  :mandatory="false" required :rules="[v => !!v || 'Truck type is required']">
+              <v-radio label="Truck" value="Truck" ></v-radio>
+              <v-radio label="Skidsteer" value="Skidsteer"></v-radio>
+	           </v-radio-group>
+</v-col>
               <v-col cols="12" md="12">
                 <v-btn color="success" class="mr-4" @click="save">Submit</v-btn>
               </v-col>
@@ -222,7 +227,7 @@ export default {
         driver_country: "",
         driver_zipcode: "",
         driver_phone: "",
-        driver_type: 1
+        driver_type: ''
       },
       emailRules: [
         v => !!v || "E-mail is required",
@@ -288,12 +293,18 @@ export default {
         this.addForm.driver_country = response.data.user.country;
         this.addForm.driver_zipcode = response.data.user.zip_code;
         this.active = response.data.salary_type;
-        this.addForm.driver_licence = response.data.driver_licence;
+        this.addForm.driver_type = response.data.driver_type;
+	this.addForm.driver_licence = response.data.driver_licence;
         this.date = new Date(response.data.expiry_date).toISOString().substr(0, 10);
 	if(response.data.salary_type == 0){
  	this.addForm.salary_type = "per_hour";
 	}else{
 	this.addForm.salary_type = "per_load";
+	}
+	if(response.data.driver_type == 1){
+ 	this.addForm.driver_type = "Truck";
+	}else{
+	this.addForm.driver_type = "Skidsteer";
 	}
        
         this.addForm.document = response.data.document;
@@ -311,13 +322,14 @@ export default {
   methods: {
     handleProcessFile: function(error, file) {
       this.addForm.user_image = file.serverId;
+	console.log(this.addForm.user_image)
     },
     handleProcessFile1: function(error, file) {
       this.addForm.document = file.serverId;
 	this.docError = false;
     },
     save() {
-         if(this.addForm.document == ''){
+      if(this.addForm.document == ''){
 	this.docError = true;
        }
       this.addForm.expiry_date = this.date;
@@ -326,6 +338,12 @@ export default {
       }else{
 	this.addForm.salary_type = 1;
       }
+      if( this.addForm.driver_type == 'Skidsteer'){
+ 	this.addForm.driver_type = 0;
+      }else{
+	this.addForm.driver_type = 1;
+      }
+      
       if (this.$refs.form.validate() && (!this.docError)) {
         driverService
           .edit(this.addForm, this.$route.params.id)

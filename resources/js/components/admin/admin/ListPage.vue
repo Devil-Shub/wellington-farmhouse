@@ -1,5 +1,15 @@
 <template>
   <v-app>
+  <v-dialog v-model="loading" fullscreen loading>
+  <v-container fluid fill-height style="background-color: rgba(255, 255, 255, 0.5);">
+    <v-layout justify-center align-center>
+      <v-progress-circular
+	indeterminate
+	color="primary">
+      </v-progress-circular>
+    </v-layout>
+  </v-container>
+</v-dialog>
     <v-container>
       <v-row>
         <v-col cols="12" md="12">
@@ -54,7 +64,7 @@
                     <router-link :to="'/admin/admin/edit/' + item.id" class="nav-item nav-link">
                       <edit-icon size="1.5x" class="custom-class"></edit-icon>
                     </router-link>
-                    <v-btn color="blue darken-1" text @click="Delete(item.id)">
+                    <v-btn color="blue darken-1" v-if="item.id != 1" text @click="Delete(item.id)">
                       <trash-icon size="1.5x" class="custom-class"></trash-icon>
                     </v-btn>
                   </td>
@@ -90,6 +100,7 @@ export default {
   },
   data() {
     return {
+     loading: false,
       dialog: false,
       on: false,
       managers: [],
@@ -106,6 +117,7 @@ export default {
 
     //list admin
     listAdmin() {
+      this.loading = true;
       adminService.listAdmin().then(response => {
         //handle response
         if (response.status) {
@@ -117,11 +129,13 @@ export default {
             position: "top-right"
           });
         }
+       this.loading = false;
       });
     },
 
     Delete(e) {
       if (e) {
+       this.loading = true;
         adminService.Delete(e).then(response => {
           //handle response
           if (response.status) {
@@ -144,6 +158,7 @@ export default {
               position: "top-right"
             });
           }
+         this.loading = false;
         });
       }
     },

@@ -9,6 +9,9 @@
   <router-link v-if="payment" :to="paymentUrl" class="nav-item nav-link">
                     Payment
                     </router-link>
+ <router-link to="chat" class="nav-item nav-link">
+                    Chat
+                    </router-link>
     <v-list-item three-line>
       <v-list-item-content>
         <div class="overline mb-4">{{currentUser.first_name}} {{currentUser.last_name}}</div>

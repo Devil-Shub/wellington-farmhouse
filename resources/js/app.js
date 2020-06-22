@@ -1,3 +1,5 @@
+require('./bootstrap');
+
 import '@mdi/font/css/materialdesignicons.css';
 import 'vuetify/dist/vuetify.min.css';
 // Import one of available themes
@@ -64,8 +66,6 @@ Vue.use(VueGoogleMaps, {
   }
 })
 
-import JwPagination from 'jw-vue-pagination';
-Vue.component('jw-pagination', JwPagination);
 
 Vue.use(Vuelidate);
 Vue.use(Vuetify);
@@ -77,6 +77,20 @@ Vue.filter('formatDate', function(value) {
         return moment(String(value)).format('MM/DD/YYYY')
     }
 });
+
+Vue.filter('formatMonth', function(value) {
+    if (value) {
+        return moment(String(value)).format('MMM')
+    }
+});
+
+Vue.filter('formatYear', function(value) {
+    if (value) {
+        return moment(String(value)).format('YYYY')
+    }
+});
+
+//chat system
 
 new Vue({
   vuetify : new Vuetify({

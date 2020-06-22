@@ -54,4 +54,29 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\CustomerFarm', 'manager_id');
     }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
+
+    public function driver()
+    {
+        return $this->hasOne('App\Driver');
+    }
+
+    public function jobTruckDriver()
+    {
+        return $this->hasOne('App\Job', 'truck_driver_id');
+    }
+
+    public function jobSkidsteerDriver()
+    {
+        return $this->hasOne('App\Job', 'skidsteer_driver_id');
+    }
+
+    public function employeeSalaries()
+    {
+        return $this->hasOne('App\EmployeeSalaries', 'user_id');
+    }
 }

@@ -20,7 +20,7 @@ class Job extends Model
      * @var array
      */
     protected $fillable = [
-        'payment_status', 'job_amount', 'job_weight', 'customer_id', 'manager_id', 'farm_id', 'job_description', 'service_id', 'time_slots_id', 'truck_id',
+        'payment_status', 'job_amount', 'job_weight', 'customer_id', 'manager_id', 'farm_id', 'job_description', 'gate_no', 'service_id', 'time_slots_id', 'truck_id',
         'skidsteer_id', 'truck_driver_id', 'skidsteer_driver_id', 'start_date', 'start_time', 'end_date', 'end_time', 'notes_for_techs', 'notes', 'job_images'
     ];
 
@@ -69,8 +69,13 @@ class Job extends Model
         return $this->belongsTo('App\TimeSlots', 'time_slots_id', 'id');
     }
 
-    // public function timeslots()
-    // {
-    //     return $this->belongsTo('App\TimeSlots', 'options->time_slots_id');
-    // }
+    public function jobpayment()
+    {
+        return $this->hasOne('App\JobPayment', 'job_id');
+    }
+
+    public function employeeSalaries()
+    {
+        return $this->hasOne('App\EmployeeSalaries', 'user_id');
+    }
 }

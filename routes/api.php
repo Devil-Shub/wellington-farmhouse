@@ -52,7 +52,7 @@ Route::group(['prefix' => 'auth'], function () {
             Route::get('list-services', 'ServicesController@listServices');
             Route::get('get-service/{service_id}', 'ServicesController@getService');
             Route::delete('delete-service/{service_id}', 'ServicesController@deleteService');
-            Route::get('get-timeslots/{slot_type}', 'ServicesController@getTimeSlots');
+            Route::post('get-timeslots', 'ServicesController@getTimeSlots');
 
             //driver
             Route::post('create-driver', 'DriverController@createDriver');
@@ -86,6 +86,7 @@ Route::group(['prefix' => 'auth'], function () {
             Route::post('update-customer/{customer_id}', 'CustomerController@updateCustomer');
             Route::get('card-list/{customer_id}', 'CustomerController@getAllCard');
             Route::get('record-list/{customer_id}', 'CustomerController@getAllRecords');
+            Route::post('update-farm-manager', 'CustomerController@updateFarmManager');
             //Route::delete('delete-driver/{driver_id}', 'CustomerController@deleteDriver');
 
             //jobs
@@ -101,6 +102,17 @@ Route::group(['prefix' => 'auth'], function () {
             Route::get('repeating-job-list', 'JobsController@getRepeatingJob');
             Route::get('unpaid-job-list', 'JobsController@getUnpaidJob');
             Route::get('single-job/{job_id}', 'JobsController@getSingleJob');
+            Route::get('dispatch-job-list', 'JobsController@getDispatchJob');
+
+            //accounting
+            Route::get('/job-invoices', 'AccountingController@getAllJobInvoices');
+            Route::get('/job-payment', 'AccountingController@getAllJobPayment');
+            Route::get('/job-salary', 'AccountingController@getAllJobSalary');
+            Route::get('/job-salary-details/{driver_id}', 'AccountingController@getSingleJobSalary');
+
+            //message
+            Route::get('/message', 'MessageController@index')->name('message');
+            Route::post('/message', 'MessageController@store')->name('message.store');
 
             //stripe
             Route::post('stripe-charge', 'PaymentController@stripeCharge');

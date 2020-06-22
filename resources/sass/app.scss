@@ -153,6 +153,12 @@ $hover-white: #fff;
   // june 6th
   #app {
     padding-right: 25px;
+    &.dispatcher-area {
+      padding-right: 0;
+      #app {
+        padding-right: 0;
+      }
+    }
     .col-sm-1,
     .col-sm-2,
     .col-sm-3,
@@ -166,6 +172,9 @@ $hover-white: #fff;
     .col-sm-11,
     .col-sm-12 {
       display: inline-block;
+    }
+    .ht-auto {
+      height: auto;
     }
     .disabled-tag > .v-input__control > .v-input__slot:before,
     .disabled-tag > .v-input__control > .v-input__slot:after {
@@ -363,8 +372,9 @@ $hover-white: #fff;
                 padding-left: 1px;
               }
               &.action-col {
+                min-width: 215px;
                 a {
-                  margin-right: 15px;
+                  margin-right: 5px;
                 }
                 a, button {
                   display: inline-block;
@@ -380,8 +390,13 @@ $hover-white: #fff;
                   }
                 }
               }
+              span {
+                label {
+                  margin-bottom: 0;
+                }
+              }
               span.custom-action-btn {
-                min-width: 90px;
+                min-width: 85px;
                 display: block;
                 padding: 3px 8px;
                 background-color: #717171;
@@ -507,6 +522,8 @@ $hover-white: #fff;
             border: 1px solid #ccc;
             padding: 4px 8px 2px;
             margin-right: 15px;
+            display: inline-block;
+            margin-bottom: 5px;
             cursor: pointer;
             &.activeClass {
               background-color: #b9b9b9;
@@ -722,6 +739,8 @@ $hover-white: #fff;
     .custom-table {
       table {
         margin-left: -1px;
+        border-collapse: separate;
+        border-spacing: 0 5px;
         tr {
           &.multi-customers {
             border: 1px solid #bababa !important;
@@ -738,6 +757,7 @@ $hover-white: #fff;
             &.single-customer {
               padding-left: 0 !important;
               padding-right: 0;
+              border: 1px solid #bababa !important;
               .v-data-table__wrapper {
                 overflow: hidden;
                 table {
@@ -812,6 +832,119 @@ $hover-white: #fff;
         .chat-img {
           float: right;
         }
+      }
+    }
+    .type_msg {
+      border-top: 1px solid #ebebeb;
+      padding-top: 35px;
+      .input_msg_write {
+        input {
+          width: 92.3%;
+          padding: 12px 10px 12px 30px;
+          background-color: #ebebeb;
+          &:focus {
+            outline: none;
+          }
+        }
+        button.msg_send_btn {
+          background-color: #c8c8c8;
+          height: 45px;
+          width: 45px;
+          border-radius: 50%;
+          color: #fff;
+          margin-left: 10px;
+          svg {
+            padding-top: 2px;
+            height: 25px;
+          }
+        }
+      }
+    }
+    .account-upper {
+      margin-bottom: 50px;
+      .account-left {
+        display: inline-block;
+        width: 110px;
+        height: 110px;
+        border-radius: 50%;
+        border: 1px solid #ccc;
+        vertical-align: top;
+        img {
+          max-width: 100%;
+          text-align: center;
+        }
+      }
+      .account-right {
+        display: inline-block;
+        padding-left: 35px;
+        color: #717171;
+        h5 {
+          font-size: 16px;
+          font-weight: 400;
+        }
+        button.custom-save-btn {
+          background-color: #717171 !important;
+          color: #fff;
+          font-size: 12px;
+          padding: 0 20px;
+          height: 32px;
+        }
+      }
+    }
+    .account-bottom {
+      text-align: right;
+      padding-right: 10px;
+      span {
+        padding: 15px 0 15px 15px;
+      }
+    }
+    table,
+    table td,
+    table th {
+      border: none;
+    }
+    .dataTables_wrapper {
+      overflow-x: auto;
+      .dataTables_filter {
+        input {
+          border: 1px solid #ccc;
+          padding: 6px 15px;
+          border-radius: 24px;
+          cursor: text;
+          &:focus {
+            outline: none;
+          }
+        }
+      }
+      table {
+        min-width: 900px;
+        width: 100% !important;
+        &.table-lg {
+          min-width: 1100px;
+        }
+        &.all_jobs {
+          thead {
+            tr {
+              th {
+                &.job-summ {
+                  width: 110px;
+                }
+              }
+            }
+          }
+          tbody {
+            tr {
+              td {
+                padding-left: 18px;
+              }
+            }
+          }
+        }
+      }
+    }
+    .customer-form {
+      #map {
+        height: auto;
       }
     }
   }
