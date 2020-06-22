@@ -2,12 +2,12 @@
   <v-app>
     <v-container>
       <v-row>
-        <v-col cols="12" md="12">
+        <div class="add-icon">
           <router-link to="/admin/admin/add" class="nav-item nav-link">
             <plus-circle-icon size="1.5x" class="custom-class"></plus-circle-icon>
           </router-link>
-        </v-col>
-        <v-col cols="12" md="12">
+        </div>
+        <v-col cols="12" md="12" class="mt-5">
           <v-simple-table>
             <template v-slot:default>
               <thead>
@@ -47,15 +47,17 @@
                       text-color="white"
                     >Activate</v-chip>
                   </td> -->
-                  <td>
+                  <td class="action-col">
                     <!-- <router-link :to="'/admin/admin/view/' + item.id" class="nav-item nav-link">
                       <user-icon size="1.5x" class="custom-class"></user-icon>
                     </router-link> -->
                     <router-link :to="'/admin/admin/edit/' + item.id" class="nav-item nav-link">
-                      <edit-icon size="1.5x" class="custom-class"></edit-icon>
+                      <!-- <edit-icon size="1.5x" class="custom-class"></edit-icon> -->
+                      <span class="custom-action-btn">Edit</span>
                     </router-link>
                     <v-btn color="blue darken-1" v-if="item.id != 1" text @click="Delete(item.id)">
-                      <trash-icon size="1.5x" class="custom-class"></trash-icon>
+                      <!-- <trash-icon size="1.5x" class="custom-class"></trash-icon> -->
+                      <span class="custom-action-btn">Delete</span>
                     </v-btn>
                   </td>
                  </template>

@@ -141,14 +141,14 @@ export default {
     handleProcessFile: function(error, file) {
       this.updateForm.user_image = file.serverId;
       this.avatar = "../../"+file.serverId;
-      //change header image
-      document.getElementById("userImage").src =  "../../"+file.serverId;
     },
     update() {
       if (this.$refs.form.validate()) {
         authenticationService.updateProfile(this.updateForm).then(response => {
           //handle response
           if (response.status) {
+            //change header image
+            document.getElementById("userImage").src =  "../../"+this.updateForm.user_image;
             //load from local storage
             var getStorage = JSON.parse(localStorage.getItem("currentUser"));
             getStorage.data.user.user_image = this.updateForm.user_image;
