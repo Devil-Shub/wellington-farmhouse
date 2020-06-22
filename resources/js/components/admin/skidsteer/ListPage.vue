@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-container>
+    <v-container fluid>
       <v-row>
 <h2>Skidsteer List</h2>
         <div class="add-icon">

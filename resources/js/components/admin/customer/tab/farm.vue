@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-container>
+    <v-container fluid>
       <v-row>
         <div v-for="(updateForm, index) in totalForm">
           <v-col cols="12" md="12">

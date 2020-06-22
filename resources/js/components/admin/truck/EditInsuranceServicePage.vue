@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-container>
+    <v-container fluid>
       <v-row>
         <v-col cols="12" md="12">
           <h4 class="main-title mb-0">Edit Truck Insurance</h4>

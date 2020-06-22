@@ -1,5 +1,5 @@
 <template>
-  <v-container
+  <v-container fluid
     id="dashboard"
     fluid
     tag="section"

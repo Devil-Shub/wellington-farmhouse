@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-container>
+    <v-container fluid>
       <v-row>
         <h4 class="main-title">Customer Records</h4>
         <v-col sm="12" cols="12" class="cust-record-content">

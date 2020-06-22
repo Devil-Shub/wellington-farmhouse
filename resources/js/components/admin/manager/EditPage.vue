@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-container>
+    <v-container fluid>
       <v-row>
       <h4 class="main-title">Edit Manager</h4>
         <v-col cols="12" md="12">

@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-container>
+    <v-container fluid>
       <v-row>
         <v-col sm="12" cols="12">
           <v-simple-table>
