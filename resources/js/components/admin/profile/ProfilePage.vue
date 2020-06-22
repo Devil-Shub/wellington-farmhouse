@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-container>
+    <v-container fluid>
       <v-row>
       <h2>Edit Profile</h2>
         <v-col cols="12" md="12">

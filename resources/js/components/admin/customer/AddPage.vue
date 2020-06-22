@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-container>
+    <v-container fluid>
       <v-row>
         <h4 class="main-title">Add Customer</h4>
         <v-col cols="12" md="12">
@@ -429,8 +429,8 @@ export default {
     },
     setResult(result) {
       this.search = result.text;
-      this.addForm.latitude = result.center[0];
-      this.addForm.longitude = result.center[1];
+      this.addForm.latitude = result.center[1];
+      this.addForm.longitude = result.center[0];
       this.addForm.farm_address = result.text;
       this.isOpen = false;
     },

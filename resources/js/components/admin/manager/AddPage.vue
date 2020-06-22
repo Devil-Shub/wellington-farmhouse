@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-container>
+    <v-container fluid>
       <v-row>
      <h4 class="main-title">Add Manager</h4>
         <v-col cols="12" md="12">
@@ -290,6 +290,7 @@ export default {
       this.addForm.document = file.serverId;
     },
     update() {
+alert(this.addForm.document);
       if(this.addForm.document == ''){
 	this.docError = true
        }

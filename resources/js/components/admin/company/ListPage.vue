@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-container>
+    <v-container fluid>
       <v-row>
         <div class="add-icon">
           <router-link to="/admin/customer/add" class="nav-item nav-link">
