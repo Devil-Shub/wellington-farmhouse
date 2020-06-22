@@ -135,7 +135,7 @@ var render = function() {
     "v-container",
     {
       staticClass: "pt-0",
-      attrs: { id: "dashboard", fluid: "", tag: "section" }
+      attrs: { fluid: "", id: "dashboard", fluid: "", tag: "section" }
     },
     [
       _c(

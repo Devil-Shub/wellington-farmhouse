@@ -359,6 +359,7 @@ var render = function() {
     [
       _c(
         "v-container",
+        { attrs: { fluid: "" } },
         [
           _c(
             "v-row",
@@ -408,7 +409,11 @@ var render = function() {
                                         },
                                         [
                                           _c("img", {
-                                            attrs: { src: _vm.avatar }
+                                            attrs: {
+                                              src:
+                                                "../../../" +
+                                                _vm.addForm.user_image
+                                            }
                                           })
                                         ]
                                       ),

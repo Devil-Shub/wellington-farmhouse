@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-container>
+    <v-container fluid>
       <v-row>
 <h2>Edit Truck</h2>
         <v-col cols="12" md="12">
