@@ -118,6 +118,7 @@
                   <v-col cols="3" md="3" class="mt-4">
                     <v-text-field
                       type="text"
+                      class="mt-m11"
                       @input="onChange"
                       v-model="search"
                       label="Search Place"
