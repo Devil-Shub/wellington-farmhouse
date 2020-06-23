@@ -11,7 +11,7 @@
                 class="v-avatar v-list-item__avatar"
                 style="height: 80px; min-width: 80px; width: 80px; position:relative;"
               >
-              <button type="submit" class="close AClass"  v-if="cross" @click="Remove()">
+              <button type="submit" class="close AClass" style="margin-right: 13px; margin-top: -25px; font-size: 30px;" v-if="cross" @click="Remove()">
                <span>&times;</span>
              </button>
                 <img :src="avatar" />
@@ -55,7 +55,9 @@
                 required
               ></v-text-field>
             </v-col>
-            <v-btn color="success" class="mr-4" @click="update">Submit</v-btn>
+            <!-- <v-btn color="success" class="mr-4" @click="update">Submit</v-btn> -->
+
+            <v-btn color="success" :loading="loading" :disabled="loading" class="mr-4 custom-save-btn ml-4" @click="update">Submit</v-btn>
 
             <v-btn color="success" v-if="updateForm.user_id != 1" class="mr-4" @click="Delete(updateForm.user_id)">Delete Account</v-btn>
           </v-form>
@@ -78,6 +80,7 @@ export default {
     return {
       myFiles: "",
       valid: true,
+      loading: false,
       apiUrl: environment.apiUrl,
       baseUrl: environment.baseUrl,
       avatar: null,
@@ -149,8 +152,12 @@ export default {
       this.avatar = "../../"+file.serverId;
     },
     update() {
+      //start loading
+        this.loading = true;
       if (this.$refs.form.validate()) {
         authenticationService.updateProfile(this.updateForm).then(response => {
+          //stop loading
+          this.loading = false;
           //handle response
           if (response.status) {
             //change header image

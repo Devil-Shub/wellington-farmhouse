@@ -17,16 +17,17 @@
 	          <v-col cols="12" md="12">
              <header>Service Time Period</header>
 	       
-<v-checkbox class="pr-6" v-model="addForm.slot_type" @change="getTime()" label="Morning" value="1"></v-checkbox>
-<v-checkbox class="pr-6" v-model="addForm.slot_type" @change="getTime()" label="Afternoon" value="2"></v-checkbox>
+<input type="checkbox" class="pr-6" v-model="addForm.slot_type" :checked="true" @change="getTime(1)" label="Morning" value="1">Morning
+<br>
+<input type="checkbox" class="pr-6" v-model="addForm.slot_type" @change="getTime(2)" label="Afternoon" value="2">Evening
                 <div class="v-messages theme--light error--text" role="alert" v-if="!timeSlotErr">
 		<div class="v-messages__wrapper"><div class="v-messages__message">Service time period is required.</div></div>
 		</div>
 	         
 	          </v-col>
 
-	          <v-col class="time-slots pt-0" cols="12" md="12" v-if="timeSlots.length">
-              <template v-for="(timeSlot, index) in timeSlots">
+	          <v-col class="time-slots pt-0" cols="12" md="12" v-if="morningSlots.length">
+              <template v-for="(timeSlot, index) in morningSlots">
               <span class="checkbox" v-bind:class="[addForm.slot_time.includes(timeSlot.id) ? 'activeClass' : '']">
                 <input 
                 type="checkbox"
@@ -36,6 +37,19 @@
               </span>
               </template>
 	          </v-col>
+
+            <v-col class="time-slots pt-0" cols="12" md="12" v-if="eveningSlots.length">
+              <template v-for="(timeSlot, index) in eveningSlots">
+              <span class="checkbox" v-bind:class="[addForm.slot_time.includes(timeSlot.id) ? 'activeClass' : '']">
+                <input 
+                type="checkbox"
+                @click="setTimeSlot(timeSlot.id, index)"
+                :value="timeSlot.id"
+                :id="timeSlot.id"><label v-bind:for="timeSlot.id">{{timeSlot.slot_start+'-'+timeSlot.slot_end}}</label>
+              </span>
+              </template>
+	          </v-col>
+
             <v-col cols="12" md="12">
               <v-text-field
                 type="number"
@@ -109,10 +123,14 @@ export default {
         description: "",
         service_image: "",
         service_rate: '1',
-	slot_type: ['1'],
+	slot_type: ["1"],
         slot_time:[],
       },
-      timeSlots: [],
+      checkedSlot: {
+        slot_type: ""
+      },
+      morningSlots: [],
+      eveningSlots: [],
       priceRules: [
         v => !!v || "Service price is invalid/required"
       ],
@@ -145,19 +163,41 @@ export default {
   },
   created() {},
   mounted: function() {
-    this.getTime();
+    this.getTime(1);
   },
   methods: {
-    getTime(){
-      //make previous selection blank if tab changed
-      if(this.timeSlots.length > 0) {
-        this.addForm.slot_time = [];
-      }
-      this.timeSlots = [];
-     serviceService.getTimeSlots({slot_type: this.addForm.slot_type}).then(response => {
+    getTime(choosenCheckbox){
+      this.checkedSlot.slot_type = choosenCheckbox;
+     serviceService.getTimeSlots(this.checkedSlot).then(response => {
           //handle response
           if (response.status) {
-            this.timeSlots = response.data; 
+            if(choosenCheckbox == 1) {
+              if(this.morningSlots.length > 0) {
+                for(var i=0; i<this.morningSlots.length; i++) {
+                  if(this.addForm.slot_time.includes(this.morningSlots[i].id)) {
+                    this.addForm.slot_time.splice(this.addForm.slot_time.indexOf(this.morningSlots[i].id), 1);
+                  }
+                }
+                this.morningSlots = [];
+              } else {
+                this.morningSlots = [];
+                this.morningSlots = response.data;
+              }
+              
+            } else {
+              if(this.eveningSlots.length > 0) {
+                for(var i=0; i<this.eveningSlots.length; i++) {
+                  if(this.addForm.slot_time.includes(this.eveningSlots[i].id)) {
+                    this.addForm.slot_time.splice(this.addForm.slot_time.indexOf(this.eveningSlots[i].id), 1);
+                  }
+                }
+                this.eveningSlots = [];
+              } else {
+                this.eveningSlots = [];
+                this.eveningSlots = response.data;
+              }
+            }
+             
           } else {
            this.timeSlotErr = false;
             this.$toast.open({
@@ -181,11 +221,56 @@ export default {
       this.addForm.service_image = file.serverId;
     },
     save() {
-      if(this.addForm.slot_time.length != 0){ 
-         this.timeSlotErr= true; 
-      }else{
-        this.timeSlotErr= false; 
+      //time slots validation
+      if(this.addForm.slot_time.length > 0) {
+        //morning check
+        if(this.morningSlots.length > 0) {
+          var checkMorning=0;
+          for(var i=0; i<this.morningSlots.length; i++) {
+            if(this.addForm.slot_time.includes(this.morningSlots[i].id)) {
+              checkMorning++
+            }
+          }
+          //check if any morning selected
+          if(checkMorning == 0) {
+            this.$toast.open({
+              message: "Please select atleast one morning time slot",
+              type: "error",
+              position: "top-right"
+            });
+            return false;
+          }
+        }
+
+        //check for time slots
+        if(this.eveningSlots.length > 0) {
+          var checkEvening=0;
+          for(var i=0; i<this.eveningSlots.length; i++) {
+            if(this.addForm.slot_time.includes(this.eveningSlots[i].id)) {
+              checkEvening++
+            }
+          }
+          //check if any morning selected
+          if(checkEvening == 0) {
+            this.$toast.open({
+              message: "Please select atleast one evening time slot",
+              type: "error",
+              position: "top-right"
+            });
+            return false;
+          }
+        }
+
+      } else {
+        this.$toast.open({
+            message: "Please select atleast one time slot",
+            type: "error",
+            position: "top-right"
+        });
+        return false;
       }
+      //time slots validation
+
       if (this.$refs.form.validate() && (this.timeSlotErr)) {
         serviceService.add(this.addForm).then(response => {
           //handle response

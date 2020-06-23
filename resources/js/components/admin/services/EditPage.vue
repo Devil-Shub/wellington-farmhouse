@@ -17,14 +17,32 @@
             </v-col>
             <v-col cols="12" md="12">
               <header>Service Time Period</header>
-<v-checkbox class="pr-6" v-model="editForm.slot_type" @change="getTime()" label="Morning" value="1"></v-checkbox>
-<v-checkbox class="pr-6" v-model="editForm.slot_type" @change="getTime()" label="Afternoon" value="2"></v-checkbox>
+<input type="checkbox" class="pr-6" v-model="editForm.slot_type" :checked="editForm.slot_type.includes(1) ? true:false" @change="getTime(1)" value="1">Morning
+<br>
+<input type="checkbox" class="pr-6" v-model="editForm.slot_type" :checked="editForm.slot_type.includes(2) ? true:false" @change="getTime(2)" value="2">Evening
      <div class="v-messages theme--light error--text" role="alert" v-if="!timeSlotErr">
 		<div class="v-messages__wrapper"><div class="v-messages__message">Service time period is required.</div></div>
 		</div>
             </v-col>
-            <v-col class="time-slots pt-0" cols="12" md="12" v-if="timeSlots.length">
-              <template v-for="timeSlot in timeSlots">
+
+            <v-col class="time-slots pt-0" cols="12" md="12" v-if="morningSlots.length">
+              <template v-for="timeSlot in morningSlots">
+              <span class="checkbox" v-bind:class="[editForm.slot_time.includes(timeSlot.id) ? 'activeClass' : '']">
+                <input 
+                type="checkbox"
+                @click="setTimeSlot(timeSlot.id)"
+                :value="timeSlot.id"
+                :id="timeSlot.id"
+                 required
+                :checked="editForm.slot_time.includes(timeSlot.id) ? true:false">
+                <label v-bind:for="timeSlot.id">{{timeSlot.slot_start+'-'+timeSlot.slot_end}}</label>
+              </span>
+               <!-- <v-checkbox v-model="editForm.slot_time" :value="timeSlot.id" class="mx-2" :label="timeSlot.slot_start+'-'+timeSlot.slot_end"></v-checkbox> -->
+              </template>
+            </v-col>
+
+            <v-col class="time-slots pt-0" cols="12" md="12" v-if="eveningSlots.length">
+              <template v-for="timeSlot in eveningSlots">
               <span class="checkbox" v-bind:class="[editForm.slot_time.includes(timeSlot.id) ? 'activeClass' : '']">
                 <input 
                 type="checkbox"
@@ -121,10 +139,14 @@ export default {
         description: "",
         service_image: "",
 	service_rate: "",
-        slot_type: [],
+        slot_type: [1,2],
         slot_time: []
       },
-      timeSlots: [],
+      checkedSlot: {
+        slot_type: ""
+      },
+      morningSlots: [],
+      eveningSlots: [],
       nameRules: [v => !!v || "Service name is required"],
       priceRules: [v => !!v || "Service price is invalid/required"],
       descRules: [v => !!v || "Service description is required"],
@@ -171,7 +193,13 @@ export default {
           this.editForm.service_rate = "round";
         }
 
-        this.getTime();
+        if(this.editForm.slot_type.includes("1")) {
+          this.getTime(1);
+        }
+        if(this.editForm.slot_type.includes("2")) {
+          this.getTime(2);
+        }
+
       } else {
         router.push("/admin/services");
         this.$toast.open({
@@ -183,18 +211,38 @@ export default {
     });
   },
   methods: {
-    getTime() {
-      //make previous selection blank if tab changed
-      if(this.timeSlots.length > 0) {
-        this.editForm.slot_time = [];
-      }
-      //make empty initially
-      this.timeSlots = [];
-    
-      serviceService.getTimeSlots({slot_type: this.editForm.slot_type}).then(response => {
+    getTime(choosenCheckbox) {
+    this.checkedSlot.slot_type = choosenCheckbox;
+
+      serviceService.getTimeSlots(this.checkedSlot).then(response => {
         //handle response
         if (response.status) {
-          this.timeSlots = response.data;
+            if(choosenCheckbox == 1) {
+              if(this.morningSlots.length > 0) {
+                for(var i=0; i<this.morningSlots.length; i++) {
+                  if(this.editForm.slot_time.includes(this.morningSlots[i].id)) {
+                    this.editForm.slot_time.splice(this.editForm.slot_time.indexOf(this.morningSlots[i].id), 1);
+                  }
+                }
+                this.morningSlots = [];
+              } else {
+                this.morningSlots = [];
+                this.morningSlots = response.data;
+              }
+              
+            } else {
+              if(this.eveningSlots.length > 0) {
+                for(var i=0; i<this.eveningSlots.length; i++) {
+                  if(this.editForm.slot_time.includes(this.eveningSlots[i].id)) {
+                    this.editForm.slot_time.splice(this.editForm.slot_time.indexOf(this.eveningSlots[i].id), 1);
+                  }
+                }
+                this.eveningSlots = [];
+              } else {
+                this.eveningSlots = [];
+                this.eveningSlots = response.data;
+              }
+            }
         } else {
          this.timeSlotErr = false;
           this.$toast.open({
@@ -207,7 +255,6 @@ export default {
     },
     //set time slow
     setTimeSlot(timeSlotId){
-      console.log(this.editForm.slot_time);
       var findIndex = this.editForm.slot_time.indexOf(timeSlotId);
       if(findIndex > -1) {
         this.editForm.slot_time.splice(findIndex, 1);
@@ -225,11 +272,56 @@ export default {
         this.editForm.service_rate = 2;
       }
 	
-      if(this.editForm.slot_time.length != 0){ 
-         this.timeSlotErr= true; 
-      }else{
-        this.timeSlotErr= false; 
+      //time slots validation
+      if(this.editForm.slot_time.length > 0) {
+        //morning check
+        if(this.morningSlots.length > 0) {
+          var checkMorning=0;
+          for(var i=0; i<this.morningSlots.length; i++) {
+            if(this.editForm.slot_time.includes(this.morningSlots[i].id)) {
+              checkMorning++
+            }
+          }
+          //check if any morning selected
+          if(checkMorning == 0) {
+            this.$toast.open({
+              message: "Please select atleast one morning time slot",
+              type: "error",
+              position: "top-right"
+            });
+            return false;
+          }
+        }
+
+        //check for time slots
+        if(this.eveningSlots.length > 0) {
+          var checkEvening=0;
+          for(var i=0; i<this.eveningSlots.length; i++) {
+            if(this.editForm.slot_time.includes(this.eveningSlots[i].id)) {
+              checkEvening++
+            }
+          }
+          //check if any morning selected
+          if(checkEvening == 0) {
+            this.$toast.open({
+              message: "Please select atleast one evening time slot",
+              type: "error",
+              position: "top-right"
+            });
+            return false;
+          }
+        }
+
+      } else {
+        this.$toast.open({
+            message: "Please select atleast one time slot",
+            type: "error",
+            position: "top-right"
+        });
+        return false;
       }
+      //time slots validation
+
       if (this.$refs.form.validate() && (this.timeSlotErr)) {
         serviceService.edit(this.editForm).then(response => {
           //handle response

@@ -197,7 +197,7 @@ class ServicesController extends Controller
      */
     public function getTimeSlots(Request $request){
 
-	     $getTime = TimeSlots::whereIn('slot_type', $request->slot_type)->get();
+	     $getTime = TimeSlots::whereSlotType($request->slot_type)->get();
 	     if($getTime->count()){
             return response()->json([
                 'status' => true,
