@@ -18,7 +18,7 @@
             <v-col cols="12" md="12">
               <header>Service Time Period</header>
 <v-checkbox class="pr-6" v-model="editForm.slot_type" @change="getTime()" label="Morning" value="1"></v-checkbox>
-<v-checkbox class="pr-6" v-model="editForm.slot_type" @change="getTime()" label="Afternoon" value="2"></v-checkbox>
+<v-checkbox class="pr-6" v-model="editForm.slot_type" @change="getTimeSecond()" label="Afternoon" value="2"></v-checkbox>
 
             </v-col>
             <v-col class="time-slots pt-0" cols="12" md="12" v-if="timeSlots.length">
@@ -29,6 +29,7 @@
                 @click="setTimeSlot(timeSlot.id)"
                 :value="timeSlot.id"
                 :id="timeSlot.id"
+                 required
                 :checked="editForm.slot_time.includes(timeSlot.id) ? true:false">
                 <label v-bind:for="timeSlot.id">{{timeSlot.slot_start+'-'+timeSlot.slot_end}}</label>
               </span>

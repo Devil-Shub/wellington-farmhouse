@@ -11,6 +11,7 @@ import AdminLayout from "../components/layout/AdminLayout";
 import UserLayout from "../frontend/layout/UserLayout";
 //admin components
 import Dashboard from "../components/admin/Dashboard";
+import TruckDashboard from "../components/admin/DriverDashboard";
 import Settings from "../components/admin/Settings";
 import ProfilePage from "../components/admin/profile/ProfilePage";
 import ChangePasswordPage from "../components/admin/profile/ChangePasswordPage"
@@ -192,7 +193,7 @@ export const router = new Router({
       name: 'DriverDashboard',
       meta: { requiresAuth: Role.Truck_Driver },
       children: [
-        { path: 'dashboard', component: Dashboard, name: 'driver_Dashboard', meta: { requiresAuth: [Role.Truck_Driver] } },
+        { path: 'dashboard', component: TruckDashboard, name: 'driver_Dashboard', meta: { requiresAuth: [Role.Truck_Driver] } },
         { path: 'profile', component: ProfilePage, name: 'DProfile',  meta: { requiresAuth: [Role.Truck_Driver] } },
         { path: 'changepassword', component: ChangePasswordPage, name: 'DChangepassword', meta: { requiresAuth: [Role.Truck_Driver] } },
       ]

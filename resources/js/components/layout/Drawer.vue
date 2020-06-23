@@ -243,12 +243,26 @@
 	driveritems: [
 	    {
             action: 'local_activity',
-            title: 'Main',
             active: true,
-            items: [
-              { title: 'Overview', url: '/driver/dashboard' },
-            ]
+            title: 'Overview', url: '/driver/dashboard'
           },
+         {
+            action: 'local_activity',
+            title: 'Ongoing Jobs', url: '/driver/dashboard'
+          },
+        {
+            action: 'local_activity',
+             title: 'Pending Jobs', url: '/driver/dashboard'
+          },
+        {
+            action: 'local_activity',
+             title: 'Delivered Jobs', url: '/driver/dashboard'
+          },
+        {
+            action: 'local_activity',
+             title: 'Monthly Earning', url: '/driver/dashboard'
+          },
+
 	],
 	isManager: false,
 	isDriver: false,
