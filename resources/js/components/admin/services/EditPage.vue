@@ -19,7 +19,9 @@
               <header>Service Time Period</header>
 <v-checkbox class="pr-6" v-model="editForm.slot_type" @change="getTime()" label="Morning" value="1"></v-checkbox>
 <v-checkbox class="pr-6" v-model="editForm.slot_type" @change="getTime()" label="Afternoon" value="2"></v-checkbox>
-
+     <div class="v-messages theme--light error--text" role="alert" v-if="!timeSlotErr">
+		<div class="v-messages__wrapper"><div class="v-messages__message">Service time period is required.</div></div>
+		</div>
             </v-col>
             <v-col class="time-slots pt-0" cols="12" md="12" v-if="timeSlots.length">
               <template v-for="timeSlot in timeSlots">
@@ -29,6 +31,7 @@
                 @click="setTimeSlot(timeSlot.id)"
                 :value="timeSlot.id"
                 :id="timeSlot.id"
+                 required
                 :checked="editForm.slot_time.includes(timeSlot.id) ? true:false">
                 <label v-bind:for="timeSlot.id">{{timeSlot.slot_start+'-'+timeSlot.slot_end}}</label>
               </span>
@@ -110,6 +113,7 @@ export default {
       valid: true,
       avatar: null,
       apiUrl: environment.apiUrl,
+      timeSlotErr:true,
       editForm: {
         id: "",
         service_name: "",
@@ -192,6 +196,7 @@ export default {
         if (response.status) {
           this.timeSlots = response.data;
         } else {
+         this.timeSlotErr = false;
           this.$toast.open({
             message: response.message,
             type: "error",
@@ -219,7 +224,13 @@ export default {
       } else {
         this.editForm.service_rate = 2;
       }
-      if (this.$refs.form.validate()) {
+	
+      if(this.editForm.slot_time.length != 0){ 
+         this.timeSlotErr= true; 
+      }else{
+        this.timeSlotErr= false; 
+      }
+      if (this.$refs.form.validate() && (this.timeSlotErr)) {
         serviceService.edit(this.editForm).then(response => {
           //handle response
           if (response.status) {

@@ -70,6 +70,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
  // Components
@@ -114,10 +126,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
-      profileImage: ""
+      profileImage: "",
+      isManager: false,
+      isDriver: false,
+      isAdmin: false
     };
   },
   created: function created() {
+    var currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+    if (currentUser.data.user.role_id == 1) {
+      this.isAdmin = true;
+    } else if (currentUser.data.user.role_id == 2) {
+      this.isManager = true;
+    } else if (currentUser.data.user.role_id == 3) {
+      this.isDriver = true;
+    } else {
+      this.isAdmin = true;
+    }
+
     this.loadProfileImage();
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_4__["mapState"])(["drawer"])),
@@ -244,65 +271,145 @@ var render = function() {
                           _c(
                             "v-list-item",
                             [
-                              _c(
-                                "v-list-item-title",
-                                [
-                                  _c(
-                                    "router-link",
-                                    {
-                                      staticClass: "nav-item nav-link",
-                                      attrs: { to: "/admin/profile" }
-                                    },
-                                    [_vm._v("Profile")]
+                              _vm.isAdmin
+                                ? _c(
+                                    "v-list-item-title",
+                                    [
+                                      _c(
+                                        "router-link",
+                                        {
+                                          staticClass: "nav-item nav-link",
+                                          attrs: { to: "/admin/profile" }
+                                        },
+                                        [_vm._v("Profile")]
+                                      )
+                                    ],
+                                    1
                                   )
-                                ],
-                                1
-                              ),
+                                : _vm._e(),
                               _vm._v(" "),
-                              _c(
-                                "v-list-item-title",
-                                [
-                                  _c(
-                                    "router-link",
-                                    {
-                                      staticClass: "nav-item nav-link",
-                                      attrs: { to: "/admin/changepassword" }
-                                    },
-                                    [_vm._v("Change Password")]
+                              _vm.isAdmin
+                                ? _c(
+                                    "v-list-item-title",
+                                    [
+                                      _c(
+                                        "router-link",
+                                        {
+                                          staticClass: "nav-item nav-link",
+                                          attrs: { to: "/admin/changepassword" }
+                                        },
+                                        [_vm._v("Change Password")]
+                                      )
+                                    ],
+                                    1
                                   )
-                                ],
-                                1
-                              ),
+                                : _vm._e(),
                               _vm._v(" "),
-                              _c(
-                                "v-list-item-title",
-                                [
-                                  _c(
-                                    "router-link",
-                                    {
-                                      staticClass: "nav-item nav-link",
-                                      attrs: { to: "/admin/admin/add" }
-                                    },
-                                    [_vm._v("Add Admin")]
+                              _vm.isManager
+                                ? _c(
+                                    "v-list-item-title",
+                                    [
+                                      _c(
+                                        "router-link",
+                                        {
+                                          staticClass: "nav-item nav-link",
+                                          attrs: { to: "/manager/profile" }
+                                        },
+                                        [_vm._v("Profile")]
+                                      )
+                                    ],
+                                    1
                                   )
-                                ],
-                                1
-                              ),
+                                : _vm._e(),
                               _vm._v(" "),
-                              _c(
-                                "v-list-item-title",
-                                [
-                                  _c(
-                                    "router-link",
-                                    {
-                                      staticClass: "nav-item nav-link",
-                                      attrs: { to: "/admin/admin" }
-                                    },
-                                    [_vm._v("List Admin")]
+                              _vm.isManager
+                                ? _c(
+                                    "v-list-item-title",
+                                    [
+                                      _c(
+                                        "router-link",
+                                        {
+                                          staticClass: "nav-item nav-link",
+                                          attrs: {
+                                            to: "/manager/changepassword"
+                                          }
+                                        },
+                                        [_vm._v("Change Password")]
+                                      )
+                                    ],
+                                    1
                                   )
-                                ],
-                                1
-                              ),
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _vm.isDriver
+                                ? _c(
+                                    "v-list-item-title",
+                                    [
+                                      _c(
+                                        "router-link",
+                                        {
+                                          staticClass: "nav-item nav-link",
+                                          attrs: { to: "/driver/profile" }
+                                        },
+                                        [_vm._v("Profile")]
+                                      )
+                                    ],
+                                    1
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _vm.isDriver
+                                ? _c(
+                                    "v-list-item-title",
+                                    [
+                                      _c(
+                                        "router-link",
+                                        {
+                                          staticClass: "nav-item nav-link",
+                                          attrs: {
+                                            to: "/driver/changepassword"
+                                          }
+                                        },
+                                        [_vm._v("Change Password")]
+                                      )
+                                    ],
+                                    1
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _vm.isAdmin
+                                ? _c(
+                                    "v-list-item-title",
+                                    [
+                                      _c(
+                                        "router-link",
+                                        {
+                                          staticClass: "nav-item nav-link",
+                                          attrs: { to: "/admin/admin/add" }
+                                        },
+                                        [_vm._v("Add Admin")]
+                                      )
+                                    ],
+                                    1
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _vm.isAdmin
+                                ? _c(
+                                    "v-list-item-title",
+                                    [
+                                      _c(
+                                        "router-link",
+                                        {
+                                          staticClass: "nav-item nav-link",
+                                          attrs: { to: "/admin/admin" }
+                                        },
+                                        [_vm._v("List Admin")]
+                                      )
+                                    ],
+                                    1
+                                  )
+                                : _vm._e(),
                               _vm._v(" "),
                               _c("v-list-item-title", [
                                 _c(
