@@ -184,6 +184,16 @@ export const router = new Router({
         { path: 'jobs/add', component: JobsAddPage, name: 'manager_JobsAdd', meta: { requiresAuth: [Role.Admin_Manager] } },
         { path: 'jobs/chat/:id', component: JobsChatPage, name: 'manager_JobsChat', meta: { requiresAuth: [Role.Admin_Manager] } },
         { path: 'jobs/chat', component: ChatPage, name: 'manager_Chat', meta: { requiresAuth: [Role.Admin_Manager] } },
+	{ path: 'truckdrivers', component: TruckDriverListPage, name: 'MTruckdrivers', meta: { requiresAuth: [Role.Admin_Manager] } },
+        { path: 'truckdriver/add', component: TruckDriverAddPage, name: 'MTruckdriverAdd', meta: { requiresAuth: [Role.Admin_Manager] } },
+        { path: 'truckdriver/edit/:id', component: TruckDriverEditPage, name: 'MTruckdriverEdit', meta: { requiresAuth: [Role.Admin_Manager] } },
+        { path: 'truckdriver/view/:id', component: TruckDriverViewPage, name: 'MTruckdriverView', meta: { requiresAuth: [Role.Admin_Manager] } },
+
+        { path: 'manager', component: ListPage, name: 'MManager', meta: { requiresAuth: [Role.Admin_Manager] } },
+        { path: 'manager/add', component: AddPage, name: 'MAdd', meta: { requiresAuth: [Role.Admin_Manager] } },
+        { path: 'manager/edit/:id', component: EditPage, name: 'MEdit', meta: { requiresAuth: [Role.Admin_Manager] } },
+        { path: 'manager/view/:id', component: ViewPage, name: 'MView', meta: { requiresAuth: [Role.Admin_Manager] } },
+
       ]
     },
     //driver routes
