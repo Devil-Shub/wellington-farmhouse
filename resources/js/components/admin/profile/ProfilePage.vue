@@ -11,7 +11,7 @@
                 class="v-avatar v-list-item__avatar"
                 style="height: 80px; min-width: 80px; width: 80px; position:relative;"
               >
-              <button type="submit" class="close AClass"  v-if="cross" @click="Remove()">
+              <button type="submit" class="close AClass" style="margin-right: 13px; margin-top: -25px; font-size: 30px;" v-if="cross" @click="Remove()">
                <span>&times;</span>
              </button>
                 <img :src="avatar" />

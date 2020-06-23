@@ -17,9 +17,9 @@
 	          <v-col cols="12" md="12">
              <header>Service Time Period</header>
 	       
-<input type="checkbox" class="pr-6" :checked="true" @change="getTime(1)" label="Morning" value="1">Morning
+<input type="checkbox" class="pr-6" v-model="addForm.slot_type" :checked="true" @change="getTime(1)" label="Morning" value="1">Morning
 <br>
-<input type="checkbox" class="pr-6" @change="getTime(2)" label="Afternoon" value="2">Evening
+<input type="checkbox" class="pr-6" v-model="addForm.slot_type" @change="getTime(2)" label="Afternoon" value="2">Evening
                 <div class="v-messages theme--light error--text" role="alert" v-if="!timeSlotErr">
 		<div class="v-messages__wrapper"><div class="v-messages__message">Service time period is required.</div></div>
 		</div>
@@ -123,7 +123,7 @@ export default {
         description: "",
         service_image: "",
         service_rate: '1',
-	slot_type: [1,2],
+	slot_type: ["1"],
         slot_time:[],
       },
       checkedSlot: {
@@ -173,6 +173,11 @@ export default {
           if (response.status) {
             if(choosenCheckbox == 1) {
               if(this.morningSlots.length > 0) {
+                for(var i=0; i<this.morningSlots.length; i++) {
+                  if(this.addForm.slot_time.includes(this.morningSlots[i].id)) {
+                    this.addForm.slot_time.splice(this.addForm.slot_time.indexOf(this.morningSlots[i].id), 1);
+                  }
+                }
                 this.morningSlots = [];
               } else {
                 this.morningSlots = [];
@@ -181,6 +186,11 @@ export default {
               
             } else {
               if(this.eveningSlots.length > 0) {
+                for(var i=0; i<this.eveningSlots.length; i++) {
+                  if(this.addForm.slot_time.includes(this.eveningSlots[i].id)) {
+                    this.addForm.slot_time.splice(this.addForm.slot_time.indexOf(this.eveningSlots[i].id), 1);
+                  }
+                }
                 this.eveningSlots = [];
               } else {
                 this.eveningSlots = [];
@@ -214,14 +224,7 @@ export default {
       //time slots validation
       if(this.addForm.slot_time.length > 0) {
         //morning check
-        if(this.morningSlots.length == 0) {
-          this.$toast.open({
-              message: "Please select atleas one morning time slot",
-              type: "error",
-              position: "top-right"
-          });
-          return false;
-        } else {
+        if(this.morningSlots.length > 0) {
           var checkMorning=0;
           for(var i=0; i<this.morningSlots.length; i++) {
             if(this.addForm.slot_time.includes(this.morningSlots[i].id)) {
@@ -231,7 +234,7 @@ export default {
           //check if any morning selected
           if(checkMorning == 0) {
             this.$toast.open({
-              message: "Please select atleas one morning time slot",
+              message: "Please select atleast one morning time slot",
               type: "error",
               position: "top-right"
             });
@@ -240,14 +243,7 @@ export default {
         }
 
         //check for time slots
-        if(this.eveningSlots.length == 0) {
-          this.$toast.open({
-              message: "Please select atleas one evening time slot",
-              type: "error",
-              position: "top-right"
-          });
-          return false;
-        } else {
+        if(this.eveningSlots.length > 0) {
           var checkEvening=0;
           for(var i=0; i<this.eveningSlots.length; i++) {
             if(this.addForm.slot_time.includes(this.eveningSlots[i].id)) {
@@ -257,7 +253,7 @@ export default {
           //check if any morning selected
           if(checkEvening == 0) {
             this.$toast.open({
-              message: "Please select atleas one evening time slot",
+              message: "Please select atleast one evening time slot",
               type: "error",
               position: "top-right"
             });
@@ -267,7 +263,7 @@ export default {
 
       } else {
         this.$toast.open({
-            message: "Please select atleas one morning and one evening time slot",
+            message: "Please select atleast one time slot",
             type: "error",
             position: "top-right"
         });
