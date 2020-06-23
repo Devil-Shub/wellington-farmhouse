@@ -9,8 +9,11 @@
             <v-col cols="12" md="12">
               <div
                 class="v-avatar v-list-item__avatar"
-                style="height: 40px; min-width: 40px; width: 40px;"
+                style="height: 80px; min-width: 80px; width: 80px; position:relative;"
               >
+              <button type="submit" class="close AClass"  v-if="cross" @click="Remove()">
+               <span>&times;</span>
+             </button>
                 <img :src="avatar" />
               </div>
               <file-pond
@@ -79,6 +82,7 @@ export default {
       baseUrl: environment.baseUrl,
       avatar: null,
       test: "",
+      cross: false,
       updateForm: {
         user_id: null,
         first_name: "",
@@ -129,6 +133,7 @@ export default {
     this.updateForm.user_id = currentUser.data.user.id;
     this.updateForm.user_image = currentUser.data.user.user_image;
     if(currentUser.data.user.user_image) { 
+      this.cross=true;
       this.avatar = "../../"+currentUser.data.user.user_image;
     } else {
       this.avatar = "/images/avatar.png";
@@ -139,6 +144,7 @@ export default {
   },
   methods: {
     handleProcessFile: function(error, file) {
+      this.cross=true;
       this.updateForm.user_image = file.serverId;
       this.avatar = "../../"+file.serverId;
     },
@@ -158,7 +164,12 @@ export default {
             //add again to local storage
             localStorage.setItem("currentUser", JSON.stringify(getStorage));
             //change header image
-            document.getElementById("userImage").src = "../../"+this.updateForm.user_image;
+            if(this.updateForm.user_image){
+            	document.getElementById("userImage").src = "../../"+this.updateForm.user_image;
+            }else{
+              document.getElementById("userImage").src = "/images/avatar.png";
+	    }
+		
 
             this.$toast.open({
               message: response.message,
@@ -177,6 +188,11 @@ export default {
         });
       }
     },
+  Remove(){
+    this.avatar = "/images/avatar.png";
+    this.cross=false;
+    this.updateForm.user_image = '';
+  },
   Delete(e) {
       if (e) {
         authenticationService.Delete(e).then(response => {
@@ -209,3 +225,10 @@ export default {
   }
 };
 </script>
+<style>
+.AClass{
+    right:0px;
+    position: absolute;
+}
+
+</style>

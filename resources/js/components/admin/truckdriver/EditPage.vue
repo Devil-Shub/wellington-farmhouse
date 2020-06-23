@@ -9,7 +9,7 @@
               <v-col cols="5" md="5">
                  <div
                   class="v-avatar v-list-item__avatar"
-                  style="height: 40px; min-width: 40px; width: 40px;"
+                  style="height: 80px; min-width: 80px; width: 80px;"
                 >
                   <img :src="avatar" alt="John" />
                 </div>
@@ -159,6 +159,8 @@
                     v-bind:server="serverOptions"
                     v-bind:files="myFiles"
                     v-on:processfile="handleProcessFile1"
+		    allow-file-type-validation="true"
+                    accepted-file-types="image/jpeg, image/png"
                     :rules="[v => !!v || 'Document is required']"
                   />
 <div class="v-messages theme--light error--text" role="alert" v-if="docError">

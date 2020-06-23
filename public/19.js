@@ -76,6 +76,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
  // Components
@@ -121,8 +127,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       profileImage: "",
-      isAdmin: false,
-      isManager: false
+      isManager: false,
+      isDriver: false,
+      isAdmin: false
     };
   },
   created: function created() {
@@ -132,6 +139,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.isAdmin = true;
     } else if (currentUser.data.user.role_id == 2) {
       this.isManager = true;
+    } else if (currentUser.data.user.role_id == 3) {
+      this.isDriver = true;
     } else {
       this.isAdmin = true;
     }
@@ -323,6 +332,42 @@ var render = function() {
                                           staticClass: "nav-item nav-link",
                                           attrs: {
                                             to: "/manager/changepassword"
+                                          }
+                                        },
+                                        [_vm._v("Change Password")]
+                                      )
+                                    ],
+                                    1
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _vm.isDriver
+                                ? _c(
+                                    "v-list-item-title",
+                                    [
+                                      _c(
+                                        "router-link",
+                                        {
+                                          staticClass: "nav-item nav-link",
+                                          attrs: { to: "/driver/profile" }
+                                        },
+                                        [_vm._v("Profile")]
+                                      )
+                                    ],
+                                    1
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _vm.isDriver
+                                ? _c(
+                                    "v-list-item-title",
+                                    [
+                                      _c(
+                                        "router-link",
+                                        {
+                                          staticClass: "nav-item nav-link",
+                                          attrs: {
+                                            to: "/driver/changepassword"
                                           }
                                         },
                                         [_vm._v("Change Password")]

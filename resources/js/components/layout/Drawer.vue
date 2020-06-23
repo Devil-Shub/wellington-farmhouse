@@ -96,6 +96,41 @@
           </v-list-group>
         </v-list>
 
+   <v-list v-if="isDriver">
+          <v-list-group
+            v-for="item in driveritems"
+            :key="item.title"
+            v-model="item.active"
+            :prepend-icon="item.action"
+            no-action
+          >
+            <template v-slot:activator>
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title>{{ item.title }}</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </template>
+
+            <v-list-item
+              v-for="subItem in item.items"
+              :key="subItem.title"
+              @click=""
+            >
+              <v-list-item-content>
+                <v-list-item-title>
+		<router-link :to="subItem.url" class="nav-item nav-link">{{ subItem.title }}</router-link>
+		</v-list-item-title>
+              </v-list-item-content>
+
+              <v-list-item-action>
+                <v-icon>{{ subItem.action }}</v-icon>
+              </v-list-item-action>
+            </v-list-item>
+          </v-list-group>
+        </v-list>
+
+
       <div />
     </v-list>
   </v-navigation-drawer>
@@ -204,7 +239,20 @@
               //{ title: 'Reports', url: '/manager/reports' }
             ]
           }
-        ]
+        ],
+	driveritems: [
+	    {
+            action: 'local_activity',
+            title: 'Main',
+            active: true,
+            items: [
+              { title: 'Overview', url: '/driver/dashboard' },
+            ]
+          },
+	],
+	isManager: false,
+	isDriver: false,
+	isAdmin: false
     }),
   created() {
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
@@ -212,6 +260,8 @@
 	this.isAdmin = true;
     }else if(currentUser.data.user.role_id == 2){
 	 this.isManager = true;
+    }else if(currentUser.data.user.role_id == 3){
+	this.isDriver = true;
     }else{
 	 this.isAdmin = true;
     }
@@ -232,6 +282,8 @@
            return this.items.map(this.mapItem)
         }else if(currentUser.data.user.role_id == 2){
 	  return this.manageritems.map(this.mapItem)
+        }else if(currentUser.data.user.role_id == 3){
+	return this.driveritems.map(this.mapItem)
         }else{
 	 return this.items.map(this.mapItem)
 	}

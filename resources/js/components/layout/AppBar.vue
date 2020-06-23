@@ -33,6 +33,12 @@
                 <v-list-item-title v-if="isManager">
                   <router-link to="/manager/changepassword" class="nav-item nav-link">Change Password</router-link>
                 </v-list-item-title>
+	        <v-list-item-title v-if="isDriver">
+                  <router-link to="/driver/profile" class="nav-item nav-link">Profile</router-link>
+                </v-list-item-title>
+                <v-list-item-title v-if="isDriver">
+                  <router-link to="/driver/changepassword" class="nav-item nav-link">Change Password</router-link>
+                </v-list-item-title>
                 <v-list-item-title v-if="isAdmin">
                   <router-link to="/admin/admin/add" class="nav-item nav-link">Add Admin</router-link>
                 </v-list-item-title>
@@ -106,8 +112,9 @@ export default {
 
   data: () => ({
     profileImage: "",
-    isAdmin: false,
-    isManager: false
+	isManager: false,
+	isDriver: false,
+	isAdmin: false
   }),
 
   created() {
@@ -116,6 +123,8 @@ export default {
 	this.isAdmin = true;
     }else if(currentUser.data.user.role_id == 2){
 	 this.isManager = true;
+    }else if(currentUser.data.user.role_id == 3){
+         this.isDriver = true;
     }else{
 	 this.isAdmin = true;
     }
