@@ -32,7 +32,6 @@
                 :value="timeSlot.id"
                 :id="timeSlot.id"><label v-bind:for="timeSlot.id">{{timeSlot.slot_start+'-'+timeSlot.slot_end}}</label>
               </span>
-              <!-- <v-checkbox v-model="addForm.slot_time" :value="timeSlot.id" class="mx-2" :label="timeSlot.slot_start+'-'+timeSlot.slot_end"></v-checkbox> -->
               </template>
 	          </v-col>
             <v-col cols="12" md="12">

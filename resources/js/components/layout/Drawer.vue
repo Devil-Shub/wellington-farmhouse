@@ -28,9 +28,43 @@
     >
       <div />
 
-     <v-list>
+     <v-list v-if="isAdmin">
           <v-list-group
             v-for="item in items"
+            :key="item.title"
+            v-model="item.active"
+            :prepend-icon="item.action"
+            no-action
+          >
+            <template v-slot:activator>
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title>{{ item.title }}</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </template>
+
+            <v-list-item
+              v-for="subItem in item.items"
+              :key="subItem.title"
+              @click=""
+            >
+              <v-list-item-content>
+                <v-list-item-title>
+		<router-link :to="subItem.url" class="nav-item nav-link">{{ subItem.title }}</router-link>
+		</v-list-item-title>
+              </v-list-item-content>
+
+              <v-list-item-action>
+                <v-icon>{{ subItem.action }}</v-icon>
+              </v-list-item-action>
+            </v-list-item>
+          </v-list-group>
+        </v-list>
+
+     <v-list v-if="isManager">
+          <v-list-group
+            v-for="item in manageritems"
             :key="item.title"
             v-model="item.active"
             :prepend-icon="item.action"
@@ -125,9 +159,63 @@
               { title: 'Reports', url: '/admin/reports' }
             ]
           }
+        ],
+	 manageritems: [
+          {
+            action: 'local_activity',
+            title: 'Main',
+            active: true,
+            items: [
+              { title: 'Overview', url: '/manager/dashboard' },
+             // { title: 'Jobs', url: '/manager/jobs'  },
+              //{ title: 'Dispatches', url: '/manager/dispatches'  },
+              //{ title: 'Services', url: '/manager/services'  }
+            ]
+          },
+          {
+            action: 'local_activity',
+            title: 'Customer',
+            items: [
+              //{ title: 'Customer', url: '/manager/customer'  },
+              //{ title: 'Customer Compnay', url: '/manager/company'  }
+            ]
+          },
+          {
+            action: 'local_activity',
+            title: 'Employee',
+            items: [
+              //{ title: 'Managers', url: '/manager/manager' },
+	      //{ title: 'Drivers', url: '/manager/truckdrivers' }
+            ]
+          },
+          {
+            action: 'local_activity',
+            title: 'Fleet',
+            items: [
+             // { title: 'Truck', url: '/manager/trucks' },
+	      //{ title: 'SkidSteer', url: '/manager/skidsteers' }
+            ]
+          },
+          {
+            action: 'local_activity',
+            title: 'Accounts',
+            items: [
+              //{ title: 'Accountings',url: '/manager/accounting' },
+              //{ title: 'Reports', url: '/manager/reports' }
+            ]
+          }
         ]
     }),
-
+  created() {
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    if(currentUser.data.user.role_id == 1){
+	this.isAdmin = true;
+    }else if(currentUser.data.user.role_id == 2){
+	 this.isManager = true;
+    }else{
+	 this.isAdmin = true;
+    }
+  },
     computed: {
       ...mapState(['barColor', 'barImage']),
       drawer: {
@@ -139,7 +227,14 @@
         },
       },
       computedItems () {
-        return this.items.map(this.mapItem)
+        const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+	if(currentUser.data.user.role_id == 1){
+           return this.items.map(this.mapItem)
+        }else if(currentUser.data.user.role_id == 2){
+	  return this.manageritems.map(this.mapItem)
+        }else{
+	 return this.items.map(this.mapItem)
+	}
       },
       profile () {
         return {
