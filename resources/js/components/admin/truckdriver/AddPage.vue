@@ -202,6 +202,7 @@ export default {
       date: "",
       user_image: "",
       setDate:new Date().toISOString().substr(0, 10),
+      role: 1,
       addForm: {
         driver_name: "",
         email: "",
@@ -286,7 +287,12 @@ this.avatar = '/images/avatar.png';
 		    position: 'top-right'
 		  });
 	       //redirect to login
+               const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+              if(currentUser.data.user.role_id == 1){
 	       router.push("/admin/truckdrivers");
+              }else{
+		router.push("/manager/truckdrivers");
+	      }
 	      } else {
 		  this.$toast.open({
 		    message: response.message,

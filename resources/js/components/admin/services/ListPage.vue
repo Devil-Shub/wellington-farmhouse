@@ -76,6 +76,7 @@
 <script>
 import { required } from "vuelidate/lib/validators";
 import { serviceService } from "../../../_services/service.service";
+import { authenticationService } from "../../../_services/authentication.service";
 import {
   UserIcon,
   EditIcon,

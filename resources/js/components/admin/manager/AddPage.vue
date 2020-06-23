@@ -305,7 +305,12 @@ export default {
               position: "top-right"
             });
             //redirect to login
-            router.push("/admin/manager");
+             const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+              if(currentUser.data.user.role_id == 1){
+	       router.push("/admin/manager");
+              }else{
+		router.push("/manager/manager");
+	      }
           } else {
             this.$toast.open({
               message: response.message,

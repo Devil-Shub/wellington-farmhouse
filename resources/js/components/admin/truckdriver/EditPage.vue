@@ -358,7 +358,12 @@ export default {
                 position: "top-right"
               });
               //redirect to login
-              router.push("/admin/truckdrivers");
+               const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+              if(currentUser.data.user.role_id == 1){
+	       router.push("/admin/truckdrivers");
+              }else{
+		router.push("/manager/truckdrivers");
+	      }
             } else {
               this.$toast.open({
                 message: response.message,

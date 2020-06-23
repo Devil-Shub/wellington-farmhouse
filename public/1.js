@@ -190,7 +190,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           title: 'Customer',
           url: '/admin/customer'
         }, {
-          title: 'Customer Compnay',
+          title: 'Hauler',
           url: '/admin/company'
         }]
       }, {
@@ -233,20 +233,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           url: '/manager/dashboard'
         } // { title: 'Jobs', url: '/manager/jobs'  },
         //{ title: 'Dispatches', url: '/manager/dispatches'  },
-        //{ title: 'Services', url: '/manager/services'  }
+        // { title: 'Services', url: '/manager/services'  }
         ]
       }, {
         action: 'local_activity',
         title: 'Customer',
-        items: [//{ title: 'Customer', url: '/manager/customer'  },
-          //{ title: 'Customer Compnay', url: '/manager/company'  }
+        items: [// { title: 'Customer', url: '/manager/customer'  },
+          // { title: 'Hauler', url: '/manager/company'  }
         ]
       }, {
         action: 'local_activity',
         title: 'Employee',
-        items: [//{ title: 'Managers', url: '/manager/manager' },
-          //{ title: 'Drivers', url: '/manager/truckdrivers' }
-        ]
+        items: [{
+          title: 'Managers',
+          url: '/manager/manager'
+        }, {
+          title: 'Drivers',
+          url: '/manager/truckdrivers'
+        }]
       }, {
         action: 'local_activity',
         title: 'Fleet',

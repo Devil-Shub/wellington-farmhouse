@@ -4,7 +4,10 @@
       <v-row>
 <h4 class="main-title">Driver list</h4>
         <div class="add-icon">
-          <router-link to="/admin/truckdriver/add" class="nav-item nav-link">
+          <router-link v-if="isAdmin" to="/admin/truckdriver/add" class="nav-item nav-link">
+            <plus-circle-icon size="1.5x" class="custom-class"></plus-circle-icon>
+          </router-link>
+          <router-link v-if="!isAdmin" to="/manager/truckdriver/add" class="nav-item nav-link">
             <plus-circle-icon size="1.5x" class="custom-class"></plus-circle-icon>
           </router-link>
         </div>
@@ -78,11 +81,16 @@
                     >
                       <user-icon size="1.5x" class="custom-class"></user-icon>
                     </router-link> -->
-                    <router-link
+                    <router-link v-if="isAdmin"
                       :to="'/admin/truckdriver/edit/' + item.user.id"
                       class="nav-item nav-link"
                     >
-                      <!-- <edit-icon size="1.5x" class="custom-class"></edit-icon> -->
+                      <span class="custom-action-btn">Edit</span>
+                    </router-link>
+                    <router-link v-if="!isAdmin"
+                      :to="'/manager/truckdriver/edit/' + item.user.id"
+                      class="nav-item nav-link"
+                    >
                       <span class="custom-action-btn">Edit</span>
                     </router-link>
                     <v-btn color="blue darken-1" text @click="Delete(item.user.id)">
@@ -103,6 +111,7 @@
 <script>
 import { required } from "vuelidate/lib/validators";
 import { driverService } from "../../../_services/driver.service";
+import { authenticationService } from "../../../_services/authentication.service";
 import {
   UserIcon,
   EditIcon,
@@ -121,10 +130,17 @@ export default {
     return {
       dialog: false,
       on: false,
-      drivers: []
+      drivers: [],
+      isAdmin: true,
     };
   },
   mounted() {
+    const currentUser = authenticationService.currentUserValue;
+    if(currentUser.data.user.role_id == 1){
+    this.isAdmin = true;
+    }else{
+    this.isAdmin = false;
+    }
     this.getResults();
   },
   methods: {
@@ -155,7 +171,7 @@ export default {
             this.getResults();
             //redirect to login
             this.dialog = false;
-            //               router.push("/admin/service");
+            //router.push("/admin/service");
           } else {
             this.dialog = false;
             this.$toast.open({

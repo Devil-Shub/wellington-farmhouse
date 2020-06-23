@@ -167,7 +167,7 @@
             title: 'Customer',
             items: [
               { title: 'Customer', url: '/admin/customer'  },
-              { title: 'Customer Compnay', url: '/admin/company'  }
+              { title: 'Hauler', url: '/admin/company'  }
             ]
           },
           {
@@ -202,32 +202,32 @@
             active: true,
             items: [
               { title: 'Overview', url: '/manager/dashboard' },
-             // { title: 'Jobs', url: '/manager/jobs'  },
-              //{ title: 'Dispatches', url: '/manager/dispatches'  },
-              //{ title: 'Services', url: '/manager/services'  }
+            // { title: 'Jobs', url: '/manager/jobs'  },
+             //{ title: 'Dispatches', url: '/manager/dispatches'  },
+            // { title: 'Services', url: '/manager/services'  }
             ]
           },
           {
             action: 'local_activity',
             title: 'Customer',
             items: [
-              //{ title: 'Customer', url: '/manager/customer'  },
-              //{ title: 'Customer Compnay', url: '/manager/company'  }
+             // { title: 'Customer', url: '/manager/customer'  },
+             // { title: 'Hauler', url: '/manager/company'  }
             ]
           },
           {
             action: 'local_activity',
             title: 'Employee',
             items: [
-              //{ title: 'Managers', url: '/manager/manager' },
-	      //{ title: 'Drivers', url: '/manager/truckdrivers' }
+             { title: 'Managers', url: '/manager/manager' },
+	      { title: 'Drivers', url: '/manager/truckdrivers' }
             ]
           },
           {
             action: 'local_activity',
             title: 'Fleet',
             items: [
-             // { title: 'Truck', url: '/manager/trucks' },
+            // { title: 'Truck', url: '/manager/trucks' },
 	      //{ title: 'SkidSteer', url: '/manager/skidsteers' }
             ]
           },
