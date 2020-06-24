@@ -106,6 +106,7 @@ import { required } from "vuelidate/lib/validators";
 import { serviceService } from "../../../_services/service.service";
 import { router } from "../../../_helpers/router";
 import { environment } from "../../../config/test.env";
+import { authenticationService } from "../../../_services/authentication.service";
 
 export default {
   components: {
@@ -281,7 +282,12 @@ export default {
               position: "top-right"
             });
             //redirect to login
+	    const currentUser = authenticationService.currentUserValue;
+	    if(currentUser.data.user.role_id == 1){
             router.push("/admin/services");
+	    }else{
+            router.push("/manager/services");
+	    }
           } else {
             this.$toast.open({
               message: response.message,

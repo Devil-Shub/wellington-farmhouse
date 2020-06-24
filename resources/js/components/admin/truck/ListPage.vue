@@ -4,7 +4,8 @@
       <v-row>
 <h4 class="main-title">Truck List</h4>
         <div class="add-icon">
-          <router-link to="/admin/truck/add" class="nav-item nav-link"> <plus-circle-icon size="1.5x" class="custom-class"></plus-circle-icon></router-link>
+          <router-link v-if="isAdmin" to="/admin/truck/add" class="nav-item nav-link"> <plus-circle-icon size="1.5x" class="custom-class"></plus-circle-icon></router-link>
+          <router-link v-if="!isAdmin" to="/manager/truck/add" class="nav-item nav-link"> <plus-circle-icon size="1.5x" class="custom-class"></plus-circle-icon></router-link>
         </div>
       <v-col
           cols="12"
@@ -26,18 +27,27 @@
       </thead>
       <tbody>
         <tr v-for="item in trucks" :key="item.name">
-	<td><router-link :to="'/admin/truck/view/' + item.id" class="nav-item nav-link">{{item.company_name}}</router-link></td>
+	<td>
+	<router-link v-if="isAdmin" :to="'/admin/truck/view/' + item.id" class="nav-item nav-link">{{item.company_name}}</router-link>
+<router-link v-if="!isAdmin" :to="'/manager/truck/view/' + item.id" class="nav-item nav-link">{{item.company_name}}</router-link>
+	</td>
 	<td>{{item.truck_number}}</td>
 	<td>{{item.chaase_number}}</td>
 	<td>{{item.killometer}}</td>
-        <td> <router-link :to="'/admin/truck/service/' + item.id" class="nav-item nav-link">View Service</router-link></td>
-        <td><router-link :to="'/admin/truck/docview/' + item.id" class="nav-item nav-link">View Documents</router-link></td>
+        <td> <router-link v-if="isAdmin" :to="'/admin/truck/service/' + item.id" class="nav-item nav-link">View Service</router-link>
+	<router-link v-if="!isAdmin" :to="'/manager/truck/service/' + item.id" class="nav-item nav-link">View Service</router-link>	
+	</td>
+        <td><router-link v-if="isAdmin" :to="'/admin/truck/docview/' + item.id" class="nav-item nav-link">View Documents</router-link>
+	<router-link v-if="!isAdmin" :to="'/manager/truck/docview/' + item.id" class="nav-item nav-link">View Documents</router-link>	
+	</td>
 	<td v-if="item.status == 1">Available</td>
 	<td v-if="item.status == 0">Unavailable</td>
           <td class="action-col"> 
             
-            <router-link :to="'/admin/truck/edit/' + item.id" class="nav-item nav-link">
-              <!--<edit-icon size="1.5x" class="custom-class"></edit-icon> -->
+            <router-link v-if="isAdmin" :to="'/admin/truck/edit/' + item.id" class="nav-item nav-link">
+              <span class="custom-action-btn">Edit</span>
+            </router-link>
+            <router-link v-if="!isAdmin" :to="'/manager/truck/edit/' + item.id" class="nav-item nav-link">
               <span class="custom-action-btn">Edit</span>
             </router-link>
             <v-btn color="blue darken-1" text @click="Delete(item.id)">
@@ -62,6 +72,7 @@
  import { truckService } from "../../../_services/truck.service";
  import { UserIcon, EditIcon, TrashIcon, PlusCircleIcon } from 'vue-feather-icons'
  import { router } from "../../../_helpers/router";
+import { authenticationService } from "../../../_services/authentication.service";
   export default {
       components: {
         UserIcon,
@@ -72,9 +83,16 @@
           dialog: false,
           on: false,
           trucks: [],
+          isAdmin: true,
       }
     },
     mounted() {
+    const currentUser = authenticationService.currentUserValue;
+    if(currentUser.data.user.role_id == 1){
+    this.isAdmin = true;
+    }else{
+    this.isAdmin = false;
+    }
     this.getResults();
    },
  

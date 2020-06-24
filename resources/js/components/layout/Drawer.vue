@@ -202,17 +202,17 @@
             active: true,
             items: [
               { title: 'Overview', url: '/manager/dashboard' },
-            // { title: 'Jobs', url: '/manager/jobs'  },
-             //{ title: 'Dispatches', url: '/manager/dispatches'  },
-            // { title: 'Services', url: '/manager/services'  }
+               { title: 'Jobs', url: '/manager/jobs'  },
+               { title: 'Dispatches', url: '/manager/dispatches'  },
+            { title: 'Services', url: '/manager/services'  }
             ]
           },
           {
             action: 'local_activity',
             title: 'Customer',
             items: [
-             // { title: 'Customer', url: '/manager/customer'  },
-             // { title: 'Hauler', url: '/manager/company'  }
+              { title: 'Customer', url: '/manager/customer'  },
+              { title: 'Hauler', url: '/manager/company'  }
             ]
           },
           {
@@ -227,16 +227,16 @@
             action: 'local_activity',
             title: 'Fleet',
             items: [
-            // { title: 'Truck', url: '/manager/trucks' },
-	      //{ title: 'SkidSteer', url: '/manager/skidsteers' }
+            { title: 'Truck', url: '/manager/trucks' },
+	     { title: 'SkidSteer', url: '/manager/skidsteers' }
             ]
           },
           {
             action: 'local_activity',
             title: 'Accounts',
             items: [
-              //{ title: 'Accountings',url: '/manager/accounting' },
-              //{ title: 'Reports', url: '/manager/reports' }
+              { title: 'Accountings',url: '/manager/accounting' },
+              { title: 'Reports', url: '/manager/reports' }
             ]
           }
         ],

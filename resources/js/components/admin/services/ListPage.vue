@@ -4,7 +4,10 @@
       <v-row>
         <h4 class="main-title">Services List</h4>
         <div class="add-icon">
-          <router-link to="/admin/service/add" class="nav-item nav-link">
+          <router-link v-if="isAdmin" to="/admin/service/add" class="nav-item nav-link">
+            <plus-circle-icon size="1.5x" class="custom-class"></plus-circle-icon>
+          </router-link>
+          <router-link v-if="!isAdmin" to="/manager/service/add" class="nav-item nav-link">
             <plus-circle-icon size="1.5x" class="custom-class"></plus-circle-icon>
           </router-link>
         </div>
@@ -51,11 +54,10 @@
                   </td>
                   <td>{{ item.description }}</td>
                   <td class="action-col">
-                    <!-- <router-link :to="'/admin/service/view/' + item.id" class="nav-item nav-link">
-                      <user-icon size="1.5x" class="custom-class"></user-icon>
-                    </router-link>-->
-                    <router-link :to="'/admin/service/edit/' + item.id" class="nav-item nav-link">
-                      <!-- <edit-icon size="1.5x" class="custom-class"></edit-icon> -->
+                    <router-link v-if="isAdmin" :to="'/admin/service/edit/' + item.id" class="nav-item nav-link">
+                      <span class="custom-action-btn">Edit</span>
+                    </router-link>
+                    <router-link v-if="!isAdmin" :to="'/manager/service/edit/' + item.id" class="nav-item nav-link">
                       <span class="custom-action-btn">Edit</span>
                     </router-link>
                     <v-btn color="blue darken-1" text @click="Delete(item.id)">
@@ -95,10 +97,17 @@ export default {
     return {
       dialog: false,
       on: false,
-      services: []
+      services: [],
+      isAdmin: true,
     };
   },
   mounted() {
+    const currentUser = authenticationService.currentUserValue;
+    if(currentUser.data.user.role_id == 1){
+    this.isAdmin = true;
+    }else{
+    this.isAdmin = false;
+    }
     this.getResults();
   },
 

@@ -13,6 +13,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _config_test_env__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../config/test.env */ "./resources/js/config/test.env.js");
 /* harmony import */ var vue_feather_icons__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-feather-icons */ "./node_modules/vue-feather-icons/dist/vue-feather-icons.es.js");
 /* harmony import */ var _services_accounting_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../_services/accounting.service */ "./resources/js/_services/accounting.service.js");
+/* harmony import */ var _services_authentication_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../_services/authentication.service */ "./resources/js/_services/authentication.service.js");
 //
 //
 //
@@ -59,6 +60,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+
 
 
 
@@ -69,10 +75,19 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      paymentJobs: ''
+      paymentJobs: '',
+      isAdmin: true
     };
   },
   mounted: function mounted() {
+    var currentUser = _services_authentication_service__WEBPACK_IMPORTED_MODULE_4__["authenticationService"].currentUserValue;
+
+    if (currentUser.data.user.role_id == 1) {
+      this.isAdmin = true;
+    } else {
+      this.isAdmin = false;
+    }
+
     this.invoiceList();
   },
   methods: {
@@ -173,24 +188,47 @@ var render = function() {
                       _c(
                         "td",
                         [
-                          _c(
-                            "router-link",
-                            {
-                              staticClass: "nav-item nav-link",
-                              attrs: {
-                                to:
-                                  "/admin/customer/details/" +
-                                  payment.customer.id
-                              }
-                            },
-                            [
-                              _vm._v(
-                                "\n                     " +
-                                  _vm._s(payment.customer.first_name) +
-                                  "\n                    "
+                          _vm.isAdmin
+                            ? _c(
+                                "router-link",
+                                {
+                                  staticClass: "nav-item nav-link",
+                                  attrs: {
+                                    to:
+                                      "/admin/customer/details/" +
+                                      payment.customer.id
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                     " +
+                                      _vm._s(payment.customer.first_name) +
+                                      "\n                    "
+                                  )
+                                ]
                               )
-                            ]
-                          )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          !_vm.isAdmin
+                            ? _c(
+                                "router-link",
+                                {
+                                  staticClass: "nav-item nav-link",
+                                  attrs: {
+                                    to:
+                                      "/manager/customer/details/" +
+                                      payment.customer.id
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                     " +
+                                      _vm._s(payment.customer.first_name) +
+                                      "\n                    "
+                                  )
+                                ]
+                              )
+                            : _vm._e()
                         ],
                         1
                       ),

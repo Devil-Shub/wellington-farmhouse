@@ -177,13 +177,11 @@
 		<div class="v-messages__wrapper"><div class="v-messages__message">Document upload is required</div></div>
 		</div>
                   </div>
-                </v-col>
-
-
 <div class="" style="height: 200px; min-width: 200px; width: 200px;">
                     <img style="width:100%" v-if="addForm.document" :src="'/../'+addForm.document" alt="John">
                         
              </div>
+                </v-col>
 
               </v-col>
 

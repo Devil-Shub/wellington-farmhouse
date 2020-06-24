@@ -42,7 +42,9 @@ Time Taken<br><template>3</template>
 </td>
 <td>3000 dummy</td>
 <td><template v-if="job.payment_status">Paid</template> <template v-if="!job.payment_status">Unpaid</template></td>
-<td> <router-link :to="'/admin/jobs/chat/' + job.id" class="nav-item nav-link">View chat</router-link></td>
+<td> <router-link :to="'/admin/jobs/chat/' + job.id" class="nav-item nav-link">View chat</router-link>
+<router-link v-if="!isAdmin" :to="'/manager/jobs/chat/' + job.id" class="nav-item nav-link">View chat</router-link>
+</td>
                 </tr>
 </tbody>
     </table>
@@ -56,6 +58,7 @@ import { router } from "../../../../_helpers/router";
 import { jobService } from "../../../../_services/job.service";
 import { environment } from "../../../../config/test.env";
 import { PlusCircleIcon } from "vue-feather-icons";
+import { authenticationService } from "../../../../_services/authentication.service";
 export default {
   components: {
     PlusCircleIcon
@@ -63,12 +66,19 @@ export default {
   data() {
     return {
       alljobs:'',
+      isAdmin: true,
     };
   },
   created() {
   
   },
    mounted() {
+    const currentUser = authenticationService.currentUserValue;
+    if(currentUser.data.user.role_id == 1){
+    this.isAdmin = true;
+    }else{
+    this.isAdmin = false;
+    }
     this.getResults();
    },
     methods: {

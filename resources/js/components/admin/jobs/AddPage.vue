@@ -176,6 +176,7 @@ import { required } from "vuelidate/lib/validators";
 import { router } from "../../../_helpers/router";
 import { jobService } from "../../../_services/job.service";
 import { environment } from "../../../config/test.env";
+import { authenticationService } from "../../../_services/authentication.service";
 export default {
   components: {
   },
@@ -251,7 +252,6 @@ export default {
         //handle response
         if (response.status) {
           this.customerName = response.data;
-         console.log(this.customerName)
         } else {
           this.$toast.open({
             message: response.message,
@@ -350,7 +350,12 @@ export default {
                position: 'top-right'
              });
           //redirect to login
-          router.push("/admin/jobs");
+            const currentUser = authenticationService.currentUserValue;
+	    if(currentUser.data.user.role_id == 1){
+	     router.push("/admin/jobs");
+	    }else{
+	     router.push("/manager/jobs");
+	    }
          } else {
              this.$toast.open({
                message: response.message,

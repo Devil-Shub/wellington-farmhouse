@@ -3,7 +3,10 @@
     <v-container fluid>
       <v-row>
         <div class="add-icon">
-          <router-link to="/admin/customer/add" class="nav-item nav-link">
+          <router-link v-if="isAdmin" to="/admin/customer/add" class="nav-item nav-link">
+            <plus-circle-icon size="1.5x" class="custom-class"></plus-circle-icon>
+          </router-link>
+          <router-link v-if="!isAdmin" to="/manager/customer/add" class="nav-item nav-link">
             <plus-circle-icon size="1.5x" class="custom-class"></plus-circle-icon>
           </router-link>
         </div>
@@ -19,7 +22,8 @@
                 <tr class="multi-customers" v-for="customer in customers" :key="customer.name">
                   <td class="single-customer">
                   <span>
-                   <router-link :to="'/admin/customer/details/' + customer.id" class="nav-item nav-link">{{ customer.prefix }}               	{{ customer.first_name }} {{ customer.last_name }}</router-link>
+                   <router-link v-if="isAdmin" :to="'/admin/customer/details/' + customer.id" class="nav-item nav-link">{{ customer.prefix }} {{ customer.first_name }} {{ customer.last_name }}</router-link>
+                   <router-link v-if="!isAdmin" :to="'/manager/customer/details/' + customer.id" class="nav-item nav-link">{{ customer.prefix }} {{ customer.first_name }} {{ customer.last_name }}</router-link>
                    </span> 
                     <v-data-table
                       :headers="headers"
@@ -32,7 +36,8 @@
                         <td class="text-xs-right">
 		         <template v-slot:item.id="{ item }">
 		            <span class="custom-action-btn"> 
-				<router-link :to="'/admin/customer/farms/' +item.id">{{ props.item.first_name }}</router-link>
+				<router-link v-if="isAdmin" :to="'/admin/customer/farms/' +item.id">{{ props.item.first_name }}</router-link>
+                              <router-link v-if="!isAdmin" :to="'/manager/customer/farms/' +item.id">{{ props.item.first_name }}</router-link>
 			    </span>
 		          </template>
                         </td>
@@ -60,6 +65,7 @@
 <script>
 import { required } from "vuelidate/lib/validators";
 import { companyService } from "../../../_services/company.service";
+import { authenticationService } from "../../../_services/authentication.service";
 import {
   UserIcon,
   EditIcon,
@@ -73,7 +79,7 @@ export default {
     UserIcon,
     EditIcon,
     TrashIcon,
-    PlusCircleIcon
+    PlusCircleIcon,
   },
   data() {
     return {
@@ -97,11 +103,18 @@ export default {
         { text: "Last Services", value: "" }
       ],
       items: [],
-      customers: []
+      customers: [],
+      isAdmin: true,
     };
   },
   getList() {},
   mounted() {
+    const currentUser = authenticationService.currentUserValue;
+    if(currentUser.data.user.role_id == 1){
+    this.isAdmin = true;
+    }else{
+    this.isAdmin = false;
+    }
     this.getResults();
   },
   methods: {

@@ -24,15 +24,27 @@
                 <tbody>
                     <tr v-for="invoice in invoiceJobs">
                         <td>{{invoice.updated_at | formatDate}}</td>
-                        <td><router-link :to="'/admin/customer/details/'+invoice.customer.id" class="nav-item nav-link">
+                        <td><router-link v-if="isAdmin" :to="'/admin/customer/details/'+invoice.customer.id" class="nav-item nav-link">
                      {{invoice.customer.first_name}}
-                    </router-link></td>
-                        <td><router-link :to="'/admin/jobs'" class="nav-item nav-link">
+                    </router-link>
+                     <router-link v-if="!isAdmin" :to="'/manager/customer/details/'+invoice.customer.id" class="nav-item nav-link">
+                     {{invoice.customer.first_name}}
+                    </router-link>
+			</td>
+                        <td><router-link v-if="isAdmin" :to="'/admin/jobs'" class="nav-item nav-link">
                       {{invoice.id}}
-                    </router-link></td>
-                       <td><router-link :to="'/admin/service/edit/'+invoice.service.id" class="nav-item nav-link">
+                    </router-link>
+	<router-link v-if="!isAdmin" :to="'/manager/jobs'" class="nav-item nav-link">
+                      {{invoice.id}}
+                    </router-link>
+			</td>
+                       <td><router-link v-if="isAdmin" :to="'/admin/service/edit/'+invoice.service.id" class="nav-item nav-link">
                       {{invoice.service.service_name}}
-                    </router-link></td>
+                    </router-link>
+<router-link v-if="!isAdmin" :to="'/manager/service/edit/'+invoice.service.id" class="nav-item nav-link">
+                      {{invoice.service.service_name}}
+                    </router-link>
+		</td>
                         <td>${{invoice.job_amount}}</td>
                         <td>
 			    <template v-if="!invoice.quick_book">Not Sync</template>
@@ -53,6 +65,7 @@ import { router } from "../../../../_helpers/router";
 import { environment } from "../../../../config/test.env";
 import { PlusCircleIcon } from "vue-feather-icons";
 import { accountingService } from "../../../../_services/accounting.service";
+import { authenticationService } from "../../../../_services/authentication.service";
 export default {
   components: {
     PlusCircleIcon
@@ -60,9 +73,16 @@ export default {
   data() {
     return {
       invoiceJobs:'',
+      isAdmin: true,
   };
   },
   mounted: function() {
+    const currentUser = authenticationService.currentUserValue;
+    if(currentUser.data.user.role_id == 1){
+    this.isAdmin = true;
+    }else{
+    this.isAdmin = false;
+    }
     this.invoiceList();
   },
   methods: {

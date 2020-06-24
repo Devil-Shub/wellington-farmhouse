@@ -184,6 +184,7 @@ export const router = new Router({
         { path: 'jobs/add', component: JobsAddPage, name: 'manager_JobsAdd', meta: { requiresAuth: [Role.Admin_Manager] } },
         { path: 'jobs/chat/:id', component: JobsChatPage, name: 'manager_JobsChat', meta: { requiresAuth: [Role.Admin_Manager] } },
         { path: 'jobs/chat', component: ChatPage, name: 'manager_Chat', meta: { requiresAuth: [Role.Admin_Manager] } },
+
 	{ path: 'truckdrivers', component: TruckDriverListPage, name: 'MTruckdrivers', meta: { requiresAuth: [Role.Admin_Manager] } },
         { path: 'truckdriver/add', component: TruckDriverAddPage, name: 'MTruckdriverAdd', meta: { requiresAuth: [Role.Admin_Manager] } },
         { path: 'truckdriver/edit/:id', component: TruckDriverEditPage, name: 'MTruckdriverEdit', meta: { requiresAuth: [Role.Admin_Manager] } },
@@ -193,6 +194,45 @@ export const router = new Router({
         { path: 'manager/add', component: AddPage, name: 'MAdd', meta: { requiresAuth: [Role.Admin_Manager] } },
         { path: 'manager/edit/:id', component: EditPage, name: 'MEdit', meta: { requiresAuth: [Role.Admin_Manager] } },
         { path: 'manager/view/:id', component: ViewPage, name: 'MView', meta: { requiresAuth: [Role.Admin_Manager] } },
+
+        { path: 'skidsteers', component: SkidsteerListPage, name: 'MSkidsteers', meta: { requiresAuth: [Role.Admin_Manager] } },
+        { path: 'skidsteer/add', component: SkidsteerAddPage, name: 'MSkidsteerAdd', meta: { requiresAuth: [Role.Admin_Manager] } },
+        { path: 'skidsteer/edit/:id', component: SkidsteerEditPage, name: 'MSkidsteerEdit', meta: { requiresAuth: [Role.Admin_Manager] } },
+        { path: 'skidsteer/view/:id', component: SkidsteerViewPage, name: 'MSkidsteerView', meta: { requiresAuth: [Role.Admin_Manager] } },
+        { path: 'skidsteer/docview/:id', component: SkidsteerDocViewPage, name: 'MSkidsteerDocView', meta: { requiresAuth: [Role.Admin_Manager] } },
+        { path: 'Skidsteer/service/:id', component: SkidsteerViewServicePage, name: 'MSkidsteerViewService', meta: { requiresAuth: [Role.Admin_Manager] } },
+        { path: 'Skidsteer/addservice/:id', component: SkidsteerAddServicePage, name: 'MSkidsteerAddService', meta: { requiresAuth: [Role.Admin_Manager] } },
+
+        { path: 'trucks', component: TruckListPage, name: 'MTrucks', meta: { requiresAuth: [Role.Admin_Manager] } },
+        { path: 'truck/add', component: TruckAddPage, name: 'MTruckAdd', meta: { requiresAuth: [Role.Admin_Manager] } },
+        { path: 'truck/edit/:id', component: TruckEditPage, name: 'MTruckEdit', meta: { requiresAuth: [Role.Admin_Manager] } },
+        { path: 'truck/view/:id', component: TruckViewPage, name: 'MTruckView', meta: { requiresAuth: [Role.Admin_Manager] } },
+        { path: 'truck/docview/:id', component: TruckDocViewPage, name: 'MTruckDocView', meta: { requiresAuth: [Role.Admin_Manager] } },
+        { path: 'truck/service/:id', component: TruckViewServicePage, name: 'MTruckViewService', meta: { requiresAuth: [Role.Admin_Manager] } },
+        { path: 'truck/addservice/:id', component: TruckAddServicePage, name: 'MTruckAddService', meta: { requiresAuth: [Role.Admin_Manager] } },
+        { path: 'truck/editservice/:id', component: TruckEditServicePage, name: 'MTruckEditService', meta: { requiresAuth: [Role.Admin_Manager] } },
+        { path: 'truck/addinsurance/:id', component: TruckInsuranceServicePage, name: 'MTruckAddInsurance', meta: { requiresAuth: [Role.Admin_Manager] } },
+        { path: 'truck/editinsurance/:id', component: TruckInsuranceEditServicePage, name: 'MTruckEditInsurance', meta: { requiresAuth: [Role.Admin_Manager] } },
+
+        { path: 'services', component: SerivcesListPage, name: 'MServices', meta: { requiresAuth: [Role.Admin_Manager] } },
+        { path: 'service/add', component: SerivcesAddPage, name: 'MServiceAdd', meta: { requiresAuth: [Role.Admin_Manager] } },
+        { path: 'service/edit/:id', component: SerivcesEditPage, name: 'MServiceEdit', meta: { requiresAuth: [Role.Admin_Manager] } },
+        { path: 'service/view/:id', component: SerivcesViewPage, name: 'MServiceView', meta: { requiresAuth: [Role.Admin_Manager] } },
+
+
+        { path: 'customer', component: CustomerListPage, name: 'MCustomer', meta: { requiresAuth: [Role.Admin_Manager] } },
+        { path: 'customer/add', component: CustomerAddPage, name: 'mCustomerAdd', meta: { requiresAuth: [Role.Admin_Manager] } },
+        { path: 'customer/details/:id', component: CustomerDetails, name: 'MCustomerDetail', meta: { requiresAuth: [Role.Admin_Manager] } },
+        { path: 'customer/farms/:id', component: CustomerDetails, name: 'MCustomerfarms', meta: { requiresAuth: [Role.Admin_Manager] } },
+
+        { path: 'company', component: CompanyListPage, name: 'MCompany', meta: { requiresAuth: [Role.Admin_Manager] } },
+        { path: 'company/add', component: CompanyAddPage, name: 'MCompanyAdd', meta: { requiresAuth: [Role.Admin_Manager] } },
+        { path: 'company/details/:id', component: CompanyDetails, name: 'MCompanyDetail', meta: { requiresAuth: [Role.Admin_Manager] } },
+	
+        { path: 'dispatches', component: DispatchesViewPage, name: 'MDispatches', meta: { requiresAuth: [Role.Admin_Manager] } },
+        { path: 'accounting/details/:id', component: AccountingViewPage, name: 'MAccounting', meta: { requiresAuth: [Role.Admin_Manager] } },
+        { path: 'accounting', component: AccountingDetails, name: 'MAccountingDetails', meta: { requiresAuth: [Role.Admin_Manager] } },
+        { path: 'reports', component: ReportsViewPage, name: 'MReports', meta: { requiresAuth: [Role.Admin_Manager] } },
 
       ]
     },

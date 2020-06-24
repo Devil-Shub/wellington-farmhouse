@@ -163,6 +163,7 @@ import { required } from "vuelidate/lib/validators";
 import { truckService } from "../../../_services/truck.service";
 import { router } from "../../../_helpers/router";
 import { environment } from "../../../config/test.env";
+import { authenticationService } from "../../../_services/authentication.service";
 export default {
   components: {
     //      'image-component': imageVUE,
@@ -254,7 +255,13 @@ export default {
                position: 'top-right'
              });
           //redirect to login
-          router.push("/admin/trucks");
+	    const currentUser = authenticationService.currentUserValue;
+	    if(currentUser.data.user.role_id == 1){
+          	router.push("/admin/trucks");
+	    }else{
+          	router.push("/manager/trucks");
+	    }
+
          } else {
              this.$toast.open({
                message: response.message,

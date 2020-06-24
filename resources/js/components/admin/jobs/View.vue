@@ -3,7 +3,10 @@
     <v-container fluid>
       <v-row>
    <div class="add-icon">
-      <router-link to="/admin/jobs/add" class="nav-item nav-link">
+      <router-link v-if="isAdmin" to="/admin/jobs/add" class="nav-item nav-link">
+        <plus-circle-icon size="1.5x" class="custom-class"></plus-circle-icon>
+      </router-link>
+      <router-link v-if="!isAdmin" to="/manager/jobs/add" class="nav-item nav-link">
         <plus-circle-icon size="1.5x" class="custom-class"></plus-circle-icon>
       </router-link>
     </div>
@@ -40,6 +43,7 @@
 
 <script>
 import { PlusCircleIcon } from "vue-feather-icons";
+import { authenticationService } from "../../../_services/authentication.service";
   export default {
 
     components: {
@@ -55,8 +59,17 @@ PlusCircleIcon,
      data() {
     	return {
 	tab: null,
+        isAdmin: true,
         items: ["All Jobs", "Assigned Jobs", "Completed Jobs", "Open Jobs", "Repeating Jobs", "Unpaid Jobs"],
         }
+    },
+     mounted() {
+    const currentUser = authenticationService.currentUserValue;
+    if(currentUser.data.user.role_id == 1){
+    this.isAdmin = true;
+    }else{
+    this.isAdmin = false;
     }
+   },
   }
 </script>

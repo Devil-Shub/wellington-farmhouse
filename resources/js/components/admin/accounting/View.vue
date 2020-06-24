@@ -10,7 +10,10 @@
           <div class="v-avatar v-list-item__avatar account-left" style="height: 110px; width: 110px;"><img :src="avatar" alt="account"></div>
           <div class="account-right">
             <h3 v-if="driverDetails.user.first_name">
-	     <router-link :to="'/admin/truckdriver/edit/'+driverDetails.user.id">
+	     <router-link v-if="isAdmin" :to="'/admin/truckdriver/edit/'+driverDetails.user.id">
+              {{driverDetails.user.first_name}}
+            </router-link>
+	     <router-link v-if="!isAdmin" :to="'/manager/truckdriver/edit/'+driverDetails.user.id">
               {{driverDetails.user.first_name}}
             </router-link>
 	    </h3>
@@ -74,6 +77,7 @@ import { router } from "../../../_helpers/router";
 import { environment } from "../../../config/test.env";
 import { PlusCircleIcon } from "vue-feather-icons";
 import { accountingService } from "../../../_services/accounting.service";
+import { authenticationService } from "../../../_services/authentication.service";
 export default {
   components: {
     PlusCircleIcon
@@ -83,11 +87,18 @@ export default {
       salary:'',
       total: '',
       driverDetails: '',
+      isAdmin: true,
       imgUrl: environment.imgUrl,
       avatar:''
   };
   },
   mounted: function() {
+    const currentUser = authenticationService.currentUserValue;
+    if(currentUser.data.user.role_id == 1){
+    this.isAdmin = true;
+    }else{
+    this.isAdmin = false;
+    }
     this.invoiceList();
   },
   methods: {

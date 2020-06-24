@@ -292,6 +292,7 @@ import { companyService } from "../../../_services/company.service";
 import { router } from "../../../_helpers/router";
 import { environment } from "../../../config/test.env";
 import VueGoogleAutocomplete from "vue-google-autocomplete";
+import { authenticationService } from "../../../_services/authentication.service";
 export default {
   components: {
     VueGoogleAutocomplete
@@ -431,7 +432,12 @@ export default {
               position: "top-right"
             });
             //redirect to login
-            router.push("/admin/company");
+            const currentUser = authenticationService.currentUserValue;
+	    if(currentUser.data.user.role_id == 1){
+	     router.push("/admin/company");
+	    }else{
+	     router.push("/manager/company");
+	    }
           } else {
             this.$toast.open({
               message: response.message,

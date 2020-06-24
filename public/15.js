@@ -13,6 +13,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_job_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../_services/job.service */ "./resources/js/_services/job.service.js");
 /* harmony import */ var _config_test_env__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../config/test.env */ "./resources/js/config/test.env.js");
 /* harmony import */ var vue_feather_icons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-feather-icons */ "./node_modules/vue-feather-icons/dist/vue-feather-icons.es.js");
+/* harmony import */ var _services_authentication_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../_services/authentication.service */ "./resources/js/_services/authentication.service.js");
 //
 //
 //
@@ -66,6 +67,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+
 
 
 
@@ -76,11 +81,20 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      alljobs: ''
+      alljobs: '',
+      isAdmin: true
     };
   },
   created: function created() {},
   mounted: function mounted() {
+    var currentUser = _services_authentication_service__WEBPACK_IMPORTED_MODULE_4__["authenticationService"].currentUserValue;
+
+    if (currentUser.data.user.role_id == 1) {
+      this.isAdmin = true;
+    } else {
+      this.isAdmin = false;
+    }
+
     this.getResults();
   },
   methods: {
@@ -273,14 +287,27 @@ var render = function() {
                       _c(
                         "td",
                         [
-                          _c(
-                            "router-link",
-                            {
-                              staticClass: "nav-item nav-link",
-                              attrs: { to: "/admin/jobs/chat/" + job.id }
-                            },
-                            [_vm._v("View chat")]
-                          )
+                          _vm.isAdmin
+                            ? _c(
+                                "router-link",
+                                {
+                                  staticClass: "nav-item nav-link",
+                                  attrs: { to: "/admin/jobs/chat/" + job.id }
+                                },
+                                [_vm._v("View chat")]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          !_vm.isAdmin
+                            ? _c(
+                                "router-link",
+                                {
+                                  staticClass: "nav-item nav-link",
+                                  attrs: { to: "/manager/jobs/chat/" + job.id }
+                                },
+                                [_vm._v("View chat")]
+                              )
+                            : _vm._e()
                         ],
                         1
                       )
