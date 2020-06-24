@@ -24,9 +24,13 @@
                 <tbody>
                   <tr v-for="payment in paymentJobs">
                         <td>{{payment.jobpayment.updated_at | formatDate}}</td>
-                        <td><router-link :to="'/admin/customer/details/'+payment.customer.id" class="nav-item nav-link">
+                        <td><router-link v-if="isAdmin" :to="'/admin/customer/details/'+payment.customer.id" class="nav-item nav-link">
                      {{payment.customer.first_name}}
-                    </router-link></td>
+                    </router-link>
+<router-link v-if="!isAdmin" :to="'/manager/customer/details/'+payment.customer.id" class="nav-item nav-link">
+                     {{payment.customer.first_name}}
+                    </router-link>
+                         </td>
                         <td>{{payment.invoice_number}}</td>
                        <td>${{payment.job_amount}}</td>
                         <td>{{payment.jobpayment.payment_mode}}</td>
@@ -49,6 +53,7 @@ import { router } from "../../../../_helpers/router";
 import { environment } from "../../../../config/test.env";
 import { PlusCircleIcon } from "vue-feather-icons";
 import { accountingService } from "../../../../_services/accounting.service";
+import { authenticationService } from "../../../../_services/authentication.service";
 export default {
   components: {
     PlusCircleIcon
@@ -56,9 +61,16 @@ export default {
   data() {
     return {
       paymentJobs:'',
+      isAdmin: true,
   };
   },
   mounted: function() {
+    const currentUser = authenticationService.currentUserValue;
+    if(currentUser.data.user.role_id == 1){
+    this.isAdmin = true;
+    }else{
+    this.isAdmin = false;
+    }
     this.invoiceList();
   },
   methods: {

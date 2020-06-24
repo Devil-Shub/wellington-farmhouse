@@ -25,7 +25,9 @@
                     <tr v-for="(salary, index ) in salaryJobs">
                         <td>{{index+1}}</td>
                         <td>
-<router-link :to="'/admin/truckdriver/edit/' + salary.user.id" class="nav-item nav-link">{{salary.user.first_name}}</router-link></td>
+<router-link v-if="isAdmin" :to="'/admin/truckdriver/edit/' + salary.user.id" class="nav-item nav-link">{{salary.user.first_name}}</router-link>
+<router-link v-if="!isAdmin" :to="'/manager/truckdriver/edit/' + salary.user.id" class="nav-item nav-link">{{salary.user.first_name}}</router-link>
+</td>
                         <td>{{salary.user.phone}}</td>
                         <td>
 			<template v-if="salary.user.driver.driver_type">Truck Driver</template>
@@ -34,7 +36,9 @@
                         <td>{{salary.month}}</td>
                         <td>{{salary.year}}</td>
                         <td>${{salary.salary}}</td>
-                        <td><router-link :to="'/admin/accounting/details/' + salary.user.id" class="nav-item nav-link">View Details</router-link></td>
+                        <td><router-link v-if="isAdmin" :to="'/admin/accounting/details/' + salary.user.id" class="nav-item nav-link">View Details</router-link>
+<router-link v-if="!isAdmin" :to="'/manager/accounting/details/' + salary.user.id" class="nav-item nav-link">View Details</router-link>
+</td>
                     </tr>
                 </tbody>
             </table>
@@ -48,6 +52,7 @@ import { router } from "../../../../_helpers/router";
 import { environment } from "../../../../config/test.env";
 import { PlusCircleIcon } from "vue-feather-icons";
 import { accountingService } from "../../../../_services/accounting.service";
+import { authenticationService } from "../../../../_services/authentication.service";
 export default {
   components: {
     PlusCircleIcon
@@ -55,9 +60,16 @@ export default {
   data() {
     return {
       salaryJobs:'',
+      isAdmin: true,
   };
   },
   mounted: function() {
+    const currentUser = authenticationService.currentUserValue;
+    if(currentUser.data.user.role_id == 1){
+    this.isAdmin = true;
+    }else{
+    this.isAdmin = false;
+    }
     this.invoiceList();
   },
   methods: {

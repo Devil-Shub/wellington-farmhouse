@@ -4,7 +4,10 @@
       <v-row>
 <h2>Skidsteer List</h2>
         <div class="add-icon">
-          <router-link to="/admin/skidsteer/add" class="nav-item nav-link">
+          <router-link v-if="isAdmin" to="/admin/skidsteer/add" class="nav-item nav-link">
+            <plus-circle-icon size="1.5x" class="custom-class"></plus-circle-icon>
+          </router-link>
+          <router-link v-if="!isAdmin" to="/manager/skidsteer/add" class="nav-item nav-link">
             <plus-circle-icon size="1.5x" class="custom-class"></plus-circle-icon>
           </router-link>
         </div>
@@ -26,17 +29,24 @@
               </thead>
               <tbody>
                 <tr v-for="item in trucks" :key="item.name">
-                  <td><router-link :to="'/admin/skidsteer/view/' + item.id" class="nav-item nav-link">{{item.company_name}}</router-link></td>
+                  <td>
+<router-link v-if="isAdmin" :to="'/admin/skidsteer/view/' + item.id" class="nav-item nav-link">{{item.company_name}}</router-link>
+<router-link v-if="!isAdmin" :to="'/manager/skidsteer/view/' + item.id" class="nav-item nav-link">{{item.company_name}}</router-link>
+</td>
                   <td>{{item.truck_number}}</td>
                   <td>{{item.chaase_number}}</td>
                   <td>{{item.killometer}}</td>
                   <td>
-                    <router-link
+                    <router-link v-if="isAdmin"
                       :to="'/admin/skidsteer/service/' + item.id"
                       class="nav-item nav-link"
                     >View Service</router-link>
+                    <router-link v-if="!isAdmin"
+                      :to="'/manager/skidsteer/service/' + item.id"
+                      class="nav-item nav-link"
+                    >View Service</router-link>
                   </td>
-                  <td><router-link :to="'/admin/skidsteer/docview/' + item.id" class="nav-item nav-link">View Documents</router-link></td>
+                  <td><router-link v-if="!isAdmin" :to="'/manager/skidsteer/docview/' + item.id" class="nav-item nav-link">View Documents</router-link></td>
                   <td>
                     <span v-if="item.status == 1">
                       Available
@@ -46,8 +56,10 @@
                     </span>
                   </td>
                   <td class="action-col">
-                    <router-link :to="'/admin/skidsteer/edit/' + item.id" class="nav-item nav-link">
-                      <!-- <edit-icon size="1.5x" class="custom-class"></edit-icon> -->
+                    <router-link v-if="isAdmin" :to="'/admin/skidsteer/edit/' + item.id" class="nav-item nav-link">
+                      <span class="custom-action-btn">Edit</span>
+                    </router-link>
+                    <router-link v-if="!isAdmin" :to="'/manager/skidsteer/edit/' + item.id" class="nav-item nav-link">
                       <span class="custom-action-btn">Edit</span>
                     </router-link>
                     <v-btn color="blue darken-1" text @click="Delete(item.id)">
@@ -68,6 +80,7 @@
 <script>
 import { required } from "vuelidate/lib/validators";
 import { skidsteerService } from "../../../_services/skidsteer.service";
+import { authenticationService } from "../../../_services/authentication.service";
 import {
   UserIcon,
   EditIcon,
@@ -86,10 +99,17 @@ export default {
     return {
       dialog: false,
       on: false,
-      trucks: []
+      trucks: [],
+      isAdmin: true,
     };
   },
   mounted() {
+    const currentUser = authenticationService.currentUserValue;
+    if(currentUser.data.user.role_id == 1){
+    this.isAdmin = true;
+    }else{
+    this.isAdmin = false;
+    }
     this.getResults();
   },
 

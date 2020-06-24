@@ -101,6 +101,7 @@ import { required } from "vuelidate/lib/validators";
 import { truckService } from "../../../_services/truck.service";
 import { router } from "../../../_helpers/router";
 import { environment } from "../../../config/test.env";
+import { authenticationService } from "../../../_services/authentication.service";
 export default {
   data() {
     return {
@@ -193,8 +194,14 @@ export default {
                position: 'top-right'
              });
           //redirect to login
-	const url = "/admin/truck/service/"+this.addForm.vehicle_id;
-          router.push(url);
+	   const currentUser = authenticationService.currentUserValue;
+	    if(currentUser.data.user.role_id == 1){
+	          const url = "/admin/truck/service/"+this.addForm.vehicle_id;
+                 router.push(url);
+	    }else{
+	         const url = "/manager/truck/service/"+this.addForm.vehicle_id;
+                 router.push(url);
+	    }
          } else {
              this.$toast.open({
                message: response.message,

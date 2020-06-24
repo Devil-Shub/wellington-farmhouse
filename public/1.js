@@ -231,16 +231,26 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         items: [{
           title: 'Overview',
           url: '/manager/dashboard'
-        } // { title: 'Jobs', url: '/manager/jobs'  },
-        //{ title: 'Dispatches', url: '/manager/dispatches'  },
-        // { title: 'Services', url: '/manager/services'  }
-        ]
+        }, {
+          title: 'Jobs',
+          url: '/manager/jobs'
+        }, {
+          title: 'Dispatches',
+          url: '/manager/dispatches'
+        }, {
+          title: 'Services',
+          url: '/manager/services'
+        }]
       }, {
         action: 'local_activity',
         title: 'Customer',
-        items: [// { title: 'Customer', url: '/manager/customer'  },
-          // { title: 'Hauler', url: '/manager/company'  }
-        ]
+        items: [{
+          title: 'Customer',
+          url: '/manager/customer'
+        }, {
+          title: 'Hauler',
+          url: '/manager/company'
+        }]
       }, {
         action: 'local_activity',
         title: 'Employee',
@@ -254,15 +264,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }, {
         action: 'local_activity',
         title: 'Fleet',
-        items: [// { title: 'Truck', url: '/manager/trucks' },
-          //{ title: 'SkidSteer', url: '/manager/skidsteers' }
-        ]
+        items: [{
+          title: 'Truck',
+          url: '/manager/trucks'
+        }, {
+          title: 'SkidSteer',
+          url: '/manager/skidsteers'
+        }]
       }, {
         action: 'local_activity',
         title: 'Accounts',
-        items: [//{ title: 'Accountings',url: '/manager/accounting' },
-          //{ title: 'Reports', url: '/manager/reports' }
-        ]
+        items: [{
+          title: 'Accountings',
+          url: '/manager/accounting'
+        }, {
+          title: 'Reports',
+          url: '/manager/reports'
+        }]
       }],
       driveritems: [{
         action: 'local_activity',

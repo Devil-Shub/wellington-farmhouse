@@ -94,7 +94,7 @@
 <script>
 import { required } from "vuelidate/lib/validators";
 import { managerService } from "../../../_services/manager.service";
-import { authenticationService } from "../../../_services/authentication.service"
+import { authenticationService } from "../../../_services/authentication.service";
 import {
   UserIcon,
   EditIcon,
@@ -126,7 +126,6 @@ export default {
     }else{
     this.isAdmin = false;
     }
-console.log(this.isAdmin)
     this.getResults();
   },
   methods: {
