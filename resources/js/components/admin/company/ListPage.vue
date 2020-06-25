@@ -3,7 +3,7 @@
     <v-container fluid>
       <v-row>
         <div class="add-icon">
-          <router-link v-if="isAdmin" to="/admin/customer/add" class="nav-item nav-link">
+          <router-link v-if="isAdmin" to="/admin/hauler/add" class="nav-item nav-link">
             <plus-circle-icon size="1.5x" class="custom-class"></plus-circle-icon>
           </router-link>
           <router-link v-if="!isAdmin" to="/manager/customer/add" class="nav-item nav-link">
@@ -122,7 +122,7 @@ export default {
       return tags.map(tag => tag.name);
     },
     getResults() {
-      companyService.listCustomer().then(response => {
+      companyService.listHauler().then(response => {
         //handle response
         if (response.status) {
           this.customers = response.data;

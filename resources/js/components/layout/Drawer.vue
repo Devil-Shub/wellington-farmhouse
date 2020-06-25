@@ -167,7 +167,7 @@
             title: 'Customer',
             items: [
               { title: 'Customer', url: '/admin/customer'  },
-              { title: 'Hauler', url: '/admin/company'  }
+              { title: 'Hauler', url: '/admin/hauler'  }
             ]
           },
           {

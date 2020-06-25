@@ -13,7 +13,7 @@ export const companyService = {
   add,
   edit,
   getCustomer,
-  listCustomer,
+  listHauler,
   getCustomerCard,
   getCustomerRecord,
   apiUrl: environment.apiUrl,
@@ -27,7 +27,7 @@ export const companyService = {
 function add(data) {
 
   return fetch(
-    this.apiUrl+`admin/create-customer`,
+    this.apiUrl+`admin/create-hauler`,
     requestOptions.post(data)
   )
     .then(handleResponse)
@@ -52,9 +52,9 @@ function edit(data) {
 }
 
 
-function listCustomer(){
+function listHauler(){
       return fetch(
-    this.apiUrl+`admin/list-customer`,
+    this.apiUrl+`admin/list-hauler`,
     requestOptions.get()
   )
     .then(handleResponse)
