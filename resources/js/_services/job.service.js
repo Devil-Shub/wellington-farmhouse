@@ -113,10 +113,10 @@ function getFrams(data) {
     });
 }
 
-function joblist() {
+function joblist(data) {
   return fetch(
     this.apiUrl+`admin/job-list`,
-    requestOptions.get()
+    requestOptions.post(data)
   )
     .then(handleResponse)
     .then(user => {

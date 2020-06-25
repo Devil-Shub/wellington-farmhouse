@@ -96,12 +96,12 @@ Route::group(['prefix' => 'auth'], function () {
             Route::get('job-farms/{customer_id}/{manager_id}', 'JobsController@getJobFrams');
             Route::get('get-service-slots/{service_id}', 'JobsController@getServiceSlots');
             Route::post('create-job', 'JobsController@createJob');
-            Route::get('job-list', 'JobsController@getAllJob');
-            Route::get('assigned-job-list', 'JobsController@getAssignedJob');
-            Route::get('complete-job-list', 'JobsController@getCompleteJob');
-            Route::get('open-job-list', 'JobsController@getOpenJob');
-            Route::get('repeating-job-list', 'JobsController@getRepeatingJob');
-            Route::get('unpaid-job-list', 'JobsController@getUnpaidJob');
+            Route::post('job-list', 'JobsController@getAllJob');
+           // Route::get('assigned-job-list', 'JobsController@getAssignedJob');
+           // Route::get('complete-job-list', 'JobsController@getCompleteJob');
+          //  Route::get('open-job-list', 'JobsController@getOpenJob');
+           // Route::get('repeating-job-list', 'JobsController@getRepeatingJob');
+            //Route::get('unpaid-job-list', 'JobsController@getUnpaidJob');
             Route::get('single-job/{job_id}', 'JobsController@getSingleJob');
             Route::get('dispatch-job-list', 'JobsController@getDispatchJob');
 
