@@ -46,7 +46,10 @@
                       class="nav-item nav-link"
                     >View Service</router-link>
                   </td>
-                  <td><router-link v-if="!isAdmin" :to="'/manager/skidsteer/docview/' + item.id" class="nav-item nav-link">View Documents</router-link></td>
+                  <td>
+<router-link v-if="isAdmin" :to="'/manager/skidsteer/docview/' + item.id" class="nav-item nav-link">View Documents</router-link>
+<router-link v-if="!isAdmin" :to="'/manager/skidsteer/docview/' + item.id" class="nav-item nav-link">View Documents</router-link>
+</td>
                   <td>
                     <span v-if="item.status == 1">
                       Available

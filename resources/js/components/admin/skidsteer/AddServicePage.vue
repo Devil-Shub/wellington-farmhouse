@@ -62,6 +62,7 @@
                     v-bind:files="myFiles"
                     v-on:processfile="handleProcessFile1"
 		    allow-file-type-validation="true"
+		    accepted-file-types="image/jpeg, image/png, video/mp4, video/mov"
                   />
                 <div class="v-messages theme--light error--text" role="alert" v-if="docError">
 		<div class="v-messages__wrapper"><div class="v-messages__message">Service image upload is required</div></div>
