@@ -2,7 +2,7 @@
   <v-app>
     <v-container fluid>
       <v-row>
-        <h4 class="main-title">Add Hauler</h4>
+        <h4 class="main-title">Add Customer</h4>
         <v-col cols="12" md="12">
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-row>
@@ -99,6 +99,190 @@
                 </v-row>
               </v-col>
 
+              <v-col cols="12" md="12">
+                <h4 class="main-title">Farm Section</h4>
+                <v-row>
+                  <v-col cols="12" md="12">
+                    <file-pond
+                      name="uploadImage"
+                      ref="pond"
+                      label-idle="Farm Images"
+                      allow-multiple="true"
+                      v-bind:server="serverOptions"
+                      v-bind:files="myFiles"
+                      allow-file-type-validation="true"
+                      accepted-file-types="image/jpeg, image/png"
+                      v-on:processfile="handleProcessFile1"
+                    />
+                  </v-col>
+                  <v-col cols="3" md="3" class="mt-4">
+                    <v-text-field
+                      type="text"
+                      class="mt-m11"
+                      @input="onChange"
+                      v-model="search"
+                      label="Search Place"
+                      required
+                      :rules="[v => !!v || 'Place is required']"
+                    ></v-text-field>
+                    <ul v-show="isOpen" class="autocomplete-results">
+                      <li
+                        v-for="(result, i) in items"
+                        :key="i"
+                        @click="setResult(result)"
+                        class="autocomplete-result"
+                      >{{ result.place_name }}</li>
+                    </ul>
+                  </v-col>
+                  <v-col cols="3" md="3">
+                    <v-text-field
+                      v-model="addForm.farm_unit"
+                      label="Apt/Unit"
+                      required
+                      :rules="[v => !!v || 'Farm apt/unit is required']"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="3" md="3">
+                    <v-text-field
+                      v-model="addForm.farm_city"
+                      label="City"
+                      required
+                      :rules="[v => !!v || 'Farm city is required']"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="3" md="3">
+                    <v-text-field
+                      v-model="addForm.farm_province"
+                      label="Province"
+                      required
+                      :rules="[v => !!v || 'Farm province is required']"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="3" md="3">
+                    <v-text-field
+                      v-model="addForm.farm_zipcode"
+                      label="Zip Code"
+                      required
+                      :rules="[v => !!v || 'Farm zip code is required']"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="3" md="3">
+                    <v-switch v-model="addForm.farm_active" class="mx-2" label="Is Active"></v-switch>
+                  </v-col>
+                </v-row>
+              </v-col>
+              <v-col cols="12" md="12">
+                <h4 class="main-title">Manager Details</h4>
+                <v-row>
+                  <v-col cols="12" md="12">
+                    <div
+                      class="v-avatar v-list-item__avatar"
+                      style="height: 40px; min-width: 40px; width: 40px;"
+                    >
+                      <img :src="manager_img" />
+                    </div>
+                    <file-pond
+                      name="uploadImage"
+                      ref="pond"
+                      label-idle="Add Profile Pic"
+                      allow-multiple="false"
+                      v-bind:server="serverOptions"
+                      v-bind:files="myFiles"
+                      allow-file-type-validation="true"
+                      accepted-file-types="image/jpeg, image/png"
+                      v-on:processfile="handleProcessFile2"
+                    />
+                  </v-col>
+                  <v-col cols="3" md="3">
+                    <v-select
+                      v-model="addForm.manager_prefix"
+                      :items="prefixs"
+                      label="Prefix"
+                      :rules="[v => !!v || 'Prefix is required']"
+                    ></v-select>
+                  </v-col>
+                  <v-col cols="3" md="3">
+                    <v-text-field
+                      v-model="addForm.manager_name"
+                      label="Name"
+                      required
+                      :rules="[v => !!v || 'Manager name is required']"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="3" md="3">
+                    <v-text-field
+                      v-model="addForm.manager_email"
+                      :rules="emailRules"
+                      name="email"
+                      label="E-mail"
+                      required
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="3" md="3">
+                    <v-text-field
+                      v-model="addForm.manager_phone"
+                      :rules="phoneRules"
+                      label="Phone"
+                      required
+                      maxlength="10"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="3" md="3">
+                    <v-text-field
+                      v-model="addForm.manager_address"
+                      label="Address"
+                      required
+                      :rules="[v => !!v || 'address is required']"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="3" md="3">
+                    <v-text-field
+                      v-model="addForm.manager_city"
+                      label="City"
+                      required
+                      :rules="[v => !!v || 'City is required']"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="3" md="3">
+                    <v-text-field
+                      v-model="addForm.manager_province"
+                      label="State"
+                      required
+                      :rules="[v => !!v || 'Province is required']"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="3" md="3">
+                    <v-text-field
+                      v-model="addForm.manager_zipcode"
+                      :rules="[v => !!v || 'Zip code is required']"
+                      label="zipcode"
+                      required
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="3" md="3">
+                    <v-text-field
+                      v-model="addForm.manager_id_card"
+                      :rules="[v => !!v || 'Card Id number is required']"
+                      label="Id CradNo"
+                      required
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="4" md="4">
+                    <file-pond
+                      name="uploadImage"
+                      ref="pond"
+                      label-idle="Upload Id Card Image"
+                      allow-multiple="false"
+                      v-bind:server="serverOptions"
+                      v-bind:files="myFiles"
+                      allow-file-type-validation="true"
+                      accepted-file-types="image/jpeg, image/png"
+                      v-on:processfile="handleProcessFile3"
+                    />
+                  </v-col>
+                </v-row>
+              </v-col>
+
               <v-btn
                 :loading="loading"
                 :disabled="loading"
@@ -116,7 +300,7 @@
 
 <script>
 import { required } from "vuelidate/lib/validators";
-import { companyService } from "../../../_services/company.service";
+import { customerService } from "../../../_services/customer.service";
 import { router } from "../../../_helpers/router";
 import { environment } from "../../../config/test.env";
 import VueGoogleAutocomplete from "vue-google-autocomplete";
@@ -159,7 +343,28 @@ export default {
         user_image: null,
         zipcode: "",
         is_active: true,
-        customer_role: 6
+        farm_images: [],
+        latitude: "",
+        longitude: "",
+        farm_address: "",
+        farm_unit: "",
+        farm_city: "",
+        farm_province: "",
+        farm_zipcode: "",
+        farm_active: true,
+        manager_image: "",
+        manager_prefix: "",
+        manager_name: "",
+        manager_email: "",
+        manager_phone: "",
+        manager_address: "",
+        manager_city: "",
+        manager_province: "",
+        manager_zipcode: "",
+        manager_id_card: "",
+        manager_card_image: "",
+        customer_role: 4,
+        manager_role: 5
       },
       emailRules: [
         v => !!v || "E-mail is required",
@@ -253,7 +458,7 @@ export default {
       if (this.$refs.form.validate()) {
         //start loading
         this.loading = true;
-        companyService.add(this.addForm).then(response => {
+        customerService.add(this.addForm).then(response => {
           //stop loading
           this.loading = false;
           //handle response
@@ -266,9 +471,9 @@ export default {
             //redirect to login
             const currentUser = authenticationService.currentUserValue;
 	    if(currentUser.data.user.role_id == 1){
-	     router.push("/admin/hauler");
+	     router.push("/admin/customer");
 	    }else{
-	     router.push("/manager/hauler");
+	     router.push("/manager/customer");
 	    }
           } else {
             this.$toast.open({

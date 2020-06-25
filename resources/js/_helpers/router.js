@@ -32,6 +32,8 @@ import ViewPage from "../components/admin/manager/ViewPage";
 import CustomerListPage from "../components/admin/customer/ListPage";
 import CustomerAddPage from "../components/admin/customer/AddPage";
 import CustomerDetails from "../components/admin/customer/Details";
+import CustomerManagerDetails from "../components/admin/customer/AddManager";
+import CustomerFarmDetails from "../components/admin/customer/AddFarm";
 
 
 //Company listing
@@ -123,10 +125,12 @@ export const router = new Router({
         { path: 'customer/add', component: CustomerAddPage, name: 'CustomerAdd', meta: { requiresAuth: [Role.Admin] } },
         { path: 'customer/details/:id', component: CustomerDetails, name: 'CustomerDetail', meta: { requiresAuth: [Role.Admin] } },
         { path: 'customer/farms/:id', component: CustomerDetails, name: 'Customerfarms', meta: { requiresAuth: [Role.Admin] } },
+        { path: 'customer/add-manager/:customer_id', component: CustomerManagerDetails, name: 'CustomerManagerDetails', meta: { requiresAuth: [Role.Admin] } },
+        { path: 'customer/add-farm/:customer_id', component: CustomerFarmDetails, name: 'CustomerFarmDetails', meta: { requiresAuth: [Role.Admin] } },
 
-        { path: 'company', component: CompanyListPage, name: 'Company', meta: { requiresAuth: [Role.Admin] } },
-        { path: 'company/add', component: CompanyAddPage, name: 'CompanyAdd', meta: { requiresAuth: [Role.Admin] } },
-        { path: 'company/details/:id', component: CompanyDetails, name: 'CompanyDetail', meta: { requiresAuth: [Role.Admin] } },
+        { path: 'hauler', component: CompanyListPage, name: 'Company', meta: { requiresAuth: [Role.Admin] } },
+        { path: 'hauler/add', component: CompanyAddPage, name: 'CompanyAdd', meta: { requiresAuth: [Role.Admin] } },
+        { path: 'hauler/details/:id', component: CompanyDetails, name: 'CompanyDetail', meta: { requiresAuth: [Role.Admin] } },
 
         { path: 'manager', component: ListPage, name: 'Manager', meta: { requiresAuth: [Role.Admin] } },
         { path: 'manager/add', component: AddPage, name: 'Add', meta: { requiresAuth: [Role.Admin] } },
@@ -224,10 +228,12 @@ export const router = new Router({
         { path: 'customer/add', component: CustomerAddPage, name: 'mCustomerAdd', meta: { requiresAuth: [Role.Admin_Manager] } },
         { path: 'customer/details/:id', component: CustomerDetails, name: 'MCustomerDetail', meta: { requiresAuth: [Role.Admin_Manager] } },
         { path: 'customer/farms/:id', component: CustomerDetails, name: 'MCustomerfarms', meta: { requiresAuth: [Role.Admin_Manager] } },
+        { path: 'customer/add-manager/:customer_id', component: CustomerManagerDetails, name: 'MCustomerManagerDetails', meta: { requiresAuth: [Role.Admin_Manager] } },
+        { path: 'customer/add-farm/:customer_id', component: CustomerFarmDetails, name: 'MCustomerFarmDetails', meta: { requiresAuth: [Role.Admin_Manager] } },
 
-        { path: 'company', component: CompanyListPage, name: 'MCompany', meta: { requiresAuth: [Role.Admin_Manager] } },
-        { path: 'company/add', component: CompanyAddPage, name: 'MCompanyAdd', meta: { requiresAuth: [Role.Admin_Manager] } },
-        { path: 'company/details/:id', component: CompanyDetails, name: 'MCompanyDetail', meta: { requiresAuth: [Role.Admin_Manager] } },
+        { path: 'hauler', component: CompanyListPage, name: 'MCompany', meta: { requiresAuth: [Role.Admin_Manager] } },
+        { path: 'hauler/add', component: CompanyAddPage, name: 'MCompanyAdd', meta: { requiresAuth: [Role.Admin_Manager] } },
+        { path: 'hauler/details/:id', component: CompanyDetails, name: 'MCompanyDetail', meta: { requiresAuth: [Role.Admin_Manager] } },
 	
         { path: 'dispatches', component: DispatchesViewPage, name: 'MDispatches', meta: { requiresAuth: [Role.Admin_Manager] } },
         { path: 'accounting/details/:id', component: AccountingViewPage, name: 'MAccounting', meta: { requiresAuth: [Role.Admin_Manager] } },
