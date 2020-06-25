@@ -22,6 +22,7 @@ use Carbon\Carbon;
 
 class CustomerController extends Controller
 {
+
     /**
      * create customer
      */
@@ -141,6 +142,215 @@ class CustomerController extends Controller
     }
 
     /**
+     * create customer
+     */
+    public function createHauler(Request $request)
+    {
+        //validate request
+        $validator = Validator::make($request->all(), [
+            'customer_name' => 'required|string',
+            'email' => 'required|string|email|unique:users',
+            'prefix' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'The given data was invalid.',
+                'data' => $validator->errors()
+            ], 422);
+        }
+
+        try {
+
+            //use of db transactions
+            DB::beginTransaction();
+
+            //random string for new password
+            $newPassword = Str::random();
+
+            //create new user
+            $user = new User([
+                'first_name' => $request->customer_name,
+                'prefix' => $request->prefix,
+                'email' => $request->email,
+                'role_id' => $request->customer_role,
+                'phone' => $request->phone,
+                'user_image' => $request->user_image,
+                'address' => $request->address,
+                'city' => $request->city,
+                'state' => $request->province,
+                'zip_code' => $request->zipcode,
+                'is_active' => $request->is_active,
+                'is_confirmed' => 1,
+                'password' => bcrypt($newPassword)
+            ]);
+            if ($user->save()) {
+                //send email for new email and password
+                $this->_confirmPassword($user, $newPassword);
+            }
+            DB::commit();
+
+            //return success response
+            return response()->json([
+                'status' => true,
+                'message' => 'Customer created successfully.',
+                'data' => []
+            ], 200);
+        } catch (\Exception $e) {
+            //rollback transactions
+            DB::rollBack();
+            //make log of errors
+            Log::error(json_encode($e->getMessage()));
+            //return with error
+            return response()->json([
+                'status' => false,
+                'message' => 'Internal server error!',
+                'data' => []
+            ], 500);
+        }
+    }
+
+    /**
+     * create customer manager
+     */
+    public function createCustomerManager(Request $request)
+    {
+        //validate request
+        $validator = Validator::make($request->all(), [
+            'customer_name' => 'required|string',
+            'email' => 'required|string|email|unique:users',
+            'prefix' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'The given data was invalid.',
+                'data' => $validator->errors()
+            ], 422);
+        }
+
+        try {
+
+            //use of db transactions
+            DB::beginTransaction();
+
+            //random string for new password
+            $newPassword = Str::random();
+
+            $saveManger = new User([
+                'first_name' => $request->manager_name,
+                'prefix' => $request->manager_prefix,
+                'created_by' => 1234,
+                'email' => $request->manager_email,
+                'role_id' => $request->manager_role,
+                'phone' => $request->manager_phone,
+                'user_image' => $request->manager_image,
+                'address' => $request->manager_address,
+                'city' => $request->manager_city,
+                'state' => $request->manager_province,
+                'zip_code' => $request->manager_zipcode,
+                'is_active' => 1,
+                'is_confirmed' => 1,
+                'password' => bcrypt($newPassword)
+            ]);
+
+            if ($saveManger->save()) {
+                $mangerDetails = new ManagerDetail([
+                    'user_id' => $saveManger->id,
+                    'identification_number' => $request->manager_id_card,
+                    'document' => $request->manager_card_image
+                ]);
+            }
+
+            DB::commit();
+
+            //return success response
+            return response()->json([
+                'status' => true,
+                'message' => 'Customer created successfully.',
+                'data' => []
+            ], 200);
+        } catch (\Exception $e) {
+            //rollback transactions
+            DB::rollBack();
+            //make log of errors
+            Log::error(json_encode($e->getMessage()));
+            //return with error
+            return response()->json([
+                'status' => false,
+                'message' => 'Internal server error!',
+                'data' => []
+            ], 500);
+        }
+    }
+
+    /**
+     * create customer farm
+     */
+    public function createCustomerFarm(Request $request)
+    {
+        //validate request
+        $validator = Validator::make($request->all(), [
+            'customer_name' => 'required|string',
+            'email' => 'required|string|email|unique:users',
+            'prefix' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'The given data was invalid.',
+                'data' => $validator->errors()
+            ], 422);
+        }
+
+        try {
+
+            //use of db transactions
+            DB::beginTransaction();
+
+            //save customer farm details
+            $farmDetails = new CustomerFarm([
+                'customer_id' => 1234,
+                'manager_id' => 1234,
+                'farm_address' => $request->farm_address,
+                'farm_city' => $request->farm_city,
+                'farm_image' => json_encode($request->farm_images),
+                'farm_province' => $request->farm_province,
+                'farm_unit' => $request->farm_unit,
+                'farm_zipcode' => $request->farm_zipcode,
+                'farm_active' => $request->farm_active,
+                'latitude' => $request->latitude,
+                'longitude' => $request->longitude
+            ]);
+
+            $farmDetails->save();
+
+            DB::commit();
+
+            //return success response
+            return response()->json([
+                'status' => true,
+                'message' => 'Customer created successfully.',
+                'data' => []
+            ], 200);
+        } catch (\Exception $e) {
+            //rollback transactions
+            DB::rollBack();
+            //make log of errors
+            Log::error(json_encode($e->getMessage()));
+            //return with error
+            return response()->json([
+                'status' => false,
+                'message' => 'Internal server error!',
+                'data' => []
+            ], 500);
+        }
+    }
+
+    /**
      * list customer
      */
     public function listCustomer()
@@ -149,6 +359,23 @@ class CustomerController extends Controller
             $query->with("manager", "farms");
         }])
             ->whereRoleId(config('constant.roles.Customer'))->get();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Service Listing.',
+            'data' => $getCustomer
+        ], 200);
+    }
+
+    /**
+     * list hauler
+     */
+    public function listHauler()
+    {
+        $getCustomer = User::with(['customerManager' => function ($query) {
+            $query->with("manager", "farms");
+        }])
+            ->whereRoleId(config('constant.roles.Company'))->get();
 
         return response()->json([
             'status' => true,
