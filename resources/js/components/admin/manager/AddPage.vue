@@ -12,6 +12,7 @@
               >
                 <img :src="avatar" />
               </div>
+
               <v-col cols="12" md="12" class="custom-img-holder">
                 <file-pond
                   name="uploadImage"
@@ -24,6 +25,11 @@
                   accepted-file-types="image/jpeg, image/png"
                   v-on:processfile="handleProcessFile"
                 />
+                <div class="v-messages theme--light error--text" role="alert" v-if="profileImgError">
+                    <div class="v-messages__wrapper">
+                      <div class="v-messages__message">Profile image is required</div>
+                    </div>
+                  </div>
               </v-col>
               <v-col cols="6" md="6" class="pl-0 manager-cols">
                 <v-col cols="12" md="12" class="custom-col">
@@ -207,6 +213,7 @@ export default {
       valid: true,
       avatar: null,
       menu2: false,
+      profileImgError: false,
       menu1: false,
       date: "",
       date1: "",
@@ -284,18 +291,23 @@ export default {
     handleProcessFile: function(error, file) {
       this.addForm.user_image = file.serverId;
       this.avatar = "../../"+file.serverId;
+      this.profileImgError = false;
     },
     handleProcessFile1: function(error, file) {
-	this.docError = false
+	    this.docError = false
       this.addForm.document = file.serverId;
     },
     update() {
       if(this.addForm.document == ''){
-	this.docError = true
+	      this.docError = true
+       }
+
+       if(this.addForm.user_image == '' || this.addForm.user_image == null){
+	      this.profileImgError = true;
        }
       this.addForm.joining_date = this.date;
       this.addForm.releaving_date = this.date1;
-      if (this.$refs.form.validate() && (!this.docError)) {
+      if (this.$refs.form.validate() && (!this.docError && !this.profileImgError)) {
         managerService.add(this.addForm).then(response => {
           //handle response
           if (response.status) {

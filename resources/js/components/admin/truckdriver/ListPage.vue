@@ -2,7 +2,7 @@
   <v-app>
     <v-container fluid>
       <v-row>
-<h4 class="main-title">Driver list</h4>
+        <h4 class="main-title">Driver list</h4>
         <div class="add-icon">
           <router-link v-if="isAdmin" to="/admin/truckdriver/add" class="nav-item nav-link">
             <plus-circle-icon size="1.5x" class="custom-class"></plus-circle-icon>
@@ -28,7 +28,6 @@
                   <th class="text-left">Total Amount</th>
                   <th class="text-left">Active</th>
                   <th class="text-left">Action</th>
-                 
                 </tr>
               </thead>
               <tbody>
@@ -38,25 +37,29 @@
                       class="v-avatar v-list-item__avatar"
                       style="height: 40px; min-width: 40px; width: 40px;"
                     >
-                      <img v-if="item.user.user_image" :src="'../../'+item.user.user_image" alt="John" />
+                      <img
+                        v-if="item.user.user_image"
+                        :src="'../../'+item.user.user_image"
+                        alt="John"
+                      />
                       <img v-if="!item.user.user_image" src="/images/avatar.png" alt="driver" />
                     </div>
                   </td>
-                  <td> <router-link
+                  <td>
+                    <router-link
                       :to="'/admin/truckdriver/view/' + item.user.id"
                       class="nav-item nav-link"
-                    >
-                     {{ item.user.first_name }}
-                    </router-link></td>
+                    >{{ item.user.first_name }}</router-link>
+                  </td>
                   <td>{{ item.user.address }} {{ item.user.city }} {{ item.user.state }} {{ item.user.country }} {{ item.user.zip_code }}</td>
                   <td>{{ item.user.phone }}</td>
                   <td>{{ item.user.email }}</td>
                   <td>{{ item.driver_licence }}</td>
                   <td>{{ item.expiry_date | formatDateLic }}</td>
-		  <td>0</td>
+                  <td>0</td>
                   <td v-if="item.salary_type  == 0">${{ item.driver_salary }}/hr</td>
                   <td v-if="item.salary_type  == 1">${{ item.driver_salary }}/Per load</td>
-		<td>0</td>
+                  <td>0</td>
                   <td>
                     <v-chip
                       v-if="!item.user.is_active"
@@ -72,22 +75,22 @@
                     >Yes</v-chip>
                   </td>
 
-                 
-                
                   <td class="action-col">
                     <!-- <router-link
                       :to="'/admin/truckdriver/view/' + item.user.id"
                       class="nav-item nav-link"
                     >
                       <user-icon size="1.5x" class="custom-class"></user-icon>
-                    </router-link> -->
-                    <router-link v-if="isAdmin"
+                    </router-link>-->
+                    <router-link
+                      v-if="isAdmin"
                       :to="'/admin/truckdriver/edit/' + item.user.id"
                       class="nav-item nav-link"
                     >
                       <span class="custom-action-btn">Edit</span>
                     </router-link>
-                    <router-link v-if="!isAdmin"
+                    <router-link
+                      v-if="!isAdmin"
                       :to="'/manager/truckdriver/edit/' + item.user.id"
                       class="nav-item nav-link"
                     >
@@ -98,6 +101,11 @@
                       <span class="custom-action-btn">Delete</span>
                     </v-btn>
                   </td>
+                </tr>
+                <tr v-if="drivers.length == 0">
+                  <template>
+                    No driver till now.
+                  </template>
                 </tr>
               </tbody>
             </template>
@@ -131,20 +139,20 @@ export default {
       dialog: false,
       on: false,
       drivers: [],
-      isAdmin: true,
+      isAdmin: true
     };
   },
   mounted() {
     const currentUser = authenticationService.currentUserValue;
-    if(currentUser.data.user.role_id == 1){
-    this.isAdmin = true;
-    }else{
-    this.isAdmin = false;
+    if (currentUser.data.user.role_id == 1) {
+      this.isAdmin = true;
+    } else {
+      this.isAdmin = false;
     }
     this.getResults();
   },
   methods: {
-       getResults() {
+    getResults() {
       driverService.listDrivers().then(response => {
         //handle response
         if (response.status) {

@@ -84,6 +84,11 @@
                 v-on:processfile="handleProcessFile"
                 allow-file-type-validation="true"
                 accepted-file-types="image/jpeg, image/png"/>
+                <div class="v-messages theme--light error--text" role="alert" v-if="docError">
+                    <div class="v-messages__wrapper">
+                      <div class="v-messages__message">Document upload is required</div>
+                    </div>
+                  </div>
             </v-col>
 
 		<v-col cols="12" md="12">
@@ -116,6 +121,7 @@ export default {
     return {
       valid: true,
       avatar: null,
+      docError: false,
       apiUrl: environment.apiUrl,
       timeSlotErr:true,
       addForm: {
@@ -220,6 +226,7 @@ export default {
     },
     handleProcessFile: function(error, file) {
       this.addForm.service_image = file.serverId;
+      this.docError = false;
     },
     save() {
       //time slots validation
@@ -271,6 +278,10 @@ export default {
         return false;
       }
       //time slots validation
+
+      if(this.addForm.service_image == "") {
+        this.docError = true;
+      }
 
       if (this.$refs.form.validate() && (this.timeSlotErr)) {
         serviceService.add(this.addForm).then(response => {

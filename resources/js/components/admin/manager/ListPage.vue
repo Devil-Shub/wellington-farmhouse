@@ -21,67 +21,75 @@
                   <th class="text-left">Address</th>
                   <th class="text-left">Contact Number</th>
                   <th class="text-left">Email Address</th>
-		  <th class="text-left">Salary</th>
+                  <th class="text-left">Salary</th>
                   <th class="text-left">Active</th>
                   <th class="text-left">Action</th>
                 </tr>
               </thead>
               <tbody>
                 <tr v-for="item in managers" :key="item.name">
-		 <template v-if="checkuser != item.id">
-                  <td>
-                    <div
-                      class="v-avatar v-list-item__avatar"
-                      style="height: 40px; min-width: 40px; width: 40px;"
-                    >
-                      <img v-if="item.user_image" :src="'../'+item.user_image" alt="John" />
-                      <img v-if="!item.user_image" src="/images/avatar.png" alt="driver" />
-                    </div>
-                  </td>
-                  <td>
-                   <router-link :to="'/admin/manager/view/' + item.id" class="nav-item nav-link">
-                     {{ item.first_name }} {{ item.last_name }}
-                    </router-link>
-	           </td>
-                  <td>{{ item.address }} {{ item.city }} {{ item.state }} {{ item.country }} {{ item.zip_code }}</td>
-                  <td>{{ item.phone }}</td>
-                  <td>{{ item.email }}</td>
-		<td>${{ item.manager.salary }}</td>
-                   <td>
-                    <v-chip
-                      v-if="!item.is_active"
-                      class="ma-2"
-                      color="red"
-                      text-color="white"
-                    >No</v-chip>
-                    <v-chip
-                      v-if="item.is_active"
-                      class="ma-2"
-                      color="green"
-                      text-color="white"
-                    >Yes</v-chip>
-                  </td>
-                  <td class="action-col">
-                    <!-- <router-link :to="'/admin/manager/view/' + item.id" class="nav-item nav-link">
+                  <template v-if="checkuser != item.id">
+                    <td>
+                      <div
+                        class="v-avatar v-list-item__avatar"
+                        style="height: 40px; min-width: 40px; width: 40px;"
+                      >
+                        <img v-if="item.user_image" :src="'../'+item.user_image" alt="John" />
+                        <img v-if="!item.user_image" src="/images/avatar.png" alt="driver" />
+                      </div>
+                    </td>
+                    <td>
+                      <router-link
+                        :to="'/admin/manager/view/' + item.id"
+                        class="nav-item nav-link"
+                      >{{ item.first_name }} {{ item.last_name }}</router-link>
+                    </td>
+                    <td>{{ item.address }} {{ item.city }} {{ item.state }} {{ item.country }} {{ item.zip_code }}</td>
+                    <td>{{ item.phone }}</td>
+                    <td>{{ item.email }}</td>
+                    <td>${{ item.manager.salary }}</td>
+                    <td>
+                      <v-chip v-if="!item.is_active" class="ma-2" color="red" text-color="white">No</v-chip>
+                      <v-chip
+                        v-if="item.is_active"
+                        class="ma-2"
+                        color="green"
+                        text-color="white"
+                      >Yes</v-chip>
+                    </td>
+                    <td class="action-col">
+                      <!-- <router-link :to="'/admin/manager/view/' + item.id" class="nav-item nav-link">
                       <user-icon size="1.5x" class="custom-class"></user-icon>
-                    </router-link> -->
-                    <router-link v-if="isAdmin" :to="'/admin/manager/edit/' + item.id" class="nav-item nav-link">
-                      <!-- <edit-icon size="1.5x" class="custom-class"></edit-icon> -->
-                      <span class="custom-action-btn">Edit</span>
-                    </router-link>
-                    <router-link v-if="!isAdmin" :to="'/manager/manager/edit/' + item.id" class="nav-item nav-link">
-                      <!-- <edit-icon size="1.5x" class="custom-class"></edit-icon> -->
-                      <span class="custom-action-btn">Edit</span>
-                    </router-link>
-                  
-                    <v-btn color="blue darken-1" text @click="Delete(item.id)">
-                      <!-- <trash-icon size="1.5x" class="custom-class"></trash-icon> -->
-                       <span class="custom-action-btn">Delete</span>
-                    </v-btn>
-                  </td>
-	        </template>
+                      </router-link>-->
+                      <router-link
+                        v-if="isAdmin"
+                        :to="'/admin/manager/edit/' + item.id"
+                        class="nav-item nav-link"
+                      >
+                        <!-- <edit-icon size="1.5x" class="custom-class"></edit-icon> -->
+                        <span class="custom-action-btn">Edit</span>
+                      </router-link>
+                      <router-link
+                        v-if="!isAdmin"
+                        :to="'/manager/manager/edit/' + item.id"
+                        class="nav-item nav-link"
+                      >
+                        <!-- <edit-icon size="1.5x" class="custom-class"></edit-icon> -->
+                        <span class="custom-action-btn">Edit</span>
+                      </router-link>
+
+                      <v-btn color="blue darken-1" text @click="Delete(item.id)">
+                        <!-- <trash-icon size="1.5x" class="custom-class"></trash-icon> -->
+                        <span class="custom-action-btn">Delete</span>
+                      </v-btn>
+                    </td>
+                  </template>
                 </tr>
-             
+                <tr v-if="managers.length == 0">
+                  <template>
+                    No manager till now.
+                  </template>
+                </tr>
               </tbody>
             </template>
           </v-simple-table>
@@ -114,17 +122,17 @@ export default {
       dialog: false,
       on: false,
       managers: [],
-     isAdmin: true,
-     checkuser: '',
+      isAdmin: true,
+      checkuser: ""
     };
   },
   mounted() {
     const currentUser = authenticationService.currentUserValue;
     this.checkuser = currentUser.data.user.id;
-    if(currentUser.data.user.role_id == 1){
-    this.isAdmin = true;
-    }else{
-    this.isAdmin = false;
+    if (currentUser.data.user.role_id == 1) {
+      this.isAdmin = true;
+    } else {
+      this.isAdmin = false;
     }
     this.getResults();
   },
