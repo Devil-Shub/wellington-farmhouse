@@ -429,6 +429,15 @@ class VehicleController extends Controller
         }    
     }
 
+    public function getLastInsurance(Request $request){
+	$vehicleInsu = VehicleInsurance::where('vehicle_id', $request->vehicle_id)->latest()->first();
+        return response()->json([
+                'status' => true,
+                'message' => 'Vehicle service deleted successfully',
+                'data' => $vehicleInsu
+            ], 200);
+    }
+
     /**
      * delete vehicle service details
      */

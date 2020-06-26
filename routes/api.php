@@ -76,6 +76,7 @@ Route::group(['prefix' => 'auth'], function () {
             Route::get('get-service-details/{service_id}', 'VehicleController@getServiceDetails');
             Route::get('get-insurance-details/{insurance_id}', 'VehicleController@getInsuranceDetails');
             Route::post('save-service-details/{service_id}', 'VehicleController@saveServiceDetails');
+            Route::get('get-last-insurance/{vehicle_id}', 'VehicleController@getLastInsurance');
             Route::post('save-insurance-details/{insurance_id}', 'VehicleController@saveInsuranceDetails');
             Route::delete('delete-service-details/{service_id}', 'VehicleController@deleteServiceDetails');
             Route::delete('delete-insurance-details/{insurance_id}', 'VehicleController@deleteInsuranceDetails');
