@@ -21,17 +21,17 @@
                 <template v-slot:item.document="{ item }">sdsfsfdfdf</template>
                   <template v-slot:item.id="{ item }">
                      <span class="custom-action-btn"> 
-			<router-link v-if="isAdmin" :to="'/admin/truck/editservice/' +item.id">Edit</router-link>
-			<router-link v-if="!isAdmin" :to="'/manager/truck/editservice/' +item.id">Edit</router-link>
+			<router-link v-if="isAdmin" :to="'/admin/skidsteer/editservice/' +item.id">Edit</router-link>
+			<router-link v-if="!isAdmin" :to="'/manager/skidsteer/editservice/' +item.id">Edit</router-link>
 			</span>
                     <span class="custom-action-btn" @click="DeleteService(item.id)">Delete</span>
                   </template>
                 </v-data-table>
               </v-card-text>
-              <router-link v-if="isAdmin" :to="'/admin/truck/addservice/' +vehicle_id" class="nav-item nav-link">
+              <router-link v-if="isAdmin" :to="'/admin/skidsteer/addservice/' +vehicle_id" class="nav-item nav-link">
                 <v-btn color="success" class="mr-4 custom-save-btn ml-4 mt-4">Add Service</v-btn>
               </router-link>
-              <router-link v-if="!isAdmin" :to="'/manager/truck/addservice/' +vehicle_id" class="nav-item nav-link">
+              <router-link v-if="!isAdmin" :to="'/manager/skidsteer/addservice/' +vehicle_id" class="nav-item nav-link">
                 <v-btn color="success" class="mr-4 custom-save-btn ml-4 mt-4">Add Service</v-btn>
               </router-link>
             </v-card>
@@ -44,15 +44,21 @@
                   multi-sort
                   class="elevation-1"
                 >
+ <template v-slot:item.insurance_date="{ item }">
+{{item.insurance_date | formatDateLic}}
+</template>
+ <template v-slot:item.insurance_expiry="{ item }">
+{{item.insurance_expiry | formatDateLic}}
+</template>
                   <template v-slot:item.id="{ item }">
-                    <span class="custom-action-btn"> <router-link :to="'/admin/truck/editinsurance/' +item.id">
+                    <span class="custom-action-btn"> <router-link :to="'/admin/skidsteer/editinsurance/' +item.id">
                Edit
               </router-link></span>
                     <span class="custom-action-btn" @click="Delete(item.id)">Delete</span>
                   </template>
                 </v-data-table>
               </v-card-text>
-              <router-link :to="'/admin/truck/addinsurance/' +vehicle_id" class="nav-item nav-link">
+              <router-link :to="'/admin/skidsteer/addinsurance/' +vehicle_id" class="nav-item nav-link">
                 <v-btn color="success" class="mr-4 custom-save-btn ml-4 mt-4">Add Insurance</v-btn>
               </router-link>
             </v-card>

@@ -3,7 +3,7 @@
     <v-container fluid>
       <v-row>
         <v-col cols="12" md="12">
-          <h4 class="main-title mb-0">Add Truck Service</h4>
+          <h4 class="main-title mb-0">Add Skidsteer Service</h4>
         </v-col>
 
         <v-col cols="12" md="12">

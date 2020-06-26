@@ -72,7 +72,8 @@ import SkidsteerViewPage from "../components/admin/skidsteer/ViewPage";
 import SkidsteerDocViewPage from "../components/admin/skidsteer/ViewDocPage";
 import SkidsteerViewServicePage from "../components/admin/skidsteer/ViewServicePage";
 import SkidsteerAddServicePage from "../components/admin/skidsteer/AddServicePage";
-
+import skidsteerInsuranceServicePage from "../components/admin/skidsteer/InsuranceServicePage";
+import skidsteerInsuranceEditServicePage from "../components/admin/skidsteer/EditInsuranceServicePage";
 //jos
 import JobsViewPage from "../components/admin/jobs/View";
 import JobsAddPage from "../components/admin/jobs/AddPage";
@@ -159,6 +160,10 @@ export const router = new Router({
         { path: 'Skidsteer/service/:id', component: SkidsteerViewServicePage, name: 'SkidsteerViewService', meta: { requiresAuth: [Role.Admin] } },
         { path: 'Skidsteer/addservice/:id', component: SkidsteerAddServicePage, name: 'SkidsteerAddService', meta: { requiresAuth: [Role.Admin] } },
 
+    { path: 'Skidsteer/addinsurance/:id', component: skidsteerInsuranceServicePage, name: 'SkidsteerAddInsurance', meta: { requiresAuth: [Role.Admin] } },
+
+   { path: 'Skidsteer/editinsurance/:id', component: skidsteerInsuranceEditServicePage, name: 'SkidsteerEditInsurance', meta: { requiresAuth: [Role.Admin] } },
+
         { path: 'jobs', component: JobsViewPage, name: 'Jobs', meta: { requiresAuth: [Role.Admin] } },
         { path: 'jobs/add', component: JobsAddPage, name: 'JobsAdd', meta: { requiresAuth: [Role.Admin] } },
         { path: 'jobs/chat/:id', component: JobsChatPage, name: 'JobsChat', meta: { requiresAuth: [Role.Admin] } },
@@ -202,6 +207,10 @@ export const router = new Router({
         { path: 'skidsteer/docview/:id', component: SkidsteerDocViewPage, name: 'MSkidsteerDocView', meta: { requiresAuth: [Role.Admin_Manager] } },
         { path: 'Skidsteer/service/:id', component: SkidsteerViewServicePage, name: 'MSkidsteerViewService', meta: { requiresAuth: [Role.Admin_Manager] } },
         { path: 'Skidsteer/addservice/:id', component: SkidsteerAddServicePage, name: 'MSkidsteerAddService', meta: { requiresAuth: [Role.Admin_Manager] } },
+
+    { path: 'Skidsteer/addinsurance/:id', component: skidsteerInsuranceServicePage, name: 'MSkidsteerAddInsurance', meta: { requiresAuth: [Role.Admin_Manager] } },
+
+   { path: 'Skidsteer/editinsurance/:id', component: skidsteerInsuranceEditServicePage, name: 'MSkidsteerEditInsurance', meta: { requiresAuth: [Role.Admin_Manager] } },
 
         { path: 'trucks', component: TruckListPage, name: 'MTrucks', meta: { requiresAuth: [Role.Admin_Manager] } },
         { path: 'truck/add', component: TruckAddPage, name: 'MTruckAdd', meta: { requiresAuth: [Role.Admin_Manager] } },

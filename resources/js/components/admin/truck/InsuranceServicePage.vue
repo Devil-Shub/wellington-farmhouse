@@ -39,7 +39,7 @@
                       :rules="[v => !!v || 'Insurance date is required']"
                       ></v-text-field>
                     </template>
-                    <v-date-picker v-model="date" @input="menu1 = false"></v-date-picker>
+                    <v-date-picker v-model="date" @input="menu1 = false" :min="setDate"></v-date-picker>
                   </v-menu>
                 </v-col>
   <v-col cols="12" md="12">
@@ -103,7 +103,18 @@ export default {
       },
     };
   },
+  mounted() {
+  this.getResults();
+  },
   methods: {
+   getResults() {
+        this.vehicle_id = this.$route.params.id;
+        truckService.getLastInsu(this.$route.params.id).then(response => {
+        if (response.status) {
+	this.setDate = new Date(response.data.insurance_expiry).toISOString().substr(0, 10);
+       } 
+     });
+  },
     save() {
       this.addForm.vehicle_id = this.$route.params.id;
       this.addForm.insurance_date = this.date;
