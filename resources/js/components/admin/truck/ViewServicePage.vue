@@ -44,11 +44,17 @@
                   multi-sort
                   class="elevation-1"
                 >
+ <template v-slot:item.insurance_date="{ item }">
+{{item.insurance_date | formatDateLic}}
+</template>
+ <template v-slot:item.insurance_expiry="{ item }">
+{{item.insurance_expiry | formatDateLic}}
+</template>
                   <template v-slot:item.id="{ item }">
                     <span class="custom-action-btn">
- <router-link v-if="isAdmin" :to="'/admin/truck/editinsurance/' +item.id">Edit </router-link>
- <router-link v-if="!isAdmin" :to="'/manager/truck/editinsurance/' +item.id">Edit </router-link>
-</span>
+		 <router-link v-if="isAdmin" :to="'/admin/truck/editinsurance/' +item.id">Edit </router-link>
+		 <router-link v-if="!isAdmin" :to="'/manager/truck/editinsurance/' +item.id">Edit </router-link>
+		</span>
                     <span class="custom-action-btn" @click="Delete(item.id)">Delete</span>
                   </template>
                 </v-data-table>
