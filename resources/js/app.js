@@ -72,6 +72,12 @@ Vue.use(Vuetify);
 Vue.use(VueToast);
 Vue.use(VueFeatherIcon)
 
+Vue.filter('formatDateLic', function(value) {
+    if (value) {
+        return moment(String(value)).format('DD MMMM, YYYY')
+    }
+});
+
 Vue.filter('formatDate', function(value) {
     if (value) {
         return moment(String(value)).format('MM/DD/YYYY')

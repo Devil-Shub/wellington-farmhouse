@@ -191,7 +191,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           url: '/admin/customer'
         }, {
           title: 'Hauler',
-          url: '/admin/company'
+          url: '/admin/hauler'
         }]
       }, {
         action: 'local_activity',

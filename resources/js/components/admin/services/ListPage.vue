@@ -16,7 +16,7 @@
             <template v-slot:default>
               <thead>
                 <tr>
-                  <th class="text-left">Image</th>
+                  <th class="text-left">Sno</th>
                   <th class="text-left">Service Name</th>
                   <th class="text-left">Service Rate</th>
                   <th class="text-left">Price</th>
@@ -27,14 +27,9 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="item in services" :key="item.name">
+                <tr v-for="(item, index) in services" :key="item.name">
                   <td>
-                    <div
-                      class="v-avatar v-list-item__avatar"
-                      style="height: 40px; min-width: 40px; width: 40px;"
-                    >
-                      <img :src="'../../'+item.service_image" alt="John" />
-                    </div>
+                 {{index+1}}
                   </td>
                   <td>{{ item.service_name }}</td>
                   <td v-if="item.service_rate == 1">Per Load</td>
@@ -79,6 +74,7 @@
 import { required } from "vuelidate/lib/validators";
 import { serviceService } from "../../../_services/service.service";
 import { authenticationService } from "../../../_services/authentication.service";
+import { environment } from "../../../config/test.env";
 import {
   UserIcon,
   EditIcon,
@@ -97,6 +93,7 @@ export default {
     return {
       dialog: false,
       on: false,
+      baseUrl: environment.baseUrl,
       services: [],
       isAdmin: true,
     };

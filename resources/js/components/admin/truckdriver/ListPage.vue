@@ -52,11 +52,11 @@
                   <td>{{ item.user.phone }}</td>
                   <td>{{ item.user.email }}</td>
                   <td>{{ item.driver_licence }}</td>
-                  <td>{{ item.expiry_date }}</td>
-		  <td>1000</td>
+                  <td>{{ item.expiry_date | formatDateLic }}</td>
+		  <td>0</td>
                   <td v-if="item.salary_type  == 0">${{ item.driver_salary }}/hr</td>
                   <td v-if="item.salary_type  == 1">${{ item.driver_salary }}/Per load</td>
-		<td>N/A</td>
+		<td>0</td>
                   <td>
                     <v-chip
                       v-if="!item.user.is_active"
