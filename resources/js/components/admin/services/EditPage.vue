@@ -71,7 +71,7 @@
             </v-col>
 
             <v-col cols="12" md="12">
-              <v-textarea rows="1"
+              <v-textarea rows="3"
                 auto-grow
                 clearable
                 clear-icon="cancel"
