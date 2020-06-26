@@ -82,8 +82,6 @@ Route::group(['prefix' => 'auth'], function () {
 
             //customer
             Route::post('create-customer', 'CustomerController@createCustomer');
-            Route::post('create-customer-manager', 'CustomerController@createCustomerManager');
-            Route::post('create-customer-farm', 'CustomerController@createCustomerFarm');
             Route::get('list-customer', 'CustomerController@listCustomer');
             Route::get('get-customer/{customer_id}', 'CustomerController@getCustomer');
             Route::post('update-customer/{customer_id}', 'CustomerController@updateCustomer');
@@ -91,10 +89,6 @@ Route::group(['prefix' => 'auth'], function () {
             Route::get('record-list/{customer_id}', 'CustomerController@getAllRecords');
             Route::post('update-farm-manager', 'CustomerController@updateFarmManager');
             //Route::delete('delete-driver/{driver_id}', 'CustomerController@deleteDriver');
-
-            //hauler
-            Route::get('list-hauler', 'CustomerController@listHauler');
-            Route::post('create-hauler', 'CustomerController@createHauler');
 
             //jobs
             Route::get('job-customer', 'JobsController@getCustomers');
