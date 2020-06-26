@@ -11,7 +11,7 @@
                   class="v-avatar v-list-item__avatar"
                   style="height: 80px; min-width: 80px; width: 80px;"
                 >
-                  <img :src="avatar" alt="John" />
+                  <img :src="avatar" />
                 </div>
 
                 <v-col cols="12" md="12">
@@ -273,7 +273,7 @@ export default {
         if (response.data.user.user_image) {
           this.avatar = environment.imgUrl+response.data.user.user_image;
         } else {
-          this.avatar = "/images/avatar.png";
+          this.avatar = environment.imgUrl+"/images/avatar.png";
         }
         if (response.data.document) {
           this.document_img = environment.imgUrl + response.data.document;
@@ -317,11 +317,11 @@ export default {
   methods: {
     handleProcessFile: function(error, file) {
       this.addForm.user_image = file.serverId;
-	console.log(this.addForm.user_image)
+      this.avatar = environment.imgUrl+file.serverId;
     },
     handleProcessFile1: function(error, file) {
       this.addForm.document = file.serverId;
-	this.docError = false;
+	    this.docError = false;
     },
     save() {
       if(this.addForm.document == ''){

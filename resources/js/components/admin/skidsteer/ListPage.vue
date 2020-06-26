@@ -2,7 +2,7 @@
   <v-app>
     <v-container fluid>
       <v-row>
-<h2>Skidsteer List</h2>
+        <h2>Skidsteer List</h2>
         <div class="add-icon">
           <router-link v-if="isAdmin" to="/admin/skidsteer/add" class="nav-item nav-link">
             <plus-circle-icon size="1.5x" class="custom-class"></plus-circle-icon>
@@ -24,45 +24,66 @@
                   <th class="text-left">Documents</th>
                   <th class="text-left">Status</th>
                   <th class="text-left"></th>
-                  
                 </tr>
               </thead>
               <tbody>
                 <tr v-for="item in trucks" :key="item.name">
                   <td>
-<router-link v-if="isAdmin" :to="'/admin/skidsteer/view/' + item.id" class="nav-item nav-link">{{item.company_name}}</router-link>
-<router-link v-if="!isAdmin" :to="'/manager/skidsteer/view/' + item.id" class="nav-item nav-link">{{item.company_name}}</router-link>
-</td>
+                    <router-link
+                      v-if="isAdmin"
+                      :to="'/admin/skidsteer/view/' + item.id"
+                      class="nav-item nav-link"
+                    >{{item.company_name}}</router-link>
+                    <router-link
+                      v-if="!isAdmin"
+                      :to="'/manager/skidsteer/view/' + item.id"
+                      class="nav-item nav-link"
+                    >{{item.company_name}}</router-link>
+                  </td>
                   <td>{{item.truck_number}}</td>
                   <td>{{item.chaase_number}}</td>
                   <td>{{item.killometer}}</td>
                   <td>
-                    <router-link v-if="isAdmin"
+                    <router-link
+                      v-if="isAdmin"
                       :to="'/admin/skidsteer/service/' + item.id"
                       class="nav-item nav-link"
                     >View Service</router-link>
-                    <router-link v-if="!isAdmin"
+                    <router-link
+                      v-if="!isAdmin"
                       :to="'/manager/skidsteer/service/' + item.id"
                       class="nav-item nav-link"
                     >View Service</router-link>
                   </td>
                   <td>
-<router-link v-if="isAdmin" :to="'/admin/skidsteer/docview/' + item.id" class="nav-item nav-link">View Documents</router-link>
-<router-link v-if="!isAdmin" :to="'/manager/skidsteer/docview/' + item.id" class="nav-item nav-link">View Documents</router-link>
-</td>
+                    <router-link
+                      v-if="isAdmin"
+                      :to="'/admin/skidsteer/docview/' + item.id"
+                      class="nav-item nav-link"
+                    >View Documents</router-link>
+                    <router-link
+                      v-if="!isAdmin"
+                      :to="'/manager/skidsteer/docview/' + item.id"
+                      class="nav-item nav-link"
+                    >View Documents</router-link>
+                  </td>
                   <td>
-                    <span v-if="item.status == 1">
-                      Available
-                    </span>
-                    <span v-else>
-                      Unavailable
-                    </span>
+                    <span v-if="item.status == 1">Available</span>
+                    <span v-else>Unavailable</span>
                   </td>
                   <td class="action-col">
-                    <router-link v-if="isAdmin" :to="'/admin/skidsteer/edit/' + item.id" class="nav-item nav-link">
+                    <router-link
+                      v-if="isAdmin"
+                      :to="'/admin/skidsteer/edit/' + item.id"
+                      class="nav-item nav-link"
+                    >
                       <span class="custom-action-btn">Edit</span>
                     </router-link>
-                    <router-link v-if="!isAdmin" :to="'/manager/skidsteer/edit/' + item.id" class="nav-item nav-link">
+                    <router-link
+                      v-if="!isAdmin"
+                      :to="'/manager/skidsteer/edit/' + item.id"
+                      class="nav-item nav-link"
+                    >
                       <span class="custom-action-btn">Edit</span>
                     </router-link>
                     <v-btn color="blue darken-1" text @click="Delete(item.id)">
@@ -70,6 +91,11 @@
                       <span class="custom-action-btn">Delete</span>
                     </v-btn>
                   </td>
+                </tr>
+                <tr v-if="trucks.length == 0">
+                  <template>
+                    No skidsteer till now.
+                  </template>
                 </tr>
               </tbody>
             </template>
@@ -103,15 +129,15 @@ export default {
       dialog: false,
       on: false,
       trucks: [],
-      isAdmin: true,
+      isAdmin: true
     };
   },
   mounted() {
     const currentUser = authenticationService.currentUserValue;
-    if(currentUser.data.user.role_id == 1){
-    this.isAdmin = true;
-    }else{
-    this.isAdmin = false;
+    if (currentUser.data.user.role_id == 1) {
+      this.isAdmin = true;
+    } else {
+      this.isAdmin = false;
     }
     this.getResults();
   },

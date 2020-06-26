@@ -7,8 +7,12 @@
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-row>
               <v-col cols="5" md="5">
-                <div class="v-avatar v-list-item__avatar" style="height: 80px; min-width: 80px; width: 80px;" v-if="avatar">
-                  <img :src="avatar" alt="Driver Image" />
+                <div
+                  class="v-avatar v-list-item__avatar"
+                  style="height: 80px; min-width: 80px; width: 80px;"
+                  v-if="avatar"
+                >
+                  <img :src="avatar" />
                 </div>
                 <v-col cols="12" md="12">
                   <file-pond
@@ -22,6 +26,11 @@
                     accepted-file-types="image/jpeg, image/png"
                     v-on:processfile="handleProcessFile"
                   />
+                  <div class="v-messages theme--light error--text" role="alert" v-if="profileImgError">
+                    <div class="v-messages__wrapper">
+                      <div class="v-messages__message">Profile image is required</div>
+                    </div>
+                  </div>
                 </v-col>
                 <v-col cols="12" md="12">
                   <v-text-field
@@ -41,7 +50,7 @@
                     required
                   ></v-text-field>
                 </v-col>
-	    <v-col cols="12" md="12">
+                <v-col cols="12" md="12">
                   <v-text-field
                     v-model="addForm.driver_address"
                     :rules="[v => !!v || 'Address is required']"
@@ -66,7 +75,7 @@
                     required
                   ></v-text-field>
                 </v-col>
-                   <v-col cols="12" md="12">
+                <v-col cols="12" md="12">
                   <v-text-field
                     v-model="addForm.driver_zipcode"
                     :rules="[v => !!v || 'Zip code is required']"
@@ -74,31 +83,27 @@
                     required
                   ></v-text-field>
                 </v-col>
-                 <!-- <v-col cols="12" md="12">
+                <!-- <v-col cols="12" md="12">
                   <v-text-field
                     v-model="addForm.driver_country"
                     :rules="[v => !!v || 'Country is required']"
                     label="Country"
                     required
                   ></v-text-field>
-                </v-col> -->
-             
-             
+                </v-col>-->
               </v-col>
 
               <v-col cols="5" md="5">
-
-              <v-col cols="12" md="12">
+                <v-col cols="12" md="12">
                   <v-text-field
                     v-model="addForm.driver_phone"
-                     :rules="phoneRules"
+                    :rules="phoneRules"
                     label="Mobile Number"
                     required
-                    maxlength=10
-
+                    maxlength="10"
                   ></v-text-field>
                 </v-col>
-              <v-col cols="12" md="12">
+                <v-col cols="12" md="12">
                   <v-text-field
                     v-model="addForm.driver_licence"
                     :rules="[v => !!v || 'driver licence number is required']"
@@ -108,7 +113,6 @@
                 </v-col>
 
                 <v-col cols="12" md="12">
-
                   <v-menu
                     v-model="menu2"
                     :close-on-content-click="false"
@@ -155,21 +159,27 @@
                     v-bind:server="serverOptions"
                     v-bind:files="myFiles"
                     v-on:processfile="handleProcessFile1"
-		    allow-file-type-validation="true"
+                    allow-file-type-validation="true"
                     accepted-file-types="image/jpeg, image/png"
                     :rules="[v => !!v || 'Document is required']"
                   />
-                 <div class="v-messages theme--light error--text" role="alert" v-if="docError">
-		<div class="v-messages__wrapper"><div class="v-messages__message">Document upload is required</div></div>
-		</div>
+                  <div class="v-messages theme--light error--text" role="alert" v-if="docError">
+                    <div class="v-messages__wrapper">
+                      <div class="v-messages__message">Document upload is required</div>
+                    </div>
+                  </div>
                 </v-col>
 
-
-              <v-radio-group  row v-model="addForm.driver_type"  :mandatory="false" required :rules="[v => !!v || 'Truck type is required']">
-              <v-radio label="Truck" value="1" ></v-radio>
-              <v-radio label="Skidsteer" value="0"></v-radio>
-	           </v-radio-group>
-
+                <v-radio-group
+                  row
+                  v-model="addForm.driver_type"
+                  :mandatory="false"
+                  required
+                  :rules="[v => !!v || 'Truck type is required']"
+                >
+                  <v-radio label="Truck" value="1"></v-radio>
+                  <v-radio label="Skidsteer" value="0"></v-radio>
+                </v-radio-group>
               </v-col>
 
               <v-col cols="12" md="12">
@@ -197,12 +207,13 @@ export default {
     return {
       menu2: false,
       docError: false,
+      profileImgError: false,
       valid: true,
       apiUrl: environment.apiUrl,
       avatar: null,
       date: "",
       user_image: "",
-      setDate:new Date().toISOString().substr(0, 10),
+      setDate: new Date().toISOString().substr(0, 10),
       role: 1,
       addForm: {
         driver_name: "",
@@ -218,8 +229,7 @@ export default {
         driver_country: "",
         driver_zipcode: "",
         driver_phone: "",
-        driver_type:  "",
-        
+        driver_type: ""
       },
       emailRules: [
         v => !!v || "E-mail is required",
@@ -228,7 +238,7 @@ export default {
       phoneRules: [
         v => !!v || "Phone number is required",
         v => /^\d*$/.test(v) || "Enter valid number",
-	v => v.length >= 10 || "Enter valid number length"
+        v => v.length >= 10 || "Enter valid number length"
       ],
       salaryRules: [
         v => !!v || "Driver salary is required",
@@ -238,7 +248,6 @@ export default {
     };
   },
   computed: {
-
     serverOptions() {
       const currentUser = JSON.parse(localStorage.getItem("currentUser"));
       return {
@@ -262,47 +271,54 @@ export default {
     }
   },
   created() {
-   this.avatar = '/images/avatar.png';
+    this.avatar = "/images/avatar.png";
   },
   methods: {
     handleProcessFile: function(error, file) {
       this.addForm.user_image = file.serverId;
-      this.avatar = environment.baseUrl+file.serverId;       
+      this.avatar = environment.baseUrl + file.serverId;
+      this.profileImgError = false;
     },
     handleProcessFile1: function(error, file) {
       this.addForm.document = file.serverId;
-	this.docError = false;
+      this.docError = false;
     },
     save() {
-      if(this.addForm.document == ''){
-	this.docError = true;
-       }
+      if (this.addForm.document == "") {
+        this.docError = true;
+      }
+
+      //check for image upload
+      if (this.addForm.user_image == "") {
+        this.profileImgError = true;
+      }
+
       this.addForm.expiry_date = this.date;
-      if (this.$refs.form.validate() && (!this.docError)) {
-	     driverService.add(this.addForm).then(response => {
-	      //handle response
-	      if(response.status) {
-		  this.$toast.open({
-		    message: response.message,
-		    type: 'success',
-		    position: 'top-right'
-		  });
-	       //redirect to login
-               const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-              if(currentUser.data.user.role_id == 1){
-	       router.push("/admin/truckdrivers");
-              }else{
-		router.push("/manager/truckdrivers");
-	      }
-	      } else {
-		  this.$toast.open({
-		    message: response.message,
-		    type: 'error',
-		    position: 'top-right'
-		  })
-	      }
-	    });
-	}
+      if (this.$refs.form.validate() && !this.docError && !this.profileImgError) {
+        driverService.add(this.addForm).then(response => {
+          //handle response
+          if (response.status) {
+            this.$toast.open({
+              message: response.message,
+              type: "success",
+              position: "top-right"
+            });
+            //redirect to login
+            const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+            if (currentUser.data.user.role_id == 1) {
+              router.push("/admin/truckdrivers");
+            } else {
+              router.push("/manager/truckdrivers");
+            }
+          } else {
+            this.$toast.open({
+              message: response.message,
+              type: "error",
+              position: "top-right"
+            });
+          }
+        });
+      }
     }
   }
 };
