@@ -31,7 +31,7 @@
         name="uploadImage"
         ref="pond"
         label-idle="Drop files here..."
-        allow-multiple="false"
+        v-bind:allow-multiple="false"
         v-bind:server="serverOptions"
         v-bind:files="myFiles"
         accepted-file-types="image/jpeg, image/png"

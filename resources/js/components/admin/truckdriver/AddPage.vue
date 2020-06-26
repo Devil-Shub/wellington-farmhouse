@@ -2,20 +2,20 @@
   <v-app>
     <v-container fluid>
       <v-row>
-<h2>Add New Driver</h2>
+        <h2>Add New Driver</h2>
         <v-col cols="12" md="12">
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-row>
               <v-col cols="5" md="5">
                 <div class="v-avatar v-list-item__avatar" style="height: 80px; min-width: 80px; width: 80px;" v-if="avatar">
-                  <img :src="avatar" alt="John" />
+                  <img :src="avatar" alt="Driver Image" />
                 </div>
                 <v-col cols="12" md="12">
                   <file-pond
                     name="uploadImage"
                     ref="pond"
                     label-idle="Driver Image"
-                    allow-multiple="false"
+                    v-bind:allow-multiple="false"
                     v-bind:server="serverOptions"
                     v-bind:files="user_image"
                     allow-file-type-validation="true"
@@ -66,20 +66,7 @@
                     required
                   ></v-text-field>
                 </v-col>
- <v-col cols="12" md="12">
-                  <v-text-field
-                    v-model="addForm.driver_country"
-                    :rules="[v => !!v || 'Country is required']"
-                    label="Country"
-                    required
-                  ></v-text-field>
-                </v-col>
-             
-             
-              </v-col>
-
-              <v-col cols="5" md="5">
-   <v-col cols="12" md="12">
+                   <v-col cols="12" md="12">
                   <v-text-field
                     v-model="addForm.driver_zipcode"
                     :rules="[v => !!v || 'Zip code is required']"
@@ -87,6 +74,20 @@
                     required
                   ></v-text-field>
                 </v-col>
+                 <!-- <v-col cols="12" md="12">
+                  <v-text-field
+                    v-model="addForm.driver_country"
+                    :rules="[v => !!v || 'Country is required']"
+                    label="Country"
+                    required
+                  ></v-text-field>
+                </v-col> -->
+             
+             
+              </v-col>
+
+              <v-col cols="5" md="5">
+
               <v-col cols="12" md="12">
                   <v-text-field
                     v-model="addForm.driver_phone"
@@ -150,7 +151,7 @@
                     name="uploadImage"
                     ref="pond"
                     label-idle="Upload Document"
-                    allow-multiple="false"
+                    v-bind:allow-multiple="false"
                     v-bind:server="serverOptions"
                     v-bind:files="myFiles"
                     v-on:processfile="handleProcessFile1"
@@ -261,12 +262,12 @@ export default {
     }
   },
   created() {
-this.avatar = '/images/avatar.png';
+   this.avatar = '/images/avatar.png';
   },
   methods: {
     handleProcessFile: function(error, file) {
       this.addForm.user_image = file.serverId;
-      this.avatar = environment.imgUrl+file.serverId;       
+      this.avatar = environment.baseUrl+file.serverId;       
     },
     handleProcessFile1: function(error, file) {
       this.addForm.document = file.serverId;

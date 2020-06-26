@@ -81,24 +81,27 @@
                 required
               ></v-textarea>
             </v-col>
-            <v-col cols="12" md="12">
-              <div
-                class="v-avatar v-list-item__avatar"
-                style="height: 40px; min-width: 40px; width: 40px;"
-              >
-                <img :src="'../../../'+editForm.service_image" alt="John" />
-              </div>
+            <v-col cols="12" md="12" class="mb-4">
               <file-pond
                 name="uploadImage"
                 ref="pond"
                 label-idle="Drop files here..."
-                allow-multiple="false"
+                 v-bind:allow-multiple="false"
                 v-bind:server="serverOptions"
                 v-bind:files="myFiles"
                 v-on:processfile="handleProcessFile"
                 allow-file-type-validation="true"
                 accepted-file-types="image/jpeg, image/png"
               />
+	  <div
+                class="" v-if="editForm.service_image"
+                style="height: 100px; min-width: 100px; width: 100px;"
+              >
+              <button type="submit" class="close AClass" style="margin-right: 13px; margin-top: -25px; font-size: 30px;" v-if="cross" @click="Remove()">
+               <span>&times;</span>
+             </button>
+                <img width="100%" :src="baseUrl+editForm.service_image" alt="John" />
+              </div>
             </v-col>
 
 	<v-col cols="12" md="12">
@@ -131,7 +134,9 @@ export default {
       valid: true,
       avatar: null,
       apiUrl: environment.apiUrl,
+      baseUrl: environment.baseUrl,
       timeSlotErr:true,
+      cross: false,
       editForm: {
         id: "",
         service_name: "",
@@ -187,6 +192,7 @@ export default {
         this.editForm.service_image = response.data.service_image;
         this.editForm.slot_time = JSON.parse(response.data.slot_time);
         this.editForm.slot_type = JSON.parse(response.data.slot_type);
+	if(response.data.service_image){ this.cross = true;}
        if (response.data.service_rate == 1) {
           this.editForm.service_rate = "perload";
         } else {
@@ -211,6 +217,10 @@ export default {
     });
   },
   methods: {
+  Remove(){
+    this.cross=false;
+    this.editForm.service_image = '';
+  },
     getTime(choosenCheckbox) {
     this.checkedSlot.slot_type = choosenCheckbox;
 
@@ -351,3 +361,10 @@ export default {
   }
 };
 </script>
+<style>
+.AClass{
+    right:0px;
+    position: absolute;
+}
+
+</style>

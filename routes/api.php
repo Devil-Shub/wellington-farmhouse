@@ -82,8 +82,6 @@ Route::group(['prefix' => 'auth'], function () {
 
             //customer
             Route::post('create-customer', 'CustomerController@createCustomer');
-            Route::post('create-customer-manager', 'CustomerController@createCustomerManager');
-            Route::post('create-customer-farm', 'CustomerController@createCustomerFarm');
             Route::get('list-customer', 'CustomerController@listCustomer');
             Route::get('get-customer/{customer_id}', 'CustomerController@getCustomer');
             Route::post('update-customer/{customer_id}', 'CustomerController@updateCustomer');
@@ -92,22 +90,18 @@ Route::group(['prefix' => 'auth'], function () {
             Route::post('update-farm-manager', 'CustomerController@updateFarmManager');
             //Route::delete('delete-driver/{driver_id}', 'CustomerController@deleteDriver');
 
-            //hauler
-            Route::get('list-hauler', 'CustomerController@listHauler');
-            Route::post('create-hauler', 'CustomerController@createHauler');
-
             //jobs
             Route::get('job-customer', 'JobsController@getCustomers');
             Route::get('fetch-job-details/{unique_job_id}', 'JobsController@fetchJobDetails');
             Route::get('job-farms/{customer_id}/{manager_id}', 'JobsController@getJobFrams');
             Route::get('get-service-slots/{service_id}', 'JobsController@getServiceSlots');
             Route::post('create-job', 'JobsController@createJob');
-            Route::get('job-list', 'JobsController@getAllJob');
-            Route::get('assigned-job-list', 'JobsController@getAssignedJob');
-            Route::get('complete-job-list', 'JobsController@getCompleteJob');
-            Route::get('open-job-list', 'JobsController@getOpenJob');
-            Route::get('repeating-job-list', 'JobsController@getRepeatingJob');
-            Route::get('unpaid-job-list', 'JobsController@getUnpaidJob');
+            Route::post('job-list', 'JobsController@getAllJob');
+           // Route::get('assigned-job-list', 'JobsController@getAssignedJob');
+           // Route::get('complete-job-list', 'JobsController@getCompleteJob');
+          //  Route::get('open-job-list', 'JobsController@getOpenJob');
+           // Route::get('repeating-job-list', 'JobsController@getRepeatingJob');
+            //Route::get('unpaid-job-list', 'JobsController@getUnpaidJob');
             Route::get('single-job/{job_id}', 'JobsController@getSingleJob');
             Route::get('dispatch-job-list', 'JobsController@getDispatchJob');
 

@@ -172,8 +172,19 @@ class JobsController extends Controller
     /**
      * get all jobs
      */
-    public function getAllJob()
+    public function getAllJob(Request $request)
     {
+       if($request->status == 'Assigned Jobs'){
+         return $this->getAssignedJob();
+       }else if($request->status == 'Completed Jobs'){
+         return $this->getCompleteJob();
+       }else if($request->status == 'Paid'){
+           return $this->getPaidJob();
+       }else if($request->status == 'Unpaid'){
+	return $this->getUnpaidJob();
+       }else if($request->status == 'Open'){
+	return $this->getOpenJob();
+       }else{
         $getAllJobs = Job::with(
             "customer",
             "manager",
@@ -191,6 +202,7 @@ class JobsController extends Controller
             'message' => 'job Details',
             'data' => $getAllJobs
         ], 200);
+      }
     }
 
     /**
@@ -238,12 +250,19 @@ class JobsController extends Controller
             ->whereNotNull("skidsteer_id")
             ->whereNotNull("skidsteer_driver_id")
             ->get();
-
+	if($getAllJobs->count()){
         return response()->json([
             'status' => true,
             'message' => 'job Details',
             'data' => $getAllJobs
         ], 200);
+	}else{
+        return response()->json([
+            'status' => false,
+            'message' => 'No assigned jobs found.',
+            'data' => ''
+        ], 200);
+	}	
     }
 
     /**
@@ -265,11 +284,19 @@ class JobsController extends Controller
             ->whereJobStatus(config('constant.job_status.close'))
             ->get();
 
+    	if($getAllJobs->count()){
         return response()->json([
             'status' => true,
             'message' => 'job Details',
             'data' => $getAllJobs
         ], 200);
+	}else{
+        return response()->json([
+            'status' => false,
+            'message' => 'No completed jobs found.',
+            'data' => ''
+        ], 200);
+	}
     }
 
     /**
@@ -290,11 +317,19 @@ class JobsController extends Controller
         )
             ->whereJobStatus(config('constant.job_status.open'))
             ->get();
+        	if($getAllJobs->count()){
         return response()->json([
             'status' => true,
             'message' => 'job Details',
             'data' => $getAllJobs
         ], 200);
+	}else{
+        return response()->json([
+            'status' => false,
+            'message' => 'No opned job found.',
+            'data' => ''
+        ], 200);
+	}
     }
 
     /**
@@ -342,11 +377,53 @@ class JobsController extends Controller
             ->wherePaymentStatus(config('constant.payment_history.pending'))
             ->get();
 
+     	if($getAllJobs->count()){
         return response()->json([
             'status' => true,
             'message' => 'job Details',
             'data' => $getAllJobs
         ], 200);
+	}else{
+        return response()->json([
+            'status' => false,
+            'message' => 'No unpaid job found.',
+            'data' => ''
+        ], 200);
+	}
+    }
+
+    /**
+     * get paid jobs
+     */
+    public function getPaidJob()
+    {
+        $getAllJobs = Job::with(
+            "customer",
+            "manager",
+            "farm",
+            "service",
+            "timeslots",
+            "truck",
+            "skidsteer",
+            "truck_driver",
+            "skidsteer_driver"
+        )
+            ->wherePaymentStatus(config('constant.payment_history.complete'))
+            ->get();
+
+    	if($getAllJobs->count()){
+        return response()->json([
+            'status' => true,
+            'message' => 'job Details',
+            'data' => $getAllJobs
+        ], 200);
+	}else{
+        return response()->json([
+            'status' => false,
+            'message' => 'No paid jobs found.',
+            'data' => ''
+        ], 200);
+	}
     }
 
     /**

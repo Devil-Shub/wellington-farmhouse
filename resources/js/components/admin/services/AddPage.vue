@@ -63,7 +63,7 @@
             </v-col>
 
             <v-col cols="12" md="12" class="textarea-parent">
-              <v-textarea rows="1"
+              <v-textarea rows="3"
                 auto-grow
                 clearable
                 clear-icon="cancel"
@@ -78,7 +78,7 @@
                 name="uploadImage"
                 ref="pond"
                 label-idle="Drop files here..."
-                allow-multiple="false"
+                v-bind:allow-multiple="false"
                 v-bind:server="serverOptions"
                 v-bind:files="myFiles"
                 v-on:processfile="handleProcessFile"
@@ -117,7 +117,7 @@ export default {
       valid: true,
       avatar: null,
       apiUrl: environment.apiUrl,
-     timeSlotErr:true,
+      timeSlotErr:true,
       addForm: {
         service_name: "",
         price: "",

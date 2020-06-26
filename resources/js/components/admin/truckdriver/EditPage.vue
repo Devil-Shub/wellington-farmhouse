@@ -2,7 +2,7 @@
   <v-app>
     <v-container fluid>
       <v-row>
-<h2>Add New Driver</h2>
+      <h2>Edit Driver</h2>
         <v-col cols="12" md="12">
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-row>
@@ -19,7 +19,7 @@
                     name="uploadImage"
                     ref="pond"
                     label-idle="Driver Image"
-                    allow-multiple="false"
+                    v-bind:allow-multiple="false"
                     v-bind:server="serverOptions"
                     v-bind:files="user_image"
                     allow-file-type-validation="true"
@@ -70,19 +70,6 @@
                     required
                   ></v-text-field>
                 </v-col>
- <v-col cols="12" md="12">
-                  <v-text-field
-                    v-model="addForm.driver_country"
-                    :rules="[v => !!v || 'Country is required']"
-                    label="Country"
-                    required
-                  ></v-text-field>
-                </v-col>
-             
-             
-              </v-col>
-
-              <v-col cols="5" md="5">
    <v-col cols="12" md="12">
                   <v-text-field
                     v-model="addForm.driver_zipcode"
@@ -91,6 +78,12 @@
                     required
                   ></v-text-field>
                 </v-col>
+             
+             
+              </v-col>
+
+              <v-col cols="5" md="5">
+ 
               <v-col cols="12" md="12">
                   <v-text-field
                     v-model="addForm.driver_phone"
@@ -155,7 +148,7 @@
                     name="uploadImage"
                     ref="pond"
                     label-idle="Upload Document"
-                    allow-multiple="false"
+                    v-bind:allow-multiple="false"
                     v-bind:server="serverOptions"
                     v-bind:files="myFiles"
                     v-on:processfile="handleProcessFile1"
