@@ -57,7 +57,7 @@
             </v-col>
             <!-- <v-btn color="success" class="mr-4" @click="update">Submit</v-btn> -->
 
-            <v-btn color="success" :loading="loading" :disabled="loading" class="mr-4 custom-save-btn ml-4" @click="update">Submit</v-btn>
+            <v-btn color="success" :loading="loading" :disabled="isvalid"  class="mr-4 custom-save-btn ml-4" @click="update">Submit</v-btn>
 
             <v-btn color="success" v-if="updateForm.user_id != 1" class="mr-4" @click="Delete(updateForm.user_id)">Delete Account</v-btn>
           </v-form>
@@ -80,6 +80,7 @@ export default {
     return {
       myFiles: "",
       valid: true,
+      isvalid:false,
       loading: false,
       apiUrl: environment.apiUrl,
       baseUrl: environment.baseUrl,

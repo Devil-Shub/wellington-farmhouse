@@ -7,7 +7,7 @@
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-row>
               <v-col cols="12" md="12">
-                <form-wizard title subtitle finishButtonText="Submit" shape="circle" color="gray" error-color="#e74c3c">
+                <form-wizard title subtitle finishButtonText="Submit" :before-change="validateFirstStep" shape="circle" color="gray" error-color="#e74c3c">
                   <tab-content title="Customer Info">
                     <v-row>
                       <v-col cols="12" md="12">
@@ -186,7 +186,8 @@
                         <trash-icon size="1.5x" class="custom-class"></trash-icon>
                       </v-btn>
                       <h4 class="main-title">Manager Details</h4>
-                      <v-row v-for="(input, index) in addForm.manager_details">
+		      <template v-for="(input, index) in addForm.manager_details">
+                      <v-row >
                         <v-col cols="12" md="12">
                           <div
                             class="v-avatar v-list-item__avatar"
@@ -296,6 +297,7 @@
                           />
                         </v-col>
                       </v-row>
+		</template>
                       <v-btn
                 :loading="loading"
                 :disabled="loading"
@@ -489,6 +491,14 @@ export default {
       this.addForm.manager_card_image = file.serverId;
       //this.docError = false;
     },
+    validateFirstStep() {
+           return new Promise((resolve, reject) => {
+             this.$refs.form.validate((valid) => {
+               resolve(valid);
+             });
+           })
+
+         },
     update() {
       if (this.$refs.form.validate()) {
         //start loading
