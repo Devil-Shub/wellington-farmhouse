@@ -289,12 +289,12 @@ export default {
       }
 
       //check for image upload
-      if (this.addForm.user_image == "") {
-        this.profileImgError = true;
-      }
+      // if (this.addForm.user_image == "") {
+      //   this.profileImgError = true;
+      // }
 
       this.addForm.expiry_date = this.date;
-      if (this.$refs.form.validate() && !this.docError && !this.profileImgError) {
+      if (this.$refs.form.validate() && !this.docError) {
         driverService.add(this.addForm).then(response => {
           //handle response
           if (response.status) {
