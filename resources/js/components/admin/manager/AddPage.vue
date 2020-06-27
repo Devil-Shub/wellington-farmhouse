@@ -21,6 +21,7 @@
                   v-bind:allow-multiple="false"
                   v-bind:server="serverOptions"
                   v-bind:files="myFiles"
+                  v-on:addfilestart="setUploadIndex"
                   allow-file-type-validation="true"
                   accepted-file-types="image/jpeg, image/png"
                   v-on:processfile="handleProcessFile"
@@ -213,6 +214,7 @@ export default {
       valid: true,
       avatar: null,
       menu2: false,
+      uploadInProgress: false,
       profileImgError: false,
       menu1: false,
       date: "",
@@ -288,10 +290,14 @@ export default {
     this.avatar = "/images/avatar.png";
   },
   methods: {
+    setUploadIndex() {
+      this.uploadInProgress = true;
+    },
     handleProcessFile: function(error, file) {
       this.addForm.user_image = file.serverId;
       this.avatar = "../../"+file.serverId;
       this.profileImgError = false;
+      this.uploadInProgress = false;
     },
     handleProcessFile1: function(error, file) {
 	    this.docError = false
@@ -302,9 +308,18 @@ export default {
 	      this.docError = true
        }
 
-       if(this.addForm.user_image == '' || this.addForm.user_image == null){
-	      this.profileImgError = true;
-       }
+       if(this.uploadInProgress) {
+        this.$toast.open({
+              message: "Profile image uploading is in progress!",
+              type: "error",
+              position: "top-right"
+            });
+            return false;
+      }
+
+      //  if(this.addForm.user_image == '' || this.addForm.user_image == null){
+	    //   this.profileImgError = true;
+      //  }
       this.addForm.joining_date = this.date;
       this.addForm.releaving_date = this.date1;
       if (this.$refs.form.validate() && (!this.docError && !this.profileImgError)) {
