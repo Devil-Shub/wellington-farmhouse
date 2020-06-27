@@ -70,55 +70,60 @@ class CustomerController extends Controller
             if ($user->save()) {
                 //send email for new email and password
                 $this->_confirmPassword($user, $newPassword);
-                //random string for new password
-                $newPassword = Str::random();
+                $managerIds = array();
+                foreach ($request->manager_details as $manager) {
+                    //random string for new password
+                    $newPassword = Str::random();
 
-                $saveManger = new User([
-                    'first_name' => $request->manager_name,
-                    'prefix' => $request->manager_prefix,
-                    'created_by' => $user->id,
-                    'email' => $request->manager_email,
-                    'role_id' => $request->manager_role,
-                    'phone' => $request->manager_phone,
-                    'user_image' => $request->manager_image,
-                    'address' => $request->manager_address,
-                    'city' => $request->manager_city,
-                    'state' => $request->manager_province,
-                    'zip_code' => $request->manager_zipcode,
-                    'is_active' => 1,
-                    'is_confirmed' => 1,
-                    'password' => bcrypt($newPassword)
+                    $saveManger = new User([
+                        'first_name' => $manager['manager_name'],
+                        'prefix' => $manager['manager_prefix'],
+                        'created_by' => $user->id,
+                        'email' => $manager['manager_email'],
+                        'role_id' => $manager['manager_role'],
+                        'phone' => $manager['manager_phone'],
+                        'user_image' => $manager['manager_image'],
+                        'address' => $manager['manager_address'],
+                        'city' => $manager['manager_city'],
+                        'state' => $manager['manager_province'],
+                        'zip_code' => $manager['manager_zipcode'],
+                        'is_active' => 1,
+                        'is_confirmed' => 1,
+                        'password' => bcrypt($newPassword)
+                    ]);
+
+                    if ($saveManger->save()) {
+                        $managerIds[] = $saveManger->id;
+                        $mangerDetails = new ManagerDetail([
+                            'user_id' => $saveManger->id,
+                            'identification_number' => $manager['manager_id_card'],
+                            'document' => $manager['manager_card_image']
+                        ]);
+                        //save manager details
+                        $mangerDetails->save();
+
+                        //send email for new email and password
+                        $this->_confirmPassword($saveManger, $newPassword);
+                    }
+                }
+
+                //save customer farm details
+                $farmDetails = new CustomerFarm([
+                    'customer_id' => $user->id,
+                    'manager_id' => json_encode($managerIds),
+                    'farm_address' => $request->farm_address,
+                    'farm_city' => $request->farm_city,
+                    'farm_image' => json_encode($request->farm_images),
+                    'farm_province' => $request->farm_province,
+                    'farm_unit' => $request->farm_unit,
+                    'farm_zipcode' => $request->farm_zipcode,
+                    'farm_active' => $request->farm_active,
+                    'latitude' => $request->latitude,
+                    'longitude' => $request->longitude
                 ]);
 
-                if ($saveManger->save()) {
-                    $mangerDetails = new ManagerDetail([
-                        'user_id' => $saveManger->id,
-                        'identification_number' => $request->manager_id_card,
-                        'document' => $request->manager_card_image
-                    ]);
-
-                    $mangerDetails->save();
-
-                    //save customer farm details
-                    $farmDetails = new CustomerFarm([
-                        'customer_id' => $user->id,
-                        'manager_id' => $saveManger->id,
-                        'farm_address' => $request->farm_address,
-                        'farm_city' => $request->farm_city,
-                        'farm_image' => json_encode($request->farm_images),
-                        'farm_province' => $request->farm_province,
-                        'farm_unit' => $request->farm_unit,
-                        'farm_zipcode' => $request->farm_zipcode,
-                        'farm_active' => $request->farm_active,
-                        'latitude' => $request->latitude,
-                        'longitude' => $request->longitude
-                    ]);
-
-                    $farmDetails->save();
-                }
+                $farmDetails->save();
             }
-            //send email for new email and password
-            $this->_confirmPassword($saveManger, $newPassword);
             DB::commit();
 
             //return success response
@@ -355,9 +360,7 @@ class CustomerController extends Controller
      */
     public function listCustomer()
     {
-        $getCustomer = User::with(['customerManager' => function ($query) {
-            $query->with("manager", "farms");
-        }])
+        $getCustomer = User::with('customerManager.manager.farms')
             ->whereRoleId(config('constant.roles.Customer'))->get();
 
         return response()->json([

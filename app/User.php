@@ -52,7 +52,7 @@ class User extends Authenticatable
 
     public function farms()
     {
-        return $this->hasOne('App\CustomerFarm', 'manager_id');
+        return $this->hasOne('App\CustomerFarm', 'customer_id');
     }
 
     public function messages()
