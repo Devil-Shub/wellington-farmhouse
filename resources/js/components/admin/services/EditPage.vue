@@ -91,8 +91,12 @@
                 v-bind:files="myFiles"
                 v-on:processfile="handleProcessFile"
                 allow-file-type-validation="true"
-                accepted-file-types="image/jpeg, image/png"
-              />
+                accepted-file-types="image/jpeg, image/png"/>
+                <div class="v-messages theme--light error--text" role="alert" v-if="docError">
+                    <div class="v-messages__wrapper">
+                      <div class="v-messages__message">Document upload is required</div>
+                    </div>
+                  </div>
 	  <div
                 class="" v-if="editForm.service_image"
                 style="height: 100px; min-width: 100px; width: 100px;"
@@ -133,6 +137,7 @@ export default {
     return {
       valid: true,
       avatar: null,
+      docError: false,
       apiUrl: environment.apiUrl,
       baseUrl: environment.baseUrl,
       timeSlotErr:true,
@@ -274,6 +279,7 @@ export default {
     },
     handleProcessFile: function(error, file) {
       this.editForm.service_image = file.serverId;
+      this.docError = false;
     },
     update() {
       if (this.editForm.service_rate == "perload") {
@@ -332,7 +338,11 @@ export default {
       }
       //time slots validation
 
-      if (this.$refs.form.validate() && (this.timeSlotErr)) {
+      if(this.editForm.service_image == "" || this.editForm.service_image == null) {
+        this.docError = true;
+      }
+
+      if (this.$refs.form.validate() && (this.timeSlotErr && !this.docError)) {
         serviceService.edit(this.editForm).then(response => {
           //handle response
           if (response.status) {

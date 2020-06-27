@@ -23,6 +23,7 @@
                 v-bind:allow-multiple="false"
                 v-bind:server="serverOptions"
                 v-bind:files="myFiles"
+               v-on:addfilestart="setUploadIndex"
                 allow-file-type-validation="true"
                 accepted-file-types="image/jpeg, image/png"
                 v-on:processfile="handleProcessFile"
@@ -87,6 +88,7 @@ export default {
       avatar: null,
       test: "",
       cross: false,
+      uploadInProgress: false,
       updateForm: {
         user_id: null,
         first_name: "",
@@ -147,12 +149,24 @@ export default {
     this.updateForm.email = currentUser.data.user.email;
   },
   methods: {
+    setUploadIndex() {
+      this.uploadInProgress = true;
+    },
     handleProcessFile: function(error, file) {
       this.cross=true;
       this.updateForm.user_image = file.serverId;
       this.avatar = "../../"+file.serverId;
+      this.uploadInProgress = false;
     },
     update() {
+      if(this.uploadInProgress) {
+        this.$toast.open({
+              message: "Profile image uploading is in progress!",
+              type: "error",
+              position: "top-right"
+            });
+            return false;
+      }
       //start loading
         this.loading = true;
       if (this.$refs.form.validate()) {

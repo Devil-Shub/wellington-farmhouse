@@ -22,6 +22,7 @@
                     v-bind:allow-multiple="false"
                     v-bind:server="serverOptions"
                     v-bind:files="user_image"
+                    v-on:addfilestart="setUploadIndex"
                     allow-file-type-validation="true"
                     accepted-file-types="image/jpeg, image/png"
                     v-on:processfile="handleProcessFile"
@@ -183,7 +184,13 @@
               </v-col>
 
               <v-col cols="12" md="12">
-                <v-btn color="success" class="mr-4" @click="save">Submit</v-btn>
+                <v-btn
+                  :loading="loading"
+                  :disabled="loading"
+                  color="success"
+                  class="mr-4 custom-save-btn ml-4"
+                  @click="save"
+                >Submit</v-btn>
               </v-col>
             </v-row>
           </v-form>
@@ -205,10 +212,12 @@ export default {
 
   data() {
     return {
+      loading: null,
       menu2: false,
       docError: false,
       profileImgError: false,
       valid: true,
+      uploadInProgress: false,
       apiUrl: environment.apiUrl,
       avatar: null,
       date: "",
@@ -274,10 +283,14 @@ export default {
     this.avatar = "/images/avatar.png";
   },
   methods: {
+    setUploadIndex() {
+      this.uploadInProgress = true;
+    },
     handleProcessFile: function(error, file) {
       this.addForm.user_image = file.serverId;
       this.avatar = environment.baseUrl + file.serverId;
       this.profileImgError = false;
+      this.uploadInProgress = false;
     },
     handleProcessFile1: function(error, file) {
       this.addForm.document = file.serverId;
@@ -288,14 +301,22 @@ export default {
         this.docError = true;
       }
 
-      //check for image upload
-      if (this.addForm.user_image == "") {
-        this.profileImgError = true;
+      if(this.uploadInProgress) {
+        this.$toast.open({
+              message: "Profile image uploading is in progress!",
+              type: "error",
+              position: "top-right"
+            });
+            return false;
       }
 
       this.addForm.expiry_date = this.date;
-      if (this.$refs.form.validate() && !this.docError && !this.profileImgError) {
+      if (this.$refs.form.validate() && !this.docError) {
+        //start loader
+        this.loading = true;
         driverService.add(this.addForm).then(response => {
+          //stop loader
+          this.loading = false;
           //handle response
           if (response.status) {
             this.$toast.open({
@@ -311,6 +332,8 @@ export default {
               router.push("/manager/truckdrivers");
             }
           } else {
+            //stop loader
+            this.loading = false;
             this.$toast.open({
               message: response.message,
               type: "error",

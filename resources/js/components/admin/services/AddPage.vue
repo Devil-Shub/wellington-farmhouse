@@ -283,7 +283,7 @@ export default {
         this.docError = true;
       }
 
-      if (this.$refs.form.validate() && (this.timeSlotErr)) {
+      if (this.$refs.form.validate() && (this.timeSlotErr && !this.docError)) {
         serviceService.add(this.addForm).then(response => {
           //handle response
           if (response.status) {

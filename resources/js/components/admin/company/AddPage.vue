@@ -19,7 +19,7 @@
                       name="uploadImage"
                       ref="pond"
                       label-idle="Add Profile pic..."
-                      allow-multiple="false"
+                       v-bind:allow-multiple="false"
                       v-bind:server="serverOptions"
                       v-bind:files="myFiles"
                       allow-file-type-validation="true"
@@ -146,6 +146,7 @@ export default {
       customer_img: "",
       manager_img: "",
       apiUrl: environment.apiUrl,
+      imgUrl: environment.imgUrl,
       uberMapApiUrl: environment.uberMapApiUrl,
       uberMapToken: environment.uberMapToken,
       addForm: {
@@ -204,50 +205,11 @@ export default {
   },
   created() {
     this.customer_img = "/images/avatar.png";
-    this.manager_image = "/images/avatar.png";
   },
   methods: {
-    onChange(val) {
-      this.items = "";
-      // Items have already been loaded
-      if (this.items.length > 1) return false;
-
-      this.isLoading = true;
-      // Lazily load input items
-      axios
-        .get(
-          this.uberMapApiUrl + val + ".json?access_token=" + this.uberMapToken
-        )
-        .then(response => {
-          this.items = response.data.features;
-          this.isLoading = false;
-          this.isOpen = true;
-        });
-    },
-    setResult(result) {
-      this.search = result.text;
-      this.addForm.latitude = result.center[1];
-      this.addForm.longitude = result.center[0];
-      this.addForm.farm_address = result.text;
-      this.isOpen = false;
-    },
     handleProcessFile: function(error, file) {
-      this.customer_img = "../../" + file.serverId;
+      this.customer_img = this.imgUrl + file.serverId;
       this.addForm.user_image = file.serverId;
-    },
-    //farm images process
-    handleProcessFile1: function(error, file) {
-      this.addForm.farm_images.push(file.serverId);
-    },
-    //manager image process
-    handleProcessFile2: function(error, file) {
-      this.manager_img = "../../" + file.serverId;
-      this.addForm.manager_image = file.serverId;
-    },
-    //manager id card image process
-    handleProcessFile3: function(error, file) {
-      this.addForm.manager_card_image = file.serverId;
-      //this.docError = false;
     },
     update() {
       if (this.$refs.form.validate()) {
