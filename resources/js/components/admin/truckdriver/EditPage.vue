@@ -2,12 +2,12 @@
   <v-app>
     <v-container fluid>
       <v-row>
-      <h2>Edit Driver</h2>
+        <h2>Edit Driver</h2>
         <v-col cols="12" md="12">
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-row>
               <v-col cols="5" md="5">
-                 <div
+                <div
                   class="v-avatar v-list-item__avatar"
                   style="height: 80px; min-width: 80px; width: 80px;"
                 >
@@ -22,6 +22,7 @@
                     v-bind:allow-multiple="false"
                     v-bind:server="serverOptions"
                     v-bind:files="user_image"
+                    v-on:addfilestart="setUploadIndex"
                     allow-file-type-validation="true"
                     accepted-file-types="image/jpeg, image/png"
                     v-on:processfile="handleProcessFile"
@@ -45,7 +46,7 @@
                     required
                   ></v-text-field>
                 </v-col>
-	    <v-col cols="12" md="12">
+                <v-col cols="12" md="12">
                   <v-text-field
                     v-model="addForm.driver_address"
                     :rules="[v => !!v || 'Address is required']"
@@ -70,7 +71,7 @@
                     required
                   ></v-text-field>
                 </v-col>
-   <v-col cols="12" md="12">
+                <v-col cols="12" md="12">
                   <v-text-field
                     v-model="addForm.driver_zipcode"
                     :rules="[v => !!v || 'Zip code is required']"
@@ -78,23 +79,19 @@
                     required
                   ></v-text-field>
                 </v-col>
-             
-             
               </v-col>
 
               <v-col cols="5" md="5">
- 
-              <v-col cols="12" md="12">
+                <v-col cols="12" md="12">
                   <v-text-field
                     v-model="addForm.driver_phone"
-                     :rules="phoneRules"
+                    :rules="phoneRules"
                     label="Mobile Number"
                     required
-                    maxlength=10
-
+                    maxlength="10"
                   ></v-text-field>
                 </v-col>
-              <v-col cols="12" md="12">
+                <v-col cols="12" md="12">
                   <v-text-field
                     v-model="addForm.driver_licence"
                     :rules="[v => !!v || 'driver licence number is required']"
@@ -104,7 +101,6 @@
                 </v-col>
 
                 <v-col cols="12" md="12">
-
                   <v-menu
                     v-model="menu2"
                     :close-on-content-click="false"
@@ -125,10 +121,10 @@
                     <v-date-picker v-model="date" @input="menu2 = false" :min="setDate"></v-date-picker>
                   </v-menu>
                 </v-col>
-              <v-col cols="12" md="12">
+                <v-col cols="12" md="12">
                   <v-radio-group
                     v-model="addForm.salary_type"
-                   :rules="[v => !!v || 'Driver salary type is required']"
+                    :rules="[v => !!v || 'Driver salary type is required']"
                   >
                     <v-radio label="Per Hour" value="per_hour"></v-radio>
                     <v-radio label="Per Load" value="per_load"></v-radio>
@@ -152,29 +148,40 @@
                     v-bind:server="serverOptions"
                     v-bind:files="myFiles"
                     v-on:processfile="handleProcessFile1"
-		    allow-file-type-validation="true"
+                    allow-file-type-validation="true"
                     accepted-file-types="image/jpeg, image/png"
                     :rules="[v => !!v || 'Document is required']"
                   />
-<div class="v-messages theme--light error--text" role="alert" v-if="docError">
-		<div class="v-messages__wrapper"><div class="v-messages__message">Document upload is required</div></div>
-		</div>
+                  <div class="v-messages theme--light error--text" role="alert" v-if="docError">
+                    <div class="v-messages__wrapper">
+                      <div class="v-messages__message">Document upload is required</div>
+                    </div>
+                  </div>
                 </v-col>
-                <div v-if="document_img"
-                  style="height: 200px; min-width: 200px; width: 200px;"
-                >
-                  <img :src="document_img" alt="Doc" width=100%/>
+                <div v-if="document_img" style="height: 200px; min-width: 200px; width: 200px;">
+                  <img :src="document_img" alt="Doc" width="100%" />
                 </div>
-
               </v-col>
-             <v-col cols="12" md="12">
-  <v-radio-group  row v-model="addForm.driver_type"  :mandatory="false" required :rules="[v => !!v || 'Truck type is required']">
-              <v-radio label="Truck" value="Truck" ></v-radio>
-              <v-radio label="Skidsteer" value="Skidsteer"></v-radio>
-	           </v-radio-group>
-</v-col>
               <v-col cols="12" md="12">
-                <v-btn color="success" class="mr-4" @click="save">Submit</v-btn>
+                <v-radio-group
+                  row
+                  v-model="addForm.driver_type"
+                  :mandatory="false"
+                  required
+                  :rules="[v => !!v || 'Truck type is required']"
+                >
+                  <v-radio label="Truck" value="Truck"></v-radio>
+                  <v-radio label="Skidsteer" value="Skidsteer"></v-radio>
+                </v-radio-group>
+              </v-col>
+              <v-col cols="12" md="12">
+                <v-btn
+                  :loading="loading"
+                  :disabled="loading"
+                  color="success"
+                  class="mr-4 custom-save-btn ml-4"
+                  @click="save"
+                >Submit</v-btn>
               </v-col>
             </v-row>
           </v-form>
@@ -197,8 +204,10 @@ export default {
 
   data() {
     return {
-     docError: false,
+      loading: null,
+      docError: false,
       menu2: false,
+      uploadInProgress: false,
       valid: true,
       apiUrl: environment.apiUrl,
       avatar: null,
@@ -206,7 +215,7 @@ export default {
       user_image: "",
       document_img: null,
       active: 0,
-      setDate:new Date().toISOString().substr(0, 10),
+      setDate: new Date().toISOString().substr(0, 10),
       addForm: {
         driver_name: "",
         email: "",
@@ -222,7 +231,7 @@ export default {
         driver_country: "",
         driver_zipcode: "",
         driver_phone: "",
-        driver_type: ''
+        driver_type: ""
       },
       emailRules: [
         v => !!v || "E-mail is required",
@@ -231,7 +240,7 @@ export default {
       phoneRules: [
         v => !!v || "Phone number is required",
         v => /^\d*$/.test(v) || "Enter valid number",
-	v => v.length >= 10 || "Enter valid number length"
+        v => v.length >= 10 || "Enter valid number length"
       ],
       salaryRules: [
         v => !!v || "Driver salary is required",
@@ -271,9 +280,9 @@ export default {
           this.addForm.user_image = response.data.user.user_image;
         }
         if (response.data.user.user_image) {
-          this.avatar = environment.imgUrl+response.data.user.user_image;
+          this.avatar = environment.imgUrl + response.data.user.user_image;
         } else {
-          this.avatar = environment.imgUrl+"/images/avatar.png";
+          this.avatar = environment.imgUrl + "/images/avatar.png";
         }
         if (response.data.document) {
           this.document_img = environment.imgUrl + response.data.document;
@@ -289,19 +298,21 @@ export default {
         this.addForm.driver_zipcode = response.data.user.zip_code;
         this.active = response.data.salary_type;
         this.addForm.driver_type = response.data.driver_type;
-	this.addForm.driver_licence = response.data.driver_licence;
-        this.date = new Date(response.data.expiry_date).toISOString().substr(0, 10);
-	if(response.data.salary_type == 0){
- 	this.addForm.salary_type = "per_hour";
-	}else{
-	this.addForm.salary_type = "per_load";
-	}
-	if(response.data.driver_type == 1){
- 	this.addForm.driver_type = "Truck";
-	}else{
-	this.addForm.driver_type = "Skidsteer";
-	}
-       
+        this.addForm.driver_licence = response.data.driver_licence;
+        this.date = new Date(response.data.expiry_date)
+          .toISOString()
+          .substr(0, 10);
+        if (response.data.salary_type == 0) {
+          this.addForm.salary_type = "per_hour";
+        } else {
+          this.addForm.salary_type = "per_load";
+        }
+        if (response.data.driver_type == 1) {
+          this.addForm.driver_type = "Truck";
+        } else {
+          this.addForm.driver_type = "Skidsteer";
+        }
+
         this.addForm.document = response.data.document;
         this.addForm.driver_salary = response.data.driver_salary;
       } else {
@@ -315,34 +326,51 @@ export default {
     });
   },
   methods: {
+    setUploadIndex() {
+      this.uploadInProgress = true;
+    },
     handleProcessFile: function(error, file) {
       this.addForm.user_image = file.serverId;
-      this.avatar = environment.imgUrl+file.serverId;
+      this.avatar = environment.imgUrl + file.serverId;
+      this.uploadInProgress = false;
     },
     handleProcessFile1: function(error, file) {
       this.addForm.document = file.serverId;
-	    this.docError = false;
+      this.docError = false;
     },
     save() {
-      if(this.addForm.document == ''){
-	this.docError = true;
-       }
+      if (this.addForm.document == "") {
+        this.docError = true;
+      }
+
+      if(this.uploadInProgress) {
+        this.$toast.open({
+              message: "Profile image uploading is in progress!",
+              type: "error",
+              position: "top-right"
+            });
+            return false;
+      }
       this.addForm.expiry_date = this.date;
-      if( this.addForm.salary_type == 'per_hour'){
- 	this.addForm.salary_type = 0;
-      }else{
-	this.addForm.salary_type = 1;
+      if (this.addForm.salary_type == "per_hour") {
+        this.addForm.salary_type = 0;
+      } else {
+        this.addForm.salary_type = 1;
       }
-      if( this.addForm.driver_type == 'Skidsteer'){
- 	this.addForm.driver_type = 0;
-      }else{
-	this.addForm.driver_type = 1;
+      if (this.addForm.driver_type == "Skidsteer") {
+        this.addForm.driver_type = 0;
+      } else {
+        this.addForm.driver_type = 1;
       }
-      
-      if (this.$refs.form.validate() && (!this.docError)) {
+
+      if (this.$refs.form.validate() && !this.docError) {
+        //start loader
+        this.loading = true;
         driverService
           .edit(this.addForm, this.$route.params.id)
           .then(response => {
+            //stop loader
+            this.loading = false;
             //handle response
             if (response.status) {
               this.$toast.open({
@@ -351,13 +379,17 @@ export default {
                 position: "top-right"
               });
               //redirect to login
-               const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-              if(currentUser.data.user.role_id == 1){
-	       router.push("/admin/truckdrivers");
-              }else{
-		router.push("/manager/truckdrivers");
-	      }
+              const currentUser = JSON.parse(
+                localStorage.getItem("currentUser")
+              );
+              if (currentUser.data.user.role_id == 1) {
+                router.push("/admin/truckdrivers");
+              } else {
+                router.push("/manager/truckdrivers");
+              }
             } else {
+              //stop loader
+              this.loading = false;
               this.$toast.open({
                 message: response.message,
                 type: "error",

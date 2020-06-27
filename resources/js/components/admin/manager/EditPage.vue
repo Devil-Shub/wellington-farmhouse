@@ -2,28 +2,32 @@
   <v-app>
     <v-container fluid>
       <v-row>
-      <h4 class="main-title">Edit Manager</h4>
+        <h4 class="main-title">Edit Manager</h4>
         <v-col cols="12" md="12">
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-row>
-              <div class="v-avatar v-list-item__avatar" style="height: 40px; min-width: 40px; width: 40px;">
-                <img v-if="addForm.user_image" :src="'/../'+addForm.user_image" alt="John">
-                <img v-if="!addForm.user_image" src="/images/avatar.png" alt="driver">
+              <div
+                class="v-avatar v-list-item__avatar"
+                style="height: 40px; min-width: 40px; width: 40px;"
+              >
+                <img v-if="addForm.user_image" :src="'/../'+addForm.user_image" alt="John" />
+                <img v-if="!addForm.user_image" src="/images/avatar.png" alt="driver" />
               </div>
 
-                <v-col cols="12" md="12" class="custom-img-holder">
-                  <file-pond
-                    name="uploadImage"
-                    ref="pond"
-                    label-idle="Drop files here..."
-                    v-bind:allow-multiple="false"
-                    v-bind:server="serverOptions"
-                    v-bind:files="myFiles"
-                    allow-file-type-validation="true"
-                    accepted-file-types="image/jpeg, image/png"
-                    v-on:processfile="handleProcessFile"
-                  />
-                </v-col>
+              <v-col cols="12" md="12" class="custom-img-holder">
+                <file-pond
+                  name="uploadImage"
+                  ref="pond"
+                  label-idle="Drop files here..."
+                  v-bind:allow-multiple="false"
+                  v-bind:server="serverOptions"
+                  v-bind:files="myFiles"
+                  v-on:addfilestart="setUploadIndex"
+                  allow-file-type-validation="true"
+                  accepted-file-types="image/jpeg, image/png"
+                  v-on:processfile="handleProcessFile"
+                />
+              </v-col>
               <v-col cols="6" md="6" class="pl-0 manager-cols">
                 <v-col cols="12" md="12" class="custom-col">
                   <v-text-field
@@ -94,7 +98,7 @@
                     :rules="phoneRules"
                     label="Mobile Number"
                     required
-		    maxlength="10"
+                    maxlength="10"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" md="12" class="custom-col">
@@ -160,32 +164,41 @@
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" md="12" class="custom-col custom-img-holder">
-<div class="col-img-holder">
-                  <file-pond
-                    name="uploadImage"
-                    ref="pond"
-                    label-idle="Identification Document..."
-                    v-bind:allow-multiple="false"
-	            v-bind:required="true"
-                    v-bind:server="serverOptions"
-                    v-bind:files="myFiles"
-                    allow-file-type-validation="true"
-                    accepted-file-types="image/jpeg, image/png"
-                    v-on:processfile="handleProcessFile1"
-                  />
-<div class="v-messages theme--light error--text" role="alert" v-if="docError">
-		<div class="v-messages__wrapper"><div class="v-messages__message">Document upload is required</div></div>
-		</div>
+                  <div class="col-img-holder">
+                    <file-pond
+                      name="uploadImage"
+                      ref="pond"
+                      label-idle="Identification Document..."
+                      v-bind:allow-multiple="false"
+                      v-bind:required="true"
+                      v-bind:server="serverOptions"
+                      v-bind:files="myFiles"
+                      allow-file-type-validation="true"
+                      accepted-file-types="image/jpeg, image/png"
+                      v-on:processfile="handleProcessFile1"
+                    />
+                    <div class="v-messages theme--light error--text" role="alert" v-if="docError">
+                      <div class="v-messages__wrapper">
+                        <div class="v-messages__message">Document upload is required</div>
+                      </div>
+                    </div>
                   </div>
-<div class="" style="height: 200px; min-width: 200px; width: 200px;">
-                    <img style="width:100%" v-if="addForm.document" :src="'/../'+addForm.document" alt="John">
-                        
-             </div>
+                  <div class style="height: 200px; min-width: 200px; width: 200px;">
+                    <img
+                      style="width:100%"
+                      v-if="addForm.document"
+                      :src="'/../'+addForm.document"
+                      alt="John"
+                    />
+                  </div>
                 </v-col>
-
               </v-col>
 
-              <v-btn color="success" class="mr-4 custom-save-btn ml-4 manager-save" @click="update">Submit</v-btn>
+              <v-btn
+                color="success"
+                class="mr-4 custom-save-btn ml-4 manager-save"
+                @click="update"
+              >Submit</v-btn>
             </v-row>
           </v-form>
         </v-col>
@@ -206,10 +219,11 @@ export default {
   },
   data() {
     return {
-     docError: false,
+      docError: false,
       valid: true,
       avatar: null,
       menu2: false,
+      uploadInProgress: false,
       menu1: false,
       date: "",
       date1: "",
@@ -282,20 +296,20 @@ export default {
       if (response.status) {
         console.log(response.data.joining_date);
         this.addForm = {
-            first_name: response.data.user.first_name,
-            city: response.data.user.city,
-            email: response.data.user.email,
-            state: response.data.user.state,
-            country: response.data.user.country,
-            user_image: response.data.user.user_image,
-            role_id: 2,
-            document: response.data.document,
-            identification_number: response.data.identification_number,
-            salary: response.data.salary,
-            manager_phone: response.data.user.phone,
-            manager_zipcode: response.data.user.zip_code,
-            address: response.data.user.address
-        }
+          first_name: response.data.user.first_name,
+          city: response.data.user.city,
+          email: response.data.user.email,
+          state: response.data.user.state,
+          country: response.data.user.country,
+          user_image: response.data.user.user_image,
+          role_id: 2,
+          document: response.data.document,
+          identification_number: response.data.identification_number,
+          salary: response.data.salary,
+          manager_phone: response.data.user.phone,
+          manager_zipcode: response.data.user.zip_code,
+          address: response.data.user.address
+        };
         this.date = response.data.joining_date;
         this.date1 = response.data.releaving_date;
       } else {
@@ -308,44 +322,62 @@ export default {
     });
   },
   methods: {
+    setUploadIndex() {
+      this.uploadInProgress = true;
+    },
     handleProcessFile: function(error, file) {
       this.addForm.user_image = file.serverId;
+      this.uploadInProgress = false;
     },
     handleProcessFile1: function(error, file) {
-this.docError = false
+      this.docError = false;
       this.addForm.document = file.serverId;
     },
     update() {
-    if(this.addForm.document == ''){
-	this.docError = true
-       }
+      if (this.addForm.document == "") {
+        this.docError = true;
+      }
+
+      if (this.uploadInProgress) {
+        this.$toast.open({
+          message: "Profile image uploading is in progress!",
+          type: "error",
+          position: "top-right"
+        });
+        return false;
+      }
+
       this.addForm.joining_date = this.date;
       this.addForm.releaving_date = this.date1;
       console.log(this.addForm);
-      if (this.$refs.form.validate() && (!this.docError)) {
-        managerService.edit(this.addForm, this.$route.params.id).then(response => {
-          //handle response
-          if (response.status) {
-            this.$toast.open({
-              message: response.message,
-              type: "success",
-              position: "top-right"
-            });
-            //redirect to login
-            const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-              if(currentUser.data.user.role_id == 1){
-	       router.push("/manager/manager");
-              }else{
-		router.push("/manager/manager");
-	      }
-          } else {
-            this.$toast.open({
-              message: response.message,
-              type: "error",
-              position: "top-right"
-            });
-          }
-        });
+      if (this.$refs.form.validate() && !this.docError) {
+        managerService
+          .edit(this.addForm, this.$route.params.id)
+          .then(response => {
+            //handle response
+            if (response.status) {
+              this.$toast.open({
+                message: response.message,
+                type: "success",
+                position: "top-right"
+              });
+              //redirect to login
+              const currentUser = JSON.parse(
+                localStorage.getItem("currentUser")
+              );
+              if (currentUser.data.user.role_id == 1) {
+                router.push("/admin/manager");
+              } else {
+                router.push("/manager/manager");
+              }
+            } else {
+              this.$toast.open({
+                message: response.message,
+                type: "error",
+                position: "top-right"
+              });
+            }
+          });
       }
     }
   }
