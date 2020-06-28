@@ -17,7 +17,7 @@ class CreateSettingsTable extends Migration
             $table->id();
             $table->string("type")->nullable();
             $table->string("address")->nullable();
-	    $table->string("lat")->nullable();
+            $table->string("lat")->nullable();
             $table->string("long")->nullable();
             $table->timestamps();
         });
