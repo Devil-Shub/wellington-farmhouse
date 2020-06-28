@@ -51,7 +51,8 @@
 		      v-model="addForm.note"
 		    ></v-textarea>
 		 </v-col>
-               <v-col cols="12" md="12">
+
+                 <v-col cols="12" md="12">
                   <file-pond
                     name="uploadImage"
                     ref="pond"
@@ -59,6 +60,7 @@
                     v-bind:allow-multiple="false"
                     v-bind:server="serverOptions"
                     v-bind:files="myFiles"
+                    v-on:addfilestart="setUploadIndex"
                     v-on:processfile="handleProcessFile1"
 		    allow-file-type-validation="true"
 		    accepted-file-types="image/jpeg, image/png, video/mp4, video/mov"
@@ -68,7 +70,7 @@
 		</div>
                 </v-col>
 
-                <v-col cols="12" md="12">
+                  <v-col cols="12" md="12">
                   <file-pond
                     name="uploadImage"
                     ref="pond"
@@ -76,6 +78,7 @@
                     v-bind:allow-multiple="false"
                     v-bind:server="serverOptions"
                     v-bind:files="myFiles"
+                    v-on:addfilestart="setUploadIndex"
                     v-on:processfile="handleProcessFile2"
 		    allow-file-type-validation="true"
 		    accepted-file-types="image/jpeg, image/png"
@@ -115,6 +118,7 @@ export default {
       apiUrl: environment.apiUrl,
       avatar: null,
       date: "",
+      uploadInProgress: false,
       setDate:new Date().toISOString().substr(0, 10),
       user_image: "",
       addForm: {
@@ -126,10 +130,10 @@ export default {
         note:''
       },
      killometerRules: [
-        v => !!v || "Truck Miles is required",
+        v => !!v || "Truck miles is required",
         v => /^\d*$/.test(v) || "Enter valid number",
       ],
-    myFiles: []
+myFiles: []
     };
   },
   computed: {
@@ -156,16 +160,29 @@ export default {
     }
   },
   methods: {
-  handleProcessFile1: function(error, file) {
+    setUploadIndex() {
+      this.uploadInProgress = true;
+    },
+   handleProcessFile1: function(error, file) {
       this.addForm.document = file.serverId;
       this.docError = false;
+      this.uploadInProgress = false;
     },
     handleProcessFile2: function(error, file) {
       this.addForm.receipt = file.serverId;
       this.insdocError = false;
+      this.uploadInProgress = false;
     },
     save() {
-       if(this.addForm.document == ''){
+      if(this.uploadInProgress) {
+        this.$toast.open({
+              message: "Image uploading is in progress!",
+              type: "error",
+              position: "top-right"
+            });
+            return false;
+      }
+     if(this.addForm.document == ''){
 		this.docError = true;
 	}
         if(this.addForm.receipt == ''){
@@ -185,11 +202,11 @@ export default {
           //redirect to login
 	    const currentUser = authenticationService.currentUserValue;
 	    if(currentUser.data.user.role_id == 1){
-          	const url = "/admin/truck/service/"+this.$route.params.id;
-		router.push(url);
+                 const url = "/admin/truck/service/"+this.$route.params.id;
+                 router.push(url);
 	    }else{
-          	const url = "/manager/truck/service/"+this.$route.params.id;
-		router.push(url);
+	         const url = "/manager/truck/service/"+this.$route.params.id;
+                 router.push(url);
 	    }
 
          } else {

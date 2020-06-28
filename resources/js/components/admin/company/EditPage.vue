@@ -2,7 +2,7 @@
   <v-app>
     <v-container fluid>
       <v-row>
-        <h4 class="main-title">Add Hauler</h4>
+        <h4 class="main-title">Edit Hauler</h4>
         <v-col cols="12" md="12">
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-row>
@@ -13,7 +13,10 @@
                       class="v-avatar v-list-item__avatar"
                       style="height: 80px; min-width: 80px; width: 80px;"
                     >
-                      <img :src="customer_img" />
+            <button type="submit" class="close AClass" style="margin-right: 13px; margin-top: -25px; font-size: 30px;" v-if="cross" @click="Remove()">
+               <span>&times;</span>
+             </button>
+                      <img :src="avatar" />
                     </div>
                     <file-pond
                       name="uploadImage"
@@ -138,6 +141,7 @@ export default {
       imgUrl: environment.imgUrl,
       uberMapApiUrl: environment.uberMapApiUrl,
       uberMapToken: environment.uberMapToken,
+      cross: false,
       addForm: {
         prefix: "",
         customer_name: "",
@@ -195,14 +199,52 @@ export default {
   created() {
     this.customer_img = "/images/avatar.png";
   },
+  mounted: function() {
+    companyService.getHauler(this.$route.params.id).then(response => {
+      //handle response
+      if (response.status) {
+        console.log(response.data.joining_date);
+        this.addForm = {
+          prefix: response.data.prefix,
+          customer_name: response.data.first_name,
+          city: response.data.city,
+          email: response.data.email,
+          province: response.data.state,
+          user_image: response.data.user_image,
+          phone: response.data.phone,
+          zipcode: response.data.zip_code,
+          address: response.data.address,
+          is_active: response.data.is_active,
+        };
+        if(response.data.user_image){
+          this.cross=true;
+          this.avatar = this.imgUrl+response.data.user_image;
+        }else{
+           this.avatar = "/images/avatar.png";
+        }
+      } else {
+        this.$toast.open({
+          message: response.message,
+          type: "error",
+          position: "top-right"
+        });
+      }
+    });
+  },
   methods: {
+  Remove(){
+    this.avatar = "/images/avatar.png";
+    this.cross=false;
+    this.addForm.user_image = '';
+  },
     setUploadIndex() {
       this.uploadInProgress = true;
     },
     handleProcessFile: function(error, file) {
-      this.customer_img = this.imgUrl + file.serverId;
+      this.avatar = this.imgUrl + file.serverId;
       this.addForm.user_image = file.serverId;
       this.uploadInProgress = false;
+      this.cross=true;
     },
     update() {
       if(this.uploadInProgress) {
@@ -216,7 +258,7 @@ export default {
       if (this.$refs.form.validate()) {
         //start loading
         this.loading = true;
-        companyService.add(this.addForm).then(response => {
+        companyService.edit(this.addForm, this.$route.params.id).then(response => {
           //stop loading
           this.loading = false;
           //handle response

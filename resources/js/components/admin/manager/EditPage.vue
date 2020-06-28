@@ -8,10 +8,12 @@
             <v-row>
               <div
                 class="v-avatar v-list-item__avatar"
-                style="height: 40px; min-width: 40px; width: 40px;"
+                style="height: 80px; min-width: 80px; width: 80px;"
               >
-                <img v-if="addForm.user_image" :src="'/../'+addForm.user_image" alt="John" />
-                <img v-if="!addForm.user_image" src="/images/avatar.png" alt="driver" />
+            <button type="submit" class="close AClass" style="margin-right: 13px; margin-top: -25px; font-size: 30px;" v-if="cross" @click="Remove()">
+               <span>&times;</span>
+             </button>
+                <img :src="avatar" alt="Manager" />
               </div>
 
               <v-col cols="12" md="12" class="custom-img-holder">
@@ -173,6 +175,7 @@
                       v-bind:required="true"
                       v-bind:server="serverOptions"
                       v-bind:files="myFiles"
+                      v-on:addfilestart="setUploadIndex"
                       allow-file-type-validation="true"
                       accepted-file-types="image/jpeg, image/png"
                       v-on:processfile="handleProcessFile1"
@@ -186,9 +189,9 @@
                   <div class style="height: 200px; min-width: 200px; width: 200px;">
                     <img
                       style="width:100%"
-                      v-if="addForm.document"
-                      :src="'/../'+addForm.document"
-                      alt="John"
+                      v-if="documentImg"
+                      :src="documentImg"
+                      alt="Doc"
                     />
                   </div>
                 </v-col>
@@ -225,9 +228,12 @@ export default {
       menu2: false,
       uploadInProgress: false,
       menu1: false,
+      documentImg:null,
       date: "",
       date1: "",
+      cross: false,
       apiUrl: environment.apiUrl,
+      imgUrl: environment.imgUrl,
       addForm: {
         first_name: "",
         city: "",
@@ -310,6 +316,15 @@ export default {
           manager_zipcode: response.data.user.zip_code,
           address: response.data.user.address
         };
+        if(response.data.user.user_image){
+          this.cross=true;
+          this.avatar = this.imgUrl+response.data.user.user_image;
+        }else{
+           this.avatar = "/images/avatar.png";
+        }
+        if(response.data.document){
+         this.documentImg = this.imgUrl+response.data.document;
+        }
         this.date = response.data.joining_date;
         this.date1 = response.data.releaving_date;
       } else {
@@ -322,16 +337,25 @@ export default {
     });
   },
   methods: {
+  Remove(){
+    this.avatar = "/images/avatar.png";
+    this.cross=false;
+    this.addForm.user_image = '';
+  },
     setUploadIndex() {
       this.uploadInProgress = true;
     },
     handleProcessFile: function(error, file) {
+      this.cross=true;
       this.addForm.user_image = file.serverId;
       this.uploadInProgress = false;
+      this.avatar = this.imgUrl+file.serverId;
     },
     handleProcessFile1: function(error, file) {
       this.docError = false;
       this.addForm.document = file.serverId;
+      this.documentImg = this.imgUrl+file.serverId;
+      this.uploadInProgress = false;
     },
     update() {
       if (this.addForm.document == "") {
@@ -340,7 +364,7 @@ export default {
 
       if (this.uploadInProgress) {
         this.$toast.open({
-          message: "Profile image uploading is in progress!",
+          message: "Image uploading is in progress!",
           type: "error",
           position: "top-right"
         });

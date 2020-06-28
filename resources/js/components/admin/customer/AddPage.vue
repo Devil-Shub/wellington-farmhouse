@@ -11,14 +11,14 @@
                     <v-form ref="customerForm" v-model="valid" lazy-validation>
                       <v-row>
                         <v-col cols="12" md="12">
-                          <div class="v-avatar v-list-item__avatar" style="height: 40px; min-width: 40px; width: 40px;">
+                          <div class="v-avatar v-list-item__avatar" style="height: 80px; min-width: 80px; width: 80px;">
                             <img :src="customer_img" />
                           </div>
                           <file-pond
                             name="uploadImage"
                             ref="pond"
                             label-idle="Add Profile pic..."
-                            allow-multiple="false"
+                            v-bind:allow-multiple="false"
                             v-bind:server="serverOptions"
                             v-bind:files="myFiles"
                             allow-file-type-validation="true"
@@ -188,7 +188,8 @@
                     <v-form ref="managerForm" v-model="valid" lazy-validation>
                       <v-col cols="12" md="12">
                         <h4 class="main-title">Manager Details</h4>
-                        <v-row v-for="(input, index) in addForm.manager_details">
+                        <template v-for="(input, index) in addForm.manager_details">
+                        <v-row>
                           <div style="width: 100%">
                             <v-btn
                               color="success"
@@ -203,13 +204,13 @@
                               class="v-avatar v-list-item__avatar"
                               style="height: 40px; min-width: 40px; width: 40px;"
                             >
-                              <img :src="'../../../'+input.manager_image" />
+                              <img :src="Mavatar" />
                             </div>
                             <file-pond
                               name="uploadImage"
                               ref="pond"
                               label-idle="Add Profile Pic"
-                              allow-multiple="false"
+                              v-bind:allow-multiple="false"
                               v-bind:server="serverOptions"
                               v-bind:files="myFiles"
                               v-on:addfilestart="setUploadIndex(index)"
@@ -297,7 +298,7 @@
                               name="uploadImage"
                               ref="pond"
                               label-idle="Upload Id Card Image"
-                              allow-multiple="false"
+                              v-bind:allow-multiple="false"
                               v-bind:server="serverOptions"
                               v-bind:files="myFiles"
                               v-on:addfilestart="setUploadIndex(index)"
@@ -307,6 +308,7 @@
                             />
                           </v-col>
                         </v-row>
+                        </template>
                       </v-col>
                       <v-btn
                           color="success"
@@ -358,12 +360,14 @@ export default {
       model: null,
       valid: true,
       avatar: null,
+      Mavatar: null, 
       menu2: false,
       menu1: false,
       date: "",
       date1: "",
       customer_img: "",
       apiUrl: environment.apiUrl,
+      imgUrl: environment.imgUrl,
       uberMapApiUrl: environment.uberMapApiUrl,
       uberMapToken: environment.uberMapToken,
       addForm: {
@@ -433,6 +437,7 @@ export default {
   },
   created() {
     this.customer_img = "/images/avatar.png";
+    this.Mavatar = "/images/avatar.png";
     //add default form
     this.addRow();
   },
@@ -441,7 +446,7 @@ export default {
       return new Promise((resolve, reject) => {
         setTimeout(() => {
           if(this.addForm.user_image == '' || this.addForm.user_image == null){
-            this.profileImgError = true;
+            this.profileImgError = false;
           }
           if(this.$refs.customerForm.validate() && !this.profileImgError) {
             resolve(true)
@@ -513,7 +518,7 @@ export default {
       this.isOpen = false;
     },
     handleProcessFile: function(error, file) {
-      this.customer_img = "../../" + file.serverId;
+      this.customer_img = this.imgUrl + file.serverId;
       this.addForm.user_image = file.serverId;
       this.profileImgError = false;
     },
@@ -525,12 +530,21 @@ export default {
     //manager image process
     handleProcessFile2: function(error, file) {
       this.addForm.manager_details[this.uploadIndex].manager_image = file.serverId;
+      this.Mavatar = this.imgUrl+file.serverId;
     },
     //manager id card image process
     handleProcessFile3: function(error, file) {
       this.addForm.manager_card_image = file.serverId;
       //this.docError = false;
     },
+    validateFirstStep() {
+           return new Promise((resolve, reject) => {
+             this.$refs.form.validate((valid) => {
+               resolve(valid);
+             });
+           })
+
+         },
     update() {
       if (this.$refs.managerForm.validate()) {
         //start loading

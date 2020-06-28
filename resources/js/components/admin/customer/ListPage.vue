@@ -125,7 +125,7 @@ export default {
       customerService.listCustomer().then(response => {
         //handle response
         if (response.status) {
-          this.customers = response.data;
+         // this.customers = response.data;
         } else {
           this.$toast.open({
             message: response.message,

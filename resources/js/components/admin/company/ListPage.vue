@@ -6,56 +6,69 @@
           <router-link v-if="isAdmin" to="/admin/hauler/add" class="nav-item nav-link">
             <plus-circle-icon size="1.5x" class="custom-class"></plus-circle-icon>
           </router-link>
-          <router-link v-if="!isAdmin" to="/manager/customer/add" class="nav-item nav-link">
+          <router-link v-if="!isAdmin" to="/manager/hauler/add" class="nav-item nav-link">
             <plus-circle-icon size="1.5x" class="custom-class"></plus-circle-icon>
           </router-link>
         </div>
-        <v-col cols="12" md="12">
-          <v-simple-table class="custom-table">
-            <template v-slot:default>
-              <thead>
-                <tr>
-                  <th class="text-left"></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="multi-customers" v-for="customer in customers" :key="customer.name">
-                  <td class="single-customer">
-                  <span>
-                   <router-link v-if="isAdmin" :to="'/admin/customer/details/' + customer.id" class="nav-item nav-link">{{ customer.prefix }} {{ customer.first_name }} {{ customer.last_name }}</router-link>
-                   <router-link v-if="!isAdmin" :to="'/manager/customer/details/' + customer.id" class="nav-item nav-link">{{ customer.prefix }} {{ customer.first_name }} {{ customer.last_name }}</router-link>
-                   </span> 
-                    <v-data-table
-                      :headers="headers"
-                      :items="customer.customer_manager"
-                      hide-default-footer
-                      class=""
-                    >
-                      <!-- <template slot="items" slot-scope="props">
-                        <td class="text-xs-right">{{ props.index }}</td>
-                        <td class="text-xs-right">
-		         <template v-slot:item.id="{ item }">
-		            <span class="custom-action-btn"> 
-				<router-link v-if="isAdmin" :to="'/admin/customer/farms/' +item.id">{{ props.item.first_name }}</router-link>
-                              <router-link v-if="!isAdmin" :to="'/manager/customer/farms/' +item.id">{{ props.item.first_name }}</router-link>
-			    </span>
-		          </template>
-                        </td>
-                        <td class="text-xs-right">{{ props.item.phone }}</td>
-                        <td class="text-xs-right">{{ props.item.email }}</td>
-                        <td class="text-xs-right">{{ props.item.farms.farm_address }}</td>
-                        <td class="text-xs-right">{{ props.item.farms.farm_city }}</td>
-                        <td class="text-xs-right">{{ props.item.farms.farm_province }}</td>
-                        <td class="text-xs-right">{{ props.item.farms.farm_zipcode }}</td>
-                        <td class="text-xs-right">0</td>
-                        <td class="text-xs-right">05/07/2020</td>
-                      </template> -->
-                    </v-data-table>
-                  </td>
-                </tr>
-              </tbody>
-            </template>
-          </v-simple-table>
+      <table id="example" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Address</th>
+                <th>Active</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="(customer, index) in customers">
+	       <td>   
+                     <div
+		        class="v-avatar v-list-item__avatar"
+		        style="height: 60px; min-width: 60px; width: 60px;"
+		      >
+		        <img v-if="customer.user_image" :src="'../'+customer.user_image"/>
+		        <img v-if="!customer.user_image" src="/images/avatar.png"/>
+		      </div>
+             </td>
+               <td>{{customer.prefix}} {{customer.first_name}}</td>
+               <td>{{customer.email}}</td>
+               <td>{{customer.phone}}</td>
+	       <td>{{customer.address}} {{customer.city}} {{customer.state}}, {{customer.zip_code}}</td>
+               <td>
+               <v-chip v-if="!customer.is_active" class="ma-2" color="red" text-color="white">No</v-chip>
+                      <v-chip
+                        v-if="customer.is_active"
+                        class="ma-2"
+                        color="green"
+                        text-color="white"
+                      >Yes</v-chip>
+               </td>
+               <td class="action-col">
+                   <router-link
+                        v-if="isAdmin"
+                        :to="'/admin/hauler/edit/' + customer.id"
+                        class="nav-item nav-link"
+                      >
+                        <span class="custom-action-btn">Edit</span>
+                      </router-link>
+                      <router-link
+                        v-if="!isAdmin"
+                        :to="'/manager/hauler/edit/' + customer.id"
+                        class="nav-item nav-link"
+                      >
+                        <span class="custom-action-btn">Edit</span>
+                      </router-link>
+
+                      <v-btn color="blue darken-1" text @click="Delete(customer.id)">
+                        <span class="custom-action-btn">Delete</span>
+                      </v-btn>
+               </td>
+            </tr>
+        </tbody>
+            </table>
         </v-col>
       </v-row>
     </v-container>
@@ -83,26 +96,6 @@ export default {
   },
   data() {
     return {
-      search: "",
-
-      headers: [
-        {
-          text: "Sno",
-          align: "left",
-          sortable: false,
-          value: "index"
-        },
-        { text: "Manager", value: "first_name" },
-        { text: "Phone Number", value: "phone" },
-        { text: "Email", value: "email" },
-        { text: "Farm Address", value: "farms.farm_address" },
-        { text: "City", value: "farms.farm_city" },
-        { text: "State/Province", value: "farms.farm_province" },
-        { text: "Zip/Postal", value: "farms.farm_zipcode" },
-        { text: "No Of Jobs", value: "" },
-        { text: "Last Services", value: "" }
-      ],
-      items: [],
       customers: [],
       isAdmin: true,
     };
@@ -137,7 +130,7 @@ export default {
     },
     Delete(e) {
       if (e) {
-        companyService.Delete(e).then(response => {
+        companyService.deleteHauler(e).then(response => {
           //handle response
           if (response.status) {
             this.$toast.open({
