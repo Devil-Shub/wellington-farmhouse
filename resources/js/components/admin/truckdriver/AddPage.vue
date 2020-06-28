@@ -310,11 +310,6 @@ export default {
             return false;
       }
 
-      //check for image upload
-      // if (this.addForm.user_image == "") {
-      //   this.profileImgError = true;
-      // }
-
       this.addForm.expiry_date = this.date;
       if (this.$refs.form.validate() && !this.docError) {
         //start loader

@@ -23,6 +23,7 @@
                 v-bind:allow-multiple="false"
                 v-bind:server="serverOptions"
                 v-bind:files="myFiles"
+               v-on:addfilestart="setUploadIndex"
                 allow-file-type-validation="true"
                 accepted-file-types="image/jpeg, image/png"
                 v-on:processfile="handleProcessFile"
@@ -57,7 +58,7 @@
             </v-col>
             <!-- <v-btn color="success" class="mr-4" @click="update">Submit</v-btn> -->
 
-            <v-btn color="success" :loading="loading" :disabled="loading" class="mr-4 custom-save-btn ml-4" @click="update">Submit</v-btn>
+            <v-btn color="success" :loading="loading" :disabled="isvalid"  class="mr-4 custom-save-btn ml-4" @click="update">Submit</v-btn>
 
             <v-btn color="success" v-if="updateForm.user_id != 1" class="mr-4" @click="Delete(updateForm.user_id)">Delete Account</v-btn>
           </v-form>
@@ -80,12 +81,14 @@ export default {
     return {
       myFiles: "",
       valid: true,
+      isvalid:false,
       loading: false,
       apiUrl: environment.apiUrl,
       baseUrl: environment.baseUrl,
       avatar: null,
       test: "",
       cross: false,
+      uploadInProgress: false,
       updateForm: {
         user_id: null,
         first_name: "",
@@ -146,12 +149,24 @@ export default {
     this.updateForm.email = currentUser.data.user.email;
   },
   methods: {
+    setUploadIndex() {
+      this.uploadInProgress = true;
+    },
     handleProcessFile: function(error, file) {
       this.cross=true;
       this.updateForm.user_image = file.serverId;
       this.avatar = "../../"+file.serverId;
+      this.uploadInProgress = false;
     },
     update() {
+      if(this.uploadInProgress) {
+        this.$toast.open({
+              message: "Profile image uploading is in progress!",
+              type: "error",
+              position: "top-right"
+            });
+            return false;
+      }
       //start loading
         this.loading = true;
       if (this.$refs.form.validate()) {

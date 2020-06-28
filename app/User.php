@@ -18,7 +18,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'first_name', 'last_name', 'email', 'phone', 'user_image', 'role_id', 'is_confirmed', 'is_active', 'provider', 'token', 'password',
-        'address', 'city', 'state', 'country', 'zip_code', 'password_changed_at', 'created_by', 'prefix'
+        'address', 'city', 'state', 'country', 'zip_code', 'password_changed_at', 'created_by', 'prefix', 'farm_id'
     ];
 
     /**
@@ -78,5 +78,10 @@ class User extends Authenticatable
     public function employeeSalaries()
     {
         return $this->hasOne('App\EmployeeSalaries', 'user_id');
+    }
+
+     public function managerFarms()
+    {
+        return $this->hasMany('App\CustomerFarm', 'id');
     }
 }

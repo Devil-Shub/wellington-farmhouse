@@ -122,7 +122,7 @@
 		<div class="v-messages__wrapper"><div class="v-messages__message">RC document upload is required</div></div>
 		</div>
                   <div v-if="rc" style="height:200px; width:200px">
-                    <img :src="rc" alt="John" style="height:200px;" />
+                    <img :src="rc" alt="Rc" style="height:200px;" />
                   </div>
                 </v-col>
                 <v-col cols="12" md="12">
@@ -141,7 +141,7 @@
 		<div class="v-messages__wrapper"><div class="v-messages__message">Insurance document upload is required</div></div>
 		</div>
 <div v-if="insurancedocument" style="height:200px; width:200px">
-                    <img :src="insurancedocument" alt="John" style="height:200px;" />
+                    <img :src="insurancedocument" alt="insurancedocument" style="height:200px;" />
                   </div>
                 </v-col>
  <v-col cols="12" md="12">
@@ -182,6 +182,7 @@ export default {
       menu1: false,
       valid: true,
       apiUrl: environment.apiUrl,
+      imgUrl: environment.imgUrl,
       rc: null,
       insurancedocument: null,
       date: "",
@@ -249,10 +250,10 @@ export default {
         this.date = new Date(response.data.vehicle_insurance.insurance_date).toISOString().substr(0, 10);
         this.date1 = new Date(response.data.vehicle_insurance.insurance_expiry).toISOString().substr(0, 10);
         if (response.data.document) {
-          this.rc = "../../../" + response.data.document;
+          this.rc = this.imgUrl + response.data.document;
         }
         if (response.data.insurance_document) {
-          this.insurancedocument = "../../../" + response.data.insurance_document;
+          this.insurancedocument = this.imgUrl + response.data.insurance_document;
         }
       } else {
         router.push("/admin/trucks");
@@ -267,10 +268,12 @@ export default {
   methods: {
     handleProcessFile1: function(error, file) {
       this.addForm.document = file.serverId;
+      this.rc = this.imgUrl + file.serverId;
       this.docError = false;
     },
     handleProcessFile2: function(error, file) {
       this.addForm.insurance_document = file.serverId;
+      this.insurancedocument = this.imgUrl+file.serverId;
       this.insdocError = false;
     },
     save() {

@@ -3,7 +3,7 @@
     <v-container fluid>
       <v-row>
         <v-col cols="12" md="12">
-          <h4 class="main-title mb-0">Add Skidsteer Insurance</h4>
+          <h4 class="main-title mb-0">Add skidsteer Insurance</h4>
         </v-col>
 
         <v-col cols="12" md="12">
@@ -15,7 +15,7 @@
                     v-model="addForm.insurance_number"
                     label="Insurance number"
                     required
-                    :rules="[v => !!v || 'Insurance number is required']"
+                    :rules="[v => !!v || 'Insurance number is required.']"
                   ></v-text-field>
                 </v-col>
 
@@ -39,10 +39,10 @@
                       :rules="[v => !!v || 'Insurance date is required']"
                       ></v-text-field>
                     </template>
-                    <v-date-picker v-model="date" @input="menu1 = false" :min="setDate"></v-date-picker>
+                    <v-date-picker v-model="date" @input="menu1 = false" :min="setNextDate"></v-date-picker>
                   </v-menu>
                 </v-col>
-  <v-col cols="12" md="12">
+               <v-col cols="12" md="12">
                   <v-menu
                     v-model="menu2"
                     :close-on-content-click="false"
@@ -69,7 +69,7 @@
               </v-col>
 
               <v-col cols="12" md="12">
-                <v-btn color="success" class="mr-4 custom-save-btn ml-4 mt-4" @click="save">Add Truck Insurance Detail</v-btn>
+                <v-btn color="success" class="mr-4 custom-save-btn ml-4 mt-4" @click="save">Add skidsteer Insurance Detail</v-btn>
               </v-col>
             </v-row>
           </v-form>
@@ -85,6 +85,8 @@ import { truckService } from "../../../_services/truck.service";
 import { router } from "../../../_helpers/router";
 import { environment } from "../../../config/test.env";
 import { authenticationService } from "../../../_services/authentication.service";
+import moment from 'moment'
+
 export default {
   data() {
     return {
@@ -95,6 +97,7 @@ export default {
       date: "",
       date1: "",
       setDate:new Date().toISOString().substr(0, 10),
+      setNextDate:'',
       addForm: {
         vehicle_id: "",
         insurance_number: "",
@@ -108,10 +111,10 @@ export default {
   },
   methods: {
    getResults() {
-        this.vehicle_id = this.$route.params.id;
         truckService.getLastInsu(this.$route.params.id).then(response => {
         if (response.status) {
-	this.setDate = new Date(response.data.insurance_expiry).toISOString().substr(0, 10);
+	  this.setNextDate = moment(response.data.insurance_expiry).format('YYYY-MM-DD');
+          this.setDate = moment(response.data.insurance_expiry).format('YYYY-MM-DD');
        } 
      });
   },
@@ -131,10 +134,10 @@ export default {
           //redirect to login
 	    const currentUser = authenticationService.currentUserValue;
 	    if(currentUser.data.user.role_id == 1){
-          	const url = "/admin/truck/service/"+this.$route.params.id;
+          	const url = "/admin/skidsteer/service/"+this.$route.params.id;
 		router.push(url);
 	    }else{
-          	const url = "/manager/truck/service/"+this.$route.params.id;
+          	const url = "/manager/skidsteer/service/"+this.$route.params.id;
 		router.push(url);
 	    }
          } else {
