@@ -68,8 +68,24 @@ class CustomerController extends Controller
                 'password' => bcrypt($newPassword)
             ]);
             if ($user->save()) {
-                //send email for new email and password
+	       //send email for new email and password
                 $this->_confirmPassword($user, $newPassword);
+                //save customer farm details
+                $farmDetails = new CustomerFarm([
+                    'customer_id' => $user->id,
+                    'farm_address' => $request->farm_address,
+                    'farm_city' => $request->farm_city,
+                    'farm_image' => json_encode($request->farm_images),
+                    'farm_province' => $request->farm_province,
+                    'farm_unit' => $request->farm_unit,
+                    'farm_zipcode' => $request->farm_zipcode,
+                    'farm_active' => $request->farm_active,
+                    'latitude' => $request->latitude,
+                    'longitude' => $request->longitude
+                ]);
+
+                $farmDetails->save();
+
                 $managerIds = array();
                 foreach ($request->manager_details as $manager) {
                     //random string for new password
@@ -79,6 +95,7 @@ class CustomerController extends Controller
                         'first_name' => $manager['manager_name'],
                         'prefix' => $manager['manager_prefix'],
                         'created_by' => $user->id,
+                        'farm_id' => $farmDetails->id,
                         'email' => $manager['manager_email'],
                         'role_id' => $manager['manager_role'],
                         'phone' => $manager['manager_phone'],
@@ -107,22 +124,6 @@ class CustomerController extends Controller
                     }
                 }
 
-                //save customer farm details
-                $farmDetails = new CustomerFarm([
-                    'customer_id' => $user->id,
-                    'manager_id' => json_encode($managerIds),
-                    'farm_address' => $request->farm_address,
-                    'farm_city' => $request->farm_city,
-                    'farm_image' => json_encode($request->farm_images),
-                    'farm_province' => $request->farm_province,
-                    'farm_unit' => $request->farm_unit,
-                    'farm_zipcode' => $request->farm_zipcode,
-                    'farm_active' => $request->farm_active,
-                    'latitude' => $request->latitude,
-                    'longitude' => $request->longitude
-                ]);
-
-                $farmDetails->save();
             }
             DB::commit();
 
@@ -360,9 +361,12 @@ class CustomerController extends Controller
      */
     public function listCustomer()
     {
-        $getCustomer = User::with('customerManager.manager.farms')
-            ->whereRoleId(config('constant.roles.Customer'))->get();
+        \DB::connection()->enableQueryLog();
 
+        $getCustomer = User::with('customerManager.managerFarms')
+            ->whereRoleId(config('constant.roles.Customer'))->get();
+   $queries = \DB::getQueryLog();
+         dd($queries);
         return response()->json([
             'status' => true,
             'message' => 'Service Listing.',
