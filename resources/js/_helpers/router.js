@@ -72,6 +72,7 @@ import SkidsteerViewPage from "../components/admin/skidsteer/ViewPage";
 import SkidsteerDocViewPage from "../components/admin/skidsteer/ViewDocPage";
 import SkidsteerViewServicePage from "../components/admin/skidsteer/ViewServicePage";
 import SkidsteerAddServicePage from "../components/admin/skidsteer/AddServicePage";
+import skidsteerEditServicePage from "../components/admin/skidsteer/EditServicePage";
 import skidsteerInsuranceServicePage from "../components/admin/skidsteer/InsuranceServicePage";
 import skidsteerInsuranceEditServicePage from "../components/admin/skidsteer/EditInsuranceServicePage";
 //jos
@@ -159,6 +160,7 @@ export const router = new Router({
         { path: 'skidsteer/docview/:id', component: SkidsteerDocViewPage, name: 'SkidsteerDocView', meta: { requiresAuth: [Role.Admin] } },
         { path: 'Skidsteer/service/:id', component: SkidsteerViewServicePage, name: 'SkidsteerViewService', meta: { requiresAuth: [Role.Admin] } },
         { path: 'Skidsteer/addservice/:id', component: SkidsteerAddServicePage, name: 'SkidsteerAddService', meta: { requiresAuth: [Role.Admin] } },
+            { path: 'Skidsteer/editservice/:id', component: skidsteerEditServicePage, name: 'SkidsteerEditService', meta: { requiresAuth: [Role.Admin] } },
 
     { path: 'Skidsteer/addinsurance/:id', component: skidsteerInsuranceServicePage, name: 'SkidsteerAddInsurance', meta: { requiresAuth: [Role.Admin] } },
 

@@ -11,6 +11,9 @@
                   class="v-avatar v-list-item__avatar"
                   style="height: 80px; min-width: 80px; width: 80px;"
                 >
+            <button type="submit" class="close AClass" style="margin-right: 13px; margin-top: -25px; font-size: 30px;" v-if="cross" @click="Remove()">
+               <span>&times;</span>
+             </button>
                   <img :src="avatar" />
                 </div>
 
@@ -147,6 +150,7 @@
                     v-bind:allow-multiple="false"
                     v-bind:server="serverOptions"
                     v-bind:files="myFiles"
+                    v-on:addfilestart="setUploadIndex"
                     v-on:processfile="handleProcessFile1"
                     allow-file-type-validation="true"
                     accepted-file-types="image/jpeg, image/png"
@@ -214,6 +218,7 @@ export default {
       date: "",
       user_image: "",
       document_img: null,
+      cross:false,
       active: 0,
       setDate: new Date().toISOString().substr(0, 10),
       addForm: {
@@ -280,6 +285,7 @@ export default {
           this.addForm.user_image = response.data.user.user_image;
         }
         if (response.data.user.user_image) {
+          this.cross=true;
           this.avatar = environment.imgUrl + response.data.user.user_image;
         } else {
           this.avatar = environment.imgUrl + "/images/avatar.png";
@@ -326,10 +332,16 @@ export default {
     });
   },
   methods: {
+  Remove(){
+    this.avatar = "/images/avatar.png";
+    this.cross=false;
+    this.addForm.user_image = '';
+  },
     setUploadIndex() {
       this.uploadInProgress = true;
     },
     handleProcessFile: function(error, file) {
+      this.cross=true;
       this.addForm.user_image = file.serverId;
       this.avatar = environment.imgUrl + file.serverId;
       this.uploadInProgress = false;
@@ -337,6 +349,8 @@ export default {
     handleProcessFile1: function(error, file) {
       this.addForm.document = file.serverId;
       this.docError = false;
+      this.uploadInProgress = false;
+      this.document_img = environment.imgUrl + file.serverId;
     },
     save() {
       if (this.addForm.document == "") {
@@ -345,7 +359,7 @@ export default {
 
       if(this.uploadInProgress) {
         this.$toast.open({
-              message: "Profile image uploading is in progress!",
+              message: "Image uploading is in progress!",
               type: "error",
               position: "top-right"
             });

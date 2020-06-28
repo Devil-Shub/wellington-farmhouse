@@ -8,7 +8,7 @@
             <v-row>
              <div
                 class="v-avatar v-list-item__avatar"
-                style="height: 40px; min-width: 40px; width: 40px;"
+                style="height: 80px; min-width: 80px; width: 80px;"
               >
                 <img :src="avatar" />
               </div>
@@ -177,6 +177,7 @@
                     v-bind:allow-multiple="false"
                     v-bind:server="serverOptions"
                     v-bind:files="myFiles"
+                    v-on:addfilestart="setUploadIndex"
                     allow-file-type-validation="true"
                     accepted-file-types="image/jpeg, image/png"
                     v-on:processfile="handleProcessFile1"
@@ -300,7 +301,8 @@ export default {
       this.uploadInProgress = false;
     },
     handleProcessFile1: function(error, file) {
-	    this.docError = false
+      this.docError = false
+      this.uploadInProgress = false;
       this.addForm.document = file.serverId;
     },
     update() {
@@ -310,7 +312,7 @@ export default {
 
        if(this.uploadInProgress) {
         this.$toast.open({
-              message: "Profile image uploading is in progress!",
+              message: "Image uploading is in progress!",
               type: "error",
               position: "top-right"
             });
