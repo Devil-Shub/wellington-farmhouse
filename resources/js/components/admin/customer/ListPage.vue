@@ -95,10 +95,10 @@ export default {
         { text: "Manager", value: "first_name" },
         { text: "Phone Number", value: "phone" },
         { text: "Email", value: "email" },
-        { text: "Farm Address", value: "farms.farm_address" },
-        { text: "City", value: "farms.farm_city" },
-        { text: "State/Province", value: "farms.farm_province" },
-        { text: "Zip/Postal", value: "farms.farm_zipcode" },
+        { text: "Farm Address", value: "manager_farms.farm_address" },
+        { text: "City", value: "manager_farms.farm_city" },
+        { text: "State/Province", value: "manager_farms.farm_province" },
+        { text: "Zip/Postal", value: "manager_farms.farm_zipcode" },
         { text: "No Of Jobs", value: "" },
         { text: "Last Services", value: "" }
       ],
@@ -125,7 +125,7 @@ export default {
       customerService.listCustomer().then(response => {
         //handle response
         if (response.status) {
-         // this.customers = response.data;
+         this.customers = response.data;
         } else {
           this.$toast.open({
             message: response.message,
