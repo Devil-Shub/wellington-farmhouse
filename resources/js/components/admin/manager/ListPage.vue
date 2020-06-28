@@ -58,9 +58,6 @@
                       >Yes</v-chip>
                     </td>
                     <td class="action-col">
-                      <!-- <router-link :to="'/admin/manager/view/' + item.id" class="nav-item nav-link">
-                      <user-icon size="1.5x" class="custom-class"></user-icon>
-                      </router-link>-->
                       <router-link
                         v-if="isAdmin"
                         :to="'/admin/manager/edit/' + item.id"

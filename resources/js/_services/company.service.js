@@ -12,8 +12,9 @@ const currentUserSubject = new BehaviorSubject(
 export const companyService = {
   add,
   edit,
-  getCustomer,
+  getHauler,
   listHauler,
+  deleteHauler,
   getCustomerCard,
   getCustomerRecord,
   apiUrl: environment.apiUrl,
@@ -38,10 +39,23 @@ function add(data) {
     });
 }
 
-function edit(data) {
+function edit(data, id) {
   return fetch(
-    this.apiUrl+`admin/update-customer/`+data.id,
+    this.apiUrl+`admin/update-customer/`+id,
     requestOptions.post(data)
+  )
+    .then(handleResponse)
+    .then(user => {
+      // store user details and passport token in local storage to keep user logged in between page refreshes
+
+      return user;
+    });
+}
+
+function deleteHauler(id) {
+  return fetch(
+    this.apiUrl+`admin/delete-hauler/`+id,
+    requestOptions.delete()
   )
     .then(handleResponse)
     .then(user => {
@@ -64,9 +78,9 @@ function listHauler(){
       return user;
     });
 }
-function getCustomer(data) {
+function getHauler(data) {
   return fetch(
-    this.apiUrl+`admin/get-customer/`+data,
+    this.apiUrl+`admin/get-hauler/`+data,
     requestOptions.get()
   )
     .then(handleResponse)
