@@ -37,7 +37,7 @@ import CustomerDetails from "../components/admin/customer/Details";
 //Company listing
 import CompanyListPage from "../components/admin/company/ListPage";
 import CompanyAddPage from "../components/admin/company/AddPage";
-import CompanyDetails from "../components/admin/company/Details";
+import CompanyEdit from "../components/admin/company/EditPage";
 
 
 //serivce
@@ -128,7 +128,7 @@ export const router = new Router({
 
         { path: 'hauler', component: CompanyListPage, name: 'Company', meta: { requiresAuth: [Role.Admin] } },
         { path: 'hauler/add', component: CompanyAddPage, name: 'CompanyAdd', meta: { requiresAuth: [Role.Admin] } },
-        { path: 'hauler/details/:id', component: CompanyDetails, name: 'CompanyDetail', meta: { requiresAuth: [Role.Admin] } },
+        { path: 'hauler/edit/:id', component: CompanyEdit, name: 'CompanyEdit', meta: { requiresAuth: [Role.Admin] } },
 
         { path: 'manager', component: ListPage, name: 'Manager', meta: { requiresAuth: [Role.Admin] } },
         { path: 'manager/add', component: AddPage, name: 'Add', meta: { requiresAuth: [Role.Admin] } },
@@ -238,7 +238,7 @@ export const router = new Router({
 
         { path: 'hauler', component: CompanyListPage, name: 'MCompany', meta: { requiresAuth: [Role.Admin_Manager] } },
         { path: 'hauler/add', component: CompanyAddPage, name: 'MCompanyAdd', meta: { requiresAuth: [Role.Admin_Manager] } },
-        { path: 'hauler/details/:id', component: CompanyDetails, name: 'MCompanyDetail', meta: { requiresAuth: [Role.Admin_Manager] } },
+        { path: 'hauler/edit/:id', component: CompanyEdit, name: 'MCompanyEdit', meta: { requiresAuth: [Role.Admin_Manager] } },
 	
         { path: 'dispatches', component: DispatchesViewPage, name: 'MDispatches', meta: { requiresAuth: [Role.Admin_Manager] } },
         { path: 'accounting/details/:id', component: AccountingViewPage, name: 'MAccounting', meta: { requiresAuth: [Role.Admin_Manager] } },
