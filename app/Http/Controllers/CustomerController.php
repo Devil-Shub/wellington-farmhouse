@@ -16,7 +16,7 @@ use App\User;
 use App\ManagerDetail;
 use App\CustomerFarm;
 use App\CustomerCardDetail;
-use App\JobPayment;
+use App\Payment;
 use App\Job;
 use Carbon\Carbon;
 
@@ -524,8 +524,8 @@ class CustomerController extends Controller
         }
 
         $farmrecord = CustomerFarm::where('customer_id', $request->customer_id)->count();
-        $allamount = JobPayment::whereIn('user_id', $userId)->sum('amount');
-        $monthamount = JobPayment::whereIn('user_id', $userId)->whereMonth(
+        $allamount = Payment::whereIn('user_id', $userId)->sum('amount');
+        $monthamount = Payment::whereIn('user_id', $userId)->whereMonth(
             'created_at',
             '=',
             Carbon::now()->subMonth(12)

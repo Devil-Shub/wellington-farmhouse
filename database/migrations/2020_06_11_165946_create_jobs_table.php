@@ -57,13 +57,13 @@ class CreateJobsTable extends Migration
             $table->date('end_date')->nullable();
             $table->time('end_time')->nullable();
 
-            
+
             $table->longText('notes_for_techs')->nullable();
 
             $table->longText('notes')->nullable();
 
             $table->json('job_images')->nullable();
-	    $table->tinyInteger("quick_book")->comment("0:Not Sync, 1: Sync")->nullable();
+            $table->tinyInteger("quick_book")->comment("0:Not Sync, 1: Sync")->nullable();
             $table->string('invoice_number')->nullable();
             $table->timestamps();
             $table->softDeletes('deleted_at', 0);
@@ -77,6 +77,7 @@ class CreateJobsTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('jobs');
     }
 }

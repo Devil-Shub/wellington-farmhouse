@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateJobPaymetsTable extends Migration
+class CreateJobPaymentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateJobPaymetsTable extends Migration
      */
     public function up()
     {
-        Schema::create('job_payments', function (Blueprint $table) {
+        Schema::create('payments', function (Blueprint $table) {
             $table->id();
 
             $table->unsignedBigInteger('job_id')->nullable();
@@ -41,6 +41,7 @@ class CreateJobPaymetsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('job_paymets');
+        Schema::disableForeignKeyConstraints();
+        Schema::dropIfExists('payments');
     }
 }

@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use Stripe;
 use App\Job;
-use App\JobPayment;
+use App\Payment;
 use App\CustomerCardDetail;
 
 class PaymentController extends Controller
@@ -26,7 +26,7 @@ class PaymentController extends Controller
             //set stripe env key
             Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
             //stripe charge
-            $getPreviousPayment = JobPayment::whereUserId($loggedUser->id)->first();
+            $getPreviousPayment = Payment::whereUserId($loggedUser->id)->first();
             //check if customer exist    
             if($getPreviousPayment == null) {
                 //create customer
@@ -76,7 +76,7 @@ class PaymentController extends Controller
             ]);
 
             if($checkStatus) {
-                $jobPayment = new JobPayment([
+                $jobPayment = new Payment([
                     'job_id' => $request->job_id,
                     'user_id' => $loggedUser->id,
                     'customer_id' => $custId,

@@ -38,6 +38,7 @@ class CreateCustomerCardDetailsTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('customer_card_details');
     }
 }

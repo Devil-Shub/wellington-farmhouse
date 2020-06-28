@@ -71,7 +71,7 @@ class Job extends Model
 
     public function jobpayment()
     {
-        return $this->hasOne('App\JobPayment', 'job_id');
+        return $this->hasOne('App\Payment', 'job_id');
     }
 
     public function employeeSalaries()
