@@ -370,6 +370,7 @@ export default {
   mounted() {
     // this.$refs.address.focus();
     customerService.getCustomer(this.$route.params.id).then(response => {
+      return false;
       //handle response
       if (response.status) {
         for (

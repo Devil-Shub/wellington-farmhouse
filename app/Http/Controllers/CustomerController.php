@@ -68,7 +68,7 @@ class CustomerController extends Controller
                 'password' => bcrypt($newPassword)
             ]);
             if ($user->save()) {
-	       //send email for new email and password
+                //send email for new email and password
                 $this->_confirmPassword($user, $newPassword);
                 //save customer farm details
                 $farmDetails = new CustomerFarm([
@@ -123,7 +123,6 @@ class CustomerController extends Controller
                         $this->_confirmPassword($saveManger, $newPassword);
                     }
                 }
-
             }
             DB::commit();
 
@@ -361,12 +360,12 @@ class CustomerController extends Controller
      */
     public function listCustomer()
     {
-        \DB::connection()->enableQueryLog();
+        // \DB::connection()->enableQueryLog();
 
-        $getCustomer = User::with('customerManager.managerFarms')
+        $getCustomer = User::with('customerManager.manager_farms')
             ->whereRoleId(config('constant.roles.Customer'))->get();
-   $queries = \DB::getQueryLog();
-         dd($queries);
+        // $queries = \DB::getQueryLog();
+        // dd($queries);
         return response()->json([
             'status' => true,
             'message' => 'Service Listing.',

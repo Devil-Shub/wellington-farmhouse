@@ -14,7 +14,7 @@ class UpdateUserFarmRelationTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-           $table->unsignedBigInteger('farm_id')->nullable()->unsigned();
+            $table->unsignedBigInteger('farm_id')->nullable()->unsigned()->after("created_by");
             $table->foreign('farm_id')->references('id')->on('customer_farms')->onDelete('cascade');
         });
     }
@@ -26,7 +26,7 @@ class UpdateUserFarmRelationTable extends Migration
      */
     public function down()
     {
-         Schema::table('users', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('farm_id');
         });
     }

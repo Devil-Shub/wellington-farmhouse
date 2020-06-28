@@ -80,8 +80,8 @@ class User extends Authenticatable
         return $this->hasOne('App\EmployeeSalaries', 'user_id');
     }
 
-     public function managerFarms()
+    public function manager_farms()
     {
-        return $this->hasMany('App\CustomerFarm', 'id');
+        return $this->hasOne('App\CustomerFarm', 'id', 'farm_id');
     }
 }
