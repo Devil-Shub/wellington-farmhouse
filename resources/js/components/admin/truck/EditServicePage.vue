@@ -51,15 +51,15 @@
 		      v-model="addForm.note"
 		    ></v-textarea>
 		 </v-col>
-
                 <v-col cols="12" md="12">
                   <file-pond
                     name="uploadImage"
                     ref="pond"
                     label-idle="Upload Document"
-                   v-bind:allow-multiple="false"
+                    v-bind:allow-multiple="false"
                     v-bind:server="serverOptions"
                     v-bind:files="myFiles"
+                    v-on:addfilestart="setUploadIndex"
                     v-on:processfile="handleProcessFile1"
 		    allow-file-type-validation="true"
 		    accepted-file-types="image/jpeg, image/png, video/mp4, video/mov"
@@ -67,6 +67,9 @@
                 <div class="v-messages theme--light error--text" role="alert" v-if="docError">
 		<div class="v-messages__wrapper"><div class="v-messages__message">Service image upload is required</div></div>
 		</div>
+                 <div v-if="documentImg" style="height:200px; width:200px">
+                    <img :src="documentImg" alt="John" style="height:200px;" />
+                  </div>
                 </v-col>
 
                 <v-col cols="12" md="12">
@@ -77,6 +80,7 @@
                     v-bind:allow-multiple="false"
                     v-bind:server="serverOptions"
                     v-bind:files="myFiles"
+                    v-on:addfilestart="setUploadIndex"
                     v-on:processfile="handleProcessFile2"
 		    allow-file-type-validation="true"
 		    accepted-file-types="image/jpeg, image/png"
@@ -84,8 +88,10 @@
                 <div class="v-messages theme--light error--text" role="alert" v-if="insdocError">
 		<div class="v-messages__wrapper"><div class="v-messages__message">Receipt document upload is required</div></div>
 		</div>
+                 <div v-if="receiptImg" style="height:200px; width:200px">
+                    <img :src="receiptImg" alt="John" style="height:200px;" />
+                  </div>
                 </v-col>
-
               </v-col>
 
               <v-col cols="12" md="12">
@@ -114,8 +120,11 @@ export default {
       menu1: false,
       valid: true,
       apiUrl: environment.apiUrl,
-      avatar: null,
+      imgUrl: environment.imgUrl,
+      receiptImg: null,
+      documentImg: null,
       date: "",
+      uploadInProgress: false,
       setDate:new Date().toISOString().substr(0, 10),
       user_image: "",
       addForm: {
@@ -124,29 +133,15 @@ export default {
         service_killometer: "",
         receipt: '',
         document: '',
-        note: ''
+        note:''
       },
      killometerRules: [
         v => !!v || "Truck miles is required",
         v => /^\d*$/.test(v) || "Enter valid number",
       ],
-     myFiles: []
+    myFiles: [],
     };
   },
-  mounted: function() {
-	truckService.getTruckSingleService(this.$route.params.id).then(response => {
-		//handle response
-		if (response.status) {
-		this.addForm.id=response.data.id;
-		this.addForm.vehicle_id=response.data.vehicle_id;
-		this.addForm.receipt=response.data.receipt;
-		this.addForm.document=response.data.document;
-                this.addForm.note=response.data.note;
-		this.date=new Date(response.data.service_date).toISOString().substr(0, 10);
-		this.addForm.service_killometer=response.data.service_killometer;
-		}
-	});
- },
   computed: {
     serverOptions() {
       const currentUser = JSON.parse(localStorage.getItem("currentUser"));
@@ -170,16 +165,47 @@ export default {
       }
     }
   },
+  mounted: function() {
+	truckService.getTruckSingleService(this.$route.params.id).then(response => {
+		//handle response
+		if (response.status) {
+		this.addForm.id=response.data.id;
+		this.addForm.receipt=response.data.receipt;
+		this.addForm.document=response.data.document;
+                this.addForm.note=response.data.note;
+		this.addForm.vehicle_id=response.data.vehicle_id;
+		this.date=new Date(response.data.service_date).toISOString().substr(0, 10);
+		this.addForm.service_killometer=response.data.service_killometer;
+                this.receiptImg = this.imgUrl+response.data.receipt;
+                this.documentImg = this.imgUrl+response.data.document;
+		}
+	});
+ },
   methods: {
+    setUploadIndex() {
+      this.uploadInProgress = true;
+    },
    handleProcessFile1: function(error, file) {
       this.addForm.document = file.serverId;
+      this.documentImg = this.imgUrl+file.serverId;
       this.docError = false;
+      this.uploadInProgress = false;
     },
     handleProcessFile2: function(error, file) {
       this.addForm.receipt = file.serverId;
       this.insdocError = false;
+      this.receiptImg = this.imgUrl+file.serverId;
+      this.uploadInProgress = false;
     },
     save() {
+      if(this.uploadInProgress) {
+        this.$toast.open({
+              message: "Image uploading is in progress!",
+              type: "error",
+              position: "top-right"
+            });
+            return false;
+      }
       if(this.addForm.document == ''){
 		this.docError = true;
 	}
@@ -197,13 +223,13 @@ export default {
                position: 'top-right'
              });
           //redirect to login
-		    const currentUser = authenticationService.currentUserValue;
+	   const currentUser = authenticationService.currentUserValue;
 	    if(currentUser.data.user.role_id == 1){
-	const url = "/admin/truck/service/"+this.addForm.vehicle_id;
-		router.push(url);
+	          const url = "/admin/truck/service/"+this.addForm.vehicle_id;
+                 router.push(url);
 	    }else{
-	const url = "/manager/truck/service/"+this.addForm.vehicle_id;
-		router.push(url);
+	         const url = "/manager/truck/service/"+this.addForm.vehicle_id;
+                 router.push(url);
 	    }
          } else {
              this.$toast.open({

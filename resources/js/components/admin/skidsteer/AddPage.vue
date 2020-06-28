@@ -106,6 +106,7 @@
                     v-bind:allow-multiple="false"
                     v-bind:server="serverOptions"
                     v-bind:files="myFiles"
+                    v-on:addfilestart="setUploadIndex"
                     v-on:processfile="handleProcessFile1"
 		    allow-file-type-validation="true"
 		    accepted-file-types="image/jpeg, image/png"
@@ -122,6 +123,7 @@
                    v-bind:allow-multiple="false"
                     v-bind:server="serverOptions"
                     v-bind:files="myFiles"
+                    v-on:addfilestart="setUploadIndex"
                     v-on:processfile="handleProcessFile2"
 		    allow-file-type-validation="true"
 		    accepted-file-types="image/jpeg, image/png"
@@ -171,6 +173,7 @@ export default {
       avatar: null,
       date: "",
       date1: "",
+     uploadInProgress:false,
       setDate:new Date().toISOString().substr(0, 10),
       user_image: "",
       addForm: {
@@ -218,13 +221,18 @@ export default {
   },
   created() {},
   methods: {
+    setUploadIndex() {
+      this.uploadInProgress = true;
+    },
     handleProcessFile1: function(error, file) {
       this.addForm.document = file.serverId;
       this.docError = false;
+      this.uploadInProgress = false;
     },
     handleProcessFile2: function(error, file) {
       this.addForm.insurance_document = file.serverId;
       this.insdocError = false;
+      this.uploadInProgress = false;
     },
     save() {
    	if(this.addForm.document == ''){
@@ -233,6 +241,14 @@ export default {
         if(this.addForm.insurance_document == ''){
 		this.insdocError = true;
 	}
+      if(this.uploadInProgress) {
+        this.$toast.open({
+              message: "Image uploading is in progress!",
+              type: "error",
+              position: "top-right"
+            });
+            return false;
+      }
       this.addForm.insurance_date = this.date;
       this.addForm.insurance_expiry = this.date1;
       if (this.$refs.form.validate() && (!this.insdocError) && (!this.docError)) {

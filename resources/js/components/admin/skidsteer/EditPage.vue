@@ -113,6 +113,7 @@
                     v-bind:allow-multiple="false"
                     v-bind:server="serverOptions"
                     v-bind:files="myFiles"
+                    v-on:addfilestart="setUploadIndex"
                     v-on:processfile="handleProcessFile1"
 		    allow-file-type-validation="true"
 		    accepted-file-types="image/jpeg, image/png"
@@ -132,6 +133,7 @@
                    v-bind:allow-multiple="false"
                     v-bind:server="serverOptions"
                     v-bind:files="myFiles"
+                    v-on:addfilestart="setUploadIndex"
                     v-on:processfile="handleProcessFile2"
 		    allow-file-type-validation="true"
 		    accepted-file-types="image/jpeg, image/png"
@@ -186,6 +188,7 @@ export default {
       insurancedocument: null,
       date: "",
       date1: "",
+     uploadInProgress:false,
       setDate:new Date().toISOString().substr(0, 10),
       user_image: "",
       addForm: {
@@ -270,17 +273,30 @@ export default {
     });
   },
   methods: {
+    setUploadIndex() {
+      this.uploadInProgress = true;
+    },
     handleProcessFile1: function(error, file) {
       this.addForm.document = file.serverId;
       this.rc = this.imgUrl + file.serverId;
       this.docError = false;
+      this.uploadInProgress = false;
     },
     handleProcessFile2: function(error, file) {
       this.addForm.insurance_document = file.serverId;
       this.insurancedocument = this.imgUrl+file.serverId;
       this.insdocError = false;
+      this.uploadInProgress = false;
     },
     save() {
+      if(this.uploadInProgress) {
+        this.$toast.open({
+              message: "Image uploading is in progress!",
+              type: "error",
+              position: "top-right"
+            });
+            return false;
+      }
    	if(this.addForm.document == ''){
 		this.docError = true;
 	}

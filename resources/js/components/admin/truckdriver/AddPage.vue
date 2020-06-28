@@ -159,6 +159,7 @@
                     v-bind:allow-multiple="false"
                     v-bind:server="serverOptions"
                     v-bind:files="myFiles"
+                    v-on:addfilestart="setUploadIndex"
                     v-on:processfile="handleProcessFile1"
                     allow-file-type-validation="true"
                     accepted-file-types="image/jpeg, image/png"
@@ -295,6 +296,7 @@ export default {
     handleProcessFile1: function(error, file) {
       this.addForm.document = file.serverId;
       this.docError = false;
+      this.uploadInProgress = false;
     },
     save() {
       if (this.addForm.document == "") {
@@ -303,7 +305,7 @@ export default {
 
       if(this.uploadInProgress) {
         this.$toast.open({
-              message: "Profile image uploading is in progress!",
+              message: "Image uploading is in progress!",
               type: "error",
               position: "top-right"
             });
