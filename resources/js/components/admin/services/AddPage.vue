@@ -5,7 +5,7 @@
         <h4 class="main-title">Add Service</h4>
 
         <v-col cols="12" md="12" class="pl-0">
-          <v-form ref="form" v-model="valid" lazy-validation>
+          <v-form ref="form" v-model="valid" lazy-validation @submit="save">
             <v-col cols="12" md="12">
               <v-text-field
                 v-model="addForm.service_name"
@@ -99,7 +99,7 @@
 	      <v-radio label="Round" value="2"></v-radio>
 	    </v-radio-group>
 	</v-col>
-            <v-btn color="success" class="mr-4 custom-save-btn ml-4 mt-4" @click="save">Add Service</v-btn>
+            <v-btn type="submit" :loading="loading" :disabled="loading" color="success" class="mr-4 custom-save-btn ml-4 mt-4" @click="save">Add Service</v-btn>
           </v-form>
         </v-col>
       </v-row>
@@ -120,6 +120,7 @@ export default {
   },
   data() {
     return {
+      loading: false,
       valid: true,
       avatar: null,
       docError: false,
@@ -239,7 +240,10 @@ export default {
       this.addForm.service_image = '';
       this.docError = true;
     },
-    save() {
+    save: function(e) {
+      //stop page to reload
+      e.preventDefault();
+
       //time slots validation
       if(this.addForm.slot_time.length > 0) {
         //morning check
@@ -295,7 +299,15 @@ export default {
       }
 
       if (this.$refs.form.validate() && (this.timeSlotErr && !this.docError)) {
+        if(this.loading) {
+          return false;
+        }
+        //start loading
+        this.loading = true;
+
         serviceService.add(this.addForm).then(response => {
+          //stop loading
+          this.loading = false;
           //handle response
           if (response.status) {
             this.$toast.open({

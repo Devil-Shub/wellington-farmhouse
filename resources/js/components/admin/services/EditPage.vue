@@ -6,7 +6,7 @@
           <h4 class="main-title">Edit Service</h4>
         </v-col>
         <v-col cols="12" md="12">
-          <v-form ref="form" v-model="valid" lazy-validation>
+          <v-form ref="form" v-model="valid" lazy-validation @submit="update">
             <v-col cols="12" md="12">
               <v-text-field
                 v-model="editForm.service_name"
@@ -103,7 +103,7 @@
                 class="" v-if="editForm.service_image"
                 style="height: 100px; min-width: 100px; width: 100px;"
               >
-              <button type="submit" class="close AClass" style="margin-right: 13px; margin-top: -25px; font-size: 30px;" v-if="cross" @click="Remove()">
+              <button type="button" class="close AClass" style="margin-right: 13px; margin-top: -25px; font-size: 30px;" v-if="cross" @click="Remove()">
                <span>&times;</span>
              </button>
                 <img width="100%" :src="baseUrl+editForm.service_image" alt="John" />
@@ -117,7 +117,7 @@
 	      <v-radio label="Round" value="round"></v-radio>
 	    </v-radio-group>
 	</v-col>
-            <v-btn color="success" class="mr-4 custom-save-btn ml-4 mt-4" @click="update">Update</v-btn>
+            <v-btn type="submit" :loading="loading" :disabled="loading" color="success" class="mr-4 custom-save-btn ml-4 mt-4" @click="update">Update</v-btn>
           </v-form>
         </v-col>
       </v-row>
@@ -138,6 +138,7 @@ export default {
   data() {
     return {
       valid: true,
+      loading: false,
       avatar: null,
       docError: false,
       apiUrl: environment.apiUrl,
@@ -297,7 +298,10 @@ export default {
       this.editForm.service_image = '';
       this.docError = true;
     },
-    update() {
+    update: function(e) {
+      //stop page to reload
+      e.preventDefault();
+
       if(this.uploadInProgress) {
         this.$toast.open({
               message: "Image uploading is in progress!",
@@ -367,7 +371,15 @@ export default {
       }
 
       if (this.$refs.form.validate() && (this.timeSlotErr && !this.docError)) {
+        if(this.loading) {
+          return false;
+        }
+        //start loading
+        this.loading = true;
+        
         serviceService.edit(this.editForm).then(response => {
+          //stop loading
+          this.loading = false;
           //handle response
           if (response.status) {
             this.$toast.open({
