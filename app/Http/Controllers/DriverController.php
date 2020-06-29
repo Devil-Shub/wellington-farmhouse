@@ -133,18 +133,18 @@ class DriverController extends Controller
                 'country' => $request->driver_country,
                 'zip_code' => $request->driver_zipcode,
                 'user_image' => $request->user_image,
-                 'document' => $request->document
             ]);
-       
+      
             //update driver table
             Driver::whereUserId($request->driver_id)->update([
                 'driver_licence' => $request->driver_licence,
                 'expiry_date' => $request->expiry_date,
                 'salary_type' => $request->salary_type,
                 'driver_salary' => $request->driver_salary,
-                'driver_type' => $request->driver_type
+                'driver_type' => $request->driver_type,
+                 'document' => $request->document
             ]);
-      
+
 
             //commit all transactions now
             DB::commit();
