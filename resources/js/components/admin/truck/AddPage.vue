@@ -117,6 +117,7 @@
                     v-bind:files="myFiles"
                     v-on:addfilestart="setUploadIndex"
                     v-on:processfile="handleProcessFile1"
+                    v-on:processfilerevert="handleRemoveFile1"
 		    allow-file-type-validation="true"
 		    accepted-file-types="image/jpeg, image/png"
                   />
@@ -134,6 +135,7 @@
                     v-bind:files="myFiles"
                     v-on:addfilestart="setUploadIndex"
                     v-on:processfile="handleProcessFile2"
+                    v-on:processfilerevert="handleRemoveFile2"
 		    allow-file-type-validation="true"
 		    accepted-file-types="image/jpeg, image/png"
                   />
@@ -217,6 +219,12 @@ export default {
           headers: {
             Authorization: "Bearer " + currentUser.data.access_token
           }
+        },
+        revert:{
+          url: "deleteImage",
+          headers: {
+            Authorization: "Bearer " + currentUser.data.access_token
+          }
         }
       };
     },
@@ -239,10 +247,18 @@ export default {
       this.docError = false;
      this.uploadInProgress = false;
     },
+    handleRemoveFile1: function(file){
+      this.addForm.document = '';
+      this.docError = true;
+    },
     handleProcessFile2: function(error, file) {
       this.addForm.insurance_document = file.serverId;
       this.insdocError = false;
       this.uploadInProgress = false;
+    },
+    handleRemoveFile2: function(file){
+      this.addForm.insurance_document = '';
+       this.insdocError = true;
     },
     save() {
    	if(this.addForm.document == ''){

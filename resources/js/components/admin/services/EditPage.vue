@@ -89,7 +89,9 @@
                  v-bind:allow-multiple="false"
                 v-bind:server="serverOptions"
                 v-bind:files="myFiles"
+                v-on:addfilestart="setUploadIndex"
                 v-on:processfile="handleProcessFile"
+                v-on:processfilerevert="handleRemoveFile"
                 allow-file-type-validation="true"
                 accepted-file-types="image/jpeg, image/png"/>
                 <div class="v-messages theme--light error--text" role="alert" v-if="docError">
@@ -174,6 +176,12 @@ export default {
           headers: {
             Authorization: "Bearer " + currentUser.data.access_token
           }
+        },
+        revert:{
+          url: "deleteImage",
+          headers: {
+            Authorization: "Bearer " + currentUser.data.access_token
+          }
         }
       };
     },
@@ -222,6 +230,9 @@ export default {
     });
   },
   methods: {
+    setUploadIndex() {
+      this.uploadInProgress = true;
+    },
   Remove(){
     this.cross=false;
     this.editForm.service_image = '';
@@ -280,8 +291,21 @@ export default {
     handleProcessFile: function(error, file) {
       this.editForm.service_image = file.serverId;
       this.docError = false;
+     this.uploadInProgress = false;
+    },
+    handleRemoveFile: function(file){
+      this.editForm.service_image = '';
+      this.docError = true;
     },
     update() {
+      if(this.uploadInProgress) {
+        this.$toast.open({
+              message: "Image uploading is in progress!",
+              type: "error",
+              position: "top-right"
+            });
+            return false;
+      }
       if (this.editForm.service_rate == "perload") {
         this.editForm.service_rate = 1;
       } else {

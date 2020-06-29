@@ -33,4 +33,8 @@ class ImageController extends Controller
         }
         return $file;
     }
+    
+    public function deleteImage() {
+      return true;
+    }
 }

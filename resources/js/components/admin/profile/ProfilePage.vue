@@ -27,6 +27,7 @@
                 allow-file-type-validation="true"
                 accepted-file-types="image/jpeg, image/png"
                 v-on:processfile="handleProcessFile"
+                v-on:processfilerevert="handleRemoveFile"
               />
             </v-col>
             <v-col cols="12" md="12">
@@ -122,6 +123,12 @@ export default {
           headers: {
             Authorization: "Bearer " + currentUser.data.access_token
           }
+        },
+        revert:{
+          url: "deleteImage",
+          headers: {
+            Authorization: "Bearer " + currentUser.data.access_token
+          }
         }
       };
     },
@@ -153,10 +160,14 @@ export default {
       this.uploadInProgress = true;
     },
     handleProcessFile: function(error, file) {
-      this.cross=true;
       this.updateForm.user_image = file.serverId;
       this.avatar = "../../"+file.serverId;
       this.uploadInProgress = false;
+    },
+    handleRemoveFile: function(file){
+      this.updateForm.user_image = '';
+      this.avatar = "/images/avatar.png";
+      this.uploadInProgress = true;
     },
     update() {
       if(this.uploadInProgress) {

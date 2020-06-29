@@ -25,6 +25,7 @@
                   allow-file-type-validation="true"
                   accepted-file-types="image/jpeg, image/png"
                   v-on:processfile="handleProcessFile"
+                  v-on:processfilerevert="handleRemoveFile"
                 />
                 <div class="v-messages theme--light error--text" role="alert" v-if="profileImgError">
                     <div class="v-messages__wrapper">
@@ -181,6 +182,7 @@
                     allow-file-type-validation="true"
                     accepted-file-types="image/jpeg, image/png"
                     v-on:processfile="handleProcessFile1"
+                v-on:processfilerevert="handleRemoveFile1"
                   />
 		<div class="v-messages theme--light error--text" role="alert" v-if="docError">
 		<div class="v-messages__wrapper"><div class="v-messages__message">Document upload is required</div></div>
@@ -275,6 +277,12 @@ export default {
           headers: {
             Authorization: "Bearer " + currentUser.data.access_token
           }
+        },
+        revert:{
+          url: "deleteImage",
+          headers: {
+            Authorization: "Bearer " + currentUser.data.access_token
+          }
         }
       };
     },
@@ -300,10 +308,18 @@ export default {
       this.profileImgError = false;
       this.uploadInProgress = false;
     },
+    handleRemoveFile: function(file){
+      this.addForm.user_image = '';
+      this.avatar = "/images/avatar.png";
+    },
     handleProcessFile1: function(error, file) {
       this.docError = false
       this.uploadInProgress = false;
       this.addForm.document = file.serverId;
+    },
+    handleRemoveFile1: function(file){
+      this.addForm.document = '';
+      this.docError = true;
     },
     update() {
       if(this.addForm.document == ''){

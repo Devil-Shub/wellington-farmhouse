@@ -129,5 +129,6 @@ Route::group(['prefix' => 'auth'], function () {
 
         //upload image
         Route::post('uploadImage', 'ImageController@uploadImage');
+	Route::delete('deleteImage', 'ImageController@deleteImage');
     });
 });

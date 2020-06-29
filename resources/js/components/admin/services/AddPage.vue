@@ -82,6 +82,7 @@
                 v-bind:server="serverOptions"
                 v-bind:files="myFiles"
                 v-on:processfile="handleProcessFile"
+                v-on:processfilerevert="handleRemoveFile"
                 allow-file-type-validation="true"
                 accepted-file-types="image/jpeg, image/png"/>
                 <div class="v-messages theme--light error--text" role="alert" v-if="docError">
@@ -156,6 +157,12 @@ export default {
           headers: {
             Authorization: "Bearer " + currentUser.data.access_token
           }
+        },
+        revert:{
+          url: "deleteImage",
+          headers: {
+            Authorization: "Bearer " + currentUser.data.access_token
+          }
         }
       };
     },
@@ -227,6 +234,10 @@ export default {
     handleProcessFile: function(error, file) {
       this.addForm.service_image = file.serverId;
       this.docError = false;
+    },
+    handleRemoveFile: function(file){
+      this.addForm.service_image = '';
+      this.docError = true;
     },
     save() {
       //time slots validation
