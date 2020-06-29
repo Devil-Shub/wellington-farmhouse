@@ -294,7 +294,7 @@ export default {
           this.cross=true;
           this.avatar = environment.imgUrl + response.data.user.user_image;
         } else {
-          this.avatar = environment.imgUrl + "/images/avatar.png";
+          this.avatar = environment.imgUrl + "images/avatar.png";
         }
         if (response.data.document) {
         this.addForm.document = response.data.document;
@@ -351,6 +351,7 @@ export default {
       this.uploadInProgress = false;
     },
     handleRemoveFile: function(file){
+      this.cross=false;
       this.addForm.user_image = '';
       this.avatar = "/images/avatar.png";
     },

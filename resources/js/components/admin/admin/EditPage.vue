@@ -172,6 +172,7 @@ export default {
     handleRemoveFile: function(file){
       this.addForm.user_image = '';
       this.avatar = "/images/avatar.png";
+	    this.cross=false;
     },
     Remove(){
 	    this.avatar = "/images/avatar.png";
