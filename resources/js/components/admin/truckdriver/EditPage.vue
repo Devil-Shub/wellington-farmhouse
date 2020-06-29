@@ -4,14 +4,14 @@
       <v-row>
         <h2>Edit Driver</h2>
         <v-col cols="12" md="12">
-          <v-form ref="form" v-model="valid" lazy-validation>
+          <v-form ref="form" v-model="valid" lazy-validation @submit="save">
             <v-row>
               <v-col cols="5" md="5">
                 <div
                   class="v-avatar v-list-item__avatar"
                   style="height: 80px; min-width: 80px; width: 80px;"
                 >
-            <button type="submit" class="close AClass" style="margin-right: 13px; margin-top: -25px; font-size: 30px;" v-if="cross" @click="Remove()">
+            <button type="button" class="close AClass" style="margin-right: 13px; margin-top: -25px; font-size: 30px;" v-if="cross" @click="Remove()">
                <span>&times;</span>
              </button>
                   <img :src="avatar" />
@@ -182,6 +182,7 @@
               </v-col>
               <v-col cols="12" md="12">
                 <v-btn
+                type="submit"
                   :loading="loading"
                   :disabled="loading"
                   color="success"
@@ -366,7 +367,10 @@ export default {
       this.docError = true;
       this.document_img = '';
     },
-    save() {
+    save: function(e) {
+      //stop page to reload
+      e.preventDefault();
+
       if (this.addForm.document == "") {
         this.docError = true;
       }
@@ -392,6 +396,10 @@ export default {
       }
 
       if (this.$refs.form.validate() && !this.docError) {
+        if(this.loading) {
+          return false;
+        }
+
         //start loader
         this.loading = true;
         driverService

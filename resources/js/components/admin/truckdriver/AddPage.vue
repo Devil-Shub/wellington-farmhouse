@@ -4,7 +4,7 @@
       <v-row>
         <h2>Add New Driver</h2>
         <v-col cols="12" md="12">
-          <v-form ref="form" v-model="valid" lazy-validation>
+          <v-form ref="form" v-model="valid" lazy-validation @submit="save">
             <v-row>
               <v-col cols="5" md="5">
                 <div
@@ -188,6 +188,7 @@
 
               <v-col cols="12" md="12">
                 <v-btn
+                  type="submit"
                   :loading="loading"
                   :disabled="loading"
                   color="success"
@@ -314,7 +315,10 @@ export default {
       this.addForm.document = '';
       this.docError = true
     },
-    save() {
+    save: function(e) {
+      //stop page to reload
+      e.preventDefault();
+
       if (this.addForm.document == "") {
         this.docError = true;
       }
@@ -330,8 +334,12 @@ export default {
 
       this.addForm.expiry_date = this.date;
       if (this.$refs.form.validate() && !this.docError) {
+        if(this.loading) {
+          return false;
+        }
         //start loader
         this.loading = true;
+        
         driverService.add(this.addForm).then(response => {
           //stop loader
           this.loading = false;

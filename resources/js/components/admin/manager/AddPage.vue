@@ -4,7 +4,7 @@
       <v-row>
      <h4 class="main-title">Add New Manager</h4>
         <v-col cols="12" md="12">
-          <v-form ref="form" v-model="valid" lazy-validation>
+          <v-form ref="form" v-model="valid" lazy-validation @submit="update">
             <v-row>
              <div
                 class="v-avatar v-list-item__avatar"
@@ -192,7 +192,7 @@
                 </v-col>
               </v-col>
 
-              <v-btn color="success" class="mr-4 custom-save-btn ml-4 manager-save" @click="update">Submit</v-btn>
+              <v-btn :loading="loading" :disabled="loading" color="success" type="submit" class="mr-4 custom-save-btn ml-4 manager-save" @click="update">Submit</v-btn>
             </v-row>
           </v-form>
         </v-col>
@@ -213,6 +213,7 @@ export default {
   },
   data() {
     return {
+      loading: null,
       docError: false,
       valid: true,
       avatar: null,
@@ -321,7 +322,9 @@ export default {
       this.addForm.document = '';
       this.docError = true;
     },
-    update() {
+    update: function(e) {
+      //stop page to reload
+      e.preventDefault();
       if(this.addForm.document == ''){
 	      this.docError = true
        }
@@ -341,7 +344,14 @@ export default {
       this.addForm.joining_date = this.date;
       this.addForm.releaving_date = this.date1;
       if (this.$refs.form.validate() && (!this.docError && !this.profileImgError)) {
+        if(this.loading) {
+          return false;
+        }
+        //start loader
+        this.loading = true;
         managerService.add(this.addForm).then(response => {
+          //stop loader
+        this.loading = false;
           //handle response
           if (response.status) {
             this.$toast.open({

@@ -4,13 +4,13 @@
       <v-row>
      <h2>Edit Admin</h2>
         <v-col cols="12" md="12">
-          <v-form ref="form" v-model="valid" lazy-validation>
+          <v-form ref="form" v-model="valid" lazy-validation @submit="update">
             <v-col cols="12" md="12">
               <div v-if="avatar"
                 class="v-avatar v-list-item__avatar"
                 style="height: 80px; min-width: 80px; width: 80px;"
               >
-              <button type="submit" class="close AClass" style="margin-right: 13px; margin-top: -25px; font-size: 30px;" v-if="cross" @click="Remove()">
+              <button type="button" class="close AClass" style="margin-right: 13px; margin-top: -25px; font-size: 30px;" v-if="cross" @click="Remove()">
                <span>&times;</span>
              </button>
                 <img :src="avatar" />
@@ -55,7 +55,7 @@
                 required
               ></v-text-field>
             </v-col>
-            <v-btn color="success" class="mr-4" @click="update">Submit</v-btn>
+            <v-btn type="submit" :loading="loading" :disabled="loading" color="success" class="mr-4" @click="update">Submit</v-btn>
           </v-form>
         </v-col>
       </v-row>
@@ -75,6 +75,7 @@ export default {
   },
   data() {
     return {
+      loading: false,
       valid: true,
       avatar: null,
      uploadInProgress:false,
@@ -180,7 +181,10 @@ export default {
 	    this.cross=false;
 	    this.addForm.user_image = '';
    },
-   update() {
+   update: function(e) {
+     //stop page to reload
+      e.preventDefault();
+      
     if(this.uploadInProgress) {
         this.$toast.open({
               message: "Profile image uploading is in progress!",
@@ -190,8 +194,14 @@ export default {
             return false;
       }
       if (this.$refs.form.validate()) {
+        if(this.loading) {
+          return false;
+        }
+        //start loading
         this.loading = true;
         adminService.edit(this.addForm, this.$route.params.id).then(response => {
+          //stop loading
+          this.loading = false;
           //handle response
           if (response.status) {
             this.$toast.open({
