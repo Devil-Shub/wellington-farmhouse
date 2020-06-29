@@ -5,13 +5,13 @@
       <h2>Edit Profile</h2>
         <v-col cols="12" md="12">
           
-          <v-form ref="form" v-model="valid" enctype="multipart/form-data" lazy-validation>
+          <v-form ref="form" v-model="valid" enctype="multipart/form-data" lazy-validation @submit="update">
             <v-col cols="12" md="12">
               <div
                 class="v-avatar v-list-item__avatar"
                 style="height: 80px; min-width: 80px; width: 80px; position:relative;"
               >
-              <button type="submit" class="close AClass" style="margin-right: 13px; margin-top: -25px; font-size: 30px;" v-if="cross" @click="Remove()">
+              <button type="button" class="close AClass" style="margin-right: 13px; margin-top: -25px; font-size: 30px;" v-if="cross" @click="Remove()">
                <span>&times;</span>
              </button>
                 <img :src="avatar" />
@@ -59,7 +59,7 @@
             </v-col>
             <!-- <v-btn color="success" class="mr-4" @click="update">Submit</v-btn> -->
 
-            <v-btn color="success" :loading="loading" :disabled="isvalid"  class="mr-4 custom-save-btn ml-4" @click="update">Submit</v-btn>
+            <v-btn color="success" type="submit" :loading="loading" :disabled="isvalid"  class="mr-4 custom-save-btn ml-4" @click="update">Submit</v-btn>
 
             <v-btn color="success" v-if="updateForm.user_id != 1" class="mr-4" @click="Delete(updateForm.user_id)">Delete Account</v-btn>
           </v-form>
@@ -163,12 +163,17 @@ export default {
       this.updateForm.user_image = file.serverId;
       this.avatar = "../../"+file.serverId;
       this.uploadInProgress = false;
+      this.cross=false;
     },
     handleRemoveFile: function(file){
       this.updateForm.user_image = '';
       this.avatar = "/images/avatar.png";
+      this.cross=false;
     },
-    update() {
+    update: function(e) {
+      //stop page to reload
+      e.preventDefault();
+
       if(this.uploadInProgress) {
         this.$toast.open({
               message: "Profile image uploading is in progress!",
@@ -177,9 +182,14 @@ export default {
             });
             return false;
       }
-      //start loading
-        this.loading = true;
       if (this.$refs.form.validate()) {
+        if(this.loading) {
+          return false;
+        }
+
+        //start loading
+        this.loading = true;
+
         authenticationService.updateProfile(this.updateForm).then(response => {
           //stop loading
           this.loading = false;

@@ -4,7 +4,7 @@
       <v-row>
 	<h2>Add New Skidsteer</h2>
         <v-col cols="12" md="12">
-          <v-form ref="form" v-model="valid" lazy-validation>
+          <v-form ref="form" v-model="valid" lazy-validation @submit="save">
             <v-row>
               <v-col cols="8" md="8">
                 <v-col cols="12" md="12">
@@ -99,6 +99,15 @@
                 </v-col>
 
                 <v-col cols="12" md="12">
+                  <v-text-field
+                   type="number"
+                    v-model="addForm.capacity"
+                    label="Skidsteer Capacity"
+                    required
+                  ></v-text-field>
+                </v-col>
+
+                <v-col cols="12" md="12">
                   <file-pond
                     name="uploadImage"
                     ref="pond"
@@ -143,7 +152,9 @@
               </v-col>
 
               <v-col cols="12" md="12">
-                <v-btn color="success" class="mr-4" @click="save">Submit</v-btn>
+                <v-btn type="submit"
+                  :loading="loading"
+                  :disabled="loading" color="success" class="mr-4" @click="save">Submit</v-btn>
               </v-col>
             </v-row>
           </v-form>
@@ -166,6 +177,7 @@ export default {
 
   data() {
     return {
+      loading: null,
       docError: false,
       insdocError: false,
       menu2: false,
@@ -188,6 +200,7 @@ export default {
         document: "",
 	insurance_document: "",
         total_killometer: "",
+        capacity:'',
         insurance_expiry: "",
 	is_active: true
       },
@@ -250,7 +263,9 @@ export default {
       this.addForm.insurance_document = '';
        this.insdocError = true;
     },
-    save() {
+    save: function(e) {
+      //stop page to reload
+      e.preventDefault();
    	if(this.addForm.document == ''){
 		this.docError = true;
 	}
@@ -268,7 +283,15 @@ export default {
       this.addForm.insurance_date = this.date;
       this.addForm.insurance_expiry = this.date1;
       if (this.$refs.form.validate() && (!this.insdocError) && (!this.docError)) {
+        if(this.loading) {
+          return false;
+        }
+        //start loader
+        this.loading = true;
+
         skidsteerService.add(this.addForm).then(response => {
+          //stop loader
+          this.loading = false;
          //handle response
          if(response.status) {
              this.$toast.open({

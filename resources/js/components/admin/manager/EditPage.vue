@@ -4,13 +4,13 @@
       <v-row>
         <h4 class="main-title">Edit Manager</h4>
         <v-col cols="12" md="12">
-          <v-form ref="form" v-model="valid" lazy-validation>
+          <v-form ref="form" v-model="valid" lazy-validation @submit="update">
             <v-row>
               <div
                 class="v-avatar v-list-item__avatar"
                 style="height: 80px; min-width: 80px; width: 80px;"
               >
-            <button type="submit" class="close AClass" style="margin-right: 13px; margin-top: -25px; font-size: 30px;" v-if="cross" @click="Remove()">
+            <button type="button" class="close AClass" style="margin-right: 13px; margin-top: -25px; font-size: 30px;" v-if="cross" @click="Remove()">
                <span>&times;</span>
              </button>
                 <img :src="avatar" alt="Manager" />
@@ -200,6 +200,8 @@
               </v-col>
 
               <v-btn
+              :loading="loading" :disabled="loading"
+              type="submit"
                 color="success"
                 class="mr-4 custom-save-btn ml-4 manager-save"
                 @click="update"
@@ -224,6 +226,7 @@ export default {
   },
   data() {
     return {
+      loading: null,
       docError: false,
       valid: true,
       avatar: null,
@@ -354,13 +357,14 @@ export default {
       this.uploadInProgress = true;
     },
     handleProcessFile: function(error, file) {
-      this.cross=true;
+      this.cross=false;
       this.addForm.user_image = file.serverId;
       this.uploadInProgress = false;
       this.avatar = this.imgUrl+file.serverId;
     },
     handleRemoveFile: function(file){
       this.addForm.user_image = '';
+      this.cross=false;
       this.avatar = "/images/avatar.png";
     },
     handleProcessFile1: function(error, file) {
@@ -374,7 +378,10 @@ export default {
       this.documentImg = '';
       this.docError = true;
     },
-    update() {
+    update: function(e) {
+      //stop page to reload
+      e.preventDefault();
+
       if (this.addForm.document == "") {
         this.docError = true;
       }
@@ -390,11 +397,20 @@ export default {
 
       this.addForm.joining_date = this.date;
       this.addForm.releaving_date = this.date1;
-      console.log(this.addForm);
+
       if (this.$refs.form.validate() && !this.docError) {
+        if(this.loading) {
+          return false;
+        }
+        //start loader
+        this.loading = true;
+
         managerService
           .edit(this.addForm, this.$route.params.id)
           .then(response => {
+              //stop loader
+        this.loading = false;
+
             //handle response
             if (response.status) {
               this.$toast.open({
