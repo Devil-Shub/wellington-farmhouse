@@ -132,13 +132,10 @@ class DriverController extends Controller
                 'state' => $request->driver_state,
                 'country' => $request->driver_country,
                 'zip_code' => $request->driver_zipcode,
+                'user_image' => $request->user_image,
+                 'document' => $request->document
             ]);
-            //if image uploaded    
-            if($request->user_image != '' && $request->user_image != null) {
-                User::whereId($request->driver_id)->update([
-                    'user_image' => $request->user_image
-                ]);
-            }
+       
             //update driver table
             Driver::whereUserId($request->driver_id)->update([
                 'driver_licence' => $request->driver_licence,
@@ -147,12 +144,7 @@ class DriverController extends Controller
                 'driver_salary' => $request->driver_salary,
                 'driver_type' => $request->driver_type
             ]);
-            //if document uploaded
-            if($request->document != '' && $request->document != null) {
-                Driver::whereUserId($request->driver_id)->update([
-                    'document' => $request->document
-                ]);
-            }
+      
 
             //commit all transactions now
             DB::commit();
