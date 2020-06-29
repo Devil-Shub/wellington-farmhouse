@@ -29,6 +29,7 @@
                     allow-file-type-validation="true"
                     accepted-file-types="image/jpeg, image/png"
                     v-on:processfile="handleProcessFile"
+                    v-on:processfilerevert="handleRemoveFile"
                   />
                 </v-col>
                 <v-col cols="12" md="12">
@@ -155,6 +156,7 @@
                     allow-file-type-validation="true"
                     accepted-file-types="image/jpeg, image/png"
                     :rules="[v => !!v || 'Document is required']"
+                    v-on:processfilerevert="handleRemoveFile1"
                   />
                   <div class="v-messages theme--light error--text" role="alert" v-if="docError">
                     <div class="v-messages__wrapper">
@@ -265,6 +267,12 @@ export default {
           headers: {
             Authorization: "Bearer " + currentUser.data.access_token
           }
+        },
+        revert:{
+          url: "deleteImage",
+          headers: {
+            Authorization: "Bearer " + currentUser.data.access_token
+          }
         }
       };
     },
@@ -346,11 +354,20 @@ export default {
       this.avatar = environment.imgUrl + file.serverId;
       this.uploadInProgress = false;
     },
+    handleRemoveFile: function(file){
+      this.addForm.user_image = '';
+      this.avatar = "/images/avatar.png";
+    },
     handleProcessFile1: function(error, file) {
       this.addForm.document = file.serverId;
       this.docError = false;
       this.uploadInProgress = false;
       this.document_img = environment.imgUrl + file.serverId;
+    },
+    handleRemoveFile1: function(file){
+      this.addForm.document = '';
+      this.docError = true;
+      this.document_img = '';
     },
     save() {
       if (this.addForm.document == "") {

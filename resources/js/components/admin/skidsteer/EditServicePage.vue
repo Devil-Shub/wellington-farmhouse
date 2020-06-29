@@ -44,7 +44,7 @@
                 </v-col>
                 <v-col cols="12" md="12">
 		 <v-textarea
-		      filled
+		      rows=3
 		      label="Service Note"
                       max-lenght="2000"
 		      auto-grow
@@ -61,6 +61,7 @@
                     v-bind:files="myFiles"
                     v-on:addfilestart="setUploadIndex"
                     v-on:processfile="handleProcessFile1"
+                    v-on:processfilerevert="handleRemoveFile1"
 		    allow-file-type-validation="true"
 		    accepted-file-types="image/jpeg, image/png, video/mp4, video/mov"
                   />
@@ -82,6 +83,7 @@
                     v-bind:files="myFiles"
                     v-on:addfilestart="setUploadIndex"
                     v-on:processfile="handleProcessFile2"
+                    v-on:processfilerevert="handleRemoveFile2"
 		    allow-file-type-validation="true"
 		    accepted-file-types="image/jpeg, image/png"
                   />
@@ -153,6 +155,12 @@ export default {
           headers: {
             Authorization: "Bearer " + currentUser.data.access_token
           }
+        },
+        revert:{
+          url: "deleteImage",
+          headers: {
+            Authorization: "Bearer " + currentUser.data.access_token
+          }
         }
       };
     },
@@ -191,11 +199,21 @@ export default {
       this.docError = false;
       this.uploadInProgress = false;
     },
+    handleRemoveFile1: function(file){
+      this.addForm.document = '';
+      this.docError = true;
+      this.documentImg = '';
+    },
     handleProcessFile2: function(error, file) {
       this.addForm.receipt = file.serverId;
       this.insdocError = false;
      this.receiptImg = this.imgUrl+file.serverId;
      this.uploadInProgress = false;
+    },
+    handleRemoveFile2: function(file){
+      this.addForm.receipt = '';
+      this.insdocError = true;
+      this.receiptImg = '';
     },
     save() {
       if(this.uploadInProgress) {

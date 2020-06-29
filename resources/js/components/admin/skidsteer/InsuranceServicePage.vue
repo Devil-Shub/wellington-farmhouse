@@ -113,8 +113,8 @@ export default {
    getResults() {
         truckService.getLastInsu(this.$route.params.id).then(response => {
         if (response.status) {
-	  this.setNextDate = moment(response.data.insurance_expiry).format('YYYY-MM-DD');
-          this.setDate = moment(response.data.insurance_expiry).format('YYYY-MM-DD');
+          this.setDate = moment(response.data.insurance_expiry).add(1, 'd').format('YYYY-MM-DD');
+          this.setNextDate = moment(response.data.insurance_expiry).add(1, 'd').format('YYYY-MM-DD');
        } 
      });
   },
