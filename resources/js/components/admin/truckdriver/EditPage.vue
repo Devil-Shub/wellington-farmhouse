@@ -345,7 +345,7 @@ export default {
       this.uploadInProgress = true;
     },
     handleProcessFile: function(error, file) {
-      this.cross=true;
+      this.cross=false;
       this.addForm.user_image = file.serverId;
       this.avatar = environment.imgUrl + file.serverId;
       this.uploadInProgress = false;

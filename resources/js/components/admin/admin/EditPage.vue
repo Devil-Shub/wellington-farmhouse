@@ -168,11 +168,12 @@ export default {
       this.addForm.user_image = file.serverId;
       this.avatar = this.imgUrl+file.serverId;
       this.uploadInProgress = false;
+      this.cross=false;
     },
     handleRemoveFile: function(file){
       this.addForm.user_image = '';
       this.avatar = "/images/avatar.png";
-	    this.cross=false;
+      this.cross=false;
     },
     Remove(){
 	    this.avatar = "/images/avatar.png";

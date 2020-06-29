@@ -354,13 +354,14 @@ export default {
       this.uploadInProgress = true;
     },
     handleProcessFile: function(error, file) {
-      this.cross=true;
+      this.cross=false;
       this.addForm.user_image = file.serverId;
       this.uploadInProgress = false;
       this.avatar = this.imgUrl+file.serverId;
     },
     handleRemoveFile: function(file){
       this.addForm.user_image = '';
+      this.cross=false;
       this.avatar = "/images/avatar.png";
     },
     handleProcessFile1: function(error, file) {

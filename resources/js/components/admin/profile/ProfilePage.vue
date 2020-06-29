@@ -163,10 +163,12 @@ export default {
       this.updateForm.user_image = file.serverId;
       this.avatar = "../../"+file.serverId;
       this.uploadInProgress = false;
+      this.cross=false;
     },
     handleRemoveFile: function(file){
       this.updateForm.user_image = '';
       this.avatar = "/images/avatar.png";
+      this.cross=false;
     },
     update() {
       if(this.uploadInProgress) {
