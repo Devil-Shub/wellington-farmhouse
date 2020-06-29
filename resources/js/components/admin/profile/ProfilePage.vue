@@ -167,7 +167,6 @@ export default {
     handleRemoveFile: function(file){
       this.updateForm.user_image = '';
       this.avatar = "/images/avatar.png";
-      this.uploadInProgress = true;
     },
     update() {
       if(this.uploadInProgress) {
