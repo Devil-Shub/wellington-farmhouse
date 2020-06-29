@@ -1,15 +1,5 @@
 <template>
       <v-app>
-   <v-dialog v-model="loading" fullscreen full-width>
-  <v-container fluid fill-height style="background-color: rgba(255, 255, 255, 0.5);">
-    <v-layout justify-center align-center>
-      <v-progress-circular
-	indeterminate
-	color="primary">
-      </v-progress-circular>
-    </v-layout>
-  </v-container>
-</v-dialog>
              <v-container>
       <v-row>
    <h2>Add New Admin</h2>
@@ -34,8 +24,10 @@
         v-bind:allow-multiple="false"
         v-bind:server="serverOptions"
         v-bind:files="myFiles"
+               v-on:addfilestart="setUploadIndex"
         accepted-file-types="image/jpeg, image/png"
        v-on:processfile="handleProcessFile"
+       v-on:processfilerevert="handleRemoveFile"
         />  
      </v-col>
           <v-col
@@ -96,6 +88,7 @@ export default {
         loading: false,
         valid: true,
         avatar: null,
+        uploadInProgress:false,
         apiUrl: environment.apiUrl,
         addForm: {
         first_name: '',
@@ -132,8 +125,14 @@ export default {
                headers: {
                  'Authorization': "Bearer " + currentUser.data.access_token,
                },
-             }
-           }
+             },
+		revert:{
+		  url: "deleteImage",
+		  headers: {
+		    Authorization: "Bearer " + currentUser.data.access_token
+		  }
+		}
+           };
       },
       url () {
       if (this.file) {
@@ -148,15 +147,26 @@ export default {
         this.avatar = '/images/avatar.png';
   },
   methods: {
-      GetImage(e){
-         
-         this.avatar = URL.createObjectURL(e);
-         this.addForm.user_image = e;
+      setUploadIndex() {
+      this.uploadInProgress = true;
       },
        handleProcessFile: function(error, file) {
             this.addForm.user_image = file.serverId;
+      this.uploadInProgress = false;
         },
+    handleRemoveFile: function(file){
+      this.addForm.user_image = '';
+      this.avatar = "/images/avatar.png";
+    },
        update () {
+   if(this.uploadInProgress) {
+        this.$toast.open({
+              message: "Profile image uploading is in progress!",
+              type: "error",
+              position: "top-right"
+            });
+            return false;
+      }
           if( this.$refs.form.validate() ){
              this.loading = true;
              adminService.add(this.addForm).then(response => {

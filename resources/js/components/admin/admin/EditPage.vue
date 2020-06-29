@@ -8,8 +8,11 @@
             <v-col cols="12" md="12">
               <div v-if="avatar"
                 class="v-avatar v-list-item__avatar"
-                style="height: 40px; min-width: 40px; width: 40px;"
+                style="height: 80px; min-width: 80px; width: 80px;"
               >
+              <button type="submit" class="close AClass" style="margin-right: 13px; margin-top: -25px; font-size: 30px;" v-if="cross" @click="Remove()">
+               <span>&times;</span>
+             </button>
                 <img :src="avatar" />
               </div>
 
@@ -21,8 +24,9 @@
                 accepted-file-types="image/jpeg, image/png"
                 v-bind:server="serverOptions"
                 v-bind:files="myFiles"
-                v-on:updatefiles="handleFilePondUpdateFile"
+               v-on:addfilestart="setUploadIndex"
                 v-on:processfile="handleProcessFile"
+                v-on:processfilerevert="handleRemoveFile"
               />
             </v-col>
             <v-col cols="12" md="12">
@@ -73,8 +77,10 @@ export default {
     return {
       valid: true,
       avatar: null,
+     uploadInProgress:false,
       apiUrl: environment.apiUrl,
       imgUrl: environment.imgUrl,
+      cross: false,
       addForm: {
         first_name: "",
         last_name: "",
@@ -108,7 +114,13 @@ export default {
           headers: {
             Authorization: "Bearer " + currentUser.data.access_token
           }
-        }
+        },
+         revert:{
+	  url: "deleteImage",
+	  headers: {
+	    Authorization: "Bearer " + currentUser.data.access_token
+	  }
+	}
       };
     },
     url() {
@@ -126,11 +138,11 @@ export default {
       if (response.status) {
         this.addForm.user_id = response.data.id;
         if (response.data.user_image) {
+          this.cross=true;
           this.addForm.user_image = response.data.user_image;
-        }
-        if (response.data.user_image) {
           this.avatar = this.imgUrl+response.data.user_image;
-        } else {
+        }
+        else {
           this.avatar = "/images/avatar.png";
         }
         this.addForm.first_name = response.data.first_name;
@@ -149,23 +161,32 @@ export default {
     });
   },
   methods: {
-    GetImage(e) {
-      this.avatar = URL.createObjectURL(e);
-      this.addForm.user_image = e;
-    },
+     setUploadIndex() {
+      this.uploadInProgress = true;
+      },
     handleProcessFile: function(error, file) {
       this.addForm.user_image = file.serverId;
       this.avatar = this.imgUrl+file.serverId;
+      this.uploadInProgress = false;
     },
-    handleFilePondUpdateFile(files) {
-      const reader = new FileReader();
-      reader.onload = e => {
-        console.log(e.target.result);
-      };
-      this.myFiles = files.map(files => files.file);
+    handleRemoveFile: function(file){
+      this.addForm.user_image = '';
+      this.avatar = "/images/avatar.png";
     },
-
-    update() {
+    Remove(){
+	    this.avatar = "/images/avatar.png";
+	    this.cross=false;
+	    this.addForm.user_image = '';
+   },
+   update() {
+    if(this.uploadInProgress) {
+        this.$toast.open({
+              message: "Profile image uploading is in progress!",
+              type: "error",
+              position: "top-right"
+            });
+            return false;
+      }
       if (this.$refs.form.validate()) {
         this.loading = true;
         adminService.edit(this.addForm, this.$route.params.id).then(response => {
