@@ -291,20 +291,18 @@ export default {
         this.addForm.user_id = response.data.user.id;
         if (response.data.user.user_image) {
           this.addForm.user_image = response.data.user.user_image;
-        }
-        if (response.data.user.user_image) {
           this.cross=true;
           this.avatar = environment.imgUrl + response.data.user.user_image;
         } else {
           this.avatar = environment.imgUrl + "/images/avatar.png";
         }
         if (response.data.document) {
+        this.addForm.document = response.data.document;
           this.document_img = environment.imgUrl + response.data.document;
         }
         this.addForm.driver_name = response.data.user.first_name;
         this.addForm.email = response.data.user.email;
         this.addForm.driver_phone = response.data.user.phone;
-        this.addForm.user_image = response.data.user.user_image;
         this.addForm.driver_address = response.data.user.address;
         this.addForm.driver_city = response.data.user.city;
         this.addForm.driver_state = response.data.user.state;
@@ -326,8 +324,6 @@ export default {
         } else {
           this.addForm.driver_type = "Skidsteer";
         }
-
-        this.addForm.document = response.data.document;
         this.addForm.driver_salary = response.data.driver_salary;
       } else {
         router.push("/admin/drivers");
