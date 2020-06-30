@@ -341,7 +341,7 @@ class AuthController extends Controller
             // Socialite will pick response data automatic 
             $user = Socialite::driver($provider)->stateless()->user();
 
-            $checkIfExist = User::whereEmail($user->user['email'])->first();
+            $checkIfExist = User::whereEmail($user->user['email'])->whereProvider($provider)->first();
 
             if ($checkIfExist == null) {
 
