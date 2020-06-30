@@ -30,6 +30,8 @@
 
             <button type="button" @click="AuthProvider('google')">Google</button>
 
+            <button type="button" @click="AuthProvider('facebook')">Facebook</button>
+
             <v-col cols="12" sm="12">
               Don’t have an account?<router-link to="/register">Sign Up</router-link>
             </v-col>
