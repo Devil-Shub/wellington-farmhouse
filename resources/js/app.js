@@ -51,11 +51,11 @@ Vue.use(VueSocialauth, {
   providers: {
     google: {
       clientId: '1016499886624-ukbs4u4khrer8mv1fi20foo348rkb3kr.apps.googleusercontent.com',
-      redirectUri: 'http://wellington.leagueofclicks.com/auth/google/callback' // Your client app URL
+      redirectUri: 'https://wellington.leagueofclicks.com/auth/google/callback' // Your client app URL
     },
     facebook: {
       clientId: '802496520156159',
-      redirectUri: 'http://127.0.0.1:8000/auth/facebook/callback' // Your client app URL
+      redirectUri: 'https://wellington.leagueofclicks.com/auth/facebook/callback' // Your client app URL
     }
   }
 });
