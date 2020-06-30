@@ -77,7 +77,7 @@ class AuthController extends Controller
                 'is_active' => 1,
                 'phone' => $request->phone,
                 'user_image' => $file,
-		        'password_changed_at' => Carbon::now(),
+                'password_changed_at' => Carbon::now(),
                 'password' => bcrypt($request->password)
             ]);
 
@@ -232,22 +232,22 @@ class AuthController extends Controller
             Log::info($request->user_image);
             $loggedInUser->first_name = $request->first_name;
             $loggedInUser->last_name = $request->last_name;
-           // $loggedInUser->email = $request->email;
+            // $loggedInUser->email = $request->email;
             $loggedInUser->phone = $request->phone;
             $loggedInUser->user_image = $request->user_image;
 
             $loggedInUser->save();
-	    $checkemail =  User::where('email', $request->email)->first();
-	    if(empty($checkemail)){
-             $this->_updateEmail($loggedInUser, $request->email);
-             $msg = "User Profile edit successfully. We have sent you an e-mail to confirm your email address.'";
-            }else{
-	     $msg = "User Profile edit successfully.";
+            $checkemail =  User::where('email', $request->email)->first();
+            if (empty($checkemail)) {
+                $this->_updateEmail($loggedInUser, $request->email);
+                $msg = "User Profile edit successfully. We have sent you an e-mail to confirm your email address.'";
+            } else {
+                $msg = "User Profile edit successfully.";
             }
 
             Log::info($loggedInUser);
             //return success response
-             return response()->json([
+            return response()->json([
                 'status' => true,
                 'message' => $msg,
                 'data' => $loggedInUser
@@ -291,7 +291,7 @@ class AuthController extends Controller
         $data = array(
             'name' => $name,
             'email' => $email,
-            'verificationLink' => env('APP_URL') . 'confirm-update-email/' . base64_encode($email).'/'.base64_encode($user->id)
+            'verificationLink' => env('APP_URL') . 'confirm-update-email/' . base64_encode($email) . '/' . base64_encode($user->id)
         );
 
         Mail::send('email_templates.welcome_email', $data, function ($message) use ($name, $email) {
@@ -343,35 +343,49 @@ class AuthController extends Controller
 
             $checkIfExist = User::whereEmail($user->user['email'])->first();
 
-            if($checkIfExist == null) {
-                //create new user
-                $user = new User([
-                    'first_name' => $user->user['given_name'],
-                    'last_name' => $user->user['family_name'],
-                    'email' => $user->user['email'],
-                    'role_id' => 4,
-                    'is_active' => 1,
-                    'is_confirmed' => 1,
-                    'user_image' => $user->avatar,
-                    'provider' => $provider,
-                    'token' => $user->token,
-                    'password_changed_at' => Carbon::now()
-                ]);
+            if ($checkIfExist == null) {
+
+                if ($provider == config('constant.login_providers.google')) {
+                    //create new user
+                    $user = new User([
+                        'first_name' => $user->user['given_name'],
+                        'last_name' => $user->user['family_name'],
+                        'email' => $user->user['email'],
+                        'role_id' => 4,
+                        'is_active' => 1,
+                        'is_confirmed' => 1,
+                        'provider' => $provider,
+                        'token' => $user->token,
+                        'password_changed_at' => Carbon::now()
+                    ]);
+                } else if($provider == config('constant.login_providers.facebook')) {
+                    //create new user
+                    $user = new User([
+                        'first_name' => $user['name'],
+                        'email' => $user['email'],
+                        'role_id' => 4,
+                        'is_active' => 1,
+                        'is_confirmed' => 1,
+                        'provider' => $provider,
+                        'token' => $user->token,
+                        'password_changed_at' => Carbon::now()
+                    ]);
+                }
 
                 $user->save();
             } else {
-                if($checkIfExist->provider == null) {
+                if ($checkIfExist->provider == null) {
                     //save provider and token if not saved earier or if any existing account now login with social account
                     $checkIfExist->provider == $provider;
                     $checkIfExist->token == $user->token;
                 }
 
-                if($checkIfExist->password_changed_at == null || $checkIfExist->password_changed_at == '') {
-                    $checkIfExist->password_changed_at = Carbon::now();     
+                if ($checkIfExist->password_changed_at == null || $checkIfExist->password_changed_at == '') {
+                    $checkIfExist->password_changed_at = Carbon::now();
                 }
 
                 $checkIfExist->save();
-                
+
                 $user = $checkIfExist;
             }
             //process token
@@ -406,7 +420,8 @@ class AuthController extends Controller
     /**
      * social login
      */
-    public function changePassword(Request $request) {
+    public function changePassword(Request $request)
+    {
         //validate request
         $validator = Validator::make($request->all(), [
             'password' => 'required|confirmed'
@@ -444,7 +459,7 @@ class AuthController extends Controller
 
     public function confirmUpdateEmail(Request $request)
     {
-       
+
         $id = base64_decode($request->id);
         $email = base64_decode($request->email);
 
