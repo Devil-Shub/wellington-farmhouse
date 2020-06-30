@@ -35,4 +35,8 @@ return [
         'pending' => 0,
         'complete' => 1
     ],
+    'login_providers' => [
+        'google' => 'google',
+        'facebook' => 'facebook'
+    ],
 ];
