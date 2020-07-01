@@ -16,10 +16,28 @@
 			:rules="[v => !!v || 'Customer Name is required']"
 			item-text="first_name"
 			item-value="id"
-			@change="customerSelection"
+			@change="getCustomerFarm"
 		    ></v-select>
 	    </v-col>
                 </v-col>
+
+                <v-col class="d-flex pt-0" cols="12">
+                    <v-col sm="2" class="label-align pt-0">
+                        <label>Select Farm</label>
+                    </v-col>
+                    <v-col sm="4" class="pt-0">
+                        <v-select
+                        :v-model="addForm.farm_id"
+                        :items="farmName"
+                        item-text="farm_address"
+			label="Select Farm"
+			:rules="[v => !!v || 'Farm Address is required']"
+			item-value="id"
+                        @change="getFarmManager"
+                        ></v-select>
+                    </v-col>
+                </v-col>
+
                 <v-col class="d-flex pt-0" cols="12">
                     <v-col sm="2" class="label-align pt-0">
                         <label>Manager Name</label>
@@ -34,20 +52,6 @@
 			item-value="id"
                         @change="managerSelection"
                         ></v-select>
-                    </v-col>
-                </v-col>
-                <v-col class="d-flex pt-0" cols="12">
-                    <v-col sm="2" class="label-align pt-0">
-                        <label>Farm Address</label>
-                    </v-col>
-                    <v-col sm="4" class="pt-0">
-                        <v-text-field
-                            label=""
-                            v-model="addForm.farm_add"
-                            required
- 			                      disabled
-                            :rules="[v => !!v || 'Farm Address is required']"
-                        ></v-text-field>
                     </v-col>
                 </v-col>
                 <v-col cols="12" class="textarea-parent d-flex pt-0">
@@ -186,15 +190,16 @@ export default {
           setDate:new Date().toISOString().substr(0, 10),
           menu1: false,
           loading: false,
-	        weightShow: false,
+	  weightShow: false,
           date: "",
           start_date: "",
           apiUrl: environment.apiUrl,
           customerName: [],
           managerName: [],
           serviceName: [],
- 	        servicetime: '',
- 	        customer_id: '',
+         farmName:[],
+        servicetime: '',
+        customer_id: '',
           addForm: {
               customer_id: "",
               manager_id: "",
@@ -202,7 +207,7 @@ export default {
               job_description: "",
               gate_no: "",
               farm_add: "",
-	            farm_id: "",
+	      farm_id: "",
               job_images: [],
               time_slots_id: "",
               start_date: "",
@@ -275,12 +280,13 @@ export default {
         }
       });
     },
-	customerSelection(val){
+	getCustomerFarm(val){
  	 this.customer_id = val;
-	 jobService.getManager(val).then(response => {
+	 jobService.getFarm(val).then(response => {
 		//handle response
 		if (response.status) {
-		  this.managerName = response.data.customer_manager;
+                 //console.log(response.data)
+		 this.farmName = response.data;
 		} else {
 		  this.$toast.open({
 		    message: response.message,
@@ -290,13 +296,12 @@ export default {
 		}
 	      });
        },
-	managerSelection(val){
-         this.addForm.manager_id = val;
-	 jobService.getFrams({customer_id: this.customer_id, manager_id: val}).then(response => {
+	getFarmManager(val){
+         this.addForm.farm_id = val;
+	 jobService.getFarmManager(val).then(response => {
 		//handle response
 		if (response.status) {
-		  this.addForm.farm_id = response.data.id;
-		  this.addForm.farm_add = response.data.farm_address+' '+response.data.farm_city+' '+response.data.farm_province+' '+response.data.farm_zipcode;
+		 this.managerName = response.data;
 		} else {
 		  this.$toast.open({
 		    message: response.message,
@@ -305,6 +310,9 @@ export default {
 		  });
 		}
 	      });
+	},
+	managerSelection(val){
+         this.addForm.manager_id = val;
        },
        serviceSelection(val){
          this.addForm.service_id = val;

@@ -706,4 +706,42 @@ class CustomerController extends Controller
             ], 500);
         }
     }
+
+  /**
+  * get customer farm
+  */
+  public function getFarm(Request $request){
+    $farms = CustomerFarm::where('customer_id', $request->customer_id)->get();
+    if($farms->count()){
+	    return response()->json([
+		'status' => true,
+		'message' => 'Manager and Farm details updated successfully.',
+		'data' => $farms
+	    ], 200);
+    }else{
+      	    return response()->json([
+		'status' => false,
+		'message' => 'No farm found.',
+		'data' => []
+	    ], 200);
+    }
+  }
+  
+  public function getFarmManager(Request $request){
+    $farms = User::where('farm_id', $request->farm_id)->get();
+    if($farms->count()){
+	    return response()->json([
+		'status' => true,
+		'message' => 'Manager and Farm details updated successfully.',
+		'data' => $farms
+	    ], 200);
+    }else{
+      	    return response()->json([
+		'status' => false,
+		'message' => 'No farm manager found.',
+		'data' => []
+	    ], 200);
+    }
+  }
+ 
 }

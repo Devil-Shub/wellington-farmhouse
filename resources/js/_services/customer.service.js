@@ -91,7 +91,6 @@ function getCustomer(data) {
     });
 }
 
-
 function getCustomerCard(data) {
   return fetch(
     this.apiUrl+`admin/card-list/`+data,
