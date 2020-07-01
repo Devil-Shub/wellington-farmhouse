@@ -14,6 +14,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_customer_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../_services/customer.service */ "./resources/js/_services/customer.service.js");
 /* harmony import */ var _helpers_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../_helpers/router */ "./resources/js/_helpers/router.js");
 /* harmony import */ var _config_test_env__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../config/test.env */ "./resources/js/config/test.env.js");
+/* harmony import */ var _services_authentication_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../_services/authentication.service */ "./resources/js/_services/authentication.service.js");
 //
 //
 //
@@ -186,6 +187,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -204,6 +213,9 @@ __webpack_require__.r(__webpack_exports__);
       avatar: null,
       apiUrl: _config_test_env__WEBPACK_IMPORTED_MODULE_3__["environment"].apiUrl,
       imgUrl: _config_test_env__WEBPACK_IMPORTED_MODULE_3__["environment"].imgUrl,
+      uploadInProgress: false,
+      isAdmin: true,
+      cross: false,
       addForm: {
         id: "",
         prefix: "",
@@ -245,6 +257,14 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
+    var currentUser = _services_authentication_service__WEBPACK_IMPORTED_MODULE_4__["authenticationService"].currentUserValue;
+
+    if (currentUser.data.user.role_id == 1) {
+      this.isAdmin = true;
+    } else {
+      this.isAdmin = false;
+    }
+
     _services_customer_service__WEBPACK_IMPORTED_MODULE_1__["customerService"].getCustomer(this.$route.params.id).then(function (response) {
       //handle response
       if (response.status) {
@@ -264,6 +284,7 @@ __webpack_require__.r(__webpack_exports__);
         };
 
         if (response.data.user_image) {
+          _this.cross = true;
           _this.avatar = _this.imgUrl + response.data.user_image;
         } else {
           _this.avatar = "/images/avatar.png";
@@ -288,6 +309,12 @@ __webpack_require__.r(__webpack_exports__);
           headers: {
             Authorization: "Bearer " + currentUser.data.access_token
           }
+        },
+        revert: {
+          url: "deleteImage",
+          headers: {
+            Authorization: "Bearer " + currentUser.data.access_token
+          }
         }
       };
     },
@@ -301,12 +328,34 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    Remove: function Remove() {
+      this.avatar = "/images/avatar.png";
+      this.cross = false;
+      this.addForm.user_image = '';
+    },
+    setUploadIndex: function setUploadIndex() {
+      this.uploadInProgress = true;
+    },
     handleProcessFile: function handleProcessFile(error, file) {
       this.avatar = this.imgUrl + file.serverId;
       this.addForm.user_image = file.serverId;
     },
+    handleRemoveFile: function handleRemoveFile(file) {
+      this.addForm.user_image = '';
+      this.cross = false;
+      this.avatar = "/images/avatar.png";
+    },
     update: function update() {
       var _this2 = this;
+
+      if (this.uploadInProgress) {
+        this.$toast.open({
+          message: "Image uploading is in progress!",
+          type: "error",
+          position: "top-right"
+        });
+        return false;
+      }
 
       if (this.$refs.form.validate()) {
         //start loading
@@ -392,6 +441,36 @@ var render = function() {
                               _c(
                                 "v-row",
                                 [
+                                  _vm.isAdmin
+                                    ? _c(
+                                        "router-link",
+                                        {
+                                          staticClass: "nav-item nav-link",
+                                          attrs: {
+                                            to:
+                                              "/admin/customer/addfarm/" +
+                                              _vm.addForm.id
+                                          }
+                                        },
+                                        [_vm._v("Add Another Farm")]
+                                      )
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  !_vm.isAdmin
+                                    ? _c(
+                                        "router-link",
+                                        {
+                                          staticClass: "nav-item nav-link",
+                                          attrs: {
+                                            to:
+                                              "/manager/customer/addfarm/" +
+                                              _vm.addForm.id
+                                          }
+                                        },
+                                        [_vm._v("Add Another Farm")]
+                                      )
+                                    : _vm._e(),
+                                  _vm._v(" "),
                                   _c(
                                     "v-col",
                                     { attrs: { cols: "12", md: "12" } },
@@ -402,18 +481,35 @@ var render = function() {
                                           staticClass:
                                             "v-avatar v-list-item__avatar",
                                           staticStyle: {
-                                            height: "40px",
-                                            "min-width": "40px",
-                                            width: "40px"
+                                            height: "80px",
+                                            "min-width": "80px",
+                                            width: "80px"
                                           }
                                         },
                                         [
+                                          _vm.cross
+                                            ? _c(
+                                                "button",
+                                                {
+                                                  staticClass: "close AClass",
+                                                  staticStyle: {
+                                                    "margin-right": "13px",
+                                                    "margin-top": "-25px",
+                                                    "font-size": "30px"
+                                                  },
+                                                  attrs: { type: "button" },
+                                                  on: {
+                                                    click: function($event) {
+                                                      return _vm.Remove()
+                                                    }
+                                                  }
+                                                },
+                                                [_c("span", [_vm._v("×")])]
+                                              )
+                                            : _vm._e(),
+                                          _vm._v(" "),
                                           _c("img", {
-                                            attrs: {
-                                              src:
-                                                "../../../" +
-                                                _vm.addForm.user_image
-                                            }
+                                            attrs: { src: _vm.avatar }
                                           })
                                         ]
                                       ),
@@ -432,7 +528,10 @@ var render = function() {
                                           disabled: _vm.disabled == 0
                                         },
                                         on: {
-                                          processfile: _vm.handleProcessFile
+                                          addfilestart: _vm.setUploadIndex,
+                                          processfile: _vm.handleProcessFile,
+                                          processfilerevert:
+                                            _vm.handleRemoveFile
                                         }
                                       })
                                     ],
@@ -963,16 +1062,6 @@ var render = function() {
                               on: { click: _vm.update }
                             },
                             [_vm._v("Submit")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-btn",
-                            {
-                              staticClass: "mr-4 custom-save-btn ml-4",
-                              attrs: { color: "success" },
-                              on: { click: _vm.Delete }
-                            },
-                            [_vm._v("Delete")]
                           )
                         ],
                         1

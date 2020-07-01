@@ -130,6 +130,102 @@ class CustomerController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'Customer created successfully.',
+                'data' => $user
+            ], 200);
+        } catch (\Exception $e) {
+            //rollback transactions
+            DB::rollBack();
+            //make log of errors
+            Log::error(json_encode($e->getMessage()));
+            //return with error
+            return response()->json([
+                'status' => false,
+                'message' => 'Internal server error!',
+                'data' => []
+            ], 500);
+        }
+    }
+
+    /**
+     * create customer farm
+     */
+    public function createFarm(Request $request)
+    {
+
+	//validate request
+	$validator = Validator::make($request->all(), [
+	    'manager_details.*.email' => 'required|string|email|unique:users',
+	]);
+
+	if ($validator->fails()) {
+	    return response()->json([
+	        'status' => false,
+	        'message' => 'The given data was invalid.',
+	        'data' => $validator->errors()
+	    ], 422);
+	}
+        try {
+            //use of db transactions
+            DB::beginTransaction();
+            //random string for new password
+            $newPassword = Str::random();
+            $farmDetails = new CustomerFarm([
+            'customer_id' => $request->customer_id,
+            'farm_address' => $request->farm_address,
+            'farm_city' => $request->farm_city,
+            'farm_image' => json_encode($request->farm_images),
+            'farm_province' => $request->farm_province,
+            'farm_unit' => $request->farm_unit,
+            'farm_zipcode' => $request->farm_zipcode,
+            'farm_active' => $request->farm_active,
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude
+        ]);
+
+        $farmDetails->save();
+        $managerIds = array();
+        foreach ($request->manager_details as $manager) {
+            //random string for new password
+            $newPassword = Str::random();
+
+            $saveManger = new User([
+                'first_name' => $manager['manager_name'],
+                'prefix' => $manager['manager_prefix'],
+                'created_by' => $request->customer_id,
+                'farm_id' => $farmDetails->id,
+                'email' => $manager['email'],
+                'role_id' => $manager['manager_role'],
+                'phone' => $manager['manager_phone'],
+                'user_image' => $manager['manager_image'],
+                'address' => $manager['manager_address'],
+                'city' => $manager['manager_city'],
+                'state' => $manager['manager_province'],
+                'zip_code' => $manager['manager_zipcode'],
+                'is_active' => 1,
+                'is_confirmed' => 1,
+                'password' => bcrypt($newPassword)
+            ]);
+
+            if ($saveManger->save()) {
+                $managerIds[] = $saveManger->id;
+                $mangerDetails = new ManagerDetail([
+                    'user_id' => $saveManger->id,
+                    'identification_number' => $manager['manager_id_card'],
+                    'document' => $manager['manager_card_image']
+                ]);
+                //save manager details
+                $mangerDetails->save();
+
+                //send email for new email and password
+                $this->_confirmPassword($saveManger, $newPassword);
+            }
+        }
+            DB::commit();
+
+            //return success response
+            return response()->json([
+                'status' => true,
+                'message' => 'Customer created successfully.',
                 'data' => []
             ], 200);
         } catch (\Exception $e) {
@@ -144,6 +240,7 @@ class CustomerController extends Controller
                 'data' => []
             ], 500);
         }
+      
     }
 
     /**

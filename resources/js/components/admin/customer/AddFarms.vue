@@ -2,110 +2,11 @@
   <v-app>
     <v-container fluid>
       <v-row>
-        <h4 class="main-title">Add Customer</h4>
         <v-col cols="12" md="12">
             <v-row>
               <v-col cols="12" md="12">
-                <form-wizard @on-complete="update" title subtitle finishButtonText="Finish" shape="circle" color="gray" error-color="#e74c3c">
-                  <tab-content title="Customer Info" :before-change="customerValidation">
                     <v-form ref="customerForm" v-model="valid" lazy-validation>
-                      <v-row>
-                        <v-col cols="12" md="12">
-                          <div class="v-avatar v-list-item__avatar" style="height: 80px; min-width: 80px; width: 80px;">
-                            <img :src="customer_img" />
-                          </div>
-                          <file-pond
-                            name="uploadImage"
-                            ref="pond"
-                            label-idle="Add Profile pic..."
-                            v-bind:allow-multiple="false"
-                            v-bind:server="serverOptions"
-                            v-bind:files="myFiles"
-                            allow-file-type-validation="true"
-                            accepted-file-types="image/jpeg, image/png"
-                            v-on:processfile="handleProcessFile"
-                          />
-                          <div class="v-messages theme--light error--text" role="alert" v-if="profileImgError">
-                            <div class="v-messages__wrapper">
-                              <div class="v-messages__message">Profile image is required</div>
-                            </div>
-                          </div>
-                        </v-col>
-                        <v-col cols="3" md="3">
-                          <v-select
-                            v-model="addForm.prefix"
-                            :items="prefixs"
-                            label="Prefix"
-                            :rules="[v => !!v || 'Prefix is required']"
-                          ></v-select>
-                        </v-col>
-                        <v-col cols="3" md="3">
-                          <v-text-field
-                            v-model="addForm.customer_name"
-                            label="Name"
-                            required
-                            :rules="[v => !!v || 'Customer name is required']"
-                          ></v-text-field>
-                        </v-col>
-                        <v-col cols="3" md="3">
-                          <v-text-field
-                            v-model="addForm.email"
-                            :rules="emailRules"
-                            name="email"
-                            label="E-mail"
-                            required
-                          ></v-text-field>
-                        </v-col>
-                        <v-col cols="3" md="3">
-                          <v-text-field
-                            v-model="addForm.phone"
-                            :rules="phoneRules"
-                            label="Phone"
-                            required
-                            maxlength="10"
-                          ></v-text-field>
-                        </v-col>
-                        <v-col cols="3" md="3">
-                          <v-text-field
-                            v-model="addForm.address"
-                            label="Address"
-                            required
-                            :rules="[v => !!v || 'address is required']"
-                          ></v-text-field>
-                        </v-col>
-                        <v-col cols="3" md="3">
-                          <v-text-field
-                            v-model="addForm.city"
-                            label="City"
-                            required
-                            :rules="[v => !!v || 'City is required']"
-                          ></v-text-field>
-                        </v-col>
-                        <v-col cols="3" md="3">
-                          <v-text-field
-                            v-model="addForm.province"
-                            label="Province"
-                            required
-                            :rules="[v => !!v || 'Province is required']"
-                          ></v-text-field>
-                        </v-col>
-                        <v-col cols="3" md="3">
-                          <v-text-field
-                            v-model="addForm.zipcode"
-                            :rules="[v => !!v || 'Zip code is required']"
-                            label="zipcode"
-                            required
-                          ></v-text-field>
-                        </v-col>
-                        <v-col cols="3" md="3">
-                          <v-switch v-model="addForm.is_active" class="mx-2" label="Is Active"></v-switch>
-                        </v-col>
-                      </v-row>
-                    </v-form>
-                  </tab-content>
-                  <tab-content title="Farm Info" :before-change="farmValidation">
-                    <v-form ref="farmForm" v-model="valid" lazy-validation>
-                      <v-col cols="12" md="12">
+                     <v-col cols="12" md="12">
                         <h4 class="main-title">Farm Section</h4>
                         <v-row>
                           <v-col cols="12" md="12">
@@ -113,12 +14,14 @@
                               name="uploadImage"
                               ref="pond"
                               label-idle="Farm Images"
-                              allow-multiple="true"
+                              v-bind:allow-multiple="false"
                               v-bind:server="serverOptions"
                               v-bind:files="myFiles"
+                              v-on:addfilestart="setUploadIndex"
                               allow-file-type-validation="true"
                               accepted-file-types="image/jpeg, image/png"
                               v-on:processfile="handleProcessFile1"
+                              v-on:processfilerevert="handleRemoveFile1"
                             />
                             <div class="v-messages theme--light error--text" role="alert" v-if="farmImgError">
                               <div class="v-messages__wrapper">
@@ -182,10 +85,8 @@
                           </v-col>
                         </v-row>
                       </v-col>
-                    </v-form>
-                  </tab-content>
-                  <tab-content title="Personal details">
-                    <v-form ref="managerForm" v-model="valid" lazy-validation>
+  
+             
                       <v-col cols="12" md="12">
                         <h4 class="main-title">Manager Details</h4>
                         <template v-for="(input, index) in addForm.manager_details">
@@ -202,7 +103,7 @@
                           <v-col cols="12" md="12">
                             <div
                               class="v-avatar v-list-item__avatar"
-                              style="height: 40px; min-width: 40px; width: 40px;"
+                              style="height: 80px; min-width: 80px; width: 80px;"
                             >
                               <img :src="Mavatar" />
                             </div>
@@ -217,6 +118,7 @@
                               allow-file-type-validation="true"
                               accepted-file-types="image/jpeg, image/png"
                               v-on:processfile="handleProcessFile2"
+                              v-on:processfilerevert="handleRemoveFile2"
                             />
                           </v-col>
                           <v-col cols="3" md="3">
@@ -237,7 +139,7 @@
                           </v-col>
                           <v-col cols="3" md="3">
                             <v-text-field
-                              v-model="input.manager_email"
+                              v-model="input.email"
                               :rules="emailRules"
                               name="email"
                               label="E-mail"
@@ -305,8 +207,16 @@
                               allow-file-type-validation="true"
                               accepted-file-types="image/jpeg, image/png"
                               v-on:processfile="handleProcessFile3"
+                              v-on:processfilerevert="handleRemoveFile3"
+                              required
+                              :rules="[v => !!v || 'Upload id card is required']"
                             />
                           </v-col>
+                            <div class="v-messages theme--light error--text" role="alert" v-if="docError">
+                              <div class="v-messages__wrapper">
+                                <div class="v-messages__message">Id card image is required</div>
+                              </div>
+                            </div>
                         </v-row>
                         </template>
                       </v-col>
@@ -315,10 +225,12 @@
                           class="mr-4 custom-save-btn ml-4 mt-4 setLeftPosition"
                           @click="addRow"
                         >Add More</v-btn>
-            <v-btn type="submit" :loading="loading" :disabled="loading" color="success" class="mr-4" @click="AddAnotherFarm">Add Another Farm</v-btn>
+                        <v-btn
+                          color="success"
+                          class="mr-4 custom-save-btn ml-4 mt-4 setRightPosition"
+                          @click="update"
+                        >Submit</v-btn>
                     </v-form>
-                  </tab-content>
-                </form-wizard>
               </v-col>
             </v-row>
         </v-col>
@@ -334,15 +246,11 @@ import { router } from "../../../_helpers/router";
 import { environment } from "../../../config/test.env";
 import VueGoogleAutocomplete from "vue-google-autocomplete";
 import { authenticationService } from "../../../_services/authentication.service";
-import { FormWizard, TabContent } from "vue-form-wizard";
-import "vue-form-wizard/dist/vue-form-wizard.min.css";
 import { TrashIcon } from "vue-feather-icons";
 
 export default {
   components: {
     VueGoogleAutocomplete,
-    FormWizard,
-    TabContent,
     TrashIcon
   },
   data() {
@@ -350,38 +258,22 @@ export default {
       isLoading: false,
       items: [],
       isOpen: false,
-      model: null,
-      profileImgError: false,
-      farmImgError: false,
+      docImgError: false,
       search: null,
       loading: false,
       docError: false,
       prefixs: ["Ms.", "Mr.", "Mrs."],
       isLoading: false,
-      model: null,
+      uploadInProgress: false,
+      farmImgError: false,
       valid: true,
-      avatar: null,
       Mavatar: null, 
-      menu2: false,
-      menu1: false,
-      date: "",
-      date1: "",
-      customer_img: "",
       apiUrl: environment.apiUrl,
       imgUrl: environment.imgUrl,
       uberMapApiUrl: environment.uberMapApiUrl,
       uberMapToken: environment.uberMapToken,
       addForm: {
-        prefix: "",
-        customer_name: "",
-        email: "",
-        phone: "",
-        address: "",
-        city: "",
-        province: "",
-        user_image: null,
-        zipcode: "",
-        is_active: true,
+        customer_id:'',
         farm_images: [],
         latitude: "",
         longitude: "",
@@ -392,7 +284,6 @@ export default {
         farm_zipcode: "",
         farm_active: true,
         manager_details: [],
-        customer_role: 4
       },
       UploadIndex: null,
       emailRules: [
@@ -424,6 +315,12 @@ export default {
           headers: {
             Authorization: "Bearer " + currentUser.data.access_token
           }
+        },
+        revert:{
+          url: "deleteImage",
+          headers: {
+            Authorization: "Bearer " + currentUser.data.access_token
+          }
         }
       };
     },
@@ -437,47 +334,17 @@ export default {
     }
   },
   created() {
-    this.customer_img = "/images/avatar.png";
     this.Mavatar = "/images/avatar.png";
     //add default form
     this.addRow();
   },
   methods: {
-    customerValidation:function() {
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          if(this.addForm.user_image == '' || this.addForm.user_image == null){
-            this.profileImgError = false;
-          }
-          if(this.$refs.customerForm.validate() && !this.profileImgError) {
-            resolve(true)
-          } else {
-            resolve(false)
-          }
-        }, 1000)
-      })
-    },
-    farmValidation:function() {
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          if(this.addForm.farm_images.length == 0) {
-            this.farmImgError = true;
-          }
-      
-          if(this.$refs.farmForm.validate() && !this.farmImgError) {
-            resolve(true)
-          } else {
-            resolve(false)
-          }
-        }, 1000)
-      })
-    },
     addRow() {
       this.addForm.manager_details.push({
         manager_image: "",
         manager_prefix: "",
         manager_name: "",
-        manager_email: "",
+        email: "",
         manager_phone: "",
         manager_address: "",
         manager_city: "",
@@ -492,6 +359,7 @@ export default {
       this.addForm.manager_details.splice(index, 1);
     },
     setUploadIndex(index) {
+      this.uploadInProgress = true;
       this.uploadIndex = index;
     },
     onChange(val) {
@@ -518,72 +386,55 @@ export default {
       this.addForm.farm_address = result.text;
       this.isOpen = false;
     },
-    handleProcessFile: function(error, file) {
-      this.customer_img = this.imgUrl + file.serverId;
-      this.addForm.user_image = file.serverId;
-      this.profileImgError = false;
-    },
     //farm images process
     handleProcessFile1: function(error, file) {
       this.addForm.farm_images.push(file.serverId);
       this.farmImgError = false;
+      this.uploadInProgress = false;
+    },
+    handleRemoveFile1: function(file){
+     this.addForm.farm_images = [];
+      this.farmImgError = true;
     },
     //manager image process
     handleProcessFile2: function(error, file) {
       this.addForm.manager_details[this.uploadIndex].manager_image = file.serverId;
       this.Mavatar = this.imgUrl+file.serverId;
+      this.uploadInProgress = false;
+    },
+    handleRemoveFile2: function(file){
     },
     //manager id card image process
     handleProcessFile3: function(error, file) {
-      this.addForm.manager_card_image = file.serverId;
-      //this.docError = false;
+      this.addForm.manager_details[this.uploadIndex].manager_card_image = file.serverId;
+      this.docError = false;
+      this.uploadInProgress = false;
     },
-    validateFirstStep() {
-           return new Promise((resolve, reject) => {
-             this.$refs.form.validate((valid) => {
-               resolve(valid);
-             });
-           })
-
-         },
-    AddAnotherFarm() {
-      if (this.$refs.managerForm.validate()) {
-        //start loading
-        this.loading = true;
-        customerService.add(this.addForm).then(response => {
-          //stop loading
-          this.loading = false;
-          //handle response
-          if (response.status) {
-            this.$toast.open({
-              message: response.message,
-              type: "success",
-              position: "top-right"
-            });
-            //redirect to login
-            const currentUser = authenticationService.currentUserValue;
-            if (currentUser.data.user.role_id == 1) {
-	      const AddFarmurl = "/admin/customer/addfarm/"+response.data.id;
-              router.push(AddFarmurl);
-            } else {
-              const AddFarmurl = "/manager/customer/addfarm/"+response.data.id;
-              router.push(AddFarmurl);
-            }
-          } else {
-            this.$toast.open({
-              message: response.message,
-              type: "error",
-              position: "top-right"
-            });
-          }
-        });
-      }
+    handleRemoveFile3: function(file){
     },
+    
     update() {
-      if (this.$refs.managerForm.validate()) {
+     this.addForm.customer_id = this.$route.params.id;
+     if (this.uploadInProgress) {
+        this.$toast.open({
+          message: "Image uploading is in progress!",
+          type: "error",
+          position: "top-right"
+        });
+        return false;
+      }
+      if(this.addForm.farm_images.length == 0){
+          this.farmImgError = true;
+          return false;
+      }
+      if(this.addForm.manager_card_image){
+          this.docError = true;
+          return false;
+      }
+      if (this.$refs.customerForm.validate()) {
         //start loading
         this.loading = true;
-        customerService.add(this.addForm).then(response => {
+        customerService.addFarm(this.addForm).then(response => {
           //stop loading
           this.loading = false;
           //handle response

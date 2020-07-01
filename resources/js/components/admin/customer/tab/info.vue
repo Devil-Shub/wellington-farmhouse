@@ -7,12 +7,17 @@
             <v-row>
               <v-col cols="12" md="12">
                 <v-row>
+          <router-link v-if="isAdmin" :to="'/admin/customer/addfarm/' + addForm.id" class="nav-item nav-link">Add Another Farm</router-link>
+         <router-link v-if="!isAdmin" :to="'/manager/customer/addfarm/' + addForm.id" class="nav-item nav-link">Add Another Farm</router-link>
                   <v-col cols="12" md="12">
                     <div
                       class="v-avatar v-list-item__avatar"
-                      style="height: 40px; min-width: 40px; width: 40px;"
+                      style="height: 80px; min-width: 80px; width: 80px;"
                     >
-                      <img :src="'../../../'+addForm.user_image" />
+            <button type="button" class="close AClass" style="margin-right: 13px; margin-top: -25px; font-size: 30px;" v-if="cross" @click="Remove()">
+               <span>&times;</span>
+             </button>
+                      <img :src="avatar" />
                     </div>
                     <file-pond
                       name="uploadImage"
@@ -21,9 +26,11 @@
                       allow-multiple="false"
                       v-bind:server="serverOptions"
                       v-bind:files="myFiles"
+                      v-on:addfilestart="setUploadIndex"
                       allow-file-type-validation="true"
                       accepted-file-types="image/jpeg, image/png"
                       v-on:processfile="handleProcessFile"
+                      v-on:processfilerevert="handleRemoveFile"
                       :disabled="disabled == 0"
                     />
                   </v-col>
@@ -161,7 +168,7 @@
                 class="mr-4 custom-save-btn ml-4"
                 @click="update"
               >Submit</v-btn>
-              <v-btn color="success" class="mr-4 custom-save-btn ml-4" @click="Delete">Delete</v-btn>
+             <!-- <v-btn color="success" class="mr-4 custom-save-btn ml-4" @click="Delete">Delete</v-btn> -->
             </v-row>
           </v-form>
         </v-col>
@@ -175,7 +182,7 @@ import { required } from "vuelidate/lib/validators";
 import { customerService } from "../../../../_services/customer.service";
 import { router } from "../../../../_helpers/router";
 import { environment } from "../../../../config/test.env";
-
+import { authenticationService } from "../../../../_services/authentication.service";
 export default {
   data() {
     return {
@@ -190,6 +197,9 @@ export default {
       avatar: null,
       apiUrl: environment.apiUrl,
       imgUrl: environment.imgUrl,
+      uploadInProgress: false,
+      isAdmin: true,
+      cross: false,
       addForm: {
         id: "",
         prefix: "",
@@ -231,6 +241,12 @@ export default {
     }
   },
   mounted: function() {
+    const currentUser = authenticationService.currentUserValue;
+    if(currentUser.data.user.role_id == 1){
+       this.isAdmin = true;
+    }else{
+       this.isAdmin = false;
+    }
     customerService.getCustomer(this.$route.params.id).then(response => {
       //handle response
       if (response.status) {
@@ -249,6 +265,7 @@ export default {
           is_active: response.data.is_active
         };
         if (response.data.user_image) {
+          this.cross = true;
           this.avatar = this.imgUrl + response.data.user_image;
         } else {
           this.avatar = "/images/avatar.png";
@@ -273,6 +290,12 @@ export default {
           headers: {
             Authorization: "Bearer " + currentUser.data.access_token
           }
+        },
+        revert:{
+          url: "deleteImage",
+          headers: {
+            Authorization: "Bearer " + currentUser.data.access_token
+          }
         }
       };
     },
@@ -286,11 +309,32 @@ export default {
     }
   },
   methods: {
+   Remove(){
+    this.avatar = "/images/avatar.png";
+    this.cross=false;
+    this.addForm.user_image = '';
+   },
+    setUploadIndex() {
+      this.uploadInProgress = true;
+    },
     handleProcessFile: function(error, file) {
       this.avatar = this.imgUrl + file.serverId;
       this.addForm.user_image = file.serverId;
     },
+    handleRemoveFile: function(file){
+      this.addForm.user_image = '';
+      this.cross=false;
+      this.avatar = "/images/avatar.png";
+    },
     update() {
+      if (this.uploadInProgress) {
+        this.$toast.open({
+          message: "Image uploading is in progress!",
+          type: "error",
+          position: "top-right"
+        });
+        return false;
+      }
       if (this.$refs.form.validate()) {
         //start loading
         this.loading = true;

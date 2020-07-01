@@ -11,6 +11,7 @@ const currentUserSubject = new BehaviorSubject(
 
 export const customerService = {
   add,
+  addFarm,
   edit,
   getCustomer,
   listCustomer,
@@ -29,6 +30,20 @@ function add(data) {
 
   return fetch(
     this.apiUrl+`admin/create-customer`,
+    requestOptions.post(data)
+  )
+    .then(handleResponse)
+    .then(user => {
+      // store user details and passport token in local storage to keep user logged in between page refreshes
+
+      return user;
+    });
+}
+
+function addFarm(data) {
+
+  return fetch(
+    this.apiUrl+`admin/create-farm`,
     requestOptions.post(data)
   )
     .then(handleResponse)

@@ -182,3 +182,8 @@ export default {
   }
 };
 </script>
+<style>
+.wizard-footer-left {
+    display: none;
+}
+</style>
