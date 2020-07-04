@@ -105,7 +105,7 @@
                               class="v-avatar v-list-item__avatar"
                               style="height: 80px; min-width: 80px; width: 80px;"
                             >
-                              <img :src="Mavatar" />
+                              <img :src="'../../../'+input.manager_image" />
                             </div>
                             <file-pond
                               name="uploadImage"
@@ -118,7 +118,7 @@
                               allow-file-type-validation="true"
                               accepted-file-types="image/jpeg, image/png"
                               v-on:processfile="handleProcessFile2"
-                              v-on:processfilerevert="handleRemoveFile2"
+                              v-on:processfilerevert="handleRemoveFile2(index)"
                             />
                           </v-col>
                           <v-col cols="3" md="3">
@@ -402,7 +402,8 @@ export default {
       this.Mavatar = this.imgUrl+file.serverId;
       this.uploadInProgress = false;
     },
-    handleRemoveFile2: function(file){
+    handleRemoveFile2: function(index){
+      this.addForm.manager_details[index].manager_image = '';
     },
     //manager id card image process
     handleProcessFile3: function(error, file) {
