@@ -21,9 +21,11 @@
                             v-bind:allow-multiple="false"
                             v-bind:server="serverOptions"
                             v-bind:files="myFiles"
+                            v-on:addfilestart="CustomerUploadIndex"
                             allow-file-type-validation="true"
                             accepted-file-types="image/jpeg, image/png"
                             v-on:processfile="handleProcessFile"
+                            v-on:processfilerevert="handleRemoveFile"
                           />
                           <div class="v-messages theme--light error--text" role="alert" v-if="profileImgError">
                             <div class="v-messages__wrapper">
@@ -116,9 +118,11 @@
                               allow-multiple="true"
                               v-bind:server="serverOptions"
                               v-bind:files="myFiles"
+                              v-on:addfilestart="CustomerUploadIndex"
                               allow-file-type-validation="true"
                               accepted-file-types="image/jpeg, image/png"
                               v-on:processfile="handleProcessFile1"
+                              v-on:processfilerevert="handleRemoveFile1"
                             />
                             <div class="v-messages theme--light error--text" role="alert" v-if="farmImgError">
                               <div class="v-messages__wrapper">
@@ -184,7 +188,7 @@
                       </v-col>
                     </v-form>
                   </tab-content>
-                  <tab-content title="Personal details">
+                  <tab-content title="Manager details">
                     <v-form ref="managerForm" v-model="valid" lazy-validation>
                       <v-col cols="12" md="12">
                         <h4 class="main-title">Manager Details</h4>
@@ -204,7 +208,7 @@
                               class="v-avatar v-list-item__avatar"
                               style="height: 40px; min-width: 40px; width: 40px;"
                             >
-                              <img :src="Mavatar" />
+                              <img :src="'../../'+input.manager_image" />
                             </div>
                             <file-pond
                               name="uploadImage"
@@ -217,6 +221,7 @@
                               allow-file-type-validation="true"
                               accepted-file-types="image/jpeg, image/png"
                               v-on:processfile="handleProcessFile2"
+                              v-on:processfilerevert="handleRemoveFile2(index)"
                             />
                           </v-col>
                           <v-col cols="3" md="3">
@@ -305,6 +310,7 @@
                               allow-file-type-validation="true"
                               accepted-file-types="image/jpeg, image/png"
                               v-on:processfile="handleProcessFile3"
+                              v-on:processfilerevert="handleRemoveFile3(index)"
                             />
                           </v-col>
                         </v-row>
@@ -394,6 +400,7 @@ export default {
         manager_details: [],
         customer_role: 4
       },
+      uploadInProgress: false,
       UploadIndex: null,
       emailRules: [
         v => !!v || "E-mail is required",
@@ -443,7 +450,19 @@ export default {
     this.addRow();
   },
   methods: {
+    CustomerUploadIndex() {
+      this.uploadInProgress = true;
+    },
     customerValidation:function() {
+      if(this.uploadInProgress) {
+        this.$toast.open({
+              message: "Image uploading is in progress!",
+              type: "error",
+              position: "top-right"
+            });
+            return false;
+      }
+
       return new Promise((resolve, reject) => {
         setTimeout(() => {
           if(this.addForm.user_image == '' || this.addForm.user_image == null){
@@ -458,6 +477,14 @@ export default {
       })
     },
     farmValidation:function() {
+      if(this.uploadInProgress) {
+        this.$toast.open({
+              message: "Image uploading is in progress!",
+              type: "error",
+              position: "top-right"
+            });
+            return false;
+      }
       return new Promise((resolve, reject) => {
         setTimeout(() => {
           if(this.addForm.farm_images.length == 0) {
@@ -492,6 +519,7 @@ export default {
       this.addForm.manager_details.splice(index, 1);
     },
     setUploadIndex(index) {
+      this.uploadInProgress = true;
       this.uploadIndex = index;
     },
     onChange(val) {
@@ -522,21 +550,38 @@ export default {
       this.customer_img = this.imgUrl + file.serverId;
       this.addForm.user_image = file.serverId;
       this.profileImgError = false;
+      this.uploadInProgress = false;
+    },
+    handleRemoveFile: function(file){
+      this.customer_img = '';
+      this.addForm.user_image = '';
     },
     //farm images process
     handleProcessFile1: function(error, file) {
       this.addForm.farm_images.push(file.serverId);
       this.farmImgError = false;
+      this.uploadInProgress = false;
+    },
+    handleRemoveFile1: function(file){
+      
     },
     //manager image process
     handleProcessFile2: function(error, file) {
       this.addForm.manager_details[this.uploadIndex].manager_image = file.serverId;
       this.Mavatar = this.imgUrl+file.serverId;
+      this.uploadInProgress = false;
+    },
+    //manager image process
+    handleRemoveFile2: function(index) {
+      this.addForm.manager_details[index].manager_image = '';
     },
     //manager id card image process
     handleProcessFile3: function(error, file) {
-      this.addForm.manager_card_image = file.serverId;
-      //this.docError = false;
+      this.addForm.manager_details[this.uploadIndex].manager_card_image = file.serverId;
+      this.uploadInProgress = false;
+    },
+    handleRemoveFile3: function(index) {
+      this.addForm.manager_details[this.uploadIndex].manager_card_image = '';
     },
     validateFirstStep() {
            return new Promise((resolve, reject) => {
@@ -580,6 +625,14 @@ export default {
       }
     },
     update() {
+      if(this.uploadInProgress) {
+        this.$toast.open({
+              message: "Image uploading is in progress!",
+              type: "error",
+              position: "top-right"
+            });
+            return false;
+      }
       if (this.$refs.managerForm.validate()) {
         //start loading
         this.loading = true;
