@@ -57,6 +57,7 @@ $hover-white: #fff;
   // overall
   .my-app {
     &.v-application {
+      background: #f3f3f3;
       a {
         color: $overall-color;
       }
@@ -152,7 +153,9 @@ $hover-white: #fff;
 
   // june 6th
   #app {
-    padding-right: 25px;
+    // padding-right: 25px;
+    background-color: #f3f3f3;
+    font-family: 'Roboto', sans-serif !important;
     &.dispatcher-area {
       padding-right: 0;
       #app {
@@ -223,7 +226,7 @@ $hover-white: #fff;
       }
     }
     .sidebar-nav {
-      background-color: #ebebeb;
+      background-color: #fff;
       .v-list {
         padding-right: 0;
         .v-list-item {
@@ -245,8 +248,8 @@ $hover-white: #fff;
           display: none;
         }
         .v-list-group--no-action > .v-list-group__items > .v-list-item {
-          padding-left: 15px;
-          padding-right: 0;
+          padding-left: 10px;
+          padding-right: 20px;
           min-height: auto;
           cursor: default;
           border-radius: 0;
@@ -261,9 +264,9 @@ $hover-white: #fff;
             &:hover {
               .v-list-item__title {
                 a {
-                  background-color: #fff;
-                  border-top-left-radius: 20px;
-                  border-bottom-left-radius: 20px;
+                  border: 1px solid #00be7a;
+                  color: #00be7a;
+                  background-color: transparent;
                 }
               }
             }
@@ -274,10 +277,12 @@ $hover-white: #fff;
               padding-bottom: 10px;
               padding-left: 25px;
               font-size: 14px;
+              border: 1px solid transparent;
+              border-radius: 6px;
               &.router-link-active {
-                background-color: #fff;
-                border-top-left-radius: 20px;
-                border-bottom-left-radius: 20px;
+                color: #fff;
+                background-color: #00be7a;
+                border-radius: 6px;
               }
             }
           }
@@ -301,9 +306,10 @@ $hover-white: #fff;
     .custom-toolbar {
       height: 50px !important;
       padding-left: 20px;
-      background-color: #f3f3f3 !important;
+      background-color: #fff !important;
       .v-toolbar__content {
         display: block;
+        height: 50px !important;
         .user-image {
           display: inline;
           float: right;
@@ -321,18 +327,18 @@ $hover-white: #fff;
     }
     .add-icon {
       position: absolute;
-      top: 3px;
+      top: 20px;
       right: 22px;
       z-index: 1;
       a {
         padding: 0;
       }
       svg {
-        fill: #b7b7b7;
+        fill: #00be7a;
         width: 35px;
         height: 35px;
         circle {
-          color: #b7b7b7;
+          color: #00be7a;
         }
         line {
           color: #fff;
@@ -340,9 +346,9 @@ $hover-white: #fff;
       }
     }
     main.v-content {
-      padding-top: 90px !important;
+      padding-top: 75px !important;
       .v-content__wrap {
-        padding-left: 26px;
+        padding-left: 20px;
         h4 {
           &.main-title {
             font-size: 20px;
@@ -351,6 +357,15 @@ $hover-white: #fff;
             display: block;
             width: 100%;
             margin-bottom: 30px;
+          }
+        }
+        .v-application {
+          background-color: #fff;
+          border-top-left-radius: 10px;
+          box-shadow: 0 0 12px rgba(0,0,0,0.2);
+          .v-application--wrap {
+            padding-left: 20px;
+            padding-top: 20px;
           }
         }
       }
@@ -922,6 +937,53 @@ $hover-white: #fff;
       table {
         min-width: 900px;
         width: 100% !important;
+        thead {
+          th {
+            background-position: -5px 75%;
+          }
+        }
+        tbody {
+          tr {
+            td {
+              &.job-col-body {
+                span {
+                  padding-right: 4px;
+                }
+              }
+              .table-btn {
+                background-color: #c3ffef;
+                color: #00be7a;
+                padding: 5px 10px;
+                display: inline-block;
+                border-radius: 6px;
+                font-weight: 500;
+              }
+              .dropdown {
+                .dropdown-trigger {
+                  cursor: pointer;
+                  font-size: 11px;
+                }
+                .dropdown-menu {
+                  transform: translate3d(-162px, 21px, 0px);
+                  will-change: transform;
+                  top: 0;
+                  box-shadow: 0 50px 100px rgba(50, 50, 93, 0.1),
+                              0 15px 35px rgba(50, 50, 93, 0.15),
+                              0 5px 15px rgba(0, 0, 0, 0.1);
+                  border: none;
+                  border-radius: 0.4375rem;
+                  width: 11rem;
+                  overflow: hidden;
+                }
+                &.show {
+                  .dropdown-menu {
+                    display: block;
+                  }
+                }
+              }
+            }
+          }
+        }
         &.table-lg {
           min-width: 1100px;
         }
@@ -931,6 +993,12 @@ $hover-white: #fff;
               th {
                 &.job-summ {
                   width: 110px;
+                }
+                &.tech-col {
+                  min-width: 250px;
+                }
+                &.time-col {
+                  min-width: 130px;
                 }
               }
             }

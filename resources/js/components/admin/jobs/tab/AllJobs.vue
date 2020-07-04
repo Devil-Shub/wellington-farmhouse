@@ -30,11 +30,11 @@
 <br>{{job.manager.address}} {{job.manager.city}} {{job.manager.state}} {{job.manager.country}} {{job.manager.zip_code}}
 </td>
 <td>
-Truck Driver Name<br><template v-if="job.truck_driver">{{job.truck_driver.first_name}}</template><template v-if="!job.truck_driver">Not Assigned Yet</template>
-Truck Number<br><template v-if="job.truck">{{job.truck.truck_number}}</template><template v-if="!job.truck">Not Assigned Yet</template>
-
-skidsteer Driver Name<br><template v-if="job.skidsteer_driver">{{job.skidsteer_driver.first_name}}</template><template v-if="!job.skidsteer_driver">Not Assigned Yet</template>
-skidsteer Number</br><template v-if="job.skidsteer">{{job.skidsteer.truck_number}}</template><template v-if="!job.skidsteer">Not Assigned Yet</template>
+<span>Truck Driver Name:</span><template v-if="job.truck_driver">{{job.truck_driver.first_name}}</template><template v-if="!job.truck_driver">Not Assigned Yet</template><br>
+<span>Truck Number:</span><template v-if="job.truck">{{job.truck.truck_number}}</template><template v-if="!job.truck">Not Assigned Yet</template>
+<br>
+<span>skidsteer Driver Name:</span><template v-if="job.skidsteer_driver">{{job.skidsteer_driver.first_name}}</template><template v-if="!job.skidsteer_driver">Not Assigned Yet</template></br>
+<span>skidsteer Number:</span><template v-if="job.skidsteer">{{job.skidsteer.truck_number}}</template><template v-if="!job.skidsteer">Not Assigned Yet</template>
 </td>
 <td>
 Start Time<br><template>9:30 pm</template>

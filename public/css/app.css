@@ -10951,6 +10951,10 @@ a.text-dark:focus {
   }
 }
 
+.my-app.v-application {
+  background: #f3f3f3;
+}
+
 .my-app.v-application a {
   color: #405f6e;
 }
@@ -11043,7 +11047,8 @@ a.text-dark:focus {
 }
 
 #app {
-  padding-right: 25px;
+  background-color: #f3f3f3;
+  font-family: "Roboto", sans-serif !important;
 }
 
 #app.dispatcher-area {
@@ -11127,7 +11132,7 @@ a.text-dark:focus {
 }
 
 #app .sidebar-nav {
-  background-color: #ebebeb;
+  background-color: #fff;
 }
 
 #app .sidebar-nav .v-list {
@@ -11152,8 +11157,8 @@ a.text-dark:focus {
 }
 
 #app .sidebar-nav .v-list .v-list-group--no-action > .v-list-group__items > .v-list-item {
-  padding-left: 15px;
-  padding-right: 0;
+  padding-left: 10px;
+  padding-right: 20px;
   min-height: auto;
   cursor: default;
   border-radius: 0;
@@ -11170,9 +11175,9 @@ a.text-dark:focus {
 }
 
 #app .sidebar-nav .v-list .v-list-group--no-action > .v-list-group__items > .v-list-item .v-list-item__content:hover .v-list-item__title a {
-  background-color: #fff;
-  border-top-left-radius: 20px;
-  border-bottom-left-radius: 20px;
+  border: 1px solid #00be7a;
+  color: #00be7a;
+  background-color: transparent;
 }
 
 #app .sidebar-nav .v-list .v-list-group--no-action > .v-list-group__items > .v-list-item .v-list-item__title a {
@@ -11180,12 +11185,14 @@ a.text-dark:focus {
   padding-bottom: 10px;
   padding-left: 25px;
   font-size: 14px;
+  border: 1px solid transparent;
+  border-radius: 6px;
 }
 
 #app .sidebar-nav .v-list .v-list-group--no-action > .v-list-group__items > .v-list-item .v-list-item__title a.router-link-active {
-  background-color: #fff;
-  border-top-left-radius: 20px;
-  border-bottom-left-radius: 20px;
+  color: #fff;
+  background-color: #00be7a;
+  border-radius: 6px;
 }
 
 #app .sidebar-nav .v-list .v-list-group--no-action > .v-list-group__items > .v-list-item .v-ripple__container {
@@ -11207,11 +11214,12 @@ a.text-dark:focus {
 #app .custom-toolbar {
   height: 50px !important;
   padding-left: 20px;
-  background-color: #f3f3f3 !important;
+  background-color: #fff !important;
 }
 
 #app .custom-toolbar .v-toolbar__content {
   display: block;
+  height: 50px !important;
 }
 
 #app .custom-toolbar .v-toolbar__content .user-image {
@@ -11232,7 +11240,7 @@ a.text-dark:focus {
 
 #app .add-icon {
   position: absolute;
-  top: 3px;
+  top: 20px;
   right: 22px;
   z-index: 1;
 }
@@ -11242,13 +11250,13 @@ a.text-dark:focus {
 }
 
 #app .add-icon svg {
-  fill: #b7b7b7;
+  fill: #00be7a;
   width: 35px;
   height: 35px;
 }
 
 #app .add-icon svg circle {
-  color: #b7b7b7;
+  color: #00be7a;
 }
 
 #app .add-icon svg line {
@@ -11256,11 +11264,11 @@ a.text-dark:focus {
 }
 
 #app main.v-content {
-  padding-top: 90px !important;
+  padding-top: 75px !important;
 }
 
 #app main.v-content .v-content__wrap {
-  padding-left: 26px;
+  padding-left: 20px;
 }
 
 #app main.v-content .v-content__wrap h4.main-title {
@@ -11270,6 +11278,17 @@ a.text-dark:focus {
   display: block;
   width: 100%;
   margin-bottom: 30px;
+}
+
+#app main.v-content .v-content__wrap .v-application {
+  background-color: #fff;
+  border-top-left-radius: 10px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+}
+
+#app main.v-content .v-content__wrap .v-application .v-application--wrap {
+  padding-left: 20px;
+  padding-top: 20px;
 }
 
 #app main.v-content .v-data-table__wrapper table tr th:empty {
@@ -11842,12 +11861,57 @@ a.text-dark:focus {
   width: 100% !important;
 }
 
+#app .dataTables_wrapper table thead th {
+  background-position: -5px 75%;
+}
+
+#app .dataTables_wrapper table tbody tr td.job-col-body span {
+  padding-right: 4px;
+}
+
+#app .dataTables_wrapper table tbody tr td .table-btn {
+  background-color: #c3ffef;
+  color: #00be7a;
+  padding: 5px 10px;
+  display: inline-block;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+#app .dataTables_wrapper table tbody tr td .dropdown .dropdown-trigger {
+  cursor: pointer;
+  font-size: 11px;
+}
+
+#app .dataTables_wrapper table tbody tr td .dropdown .dropdown-menu {
+  transform: translate3d(-162px, 21px, 0px);
+  will-change: transform;
+  top: 0;
+  box-shadow: 0 50px 100px rgba(50, 50, 93, 0.1), 0 15px 35px rgba(50, 50, 93, 0.15), 0 5px 15px rgba(0, 0, 0, 0.1);
+  border: none;
+  border-radius: 0.4375rem;
+  width: 11rem;
+  overflow: hidden;
+}
+
+#app .dataTables_wrapper table tbody tr td .dropdown.show .dropdown-menu {
+  display: block;
+}
+
 #app .dataTables_wrapper table.table-lg {
   min-width: 1100px;
 }
 
 #app .dataTables_wrapper table.all_jobs thead tr th.job-summ {
   width: 110px;
+}
+
+#app .dataTables_wrapper table.all_jobs thead tr th.tech-col {
+  min-width: 250px;
+}
+
+#app .dataTables_wrapper table.all_jobs thead tr th.time-col {
+  min-width: 130px;
 }
 
 #app .dataTables_wrapper table.all_jobs tbody tr td {
