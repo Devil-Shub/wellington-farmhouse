@@ -321,7 +321,7 @@
                           class="mr-4 custom-save-btn ml-4 mt-4 setLeftPosition"
                           @click="addRow"
                         >Add More</v-btn>
-            <v-btn type="submit" :loading="loading" :disabled="loading" color="success" class="mr-4" @click="AddAnotherFarm">Add Another Farm</v-btn>
+            <v-btn type="button" :loading="loading" :disabled="loading" color="success" class="mr-4" @click="AddAnotherFarm">Add Another Farm</v-btn>
                     </v-form>
                   </tab-content>
                 </form-wizard>
