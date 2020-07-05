@@ -2,7 +2,7 @@
   <v-app>
     <v-container fluid>
       <v-row>
-        <div v-for="(updateForm, index) in totalForm">
+        <div v-for="(updateForm, parentIndex) in totalForm">
           <v-col cols="12" md="12">
             <v-form class="customer-form" ref="form" v-model="valid" lazy-validation>
               <v-row>
@@ -19,28 +19,29 @@
                         v-bind:files="myFiles"
                         allow-file-type-validation="true"
                         accepted-file-types="image/jpeg, image/png"
-                        v-on:addfilestart="setUploadIndex(index)"
+                        v-on:addfilestart="setUploadIndex(parentIndex)"
                         v-on:processfile="handleProcessFile1"
-                        :disabled="formDisable.includes(index) ? true:false"
+                        v-on:processfilerevert="handleRemoveFile1(parentIndex)"
+                        :disabled="formDisable.includes(parentIndex) ? true:false"
                       />
                     </v-col>
 
                     <v-col cols="3" md="3" class="mt-4">
                       <v-text-field
                         type="text"
-                        @input="onChange(updateForm.farm_address)"
-                        v-model="updateForm.farm_address"
+                        @input="onChange(updateForm.farm.farm_address)"
+                        v-model="updateForm.farm.farm_address"
                         class="mt-m11"
                         label="Search Place"
                         required
                         :rules="[v => !!v || 'Place is required']"
-                        :disabled="formDisable.includes(index) ? true:false"
+                        :disabled="formDisable.includes(parentIndex) ? true:false"
                       ></v-text-field>
-                      <ul v-show="isOpen && !formDisable.includes(index)" class="autocomplete-results">
+                      <ul v-show="isOpen && !formDisable.includes(parentIndex)" class="autocomplete-results">
                         <li
                           v-for="(result, i) in items"
                           :key="i"
-                          @click="setResult(result, index)"
+                          @click="setResult(result, parentIndex)"
                           class="autocomplete-result"
                         >{{ result.place_name }}</li>
                       </ul>
@@ -52,11 +53,11 @@
                       </v-col>
                       <v-col cols="8" sm="8" class="p-0 ml-m4">
                         <v-text-field
-                          v-model="updateForm.farm_unit"
+                          v-model="updateForm.farm.farm_unit"
                           required
                           :rules="[v => !!v || 'Farm apt/unit is required']"
                           class="disabled-tag"
-                          :disabled="formDisable.includes(index) ? true:false"
+                          :disabled="formDisable.includes(parentIndex) ? true:false"
                         ></v-text-field>
                       </v-col>
                     </v-col>
@@ -66,11 +67,11 @@
                       </v-col>
                       <v-col cols="8" sm="8" class="p-0 ml-m4">
                         <v-text-field
-                          v-model="updateForm.farm_city"
+                          v-model="updateForm.farm.farm_city"
                           required
                           :rules="[v => !!v || 'Farm city is required']"
                           class="disabled-tag"
-                          :disabled="formDisable.includes(index) ? true:false"
+                          :disabled="formDisable.includes(parentIndex) ? true:false"
                         ></v-text-field>
                       </v-col>
                     </v-col>
@@ -80,11 +81,11 @@
                       </v-col>
                       <v-col cols="8" sm="8" class="p-0 ml-m4">
                         <v-text-field
-                          v-model="updateForm.farm_province"
+                          v-model="updateForm.farm.farm_province"
                           required
                           :rules="[v => !!v || 'Farm province is required']"
                           class="disabled-tag"
-                          :disabled="formDisable.includes(index) ? true:false"
+                          :disabled="formDisable.includes(parentIndex) ? true:false"
                         ></v-text-field>
                       </v-col>
                     </v-col>
@@ -94,20 +95,20 @@
                       </v-col>
                       <v-col cols="8" sm="8" class="p-0 ml-m4">
                         <v-text-field
-                          v-model="updateForm.farm_zipcode"
+                          v-model="updateForm.farm.farm_zipcode"
                           required
                           :rules="[v => !!v || 'Farm zip code is required']"
                           class="disabled-tag"
-                          :disabled="formDisable.includes(index) ? true:false"
+                          :disabled="formDisable.includes(parentIndex) ? true:false"
                         ></v-text-field>
                       </v-col>
                     </v-col>
                     <v-col cols="3" md="3">
-                      <v-switch v-model="updateForm.farm_active" class="mx-2" label="Is Active"></v-switch>
+                      <v-switch v-model="updateForm.farm.farm_active" class="mx-2" label="Is Active"></v-switch>
                     </v-col>
                   </v-row>
                 </v-col>
-                <v-col cols="12" md="12">
+                <v-col cols="12" md="12" v-for="(manager, childIndex) in updateForm.managers">
                   <h3>Manager Details</h3>
                   <v-row>
                     <v-col cols="12" md="12">
@@ -115,7 +116,7 @@
                         class="v-avatar v-list-item__avatar"
                         style="height: 40px; min-width: 40px; width: 40px;"
                       >
-                        <img :src="'../../../'+updateForm.manager_image" />
+                        <img :src="'../../../'+manager.manager_image" />
                       </div>
                       <file-pond
                         name="uploadImage"
@@ -126,9 +127,10 @@
                         v-bind:files="myFiles"
                         allow-file-type-validation="true"
                         accepted-file-types="image/jpeg, image/png"
-                        v-on:addfilestart="setUploadIndex(index)"
+                        v-on:addfilestart="setUploadIndex(parentIndex, childIndex)"
                         v-on:processfile="handleProcessFile2"
-                        :disabled="formDisable.includes(index) ? true:false"
+                        v-on:processfilerevert="handleRemoveFile2(parentIndex, childIndex)"
+                        :disabled="formDisable.includes(parentIndex) ? true:false"
                       />
                     </v-col>
                     <v-col cols="3" md="3">
@@ -137,12 +139,12 @@
                       </v-col>
                       <v-col cols="8" sm="8" class="p-0 ml-m4">
                         <v-select
-                          v-model="updateForm.manager_prefix"
+                          v-model="manager.manager_prefix"
                           :items="prefixs"
                           label="Select"
                           :rules="[v => !!v || 'Prefix is required']"
                           class="disabled-tag"
-                          :disabled="formDisable.includes(index) ? true:false"
+                          :disabled="formDisable.includes(parentIndex) ? true:false"
                         ></v-select>
                       </v-col>
                     </v-col>
@@ -152,11 +154,11 @@
                       </v-col>
                       <v-col cols="8" sm="8" class="p-0 ml-m4">
                         <v-text-field
-                          v-model="updateForm.manager_name"
+                          v-model="manager.manager_name"
                           required
                           :rules="[v => !!v || 'Manager name is required']"
                           class="disabled-tag"
-                          :disabled="formDisable.includes(index) ? true:false"
+                          :disabled="formDisable.includes(parentIndex) ? true:false"
                         ></v-text-field>
                       </v-col>
                     </v-col>
@@ -166,9 +168,9 @@
                       </v-col>
                       <v-col cols="8" sm="8" class="p-0 ml-m4">
                         <v-text-field
-                          v-model="updateForm.manager_email"
+                          v-model="manager.manager_email"
                           :rules="emailRules"
-                          :disabled="formDisable.includes(index) ? true:false"
+                          :disabled="formDisable.includes(parentIndex) ? true:false"
                           class="disabled-tag"
                           name="email"
                           required
@@ -181,9 +183,9 @@
                       </v-col>
                       <v-col cols="8" sm="8" class="p-0 ml-m4">
                         <v-text-field
-                          v-model="updateForm.manager_phone"
+                          v-model="manager.manager_phone"
                           :rules="phoneRules"
-                          :disabled="formDisable.includes(index) ? true:false"
+                          :disabled="formDisable.includes(parentIndex) ? true:false"
                           class="disabled-tag"
                           required
                           maxlength="10"
@@ -196,11 +198,11 @@
                       </v-col>
                       <v-col cols="8" sm="8" class="p-0 ml-m4">
                         <v-text-field
-                          v-model="updateForm.manager_address"
+                          v-model="manager.manager_address"
                           required
                           :rules="[v => !!v || 'address is required']"
                           class="disabled-tag"
-                          :disabled="formDisable.includes(index) ? true:false"
+                          :disabled="formDisable.includes(parentIndex) ? true:false"
                         ></v-text-field>
                       </v-col>
                     </v-col>
@@ -210,11 +212,11 @@
                       </v-col>
                       <v-col cols="8" sm="8" class="p-0 ml-m4">
                         <v-text-field
-                          v-model="updateForm.manager_city"
+                          v-model="manager.manager_city"
                           required
                           :rules="[v => !!v || 'City is required']"
                           class="disabled-tag"
-                          :disabled="formDisable.includes(index) ? true:false"
+                          :disabled="formDisable.includes(parentIndex) ? true:false"
                         ></v-text-field>
                       </v-col>
                     </v-col>
@@ -224,11 +226,11 @@
                       </v-col>
                       <v-col cols="8" sm="8" class="p-0 ml-m4">
                         <v-text-field
-                          v-model="updateForm.manager_province"
+                          v-model="manager.manager_province"
                           required
                           :rules="[v => !!v || 'Province is required']"
                           class="disabled-tag"
-                          :disabled="formDisable.includes(index) ? true:false"
+                          :disabled="formDisable.includes(parentIndex) ? true:false"
                         ></v-text-field>
                       </v-col>
                     </v-col>
@@ -238,10 +240,10 @@
                       </v-col>
                       <v-col cols="8" sm="8" class="p-0 ml-m4">
                         <v-text-field
-                          v-model="updateForm.manager_zipcode"
+                          v-model="manager.manager_zipcode"
                           :rules="[v => !!v || 'Zip code is required']"
                           class="disabled-tag"
-                          :disabled="formDisable.includes(index) ? true:false"
+                          :disabled="formDisable.includes(parentIndex) ? true:false"
                           required
                         ></v-text-field>
                       </v-col>
@@ -252,10 +254,10 @@
                       </v-col>
                       <v-col cols="8" sm="8" class="p-0 ml-m4">
                         <v-text-field
-                          v-model="updateForm.manager_id_card"
+                          v-model="manager.manager_id_card"
                           :rules="[v => !!v || 'Card Id number is required']"
                           class="disabled-tag"
-                          :disabled="formDisable.includes(index) ? true:false"
+                          :disabled="formDisable.includes(parentIndex) ? true:false"
                           required
                         ></v-text-field>
                       </v-col>
@@ -270,22 +272,23 @@
                         v-bind:files="myFiles"
                         allow-file-type-validation="true"
                         accepted-file-types="image/jpeg, image/png"
-                        v-on:addfilestart="setUploadIndex(index)"
+                        v-on:addfilestart="setUploadIndex(parentIndex, childIndex)"
                         v-on:processfile="handleProcessFile3"
-                        :disabled="formDisable.includes(index) ? true:false"
+                        v-on:processfilerevert="handleRemoveFile3(parentIndex, childIndex)"
+                        :disabled="formDisable.includes(parentIndex) ? true:false"
                       />
-                    </v-col>
-                    <v-col cols="2" md="2">
-                      <v-switch class="mx-2" label="Edit" @click="enableForm(index)"></v-switch>
                     </v-col>
                   </v-row>
                 </v-col>
+                <v-col cols="2" md="2">
+                      <v-switch class="mx-2" label="Edit" @click="enableForm(parentIndex)"></v-switch>
+                    </v-col>
                 <v-btn
-                  :loading="loading == index ? true:false"
-                  :disabled="loading == index ? true:false"
+                  :loading="loading == parentIndex ? true:false"
+                  :disabled="loading == parentIndex ? true:false"
                   color="success"
                   class="mr-4 custom-save-btn ml-4"
-                  @click="update(index)"
+                  @click="update(parentIndex)"
                 >Submit</v-btn>
               </v-row>
             </v-form>
@@ -316,6 +319,7 @@ export default {
       prefixs: ["Ms.", "Mr.", "Mrs."],
       isLoading: false,
       uploadIndex: null,
+      uploadChildIndex: null,
       items: [],
       model: null,
       valid: true,
@@ -323,6 +327,10 @@ export default {
       apiUrl: environment.apiUrl,
       uberMapApiUrl: environment.uberMapApiUrl,
       uberMapToken: environment.uberMapToken,
+      farmAndManagerForm: {
+        farm: '',
+        managers: Array()
+      },
       totalForm: Array(),
       formDisable: Array(),
       addForm: {
@@ -335,7 +343,9 @@ export default {
         farm_city: "",
         farm_province: "",
         farm_zipcode: "",
-        farm_active: true,
+        farm_active: true
+      },
+      managerForm: {
         manager_id: "",
         manager_image: "",
         manager_prefix: "",
@@ -369,17 +379,22 @@ export default {
   },
   mounted() {
     // this.$refs.address.focus();
-    customerService.getCustomer(this.$route.params.id).then(response => {
-      return false;
+    customerService.getFarmAndManager(this.$route.params.id).then(response => {
       //handle response
       if (response.status) {
         for (
           var total = 0;
-          total < response.data.customer_manager.length;
+          total < response.data.length;
           total++
         ) {
-          var farmDetails = response.data.customer_manager[total].farms;
-          var managerDetails = response.data.customer_manager[total];
+          //make blank initially
+          this.farmAndManagerForm = {
+            farm: '',
+            managers: []
+          }
+
+          var farmDetails = response.data[total];
+          var managerDetails = response.data[total].farm_manager;
           //set farm values
           this.addForm = {
             farm_id: farmDetails.id,
@@ -391,23 +406,32 @@ export default {
             farm_city: farmDetails.farm_city,
             farm_province: farmDetails.farm_province,
             farm_zipcode: farmDetails.farm_zipcode,
-            farm_active: farmDetails.farm_active == 1 ? true : false,
-            manager_id: managerDetails.id,
-            manager_image: managerDetails.user_image,
-            manager_prefix: managerDetails.prefix,
-            manager_name: managerDetails.first_name,
-            manager_email: managerDetails.email,
-            manager_phone: managerDetails.phone,
-            manager_address: managerDetails.address,
-            manager_city: managerDetails.city,
-            manager_province: managerDetails.state,
-            manager_zipcode: managerDetails.zip_code,
-            manager_id_card: managerDetails.manager.identification_number,
-            manager_card_image: managerDetails.manager.document
+            farm_active: farmDetails.farm_active == 1 ? true : false
           };
 
+          this.farmAndManagerForm.farm = this.addForm
+
+          for(var fm=0; fm<managerDetails.length; fm++) {
+            this.managerForm = {
+              manager_id: managerDetails[fm].id,
+              manager_image: managerDetails[fm].user_image,
+              manager_prefix: managerDetails[fm].prefix,
+              manager_name: managerDetails[fm].first_name,
+              manager_email: managerDetails[fm].email,
+              manager_phone: managerDetails[fm].phone,
+              manager_address: managerDetails[fm].address,
+              manager_city: managerDetails[fm].city,
+              manager_province: managerDetails[fm].state,
+              manager_zipcode: managerDetails[fm].zip_code,
+              manager_id_card: managerDetails[fm].manager.identification_number,
+              manager_card_image: managerDetails[fm].manager.document
+            };
+            //add to manager info
+            this.farmAndManagerForm.managers.push(this.managerForm);
+          } 
+
           //add into total forms
-          this.totalForm.push(this.addForm);
+          this.totalForm.push(this.farmAndManagerForm);
           //add into disabled forms
           this.formDisable.push(total);
         }
@@ -473,20 +497,42 @@ export default {
 
       this.isOpen = false;
     },
-    setUploadIndex(index) {
-      this.uploadIndex = index;
+    setUploadIndex(parentIndex, childIndex=null) {
+      this.uploadIndex = parentIndex;
+      this.uploadChildIndex = childIndex;
     },
     //farm images process
     handleProcessFile1: function(error, file) {
-      this.totalForm[this.uploadIndex].farm_images.push(file.serverId);
+      this.totalForm[this.uploadIndex].farm.farm_images.push(file.serverId);
+      //set default as null
+      this.uploadIndex = null;
+      this.uploadChildIndex = null;
+    },
+    //farm image remove process
+    handleRemoveFile1: function(parentIndex) {
     },
     //manager image process
     handleProcessFile2: function(error, file) {
-      this.totalForm[this.uploadIndex].manager_image = file.serverId;
+      this.totalForm[this.uploadIndex].managers[this.uploadChildIndex].manager_image = file.serverId;
+      //set default as null
+      this.uploadIndex = null;
+      this.uploadChildIndex = null;
+    },
+    //manager image process
+    handleRemoveFile2: function(parentIndex, childIndex) {
+      this.totalForm[parentIndex].managers[childIndex].manager_image = '';
+      this.totalForm[parentIndex].managers[childIndex].manager_image = 'images/avatar.png';
     },
     //manager id card image process
     handleProcessFile3: function(error, file) {
-      this.totalForm[this.uploadIndex].manager_card_image = file.serverId;
+      this.totalForm[this.uploadIndex].managers[this.uploadChildIndex].manager_card_image = file.serverId;
+      //set default as null
+      this.uploadIndex = null;
+      this.uploadChildIndex = null;
+    },
+    //manager id card image removal process
+    handleRemoveFile3: function(parentIndex, childIndex) {
+      this.totalForm[parentIndex].managers[childIndex].manager_card_image = '';
     },
     enableForm(formId) {
       var index = this.formDisable.indexOf(formId);
@@ -499,6 +545,17 @@ export default {
       }
     },
     update(formId) {
+      //validate if image uploading is in-progress
+      if(this.uploadIndex != null) {
+        this.$toast.open({
+              message: "Image uploading is in progress!",
+              type: "error",
+              position: "top-right"
+            });
+            return false;
+      }
+      //validate if image uploading is in-progress
+
       // if (this.$refs.form.validate()) {
       //start loading
       this.loading = formId;

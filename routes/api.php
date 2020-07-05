@@ -86,6 +86,7 @@ Route::group(['prefix' => 'auth'], function () {
             Route::post('create-farm', 'CustomerController@createFarm');
             Route::get('list-customer', 'CustomerController@listCustomer');
             Route::get('get-customer/{customer_id}', 'CustomerController@getCustomer');
+            Route::get('get-farm-and-manager/{customer_id}', 'CustomerController@getFarmAndManager');
             Route::get('get-farm/{customer_id}', 'CustomerController@getFarm');
             Route::get('get-farm-manager/{farm_id}', 'CustomerController@getFarmManager');
             Route::post('update-customer/{customer_id}', 'CustomerController@updateCustomer');

@@ -7,7 +7,7 @@
             <v-row>
               <v-col cols="12" md="12">
                 <form-wizard @on-complete="update" title subtitle finishButtonText="Finish" shape="circle" color="gray" error-color="#e74c3c">
-                  <!-- <tab-content title="Customer Info" :before-change="customerValidation">
+                  <tab-content title="Customer Info" :before-change="customerValidation">
                     <v-form ref="customerForm" v-model="valid" lazy-validation>
                       <v-row>
                         <v-col cols="12" md="12">
@@ -104,8 +104,8 @@
                         </v-col>
                       </v-row>
                     </v-form>
-                  </tab-content> -->
-                  <!-- <tab-content title="Farm Info" :before-change="farmValidation">
+                  </tab-content>
+                  <tab-content title="Farm Info" :before-change="farmValidation">
                     <v-form ref="farmForm" v-model="valid" lazy-validation>
                       <v-col cols="12" md="12">
                         <h4 class="main-title">Farm Section</h4>
@@ -187,7 +187,7 @@
                         </v-row>
                       </v-col>
                     </v-form>
-                  </tab-content> -->
+                  </tab-content>
                   <tab-content title="Manager details">
                     <v-form ref="managerForm" v-model="valid" lazy-validation>
                       <v-col cols="12" md="12">

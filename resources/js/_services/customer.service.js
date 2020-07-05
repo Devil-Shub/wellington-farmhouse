@@ -14,6 +14,7 @@ export const customerService = {
   addFarm,
   edit,
   getCustomer,
+  getFarmAndManager,
   listCustomer,
   getCustomerCard,
   getCustomerRecord,
@@ -81,6 +82,19 @@ function listCustomer(){
 function getCustomer(data) {
   return fetch(
     this.apiUrl+`admin/get-customer/`+data,
+    requestOptions.get()
+  )
+    .then(handleResponse)
+    .then(user => {
+      // store user details and passport token in local storage to keep user logged in between page refreshes
+
+      return user;
+    });
+}
+
+function getFarmAndManager(data) {
+  return fetch(
+    this.apiUrl+`admin/get-farm-and-manager/`+data,
     requestOptions.get()
   )
     .then(handleResponse)
