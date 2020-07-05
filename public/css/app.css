@@ -11033,8 +11033,8 @@ a.text-dark:focus {
 }
 
 #app .primary--text {
-  color: #aba2a2 !important;
-  caret-color: #aba2a2 !important;
+  color: #53bf7b !important;
+  caret-color: #53bf7b !important;
 }
 
 #app .wd-100 {
@@ -11243,16 +11243,18 @@ a.text-dark:focus {
   padding-bottom: 40px;
 }
 
-#app main.v-content .v-data-table__wrapper table tr th:first-of-type {
-  padding-left: 0;
-}
-
 #app main.v-content .v-data-table__wrapper table tr td {
   border-bottom: none;
 }
 
 #app main.v-content .v-data-table__wrapper table tr td:first-of-type {
-  padding-left: 1px;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+#app main.v-content .v-data-table__wrapper table tr td:last-of-type {
+  border-bottom-right-radius: 4px;
+  border-top-right-radius: 4px;
 }
 
 #app main.v-content .v-data-table__wrapper table tr td.action-col {
@@ -11348,8 +11350,12 @@ a.text-dark:focus {
   font-size: 20px;
 }
 
+#app main.v-content form .v-input .v-input--selection-controls__input .v-icon:before {
+  color: #53bf7b;
+}
+
 #app main.v-content form .v-input .v-input--selection-controls__input .v-icon.primary--text {
-  color: #756d6d !important;
+  color: #53bf7b !important;
 }
 
 #app main.v-content form .v-input .v-input--selection-controls__input .v-input--selection-controls__ripple {
@@ -11373,7 +11379,8 @@ a.text-dark:focus {
 }
 
 #app main.v-content form .time-slots .checkbox.activeClass {
-  background-color: #b9b9b9;
+  background-color: #53bf7b;
+  border-color: #53bf7b;
   color: #fff;
 }
 
@@ -11793,6 +11800,18 @@ a.text-dark:focus {
   overflow-x: auto;
 }
 
+#app .dataTables_wrapper .dataTables_filter label {
+  padding: relative;
+}
+
+#app .dataTables_wrapper .dataTables_filter label:after {
+  content: "\F002";
+  font-family: "FontAwesome";
+  position: absolute;
+  right: 10px;
+  top: 5px;
+}
+
 #app .dataTables_wrapper .dataTables_filter input {
   border: 1px solid #ccc;
   padding: 6px 15px;
@@ -11919,5 +11938,68 @@ a.text-dark:focus {
 
 #app .dropdown.show .dropdown-menu {
   display: block;
+}
+
+#app .v-data-table tbody tr:hover:not(.v-data-table__expanded__content):not(.v-data-table__empty-wrapper),
+#app .v-data-table tbody tr.selected {
+  background-color: #53bf7b;
+  color: #fff;
+}
+
+#app .v-data-table tbody tr.selected {
+  border-bottom: 1px solid #fff;
+}
+
+#app .custom-checkbox {
+  width: 120px;
+  position: relative;
+  margin-top: 5px;
+}
+
+#app .custom-checkbox label {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #53bf7b;
+  border-radius: 4px;
+}
+
+#app .custom-checkbox label:after {
+  content: "";
+  width: 10px;
+  height: 5px;
+  position: absolute;
+  top: 7px;
+  left: 5px;
+  border: 2px solid #fff;
+  border-top: none;
+  border-right: none;
+  background: transparent;
+  opacity: 0;
+  transform: rotate(-45deg);
+}
+
+#app .custom-checkbox label:hover::after {
+  opacity: 0.5;
+}
+
+#app .custom-checkbox input[type=checkbox] {
+  visibility: hidden;
+}
+
+#app .custom-checkbox input[type=checkbox]:checked + label:after {
+  opacity: 1;
+}
+
+#app .custom-checkbox .checkbox-title {
+  padding-left: 10px;
+}
+
+#app .ft-left {
+  float: left;
+  width: 100%;
 }
 
