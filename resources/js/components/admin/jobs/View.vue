@@ -9,6 +9,7 @@
           dense
           v-model="selected"
           @change="onChange($event)"
+          class="custom-sel-box"
         ></v-select>
       </v-col>
    <div class="add-icon">

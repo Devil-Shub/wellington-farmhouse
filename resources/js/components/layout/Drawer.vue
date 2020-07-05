@@ -248,7 +248,7 @@
           },
          {
             action: 'local_activity',
-            title: 'My Schedule', url: '/driver/dashboard'
+            title: 'Ongoing Jobs', url: '/driver/dashboard'
           },
         {
             action: 'local_activity',

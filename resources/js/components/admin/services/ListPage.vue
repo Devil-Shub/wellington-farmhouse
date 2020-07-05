@@ -23,7 +23,7 @@
                   <th class="text-left">type</th>
                   <th class="text-left">time</th>
                   <th class="text-left">Descriptions</th>
-                  <th class="text-left"></th>
+                  <th class="text-left">Options</th>
                 </tr>
               </thead>
               <tbody>
@@ -49,16 +49,28 @@
                   </td>
                   <td>{{ item.description }}</td>
                   <td class="action-col">
-                    <router-link v-if="isAdmin" :to="'/admin/service/edit/' + item.id" class="nav-item nav-link">
+                    <!-- <router-link v-if="isAdmin" :to="'/admin/service/edit/' + item.id" class="nav-item nav-link">
                       <span class="custom-action-btn">Edit</span>
                     </router-link>
                     <router-link v-if="!isAdmin" :to="'/manager/service/edit/' + item.id" class="nav-item nav-link">
                       <span class="custom-action-btn">Edit</span>
                     </router-link>
                     <v-btn color="blue darken-1" text @click="Delete(item.id)">
-                      <!-- <trash-icon size="1.5x" class="custom-class"></trash-icon> -->
                       <span class="custom-action-btn">Delete</span>
-                    </v-btn>
+                    </v-btn> -->
+
+                    <div class="dropdown" v-bind:class="{ 'show': triggerDropdown }">
+                      <more-vertical-icon size="1.5x" class="custom-class dropdown-trigger" v-on:click="dropdownToggle"></more-vertical-icon>
+                      <span class="dropdown-menu">
+                        <router-link v-if="isAdmin" :to="'/admin/service/edit/' + item.id" class="dropdown-item">
+                          <button class="btn">Edit</button>
+                        </router-link>
+                        <router-link v-if="!isAdmin" :to="'/manager/service/edit/' + item.id" class="dropdown-item">
+                          <button class="btn">Edit</button>
+                        </router-link>
+                        <button class="btn dropdown-item" @click="Delete(item.id)">Delete</button>
+                      </span>
+                    </div>
                   </td>
                 </tr>
               </tbody>
@@ -79,7 +91,8 @@ import {
   UserIcon,
   EditIcon,
   TrashIcon,
-  PlusCircleIcon
+  PlusCircleIcon,
+  MoreVerticalIcon,
 } from "vue-feather-icons";
 import { router } from "../../../_helpers/router";
 export default {
@@ -87,11 +100,13 @@ export default {
     UserIcon,
     EditIcon,
     TrashIcon,
-    PlusCircleIcon
+    PlusCircleIcon,
+    MoreVerticalIcon,
   },
   data() {
     return {
       dialog: false,
+      triggerDropdown: false,
       on: false,
       baseUrl: environment.baseUrl,
       services: [],
@@ -150,6 +165,9 @@ export default {
     },
     Close() {
       this.dialog = false;
+    },
+    dropdownToggle: function() {
+      this.triggerDropdown = !this.triggerDropdown;
     }
   }
 };
