@@ -6,6 +6,7 @@ import { Role } from "./role";
 
 import HomePage from "../frontend/HomePage";
 import PaymentPage from "../frontend/PaymentPage";
+import AddJobPage from "../frontend/AddJobPage";
 //layouts
 import AdminLayout from "../components/layout/AdminLayout";
 import UserLayout from "../frontend/layout/UserLayout";
@@ -103,9 +104,9 @@ export const router = new Router({
     { path: "/", component: HomePage, meta: { requiresAuth: [Role.Customer] } },
     { path: '/chat', component: ChatPage, name: 'CustomerChat', meta: { requiresAuth: [Role.Customer] } },
     { path: "/home", component: HomePage, name: 'Home', meta: { requiresAuth: [Role.Customer] } },
- { path: "/chat", component: ChatPage, name: 'F_chat', meta: { requiresAuth: [Role.Customer] } },
+    { path: "/chat", component: ChatPage, name: 'F_chat', meta: { requiresAuth: [Role.Customer] } },
     { path: "/payment/:unique_id", component: PaymentPage, name: 'Payment', meta: { requiresAuth: [Role.Customer] } },
-    //{ path: "/confirm-email", component: HomePage },
+    { path: "/book-job/:id", component: AddJobPage, name: 'addjobpage', meta: { requiresAuth: [Role.Customer] } },
     //admin routes
     {
       path: '/admin',

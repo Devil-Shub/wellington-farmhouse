@@ -289,7 +289,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         url: '/driver/dashboard'
       }, {
         action: 'local_activity',
-        title: 'Ongoing Jobs',
+        title: 'My Schedule',
         url: '/driver/dashboard'
       }, {
         action: 'local_activity',
