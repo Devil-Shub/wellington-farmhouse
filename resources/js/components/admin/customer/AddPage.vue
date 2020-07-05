@@ -7,7 +7,7 @@
             <v-row>
               <v-col cols="12" md="12">
                 <form-wizard @on-complete="update" title subtitle finishButtonText="Finish" shape="circle" color="gray" error-color="#e74c3c">
-                  <tab-content title="Customer Info" :before-change="customerValidation">
+                  <!-- <tab-content title="Customer Info" :before-change="customerValidation">
                     <v-form ref="customerForm" v-model="valid" lazy-validation>
                       <v-row>
                         <v-col cols="12" md="12">
@@ -104,8 +104,8 @@
                         </v-col>
                       </v-row>
                     </v-form>
-                  </tab-content>
-                  <tab-content title="Farm Info" :before-change="farmValidation">
+                  </tab-content> -->
+                  <!-- <tab-content title="Farm Info" :before-change="farmValidation">
                     <v-form ref="farmForm" v-model="valid" lazy-validation>
                       <v-col cols="12" md="12">
                         <h4 class="main-title">Farm Section</h4>
@@ -187,7 +187,7 @@
                         </v-row>
                       </v-col>
                     </v-form>
-                  </tab-content>
+                  </tab-content> -->
                   <tab-content title="Manager details">
                     <v-form ref="managerForm" v-model="valid" lazy-validation>
                       <v-col cols="12" md="12">
@@ -501,7 +501,7 @@ export default {
     },
     addRow() {
       this.addForm.manager_details.push({
-        manager_image: "",
+        manager_image: "images/avatar.png",
         manager_prefix: "",
         manager_name: "",
         manager_email: "",
@@ -574,6 +574,7 @@ export default {
     //manager image process
     handleRemoveFile2: function(index) {
       this.addForm.manager_details[index].manager_image = '';
+      this.addForm.manager_details[index].manager_image = 'images/avatar.png';
     },
     //manager id card image process
     handleProcessFile3: function(error, file) {
@@ -625,6 +626,7 @@ export default {
       }
     },
     update() {
+      //validate if image uploading is in-progress
       if(this.uploadInProgress) {
         this.$toast.open({
               message: "Image uploading is in progress!",
@@ -633,6 +635,23 @@ export default {
             });
             return false;
       }
+      //validate if image uploading is in-progress
+
+      //validate manager id card image
+      var managerInfo = this.addForm.manager_details;
+      for(var i=0; i<managerInfo.length; i++) {
+        if(managerInfo[i].manager_card_image == "") {
+          this.$toast.open({
+              message: "Manager ID card image is required!",
+              type: "error",
+              position: "top-right"
+            });
+
+            return false;
+        }
+      }
+      //validate manager id card image
+
       if (this.$refs.managerForm.validate()) {
         //start loading
         this.loading = true;
