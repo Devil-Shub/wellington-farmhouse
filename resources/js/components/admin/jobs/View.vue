@@ -2,10 +2,10 @@
   <v-app>
     <v-container fluid>
       <v-row>
-     <v-col class="d-flex" cols="12" sm="6">
+     <v-col class="d-flex" cols="12" sm="4">
         <v-select
           :items="dropdown"
-          label="Status Filter"
+          label="Status"
           dense
           v-model="selected"
           @change="onChange($event)"
@@ -32,12 +32,13 @@
                 <th>Sno</th>
                 <th class="job-summ">Job Summary</th>
                 <th>Sort By</th>
-                <th>Techs</th>
-                <th>Time</th>
+                <th class="tech-col">Techs</th>
+                <th class="time-col">Time</th>
 		 <th>Distance</th>
 		<th>Payment</th>
                 <th>Chat</th>
 	        <th>Status</th>
+          <th>Options</th>
 		    </tr>
 		</thead>
 		<tbody>
@@ -47,24 +48,36 @@
 			<td>{{job.customer.first_name}}<br> {{job.manager.first_name}} <br> {{job.manager.phone}} <br>{{job.manager.email}}
 		<br>{{job.manager.address}} {{job.manager.city}} {{job.manager.state}} {{job.manager.country}} {{job.manager.zip_code}}
 		</td>
-		<td>
-		Truck Driver Name<br><template v-if="job.truck_driver">{{job.truck_driver.first_name}}</template><template v-if="!job.truck_driver">Not Assigned Yet</template>
-		Truck Number<br><template v-if="job.truck">{{job.truck.truck_number}}</template><template v-if="!job.truck">Not Assigned Yet</template>
-
-		skidsteer Driver Name<br><template v-if="job.skidsteer_driver">{{job.skidsteer_driver.first_name}}</template><template v-if="!job.skidsteer_driver">Not Assigned Yet</template>
-		skidsteer Number</br><template v-if="job.skidsteer">{{job.skidsteer.truck_number}}</template><template v-if="!job.skidsteer">Not Assigned Yet</template>
+		<td class="job-col-body">
+		<span>Truck Driver Name:</span><template v-if="job.truck_driver">{{job.truck_driver.first_name}}</template><template v-if="!job.truck_driver">Not Assigned Yet</template><br>
+		<span>Truck Number:</span><template v-if="job.truck">{{job.truck.truck_number}}</template><template v-if="!job.truck">Not Assigned Yet</template><br>
+		<span>skidsteer Driver Name:</span><template v-if="job.skidsteer_driver">{{job.skidsteer_driver.first_name}}</template><template v-if="!job.skidsteer_driver">Not Assigned Yet</template><br>
+		<span>skidsteer Number:</span><template v-if="job.skidsteer">{{job.skidsteer.truck_number}}</template><template v-if="!job.skidsteer">Not Assigned Yet</template>
 		</td>
-		<td>
-		Start Time<br><template>9:30 pm</template>
-		End Time<br><template>12:30 Pm</template>
-		Time Taken<br><template>3</template>
+		<td class="job-col-body">
+		<span>Start Time:</span><template>9:30 pm</template><br>
+		<span>End Time:</span><template>12:30 Pm</template><br>
+		<span>Time Taken:</span><template>3</template>
 		</td>
 		<td>3000 dummy</td>
-		<td><template v-if="job.payment_status">Paid</template> <template v-if="!job.payment_status">Unpaid</template></td>
+		<td><template v-if="job.payment_status">Paid</template> <template v-if="!job.payment_status">
+    <span class="table-btn">Unpaid</span>
+    </template></td>
 		<td> <router-link v-if="isAdmin" :to="'/admin/jobs/chat/' + job.id" class="nav-item nav-link">View chat</router-link>
 		<router-link v-if="!isAdmin" :to="'/manager/jobs/chat/' + job.id" class="nav-item nav-link">View chat</router-link>
 		</td>
-		<td><template v-if="!job.job_status">Open</template> <template v-if="job.job_status">Close</template></td>
+		<td><template v-if="!job.job_status"><span class="table-btn">Open</span></template> <template v-if="job.job_status">
+    <span class="table-btn">Close</span>
+    </template></td>
+    <td>
+      <div class="dropdown" v-bind:class="{ 'show': triggerDropdown }">
+        <more-vertical-icon size="1.5x" class="custom-class dropdown-trigger" v-on:click="dropdownToggle"></more-vertical-icon>
+        <span class="dropdown-menu">
+          <button class="btn dropdown-item">Edit</button>
+          <button class="btn dropdown-item">Delete</button>
+        </span>
+      </div>
+    </td>
 			       
 				</tr>
 
@@ -84,6 +97,7 @@
 
 <script>
 import { PlusCircleIcon } from "vue-feather-icons";
+import { MoreVerticalIcon } from "vue-feather-icons";
 import { jobService } from "../../../_services/job.service";
 import { environment } from "../../../config/test.env";
 import { authenticationService } from "../../../_services/authentication.service";
@@ -91,6 +105,7 @@ import { authenticationService } from "../../../_services/authentication.service
 
     components: {
       PlusCircleIcon,
+      MoreVerticalIcon,
       AllJobs: () => import('./tab/AllJobs'),
       AssignedJobs: () => import('./tab/AssignedJobs'),
       CompletedJobs: () => import('./tab/CompletedJobs'),
@@ -101,8 +116,9 @@ import { authenticationService } from "../../../_services/authentication.service
 
      data() {
     	return {
-	tab: null,
+	      tab: null,
         isAdmin: true,
+        triggerDropdown: false,
         items: ["All Jobs", "Repeating Jobs"],
         dropdown: ['All Jobs', 'Assigned Jobs', 'Completed Jobs', 'Paid', 'Unpaid', 'Open'],
         alljobs:'',
@@ -135,9 +151,12 @@ import { authenticationService } from "../../../_services/authentication.service
       });
     },
     onChange(event){
-         this.getResults(event);
-         console.log(event)
+      this.getResults(event);
+      console.log(event)
     },
+    dropdownToggle: function() {
+      this.triggerDropdown = !this.triggerDropdown;
+    }
 },
 updated() {
 setTimeout(function() {

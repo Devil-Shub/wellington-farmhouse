@@ -230,30 +230,33 @@ var render = function() {
                       _c(
                         "td",
                         [
-                          _vm._v("\nTruck Driver Name"),
-                          _c("br"),
+                          _c("span", [_vm._v("Truck Driver Name:")]),
                           job.truck_driver
                             ? [_vm._v(_vm._s(job.truck_driver.first_name))]
                             : _vm._e(),
                           !job.truck_driver
                             ? [_vm._v("Not Assigned Yet")]
                             : _vm._e(),
-                          _vm._v("\nTruck Number"),
                           _c("br"),
+                          _vm._v(" "),
+                          _c("span", [_vm._v("Truck Number:")]),
                           job.truck
                             ? [_vm._v(_vm._s(job.truck.truck_number))]
                             : _vm._e(),
                           !job.truck ? [_vm._v("Not Assigned Yet")] : _vm._e(),
-                          _vm._v("\n\nskidsteer Driver Name"),
+                          _vm._v(" "),
                           _c("br"),
+                          _vm._v(" "),
+                          _c("span", [_vm._v("skidsteer Driver Name:")]),
                           job.skidsteer_driver
                             ? [_vm._v(_vm._s(job.skidsteer_driver.first_name))]
                             : _vm._e(),
                           !job.skidsteer_driver
                             ? [_vm._v("Not Assigned Yet")]
                             : _vm._e(),
-                          _vm._v("\nskidsteer Number"),
                           _c("br"),
+                          _vm._v(" "),
+                          _c("span", [_vm._v("skidsteer Number:")]),
                           job.skidsteer
                             ? [_vm._v(_vm._s(job.skidsteer.truck_number))]
                             : _vm._e(),
