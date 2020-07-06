@@ -108,8 +108,10 @@
                     </v-col>
                   </v-row>
                 </v-col>
-                <v-col cols="12" md="12" v-for="(manager, childIndex) in updateForm.managers">
+                <v-col cols="12" md="12">
                   <h3>Manager Details</h3>
+                </v-col>
+                <v-col cols="12" md="12" v-for="(manager, childIndex) in updateForm.managers">
                   <v-row>
                     <v-col cols="12" md="12">
                       <div
