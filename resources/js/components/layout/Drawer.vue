@@ -49,13 +49,8 @@
               :key="subItem.title"
               @click=""
             >
-
-            <!-- <v-list-item-icon>
-              <v-icon v-text="item.icon"></v-icon>
-            </v-list-item-icon> -->
               <v-list-item-content>
                 <v-list-item-title>
-                  <v-icon>fas fa-lock</v-icon>
 		<router-link :to="subItem.url" class="nav-item nav-link">{{ subItem.title }}</router-link>
 		</v-list-item-title>
               </v-list-item-content>
@@ -122,14 +117,13 @@
               :key="subItem.title"
               @click=""
             >
-
               <v-list-item-content>
                 <v-list-item-title>
-		              <router-link :to="subItem.url" class="nav-item nav-link">{{ subItem.title }}</router-link>
-		            </v-list-item-title>
+		<router-link :to="subItem.url" class="nav-item nav-link">{{ subItem.title }}</router-link>
+		</v-list-item-title>
               </v-list-item-content>
 
-            <v-list-item-action>
+              <v-list-item-action>
                 <v-icon>{{ subItem.action }}</v-icon>
               </v-list-item-action>
             </v-list-item>
@@ -162,42 +156,42 @@
             title: 'Main',
             active: true,
             items: [
-              { title: 'Overview', url: '/admin/dashboard', icon: 'mdi-clock' },
-              { title: 'Jobs', url: '/admin/jobs', icon: 'mdi-clock'  },
-              { title: 'Dispatches', url: '/admin/dispatches', icon: 'mdi-clock'  },
-              { title: 'Services', url: '/admin/services', icon: 'mdi-clock' }
+              { title: 'Overview', url: '/admin/dashboard' },
+              { title: 'Jobs', url: '/admin/jobs'  },
+              { title: 'Dispatches', url: '/admin/dispatches'  },
+              { title: 'Services', url: '/admin/services'  }
             ]
           },
           {
             action: 'local_activity',
             title: 'Customer',
             items: [
-              { title: 'Customer', url: '/admin/customer', icon: 'mdi-clock' },
-              { title: 'Hauler', url: '/admin/hauler', icon: 'mdi-clock' }
+              { title: 'Customer', url: '/admin/customer'  },
+              { title: 'Hauler', url: '/admin/hauler'  }
             ]
           },
           {
             action: 'local_activity',
             title: 'Employee',
             items: [
-              { title: 'Managers', url: '/admin/manager', icon: 'mdi-clock' },
-	      { title: 'Drivers', url: '/admin/truckdrivers', icon: 'mdi-clock' }
+              { title: 'Managers', url: '/admin/manager' },
+	      { title: 'Drivers', url: '/admin/truckdrivers' }
             ]
           },
           {
             action: 'local_activity',
             title: 'Fleet',
             items: [
-              { title: 'Truck', url: '/admin/trucks', icon: 'mdi-clock' },
-	      { title: 'SkidSteer', url: '/admin/skidsteers', icon: 'mdi-clock' }
+              { title: 'Truck', url: '/admin/trucks' },
+	      { title: 'SkidSteer', url: '/admin/skidsteers' }
             ]
           },
           {
             action: 'local_activity',
             title: 'Accounts',
             items: [
-               { title: 'Accountings',url: '/admin/accounting', icon: 'mdi-clock' },
-              { title: 'Reports', url: '/admin/reports', icon: 'mdi-clock' }
+               { title: 'Accountings',url: '/admin/accounting' },
+              { title: 'Reports', url: '/admin/reports' }
             ]
           }
         ],
@@ -207,42 +201,42 @@
             title: 'Main',
             active: true,
             items: [
-              { title: 'Overview', url: '/manager/dashboard', icon: 'mdi-clock' },
-               { title: 'Jobs', url: '/manager/jobs', icon: 'mdi-clock' },
-               { title: 'Dispatches', url: '/manager/dispatches', icon: 'mdi-clock' },
-            { title: 'Services', url: '/manager/services', icon: 'mdi-clock' }
+              { title: 'Overview', url: '/manager/dashboard' },
+               { title: 'Jobs', url: '/manager/jobs'  },
+               { title: 'Dispatches', url: '/manager/dispatches'  },
+            { title: 'Services', url: '/manager/services'  }
             ]
           },
           {
             action: 'local_activity',
             title: 'Customer',
             items: [
-              { title: 'Customer', url: '/manager/customer', icon: 'mdi-clock' },
-              { title: 'Hauler', url: '/manager/company', icon: 'mdi-clock' }
+              { title: 'Customer', url: '/manager/customer'  },
+              { title: 'Hauler', url: '/manager/company'  }
             ]
           },
           {
             action: 'local_activity',
             title: 'Employee',
             items: [
-             { title: 'Managers', url: '/manager/manager', icon: 'mdi-clock' },
-	      { title: 'Drivers', url: '/manager/truckdrivers', icon: 'mdi-clock' }
+             { title: 'Managers', url: '/manager/manager' },
+	      { title: 'Drivers', url: '/manager/truckdrivers' }
             ]
           },
           {
             action: 'local_activity',
             title: 'Fleet',
             items: [
-            { title: 'Truck', url: '/manager/trucks', icon: 'mdi-clock' },
-	     { title: 'SkidSteer', url: '/manager/skidsteers', icon: 'mdi-clock' }
+            { title: 'Truck', url: '/manager/trucks' },
+	     { title: 'SkidSteer', url: '/manager/skidsteers' }
             ]
           },
           {
             action: 'local_activity',
             title: 'Accounts',
             items: [
-              { title: 'Accountings',url: '/manager/accounting', icon: 'mdi-clock' },
-              { title: 'Reports', url: '/manager/reports', icon: 'mdi-clock' }
+              { title: 'Accountings',url: '/manager/accounting' },
+              { title: 'Reports', url: '/manager/reports' }
             ]
           }
         ],
@@ -250,23 +244,23 @@
 	    {
             action: 'local_activity',
             active: true,
-            title: 'Overview', url: '/driver/dashboard', icon: 'mdi-clock'
+            title: 'Overview', url: '/driver/dashboard'
           },
          {
             action: 'local_activity',
-            title: 'Ongoing Jobs', url: '/driver/dashboard', icon: 'mdi-clock'
+            title: 'Ongoing Jobs', url: '/driver/dashboard'
           },
         {
             action: 'local_activity',
-             title: 'Pending Jobs', url: '/driver/dashboard', icon: 'mdi-clock'
+             title: 'Pending Jobs', url: '/driver/dashboard'
           },
         {
             action: 'local_activity',
-             title: 'Delivered Jobs', url: '/driver/dashboard', icon: 'mdi-clock'
+             title: 'Delivered Jobs', url: '/driver/dashboard'
           },
         {
             action: 'local_activity',
-             title: 'Monthly Earning', url: '/driver/dashboard', icon: 'mdi-clock'
+             title: 'Monthly Earning', url: '/driver/dashboard'
           },
 
 	],

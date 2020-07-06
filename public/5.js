@@ -316,6 +316,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -1092,6 +1094,10 @@ var render = function() {
                                 1
                               ),
                               _vm._v(" "),
+                              _c("v-col", { attrs: { cols: "12", md: "12" } }, [
+                                _c("h3", [_vm._v("Manager Details")])
+                              ]),
+                              _vm._v(" "),
                               _vm._l(updateForm.managers, function(
                                 manager,
                                 childIndex
@@ -1100,8 +1106,6 @@ var render = function() {
                                   "v-col",
                                   { attrs: { cols: "12", md: "12" } },
                                   [
-                                    _c("h3", [_vm._v("Manager Details")]),
-                                    _vm._v(" "),
                                     _c(
                                       "v-row",
                                       [
