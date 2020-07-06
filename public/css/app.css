@@ -10961,15 +10961,15 @@ a.text-dark:focus {
 }
 
 .v-menu__content .header-right-menu .v-list-item a {
-  border: 1px solid #5e8395;
+  border: 1px solid #53bf7b;
   margin-bottom: 5px;
-  color: #405f6e;
+  color: #53bf7b !important;
   text-align: center;
   min-width: 170px;
 }
 
 .v-menu__content .header-right-menu .v-list-item a:hover {
-  background-color: #405f6e;
+  background-color: #53bf7b;
   color: #fff !important;
 }
 
@@ -11145,7 +11145,15 @@ a.text-dark:focus {
 }
 
 #app .sidebar-nav .v-list .v-list-group__items .v-list-item__action {
-  display: none;
+  position: absolute;
+  margin: 0;
+  font-size: 12px;
+  left: 14px;
+}
+
+#app .sidebar-nav .v-list .v-list-group__items .v-list-item__action .v-icon {
+  font-size: 18px;
+  color: #333;
 }
 
 #app .custom-toolbar {
@@ -11932,8 +11940,19 @@ a.text-dark:focus {
   line-height: 1.6 !important;
 }
 
-#app .dropdown .dropdown-menu .dropdown-item:focus {
+#app .dropdown .dropdown-menu .dropdown-item button {
+  outline: none;
   box-shadow: none;
+}
+
+#app .dropdown .dropdown-menu .dropdown-item:focus,
+#app .dropdown .dropdown-menu .dropdown-item:active {
+  box-shadow: none;
+  outline: none;
+}
+
+#app .dropdown .dropdown-menu .dropdown-item:active {
+  background-color: transparent;
 }
 
 #app .dropdown.show .dropdown-menu {
@@ -11943,6 +11962,11 @@ a.text-dark:focus {
 #app .v-data-table tbody tr:hover:not(.v-data-table__expanded__content):not(.v-data-table__empty-wrapper),
 #app .v-data-table tbody tr.selected {
   background-color: #53bf7b;
+  color: #fff;
+}
+
+#app .v-data-table tbody tr:hover:not(.v-data-table__expanded__content):not(.v-data-table__empty-wrapper) a,
+#app .v-data-table tbody tr.selected a {
   color: #fff;
 }
 

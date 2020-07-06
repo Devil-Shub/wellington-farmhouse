@@ -158,7 +158,7 @@
               <v-col cols="12" md="12">
                 <v-btn type="submit"
                   :loading="loading"
-                  :disabled="loading" color="success" class="mr-4" @click="save">Submit</v-btn>
+                  :disabled="loading" color="success" class="mr-4 custom-save-btn" @click="save">Submit</v-btn>
               </v-col>
             </v-row>
           </v-form>

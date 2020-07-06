@@ -172,43 +172,52 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         active: true,
         items: [{
           title: 'Overview',
-          url: '/admin/dashboard'
+          url: '/admin/dashboard',
+          icon: 'mdi-view-dashboard'
         }, {
           title: 'Jobs',
-          url: '/admin/jobs'
+          url: '/admin/jobs',
+          icon: 'mdi-wallet-travel'
         }, {
           title: 'Dispatches',
-          url: '/admin/dispatches'
+          url: '/admin/dispatches',
+          icon: 'mdi-cube-outline'
         }, {
           title: 'Services',
-          url: '/admin/services'
+          url: '/admin/services',
+          icon: 'mdi-settings'
         }]
       }, {
         action: 'local_activity',
         title: 'Customer',
         items: [{
           title: 'Customer',
-          url: '/admin/customer'
+          url: '/admin/customer',
+          icon: 'mdi-account'
         }, {
           title: 'Hauler',
-          url: '/admin/hauler'
+          url: '/admin/hauler',
+          icon: 'mdi-account-plus'
         }]
       }, {
         action: 'local_activity',
         title: 'Employee',
         items: [{
           title: 'Managers',
-          url: '/admin/manager'
+          url: '/admin/manager',
+          icon: 'mdi-account-check'
         }, {
           title: 'Drivers',
-          url: '/admin/truckdrivers'
+          url: '/admin/truckdrivers',
+          icon: 'mdi-account-outline'
         }]
       }, {
         action: 'local_activity',
         title: 'Fleet',
         items: [{
           title: 'Truck',
-          url: '/admin/trucks'
+          url: '/admin/trucks',
+          icon: 'mdi-truck'
         }, {
           title: 'SkidSteer',
           url: '/admin/skidsteers'
@@ -218,10 +227,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         title: 'Accounts',
         items: [{
           title: 'Accountings',
-          url: '/admin/accounting'
+          url: '/admin/accounting',
+          icon: 'mdi-book-open'
         }, {
           title: 'Reports',
-          url: '/admin/reports'
+          url: '/admin/reports',
+          icon: 'mdi-file-document'
         }]
       }],
       manageritems: [{
@@ -306,7 +317,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }],
       isManager: false,
       isDriver: false,
-      isAdmin: false
+      isAdmin: false,
+      isActive: false
     };
   },
   created: function created() {
@@ -357,6 +369,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         children: item.children ? item.children.map(this.mapItem) : undefined //title: this.$t(item.title),
 
       });
+    },
+    showAdvanced: function showAdvanced() {
+      this.isActive = !this.isActive;
     }
   }
 });
@@ -533,14 +548,28 @@ var render = function() {
                           "v-list-item",
                           {
                             key: subItem.title,
+                            class: { overlay: _vm.isActive },
                             on: { click: function($event) {} }
                           },
                           [
+                            _c(
+                              "v-list-item-action",
+                              [
+                                _c("v-icon", {
+                                  domProps: {
+                                    textContent: _vm._s(subItem.icon)
+                                  }
+                                })
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
                             _c(
                               "v-list-item-content",
                               [
                                 _c(
                                   "v-list-item-title",
+                                  { on: { click: _vm.showAdvanced } },
                                   [
                                     _c(
                                       "router-link",
@@ -554,12 +583,6 @@ var render = function() {
                                   1
                                 )
                               ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "v-list-item-action",
-                              [_c("v-icon", [_vm._v(_vm._s(subItem.action))])],
                               1
                             )
                           ],
