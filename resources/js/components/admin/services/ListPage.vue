@@ -27,7 +27,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(item, index) in services" :key="item.name" v-on:click="selectTr" v-bind:class="{ 'selected' : isActive}">
+                <tr v-for="(item, index) in services" :key="item.name" v-on:click="selectTr(index)" v-bind:class="{ 'selected' : isActive == index}">
                   <td>
                  {{index+1}}
                   </td>
@@ -107,7 +107,7 @@ export default {
     return {
       dialog: false,
       triggerDropdown: false,
-      isActive: false,
+      isActive: null,
       on: false,
       baseUrl: environment.baseUrl,
       services: [],
@@ -170,8 +170,8 @@ export default {
     dropdownToggle: function() {
       this.triggerDropdown = !this.triggerDropdown;
     },
-    selectTr: function(){
-      this.isActive = !this.isActive;
+    selectTr: function(rowIndex){
+      this.isActive = rowIndex;
     }
   }
 };
