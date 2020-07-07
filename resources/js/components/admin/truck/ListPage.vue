@@ -27,7 +27,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="item in trucks" :key="item.name" v-on:click="selectTr" v-bind:class="{ 'selected' : isActive}">
+                <tr v-for="(item, index) in trucks" :key="item.name" v-on:click="selectTr(index)" v-bind:class="{ 'selected' : isActive == index}">
                   <td>
                     <router-link
                       v-if="isAdmin"
@@ -122,7 +122,7 @@ export default {
     return {
       dialog: false,
       triggerDropdown: false,
-      isActive: false,
+      isActive: null,
       on: false,
       trucks: [],
       isAdmin: true
@@ -184,9 +184,9 @@ export default {
     dropdownToggle: function() {
       this.triggerDropdown = !this.triggerDropdown;
     },
-    selectTr: function(){
-      this.isActive = !this.isActive;
-    }
+    selectTr: function(rowIndex){
+      this.isActive = rowIndex;
+    },
   }
 };
 </script>

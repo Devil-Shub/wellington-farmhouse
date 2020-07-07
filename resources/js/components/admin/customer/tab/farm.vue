@@ -558,7 +558,7 @@ export default {
       }
       //validate if image uploading is in-progress
 
-      // if (this.$refs.form.validate()) {
+      if (this.$refs.form[formId].validate()) {
       //start loading
       this.loading = formId;
       customerService
@@ -581,7 +581,7 @@ export default {
             });
           }
         });
-      // }
+       }
     }
   }
 };

@@ -567,29 +567,30 @@ __webpack_require__.r(__webpack_exports__);
         });
         return false;
       } //validate if image uploading is in-progress
-      // if (this.$refs.form.validate()) {
-      //start loading
 
 
-      this.loading = formId;
-      _services_customer_service__WEBPACK_IMPORTED_MODULE_1__["customerService"].updateFarmManager(this.totalForm[formId]).then(function (response) {
-        //stop loading
-        _this3.loading = null; //handle response
+      if (this.$refs.form[formId].validate()) {
+        //start loading
+        this.loading = formId;
+        _services_customer_service__WEBPACK_IMPORTED_MODULE_1__["customerService"].updateFarmManager(this.totalForm[formId]).then(function (response) {
+          //stop loading
+          _this3.loading = null; //handle response
 
-        if (response.status) {
-          _this3.$toast.open({
-            message: response.message,
-            type: "success",
-            position: "top-right"
-          });
-        } else {
-          _this3.$toast.open({
-            message: response.message,
-            type: "error",
-            position: "top-right"
-          });
-        }
-      }); // }
+          if (response.status) {
+            _this3.$toast.open({
+              message: response.message,
+              type: "success",
+              position: "top-right"
+            });
+          } else {
+            _this3.$toast.open({
+              message: response.message,
+              type: "error",
+              position: "top-right"
+            });
+          }
+        });
+      }
     }
   }
 });

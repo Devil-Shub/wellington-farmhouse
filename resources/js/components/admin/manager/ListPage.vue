@@ -27,7 +27,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="item in managers" :key="item.name">
+                <tr v-for="(item, index) in managers" :key="item.name" v-on:click="selectTr(index)" v-bind:class="{ 'selected' : isActive == index}">
                   <template v-if="checkuser != item.id">
                     <td>
                       <div
@@ -118,6 +118,7 @@ export default {
     return {
       dialog: false,
       on: false,
+      isActive: null,
       managers: [],
       isAdmin: true,
       checkuser: ""
@@ -134,6 +135,9 @@ export default {
     this.getResults();
   },
   methods: {
+    selectTr: function(rowIndex){
+      this.isActive = rowIndex;
+    },
     getResults() {
       managerService.listService().then(response => {
         //handle response
