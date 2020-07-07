@@ -59,8 +59,8 @@
                       <span class="custom-action-btn">Delete</span>
                     </v-btn> -->
 
-                    <div class="dropdown" v-bind:class="{ 'show': triggerDropdown }">
-                      <more-vertical-icon size="1.5x" class="custom-class dropdown-trigger" v-on:click="dropdownToggle"></more-vertical-icon>
+                    <div class="dropdown" v-bind:class="{ 'show': triggerDropdown == index }">
+                      <more-vertical-icon size="1.5x" class="custom-class dropdown-trigger" v-on:click="dropdownToggle(index)"></more-vertical-icon>
                       <span class="dropdown-menu">
                         <router-link v-if="isAdmin" :to="'/admin/service/edit/' + item.id" class="dropdown-item">
                           <button class="btn">Edit</button>
@@ -106,7 +106,7 @@ export default {
   data() {
     return {
       dialog: false,
-      triggerDropdown: false,
+      triggerDropdown: null,
       isActive: null,
       on: false,
       baseUrl: environment.baseUrl,
@@ -167,8 +167,8 @@ export default {
     Close() {
       this.dialog = false;
     },
-    dropdownToggle: function() {
-      this.triggerDropdown = !this.triggerDropdown;
+    dropdownToggle: function(setIndex) {
+      this.triggerDropdown = setIndex;
     },
     selectTr: function(rowIndex){
       this.isActive = rowIndex;
