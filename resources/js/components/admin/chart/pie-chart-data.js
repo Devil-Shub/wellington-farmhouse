@@ -30,9 +30,11 @@ export const planetChartData = {
             // },
             { // another line graph
                 label: 'Planet Mass (x1,000 km)',
-                data: [4.8, 12.1, 12.7, 6.7, 139.8, 116.4, 50.7, 49.2],
+                data: [116.4, 50.7, 49.2],
                 backgroundColor: [
-                    'rgba(71, 183,132,.5)', // Green
+                    '#4DBF7B', // Green
+                    '#C9F1E2',
+                    '#86E1BF'
                 ],
                 borderColor: [
                     '#47b784',
