@@ -11066,6 +11066,26 @@ a.text-dark:focus {
 
 #app .sidebar-nav {
   background-color: #fff;
+  top: 60px !important;
+}
+
+#app .sidebar-nav .v-navigation-drawer__content {
+  scrollbar-width: thin;
+}
+
+#app .sidebar-nav .v-navigation-drawer__content::-webkit-scrollbar {
+  width: 6px;
+  height: 12px;
+  background-color: #fff;
+}
+
+#app .sidebar-nav .v-navigation-drawer__content::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 1ex;
+}
+
+#app .sidebar-nav .v-navigation-drawer__content::-webkit-scrollbar-corner {
+  background: #ccc;
 }
 
 #app .sidebar-nav .v-list {
@@ -11154,6 +11174,10 @@ a.text-dark:focus {
   padding: 0;
 }
 
+#app .sidebar-nav .v-list .v-list-group__items .overlay .v-list-item__action .v-icon {
+  color: #fff;
+}
+
 #app .sidebar-nav .v-list .v-list-group__items .v-list-item__action {
   position: absolute;
   margin: 0;
@@ -11167,19 +11191,31 @@ a.text-dark:focus {
 }
 
 #app .custom-toolbar {
-  height: 50px !important;
+  height: 60px !important;
   padding-left: 20px;
   background-color: #fff !important;
+  left: 0 !important;
+  position: fixed;
+  z-index: 2;
+  box-shadow: 0 0 12px #ccc;
 }
 
 #app .custom-toolbar .v-toolbar__content {
   display: block;
-  height: 50px !important;
+  height: 60px !important;
+  padding-top: 15px;
+}
+
+#app .custom-toolbar .v-toolbar__content .header-right .v-icon {
+  font-size: 20px;
+  color: #333;
+  cursor: pointer;
+  margin-right: 5px;
 }
 
 #app .custom-toolbar .v-toolbar__content .user-image {
   display: inline;
-  float: right;
+  float: left;
 }
 
 #app .custom-toolbar .v-toolbar__content .user-image .user-image-inner {
@@ -11190,7 +11226,31 @@ a.text-dark:focus {
 }
 
 #app .custom-toolbar .v-toolbar__content .user-image .user-image-inner .v-avatar {
-  margin-top: 0;
+  margin-top: -4px;
+}
+
+#app .custom-toolbar .v-toolbar__content .user-image .user-image-inner .logged-name {
+  display: inline-block;
+  padding-right: 20px;
+  min-width: 190px;
+}
+
+#app .custom-toolbar .v-toolbar__content .user-image .user-image-inner .logged-name span.log-name {
+  font-size: 16px;
+}
+
+#app .custom-toolbar .v-toolbar__content .user-image .user-image-inner .logged-name span.log-name .v-icon {
+  background-color: #f1f1f1;
+  height: 16px;
+  font-size: 20px;
+  border-radius: 4px;
+  margin-left: 4px;
+  cursor: pointer;
+}
+
+#app .custom-toolbar .v-toolbar__content .user-image .user-image-inner .logged-name span {
+  display: block;
+  font-size: 12px;
 }
 
 #app .add-icon {
@@ -11219,7 +11279,7 @@ a.text-dark:focus {
 }
 
 #app main.v-content {
-  padding-top: 75px !important;
+  padding-top: 85px !important;
 }
 
 #app main.v-content .v-content__wrap {
