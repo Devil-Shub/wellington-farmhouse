@@ -30,7 +30,7 @@
 
      <v-list v-if="isAdmin">
           <v-list-group
-            v-for="item in items"
+            v-for="(item, mainIndex) in items"
             :key="item.title"
             v-model="item.active"
             :prepend-icon="item.action"
@@ -45,15 +45,15 @@
             </template>
 
             <v-list-item
-              v-for="subItem in item.items"
+              v-for="(subItem, subIindex) in item.items"
               :key="subItem.title"
-              v-bind:class="{ 'overlay': isActive }"
+              v-bind:class="{ 'overlay': isActive == subIindex+''+mainIndex }"
             >
               <v-list-item-action>
                 <v-icon v-text="subItem.icon"></v-icon>
               </v-list-item-action>
               <v-list-item-content>
-                <v-list-item-title v-on:click="showAdvanced">
+                <v-list-item-title v-on:click="showAdvanced(subIindex, mainIndex)">
                   <router-link :to="subItem.url" class="nav-item nav-link">{{ subItem.title }}</router-link>
                 </v-list-item-title>
               </v-list-item-content>
@@ -270,7 +270,7 @@
 	isManager: false,
 	isDriver: false,
 	isAdmin: false,
-  isActive: false,
+  isActive: null,
     }),
   created() {
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
@@ -322,8 +322,8 @@
           //title: this.$t(item.title),
         }
       },
-      showAdvanced: function() {
-        this.isActive = !this.isActive;
+      showAdvanced: function(subIindex, mainIndex) {
+        this.isActive = subIindex+''+mainIndex;
       },
     },
   }

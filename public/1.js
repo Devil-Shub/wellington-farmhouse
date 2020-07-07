@@ -321,7 +321,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       isManager: false,
       isDriver: false,
       isAdmin: false,
-      isActive: false
+      isActive: null
     };
   },
   created: function created() {
@@ -373,8 +373,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       });
     },
-    showAdvanced: function showAdvanced() {
-      this.isActive = !this.isActive;
+    showAdvanced: function showAdvanced(subIindex, mainIndex) {
+      this.isActive = subIindex + '' + mainIndex;
     }
   }
 });
@@ -501,7 +501,7 @@ var render = function() {
           _vm.isAdmin
             ? _c(
                 "v-list",
-                _vm._l(_vm.items, function(item) {
+                _vm._l(_vm.items, function(item, mainIndex) {
                   return _c(
                     "v-list-group",
                     {
@@ -546,12 +546,15 @@ var render = function() {
                     },
                     [
                       _vm._v(" "),
-                      _vm._l(item.items, function(subItem) {
+                      _vm._l(item.items, function(subItem, subIindex) {
                         return _c(
                           "v-list-item",
                           {
                             key: subItem.title,
-                            class: { overlay: _vm.isActive }
+                            class: {
+                              overlay:
+                                _vm.isActive == subIindex + "" + mainIndex
+                            }
                           },
                           [
                             _c(
@@ -571,7 +574,16 @@ var render = function() {
                               [
                                 _c(
                                   "v-list-item-title",
-                                  { on: { click: _vm.showAdvanced } },
+                                  {
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.showAdvanced(
+                                          subIindex,
+                                          mainIndex
+                                        )
+                                      }
+                                    }
+                                  },
                                   [
                                     _c(
                                       "router-link",
