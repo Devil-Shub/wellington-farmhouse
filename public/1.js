@@ -153,7 +153,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 // Utilities
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -190,6 +189,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }, {
         action: 'local_activity',
         title: 'Customer',
+        active: true,
         items: [{
           title: 'Customer',
           url: '/admin/customer',
@@ -202,6 +202,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }, {
         action: 'local_activity',
         title: 'Employee',
+        active: true,
         items: [{
           title: 'Managers',
           url: '/admin/manager',
@@ -214,6 +215,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }, {
         action: 'local_activity',
         title: 'Fleet',
+        active: true,
         items: [{
           title: 'Truck',
           url: '/admin/trucks',
@@ -225,6 +227,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }, {
         action: 'local_activity',
         title: 'Accounts',
+        active: true,
         items: [{
           title: 'Accountings',
           url: '/admin/accounting',
@@ -548,8 +551,7 @@ var render = function() {
                           "v-list-item",
                           {
                             key: subItem.title,
-                            class: { overlay: _vm.isActive },
-                            on: { click: function($event) {} }
+                            class: { overlay: _vm.isActive }
                           },
                           [
                             _c(

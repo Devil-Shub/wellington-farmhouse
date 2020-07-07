@@ -159,6 +159,13 @@ $hover-white: #fff;
       background-color: #fff;
       .v-list {
         padding-right: 0;
+        .v-list-group__header {
+          pointer-events: none;
+          min-height: auto;
+          .v-list-item {
+            min-height: auto;
+          }
+        }
         .v-list-item {
           margin-bottom: 0;
           &.v-list-group__header {
@@ -167,7 +174,8 @@ $hover-white: #fff;
             }
             .v-list-item__title {
               font-weight: 500;
-              padding-left: 5px;
+              font-size: 12px;
+              color: #c3c3c3; 
             }
           }
         }

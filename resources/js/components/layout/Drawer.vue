@@ -47,7 +47,6 @@
             <v-list-item
               v-for="subItem in item.items"
               :key="subItem.title"
-              @click=""
               v-bind:class="{ 'overlay': isActive }"
             >
               <v-list-item-action>
@@ -165,6 +164,7 @@
           {
             action: 'local_activity',
             title: 'Customer',
+            active: true,
             items: [
               { title: 'Customer', url: '/admin/customer', icon: 'mdi-account' },
               { title: 'Hauler', url: '/admin/hauler', icon: 'mdi-account-plus' }
@@ -173,6 +173,7 @@
           {
             action: 'local_activity',
             title: 'Employee',
+            active: true,
             items: [
               { title: 'Managers', url: '/admin/manager', icon: 'mdi-account-check' },
 	            { title: 'Drivers', url: '/admin/truckdrivers', icon: 'mdi-account-outline' }
@@ -181,6 +182,7 @@
           {
             action: 'local_activity',
             title: 'Fleet',
+            active: true,
             items: [
               { title: 'Truck', url: '/admin/trucks', icon: 'mdi-truck' },
 	            { title: 'SkidSteer', url: '/admin/skidsteers',  }
@@ -189,6 +191,7 @@
           {
             action: 'local_activity',
             title: 'Accounts',
+            active: true,
             items: [
                { title: 'Accountings',url: '/admin/accounting', icon: 'mdi-book-open' },
               { title: 'Reports', url: '/admin/reports', icon: 'mdi-file-document' }
