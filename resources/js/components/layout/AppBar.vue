@@ -1,23 +1,19 @@
 <template>
   <v-app-bar id="app-bar" class="custom-toolbar" absolute app color="transparent" flat height="75">
-    <v-btn class="mr-3" elevation="1" fab small @click="setDrawer(!drawer)">
-      <v-icon v-if="value">mdi-view-quilt</v-icon>
-
-      <v-icon v-else>mdi-dots-vertical</v-icon>
-    </v-btn>
-
-    <!--  <v-spacer />
-
-    <div class="mx-3" /> -->
-
     <v-row class="user-image">
       <v-col class="user-image-inner" cols="12" md="12">
         <v-row class="float-right" justify="space-around">
           <v-menu bottom origin="center center" transition="scale-transition">
             <template v-slot:activator="{ on }">
-              <v-list-item-avatar v-on="on">
+              <v-list-item-avatar>
                 <img :src="profileImage" id="userImage" />
               </v-list-item-avatar>
+              <span class="logged-name">
+                <span class="log-name">Jason Statham
+                    <v-icon v-on="on">mdi-dots-horizontal</v-icon>
+                </span>
+                <span>Admin</span>
+              </span>
             </template>
             <v-list class="header-right-menu">
               <v-list-item>
@@ -54,6 +50,20 @@
         </v-row>
       </v-col>
     </v-row>
+    <!-- <v-btn class="mr-3" elevation="1" fab small @click="setDrawer(!drawer)">
+      <v-icon v-if="value">mdi-view-quilt</v-icon>
+
+      <v-icon v-else>mdi-dots-vertical</v-icon>
+    </v-btn> -->
+
+    <div class="header-right">
+      <v-icon @click="setDrawer(!drawer)">mdi-format-indent-decrease</v-icon>
+      <span class="page-title">Overview</span>
+    </div>
+
+    <!--  <v-spacer />
+
+    <div class="mx-3" /> -->
 
     <!-- <v-toolbar-title class="hidden-sm-and-down font-weight-normal main-title mt-5" v-text="$route.name" />  -->
 

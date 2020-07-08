@@ -18,8 +18,13 @@ class CustomerFarm extends Model
         'customer_id', 'farm_address', 'farm_city', 'farm_image', 'farm_province', 'farm_unit', 'farm_zipcode', 'farm_active', 'latitude', 'longitude'
     ];
 
-     public function manager()
+    public function manager()
     {
         return $this->belongsTo('App\User', 'farm_id');
+    }
+
+    public function farmManager()
+    {
+        return $this->hasMany('App\User', 'farm_id');
     }
 }

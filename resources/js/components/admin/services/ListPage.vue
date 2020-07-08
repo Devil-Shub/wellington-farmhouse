@@ -23,11 +23,11 @@
                   <th class="text-left">type</th>
                   <th class="text-left">time</th>
                   <th class="text-left">Descriptions</th>
-                  <th class="text-left"></th>
+                  <th class="text-left">Options</th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(item, index) in services" :key="item.name">
+                <tr v-for="(item, index) in services" :key="item.name" v-on:click="selectTr(index)" v-bind:class="{ 'selected' : isActive == index}">
                   <td>
                  {{index+1}}
                   </td>
@@ -49,16 +49,28 @@
                   </td>
                   <td>{{ item.description }}</td>
                   <td class="action-col">
-                    <router-link v-if="isAdmin" :to="'/admin/service/edit/' + item.id" class="nav-item nav-link">
+                    <!-- <router-link v-if="isAdmin" :to="'/admin/service/edit/' + item.id" class="nav-item nav-link">
                       <span class="custom-action-btn">Edit</span>
                     </router-link>
                     <router-link v-if="!isAdmin" :to="'/manager/service/edit/' + item.id" class="nav-item nav-link">
                       <span class="custom-action-btn">Edit</span>
                     </router-link>
                     <v-btn color="blue darken-1" text @click="Delete(item.id)">
-                      <!-- <trash-icon size="1.5x" class="custom-class"></trash-icon> -->
                       <span class="custom-action-btn">Delete</span>
-                    </v-btn>
+                    </v-btn> -->
+
+                    <div class="dropdown" v-bind:class="{ 'show': triggerDropdown == index }">
+                      <more-vertical-icon size="1.5x" class="custom-class dropdown-trigger" v-on:click="dropdownToggle(index)"></more-vertical-icon>
+                      <span class="dropdown-menu">
+                        <router-link v-if="isAdmin" :to="'/admin/service/edit/' + item.id" class="dropdown-item">
+                          <button class="btn">Edit</button>
+                        </router-link>
+                        <router-link v-if="!isAdmin" :to="'/manager/service/edit/' + item.id" class="dropdown-item">
+                          <button class="btn">Edit</button>
+                        </router-link>
+                        <button class="btn dropdown-item" @click="Delete(item.id)">Delete</button>
+                      </span>
+                    </div>
                   </td>
                 </tr>
               </tbody>
@@ -79,7 +91,8 @@ import {
   UserIcon,
   EditIcon,
   TrashIcon,
-  PlusCircleIcon
+  PlusCircleIcon,
+  MoreVerticalIcon,
 } from "vue-feather-icons";
 import { router } from "../../../_helpers/router";
 export default {
@@ -87,11 +100,14 @@ export default {
     UserIcon,
     EditIcon,
     TrashIcon,
-    PlusCircleIcon
+    PlusCircleIcon,
+    MoreVerticalIcon,
   },
   data() {
     return {
       dialog: false,
+      triggerDropdown: null,
+      isActive: null,
       on: false,
       baseUrl: environment.baseUrl,
       services: [],
@@ -150,6 +166,12 @@ export default {
     },
     Close() {
       this.dialog = false;
+    },
+    dropdownToggle: function(setIndex) {
+      this.triggerDropdown = setIndex;
+    },
+    selectTr: function(rowIndex){
+      this.isActive = rowIndex;
     }
   }
 };

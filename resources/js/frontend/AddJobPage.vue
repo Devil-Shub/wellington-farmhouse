@@ -4,22 +4,7 @@
       <v-row>
         <v-col cols="12" md="12" class="pl-0">
             <v-form ref="form" v-model="valid" lazy-validation>
-                <v-col class="d-flex pt-0" cols="12">
-		    <v-col sm="2" class="label-align pt-0">
-		        <label>Customer Name</label>
-		    </v-col>
-	        <v-col sm="4" class="pt-0">
-		       <v-select
-			v-model="addForm.customer_id"
-			:items="customerName"
-			label="Select Customer"
-			:rules="[v => !!v || 'Customer Name is required']"
-			item-text="first_name"
-			item-value="id"
-			@change="getCustomerFarm"
-		    ></v-select>
-	    </v-col>
-                </v-col>
+              
 
                 <v-col class="d-flex pt-0" cols="12">
                     <v-col sm="2" class="label-align pt-0">
@@ -38,7 +23,7 @@
                     </v-col>
                 </v-col>
 
-                <v-col class="d-flex pt-0" cols="12">
+                <v-col class="d-flex pt-0" cols="12" v-if="!addForm.manager_id">
                     <v-col sm="2" class="label-align pt-0">
                         <label>Manager Name</label>
                     </v-col>
@@ -177,10 +162,10 @@
 
 <script>
 import { required } from "vuelidate/lib/validators";
-import { router } from "../../../_helpers/router";
-import { jobService } from "../../../_services/job.service";
-import { environment } from "../../../config/test.env";
-import { authenticationService } from "../../../_services/authentication.service";
+import { router } from "../_helpers/router";
+import { jobService } from "../_services/job.service";
+import { environment } from "../config/test.env";
+import { authenticationService } from "../_services/authentication.service";
 export default {
   components: {
   },
@@ -194,12 +179,11 @@ export default {
           date: "",
           start_date: "",
           apiUrl: environment.apiUrl,
-          customerName: [],
           managerName: [],
           serviceName: [],
-         farmName:[],
-        servicetime: '',
-        customer_id: '',
+          farmName:[],
+          servicetime: '',
+          customer_id: '',
           addForm: {
               customer_id: "",
               manager_id: "",
@@ -214,11 +198,11 @@ export default {
 	            job_weight:"",
               job_amount: "",
           },
-	     killometerRules: [
-		v => !!v || "Job weight is required",
-		//v => /^\d*$/.test(v) || "Enter valid weight",
-	      ],
-          myFiles: [],
+          killometerRules: [
+	    v => !!v || "Job weight is required",
+	   //v => /^\d*$/.test(v) || "Enter valid weight",
+         ],
+         myFiles: [],
       }
   },
   computed: {
@@ -245,26 +229,21 @@ export default {
     }
   },
   mounted() {
-    this.getResults();
+     this.addForm.service_id = this.$route.params.id;
+     const currentUser = authenticationService.currentUserValue;
+     if(currentUser.data.user.role_id == 5){
+       this.addForm.customer_id = currentUser.data.user.created_by;
+       this.addForm.manager_id = currentUser.data.user.id;
+     }else{
+       this.addForm.customer_id = currentUser.data.user.id;
+     }
      this.getService();
+     this.getCustomerFarm();
+     this.serviceSelection();
    },
   methods: {
    handleProcessFile: function(error, file) {
      this.addForm.job_images.push(file.serverId);
-    },
-     getResults() {
-      jobService.getCustomer().then(response => {
-        //handle response
-        if (response.status) {
-          this.customerName = response.data;
-        } else {
-          this.$toast.open({
-            message: response.message,
-            type: "error",
-            position: "top-right"
-          });
-        }
-      });
     },
      getService() {
       jobService.listService().then(response => {
@@ -280,24 +259,23 @@ export default {
         }
       });
     },
-	getCustomerFarm(val){
- 	 this.customer_id = val;
-	 jobService.getFarm(val).then(response => {
-		//handle response
-		if (response.status) {
-                 //console.log(response.data)
-		 this.farmName = response.data;
-		} else {
-		  this.$toast.open({
-		    message: response.message,
-		    type: "error",
-		    position: "top-right"
-		  });
-		}
-	      });
-       },
+    getCustomerFarm(){
+	 jobService.getFarm(this.addForm.customer_id).then(response => {
+	//handle response
+	if (response.status) {
+	 //console.log(response.data)
+	 this.farmName = response.data;
+	} else {
+	  this.$toast.open({
+	    message: response.message,
+	    type: "error",
+	    position: "top-right"
+	  });
+	}
+      });
+   },
 	getFarmManager(val){
-         this.addForm.farm_id = val;
+	 this.addForm.farm_id = val;
 	 jobService.getFarmManager(val).then(response => {
 		//handle response
 		if (response.status) {
@@ -314,8 +292,9 @@ export default {
 	managerSelection(val){
          this.addForm.manager_id = val;
        },
-       serviceSelection(val){
-         this.addForm.service_id = val;
+       serviceSelection(){
+       console.log(this.serviceName)
+       const val = this.addForm.service_id;
 	this.serviceName.find(file => {
 	  if (file.id == val) {
  	     this.addForm.job_amount = file.price;

@@ -23,11 +23,11 @@
                   <th class="text-left">Service Details</th>
                   <th class="text-left">Documents</th>
                   <th class="text-left">Status</th>
-                  <th class="text-left"></th>
+                  <th class="text-left">Options</th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="item in trucks" :key="item.name">
+                <tr v-for="(item, index) in trucks" :key="item.name" v-on:click="selectTr(index)" v-bind:class="{ 'selected' : isActive == index}">
                   <td>
                     <router-link
                       v-if="isAdmin"
@@ -70,24 +70,18 @@
                   <td v-if="item.status == 1">Available</td>
                   <td v-if="item.status == 0">Unavailable</td>
                   <td class="action-col">
-                    <router-link
-                      v-if="isAdmin"
-                      :to="'/admin/truck/edit/' + item.id"
-                      class="nav-item nav-link"
-                    >
-                      <span class="custom-action-btn">Edit</span>
-                    </router-link>
-                    <router-link
-                      v-if="!isAdmin"
-                      :to="'/manager/truck/edit/' + item.id"
-                      class="nav-item nav-link"
-                    >
-                      <span class="custom-action-btn">Edit</span>
-                    </router-link>
-                    <v-btn color="blue darken-1" text @click="Delete(item.id)">
-                      <!-- <trash-icon size="1.5x" class="custom-class"></trash-icon> -->
-                      <span class="custom-action-btn">Delete</span>
-                    </v-btn>
+                    <div class="dropdown" v-bind:class="{ 'show': triggerDropdown }">
+                      <more-vertical-icon size="1.5x" class="custom-class dropdown-trigger" v-on:click="dropdownToggle"></more-vertical-icon>
+                      <span class="dropdown-menu">
+                        <router-link v-if="isAdmin" :to="'/admin/truck/edit/' + item.id" class="dropdown-item">
+                          <button class="btn">Edit</button>
+                        </router-link>
+                        <router-link v-if="!isAdmin" :to="'/manager/truck/edit/' + item.id" class="dropdown-item">
+                          <button class="btn">Edit</button>
+                        </router-link>
+                        <button class="btn dropdown-item" @click="Delete(item.id)">Delete</button>
+                      </span>
+                    </div>
                   </td>
                 </tr>
                 <tr v-if="trucks.length == 0">
@@ -111,7 +105,8 @@ import {
   UserIcon,
   EditIcon,
   TrashIcon,
-  PlusCircleIcon
+  PlusCircleIcon,
+  MoreVerticalIcon
 } from "vue-feather-icons";
 import { router } from "../../../_helpers/router";
 import { authenticationService } from "../../../_services/authentication.service";
@@ -120,11 +115,14 @@ export default {
     UserIcon,
     EditIcon,
     TrashIcon,
-    PlusCircleIcon
+    PlusCircleIcon,
+    MoreVerticalIcon
   },
   data() {
     return {
       dialog: false,
+      triggerDropdown: false,
+      isActive: null,
       on: false,
       trucks: [],
       isAdmin: true
@@ -182,7 +180,13 @@ export default {
     },
     Close() {
       this.dialog = false;
-    }
+    },
+    dropdownToggle: function() {
+      this.triggerDropdown = !this.triggerDropdown;
+    },
+    selectTr: function(rowIndex){
+      this.isActive = rowIndex;
+    },
   }
 };
 </script>

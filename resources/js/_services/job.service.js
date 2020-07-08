@@ -17,6 +17,8 @@ export const jobService = {
   servicesTimeSlots,
   createJob,
   singleJob,
+  getFarm,
+  getFarmManager,
   chatList,
   storeMessage,
   joblist,
@@ -112,6 +114,18 @@ function getFrams(data) {
       return user;
     });
 }
+function getFarmManager(data){
+  return fetch(
+    this.apiUrl+`admin/get-farm-manager/`+data,
+    requestOptions.get()
+  )
+    .then(handleResponse)
+    .then(user => {
+      // store user details and passport token in local storage to keep user logged in between page refreshes
+
+      return user;
+    });
+}
 
 function joblist(data) {
   return fetch(
@@ -125,7 +139,18 @@ function joblist(data) {
       return user;
     });
 }
+function getFarm(data) {
+  return fetch(
+    this.apiUrl+`admin/get-farm/`+data,
+    requestOptions.get()
+  )
+    .then(handleResponse)
+    .then(user => {
+      // store user details and passport token in local storage to keep user logged in between page refreshes
 
+      return user;
+    });
+}
 function dispatchJobList() {
   return fetch(
     this.apiUrl+`admin/dispatch-job-list`,

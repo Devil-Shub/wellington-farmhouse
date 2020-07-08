@@ -45,7 +45,7 @@
                 required
               ></v-text-field>
             </v-col>
-            <v-btn type="submit" :loading="loading" :disabled="loading" color="success" class="mr-4" @click="update">Submit</v-btn>
+            <v-btn type="submit" :loading="loading" :disabled="loading" color="success" class="mr-4 custom-save-btn" @click="update">Submit</v-btn>
           </v-form>
         </v-col>
       </v-row>
@@ -182,3 +182,8 @@ export default {
   }
 };
 </script>
+<style>
+.wizard-footer-left {
+    display: none;
+}
+</style>

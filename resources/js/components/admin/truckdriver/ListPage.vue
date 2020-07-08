@@ -31,7 +31,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="item in drivers" :key="item.name">
+                <tr v-for="(item, index) in drivers" :key="item.name" v-on:click="selectTr(index)" v-bind:class="{ 'selected' : isActive == index}">
                   <td>
                     <div
                       class="v-avatar v-list-item__avatar"
@@ -137,6 +137,7 @@ export default {
   data() {
     return {
       dialog: false,
+      isActive: null,
       on: false,
       drivers: [],
       isAdmin: true
@@ -152,6 +153,9 @@ export default {
     this.getResults();
   },
   methods: {
+    selectTr: function(rowIndex){
+      this.isActive = rowIndex;
+    },
     getResults() {
       driverService.listDrivers().then(response => {
         //handle response

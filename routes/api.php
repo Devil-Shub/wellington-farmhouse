@@ -83,20 +83,24 @@ Route::group(['prefix' => 'auth'], function () {
 
             //customer
             Route::post('create-customer', 'CustomerController@createCustomer');
+            Route::post('create-farm', 'CustomerController@createFarm');
             Route::get('list-customer', 'CustomerController@listCustomer');
             Route::get('get-customer/{customer_id}', 'CustomerController@getCustomer');
+            Route::get('get-farm-and-manager/{customer_id}', 'CustomerController@getFarmAndManager');
+            Route::get('get-farm/{customer_id}', 'CustomerController@getFarm');
+            Route::get('get-farm-manager/{farm_id}', 'CustomerController@getFarmManager');
             Route::post('update-customer/{customer_id}', 'CustomerController@updateCustomer');
             Route::get('card-list/{customer_id}', 'CustomerController@getAllCard');
             Route::get('record-list/{customer_id}', 'CustomerController@getAllRecords');
             Route::post('update-farm-manager', 'CustomerController@updateFarmManager');
             //Route::delete('delete-driver/{driver_id}', 'CustomerController@deleteDriver');
 
-           //CompanyController
-	   Route::post('create-hauler', 'CompanyController@createHauler');
-           Route::get('list-hauler', 'CompanyController@listHauler');
-           Route::get('get-hauler/{customer_id}', 'CompanyController@getHauler');
-           Route::post('update-hauler/{customer_id}', 'CompanyController@updateHauler');
-           Route::delete('delete-hauler/{customer_id}', 'CompanyController@deleteHauler');
+            //CompanyController
+            Route::post('create-hauler', 'CompanyController@createHauler');
+            Route::get('list-hauler', 'CompanyController@listHauler');
+            Route::get('get-hauler/{customer_id}', 'CompanyController@getHauler');
+            Route::post('update-hauler/{customer_id}', 'CompanyController@updateHauler');
+            Route::delete('delete-hauler/{customer_id}', 'CompanyController@deleteHauler');
 
             //jobs
             Route::get('job-customer', 'JobsController@getCustomers');
@@ -105,10 +109,10 @@ Route::group(['prefix' => 'auth'], function () {
             Route::get('get-service-slots/{service_id}', 'JobsController@getServiceSlots');
             Route::post('create-job', 'JobsController@createJob');
             Route::post('job-list', 'JobsController@getAllJob');
-           // Route::get('assigned-job-list', 'JobsController@getAssignedJob');
-           // Route::get('complete-job-list', 'JobsController@getCompleteJob');
-          //  Route::get('open-job-list', 'JobsController@getOpenJob');
-           // Route::get('repeating-job-list', 'JobsController@getRepeatingJob');
+            // Route::get('assigned-job-list', 'JobsController@getAssignedJob');
+            // Route::get('complete-job-list', 'JobsController@getCompleteJob');
+            //  Route::get('open-job-list', 'JobsController@getOpenJob');
+            // Route::get('repeating-job-list', 'JobsController@getRepeatingJob');
             //Route::get('unpaid-job-list', 'JobsController@getUnpaidJob');
             Route::get('single-job/{job_id}', 'JobsController@getSingleJob');
             Route::get('dispatch-job-list', 'JobsController@getDispatchJob');
@@ -129,6 +133,6 @@ Route::group(['prefix' => 'auth'], function () {
 
         //upload image
         Route::post('uploadImage', 'ImageController@uploadImage');
-	Route::delete('deleteImage', 'ImageController@deleteImage');
+        Route::delete('deleteImage', 'ImageController@deleteImage');
     });
 });

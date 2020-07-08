@@ -130,6 +130,102 @@ class CustomerController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'Customer created successfully.',
+                'data' => $user
+            ], 200);
+        } catch (\Exception $e) {
+            //rollback transactions
+            DB::rollBack();
+            //make log of errors
+            Log::error(json_encode($e->getMessage()));
+            //return with error
+            return response()->json([
+                'status' => false,
+                'message' => 'Internal server error!',
+                'data' => []
+            ], 500);
+        }
+    }
+
+    /**
+     * create customer farm
+     */
+    public function createFarm(Request $request)
+    {
+
+	//validate request
+	$validator = Validator::make($request->all(), [
+	    'manager_details.*.email' => 'required|string|email|unique:users',
+	]);
+
+	if ($validator->fails()) {
+	    return response()->json([
+	        'status' => false,
+	        'message' => 'The given data was invalid.',
+	        'data' => $validator->errors()
+	    ], 422);
+	}
+        try {
+            //use of db transactions
+            DB::beginTransaction();
+            //random string for new password
+            $newPassword = Str::random();
+            $farmDetails = new CustomerFarm([
+            'customer_id' => $request->customer_id,
+            'farm_address' => $request->farm_address,
+            'farm_city' => $request->farm_city,
+            'farm_image' => json_encode($request->farm_images),
+            'farm_province' => $request->farm_province,
+            'farm_unit' => $request->farm_unit,
+            'farm_zipcode' => $request->farm_zipcode,
+            'farm_active' => $request->farm_active,
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude
+        ]);
+
+        $farmDetails->save();
+        $managerIds = array();
+        foreach ($request->manager_details as $manager) {
+            //random string for new password
+            $newPassword = Str::random();
+
+            $saveManger = new User([
+                'first_name' => $manager['manager_name'],
+                'prefix' => $manager['manager_prefix'],
+                'created_by' => $request->customer_id,
+                'farm_id' => $farmDetails->id,
+                'email' => $manager['email'],
+                'role_id' => $manager['manager_role'],
+                'phone' => $manager['manager_phone'],
+                'user_image' => $manager['manager_image'],
+                'address' => $manager['manager_address'],
+                'city' => $manager['manager_city'],
+                'state' => $manager['manager_province'],
+                'zip_code' => $manager['manager_zipcode'],
+                'is_active' => 1,
+                'is_confirmed' => 1,
+                'password' => bcrypt($newPassword)
+            ]);
+
+            if ($saveManger->save()) {
+                $managerIds[] = $saveManger->id;
+                $mangerDetails = new ManagerDetail([
+                    'user_id' => $saveManger->id,
+                    'identification_number' => $manager['manager_id_card'],
+                    'document' => $manager['manager_card_image']
+                ]);
+                //save manager details
+                $mangerDetails->save();
+
+                //send email for new email and password
+                $this->_confirmPassword($saveManger, $newPassword);
+            }
+        }
+            DB::commit();
+
+            //return success response
+            return response()->json([
+                'status' => true,
+                'message' => 'Customer created successfully.',
                 'data' => []
             ], 200);
         } catch (\Exception $e) {
@@ -144,6 +240,7 @@ class CustomerController extends Controller
                 'data' => []
             ], 500);
         }
+      
     }
 
     /**
@@ -405,6 +502,20 @@ class CustomerController extends Controller
             }])->first()
         ], 200);
     }
+
+    /**
+     * get farm and manager details
+     * @param id
+     * return farm and manager array
+     */
+    public function getFarmAndManager(Request $request)
+    {
+        return response()->json([
+            'status' => true,
+            'message' => 'Customer Details',
+            'data' => CustomerFarm::with("farmManager.manager")->whereCustomerId($request->customer_id)->get()
+        ], 200);
+    }
     /**
      * update customer
      */
@@ -555,41 +666,43 @@ class CustomerController extends Controller
     {
         try {
             //validate request
-            $validator = Validator::make($request->all(), [
-                'manager_name' => 'required|string',
-                'manager_email' => 'required|string|email|unique:users,email,' . $request->manager_id,
-                'manager_prefix' => 'required'
-            ]);
+            // $validator = Validator::make($request->all(), [
+            //     'manager_name' => 'required|string',
+            //     'manager_email' => 'required|string|email|unique:users,email,' . $request->manager_id,
+            //     'manager_prefix' => 'required'
+            // ]);
 
-            //update manager details
-            $updateUser = User::whereId($request->manager_id)->update([
-                'first_name' => $request->manager_name,
-                'prefix' => $request->manager_prefix,
-                'email' => $request->manager_email,
-                'phone' => $request->manager_phone,
-                'user_image' => $request->manager_image,
-                'address' => $request->manager_address,
-                'city' => $request->manager_city,
-                'state' => $request->manager_province,
-                'zip_code' => $request->manager_zipcode
-            ]);
+            foreach($request->managers as $manager) {
+                //update manager details
+                $updateUser = User::whereId($manager['manager_id'])->update([
+                    'first_name' => $manager['manager_name'],
+                    'prefix' => $manager['manager_prefix'],
+                    'email' => $manager['manager_email'],
+                    'phone' => $manager['manager_phone'],
+                    'user_image' => $manager['manager_image'],
+                    'address' => $manager['manager_address'],
+                    'city' => $manager['manager_city'],
+                    'state' => $manager['manager_province'],
+                    'zip_code' => $manager['manager_zipcode']
+                ]);
 
-            $mangerDetails = ManagerDetail::whereUserId($request->manager_id)->update([
-                'identification_number' => $request->manager_id_card,
-                'document' => $request->manager_card_image
-            ]);
+                $mangerDetails = ManagerDetail::whereUserId($manager['manager_id'])->update([
+                    'identification_number' => $manager['manager_id_card'],
+                    'document' => $manager['manager_card_image']
+                ]);
+            }
 
             //save customer farm details
-            $farmDetails = CustomerFarm::whereId($request->farm_id)->update([
-                'farm_address' => $request->farm_address,
-                'farm_city' => $request->farm_city,
-                'farm_image' => json_encode($request->farm_images),
-                'farm_province' => $request->farm_province,
-                'farm_unit' => $request->farm_unit,
-                'farm_zipcode' => $request->farm_zipcode,
-                'farm_active' => $request->farm_active,
-                'latitude' => $request->latitude,
-                'longitude' => $request->longitude
+            $farmDetails = CustomerFarm::whereId($request->farm['farm_id'])->update([
+                'farm_address' => $request->farm['farm_address'],
+                'farm_city' => $request->farm['farm_city'],
+                'farm_image' => json_encode($request->farm['farm_images']),
+                'farm_province' => $request->farm['farm_province'],
+                'farm_unit' => $request->farm['farm_unit'],
+                'farm_zipcode' => $request->farm['farm_zipcode'],
+                'farm_active' => $request->farm['farm_active'],
+                'latitude' => $request->farm['latitude'],
+                'longitude' => $request->farm['longitude']
             ]);
 
             //return success response
@@ -609,4 +722,42 @@ class CustomerController extends Controller
             ], 500);
         }
     }
+
+  /**
+  * get customer farm
+  */
+  public function getFarm(Request $request){
+    $farms = CustomerFarm::where('customer_id', $request->customer_id)->get();
+    if($farms->count()){
+	    return response()->json([
+		'status' => true,
+		'message' => 'Manager and Farm details updated successfully.',
+		'data' => $farms
+	    ], 200);
+    }else{
+      	    return response()->json([
+		'status' => false,
+		'message' => 'No farm found.',
+		'data' => []
+	    ], 200);
+    }
+  }
+  
+  public function getFarmManager(Request $request){
+    $farms = User::where('farm_id', $request->farm_id)->get();
+    if($farms->count()){
+	    return response()->json([
+		'status' => true,
+		'message' => 'Manager and Farm details updated successfully.',
+		'data' => $farms
+	    ], 200);
+    }else{
+      	    return response()->json([
+		'status' => false,
+		'message' => 'No farm manager found.',
+		'data' => []
+	    ], 200);
+    }
+  }
+ 
 }

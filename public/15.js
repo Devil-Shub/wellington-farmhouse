@@ -82,6 +82,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
  // Components
@@ -199,25 +209,6 @@ var render = function() {
     },
     [
       _c(
-        "v-btn",
-        {
-          staticClass: "mr-3",
-          attrs: { elevation: "1", fab: "", small: "" },
-          on: {
-            click: function($event) {
-              return _vm.setDrawer(!_vm.drawer)
-            }
-          }
-        },
-        [
-          _vm.value
-            ? _c("v-icon", [_vm._v("mdi-view-quilt")])
-            : _c("v-icon", [_vm._v("mdi-dots-vertical")])
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
         "v-row",
         { staticClass: "user-image" },
         [
@@ -249,13 +240,31 @@ var render = function() {
                           fn: function(ref) {
                             var on = ref.on
                             return [
-                              _c("v-list-item-avatar", _vm._g({}, on), [
+                              _c("v-list-item-avatar", [
                                 _c("img", {
                                   attrs: {
                                     src: _vm.profileImage,
                                     id: "userImage"
                                   }
                                 })
+                              ]),
+                              _vm._v(" "),
+                              _c("span", { staticClass: "logged-name" }, [
+                                _c(
+                                  "span",
+                                  { staticClass: "log-name" },
+                                  [
+                                    _vm._v(
+                                      "Jason Statham\n                    "
+                                    ),
+                                    _c("v-icon", _vm._g({}, on), [
+                                      _vm._v("mdi-dots-horizontal")
+                                    ])
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c("span", [_vm._v("Admin")])
                               ])
                             ]
                           }
@@ -437,6 +446,27 @@ var render = function() {
             ],
             1
           )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "header-right" },
+        [
+          _c(
+            "v-icon",
+            {
+              on: {
+                click: function($event) {
+                  return _vm.setDrawer(!_vm.drawer)
+                }
+              }
+            },
+            [_vm._v("mdi-format-indent-decrease")]
+          ),
+          _vm._v(" "),
+          _c("span", { staticClass: "page-title" }, [_vm._v("Overview")])
         ],
         1
       )

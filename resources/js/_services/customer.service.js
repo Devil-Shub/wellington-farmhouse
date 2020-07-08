@@ -11,8 +11,10 @@ const currentUserSubject = new BehaviorSubject(
 
 export const customerService = {
   add,
+  addFarm,
   edit,
   getCustomer,
+  getFarmAndManager,
   listCustomer,
   getCustomerCard,
   getCustomerRecord,
@@ -29,6 +31,20 @@ function add(data) {
 
   return fetch(
     this.apiUrl+`admin/create-customer`,
+    requestOptions.post(data)
+  )
+    .then(handleResponse)
+    .then(user => {
+      // store user details and passport token in local storage to keep user logged in between page refreshes
+
+      return user;
+    });
+}
+
+function addFarm(data) {
+
+  return fetch(
+    this.apiUrl+`admin/create-farm`,
     requestOptions.post(data)
   )
     .then(handleResponse)
@@ -76,6 +92,18 @@ function getCustomer(data) {
     });
 }
 
+function getFarmAndManager(data) {
+  return fetch(
+    this.apiUrl+`admin/get-farm-and-manager/`+data,
+    requestOptions.get()
+  )
+    .then(handleResponse)
+    .then(user => {
+      // store user details and passport token in local storage to keep user logged in between page refreshes
+
+      return user;
+    });
+}
 
 function getCustomerCard(data) {
   return fetch(

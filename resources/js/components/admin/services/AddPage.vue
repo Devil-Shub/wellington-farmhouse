@@ -4,7 +4,7 @@
       <v-row>
         <h4 class="main-title">Add Service</h4>
 
-        <v-col cols="12" md="12" class="pl-0">
+        <v-col cols="12" md="12" class="pl-0 pt-0">
           <v-form ref="form" v-model="valid" lazy-validation @submit="save">
             <v-col cols="12" md="12">
               <v-text-field
@@ -16,11 +16,17 @@
             </v-col>
 	          <v-col cols="12" md="12">
              <header>Service Time Period</header>
-	       
-<input type="checkbox" class="pr-6" v-model="addForm.slot_type" :checked="true" @change="getTime(1)" label="Morning" value="1">Morning
-<br>
-<input type="checkbox" class="pr-6" v-model="addForm.slot_type" @change="getTime(2)" label="Afternoon" value="2">Evening
-                <div class="v-messages theme--light error--text" role="alert" v-if="!timeSlotErr">
+            <div class="custom-checkbox">
+              <input type="checkbox" class="pr-6" v-model="addForm.slot_type" :checked="true" @change="getTime(1)" value="1" id="morningJob">
+              <label for="morningJob"></label>
+              <span class="checkbox-title">Morning</span>
+            </div>
+            <div class="custom-checkbox">
+              <input type="checkbox" class="pr-6" v-model="addForm.slot_type" @change="getTime(2)" value="2" id="eveningJob">
+              <label for="eveningJob"></label>
+              <span class="checkbox-title">Evening</span>
+            </div>
+              <div class="v-messages theme--light error--text" role="alert" v-if="!timeSlotErr">
 		<div class="v-messages__wrapper"><div class="v-messages__message">Service time period is required.</div></div>
 		</div>
 	         

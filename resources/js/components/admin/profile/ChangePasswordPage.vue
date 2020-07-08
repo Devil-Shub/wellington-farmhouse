@@ -2,7 +2,7 @@
     <v-app>
              <v-container>
       <v-row>
- 	<h2>Chanage Password</h2>
+ 	<h2>Change Password</h2>
        <v-col
           cols="12"
           md="12"
@@ -38,7 +38,7 @@
             @click:append="show2 = !show2"
           ></v-text-field>
         </v-col>
-           <v-btn color="success" class="mr-4 ml-3" @click="validate">Update</v-btn>
+           <v-btn color="success" class="mr-4 ml-3 custom-save-btn" @click="validate">Update</v-btn>
    
   </v-form>
        </v-col>

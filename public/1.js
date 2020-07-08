@@ -153,7 +153,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 // Utilities
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -172,43 +171,55 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         active: true,
         items: [{
           title: 'Overview',
-          url: '/admin/dashboard'
+          url: '/admin/dashboard',
+          icon: 'mdi-view-dashboard'
         }, {
           title: 'Jobs',
-          url: '/admin/jobs'
+          url: '/admin/jobs',
+          icon: 'mdi-wallet-travel'
         }, {
           title: 'Dispatches',
-          url: '/admin/dispatches'
+          url: '/admin/dispatches',
+          icon: 'mdi-cube-outline'
         }, {
           title: 'Services',
-          url: '/admin/services'
+          url: '/admin/services',
+          icon: 'mdi-settings'
         }]
       }, {
         action: 'local_activity',
         title: 'Customer',
+        active: true,
         items: [{
           title: 'Customer',
-          url: '/admin/customer'
+          url: '/admin/customer',
+          icon: 'mdi-account'
         }, {
           title: 'Hauler',
-          url: '/admin/hauler'
+          url: '/admin/hauler',
+          icon: 'mdi-account-plus'
         }]
       }, {
         action: 'local_activity',
         title: 'Employee',
+        active: true,
         items: [{
           title: 'Managers',
-          url: '/admin/manager'
+          url: '/admin/manager',
+          icon: 'mdi-account-check'
         }, {
           title: 'Drivers',
-          url: '/admin/truckdrivers'
+          url: '/admin/truckdrivers',
+          icon: 'mdi-account-outline'
         }]
       }, {
         action: 'local_activity',
         title: 'Fleet',
+        active: true,
         items: [{
           title: 'Truck',
-          url: '/admin/trucks'
+          url: '/admin/trucks',
+          icon: 'mdi-truck'
         }, {
           title: 'SkidSteer',
           url: '/admin/skidsteers'
@@ -216,12 +227,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }, {
         action: 'local_activity',
         title: 'Accounts',
+        active: true,
         items: [{
           title: 'Accountings',
-          url: '/admin/accounting'
+          url: '/admin/accounting',
+          icon: 'mdi-book-open'
         }, {
           title: 'Reports',
-          url: '/admin/reports'
+          url: '/admin/reports',
+          icon: 'mdi-file-document'
         }]
       }],
       manageritems: [{
@@ -306,7 +320,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }],
       isManager: false,
       isDriver: false,
-      isAdmin: false
+      isAdmin: false,
+      isActive: null
     };
   },
   created: function created() {
@@ -357,6 +372,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         children: item.children ? item.children.map(this.mapItem) : undefined //title: this.$t(item.title),
 
       });
+    },
+    showAdvanced: function showAdvanced(subIindex, mainIndex) {
+      this.isActive = subIindex + '' + mainIndex;
     }
   }
 });
@@ -483,7 +501,7 @@ var render = function() {
           _vm.isAdmin
             ? _c(
                 "v-list",
-                _vm._l(_vm.items, function(item) {
+                _vm._l(_vm.items, function(item, mainIndex) {
                   return _c(
                     "v-list-group",
                     {
@@ -528,19 +546,44 @@ var render = function() {
                     },
                     [
                       _vm._v(" "),
-                      _vm._l(item.items, function(subItem) {
+                      _vm._l(item.items, function(subItem, subIindex) {
                         return _c(
                           "v-list-item",
                           {
                             key: subItem.title,
-                            on: { click: function($event) {} }
+                            class: {
+                              overlay:
+                                _vm.isActive == subIindex + "" + mainIndex
+                            }
                           },
                           [
+                            _c(
+                              "v-list-item-action",
+                              [
+                                _c("v-icon", {
+                                  domProps: {
+                                    textContent: _vm._s(subItem.icon)
+                                  }
+                                })
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
                             _c(
                               "v-list-item-content",
                               [
                                 _c(
                                   "v-list-item-title",
+                                  {
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.showAdvanced(
+                                          subIindex,
+                                          mainIndex
+                                        )
+                                      }
+                                    }
+                                  },
                                   [
                                     _c(
                                       "router-link",
@@ -554,12 +597,6 @@ var render = function() {
                                   1
                                 )
                               ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "v-list-item-action",
-                              [_c("v-icon", [_vm._v(_vm._s(subItem.action))])],
                               1
                             )
                           ],

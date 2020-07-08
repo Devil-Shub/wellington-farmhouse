@@ -30,7 +30,7 @@
 
      <v-list v-if="isAdmin">
           <v-list-group
-            v-for="item in items"
+            v-for="(item, mainIndex) in items"
             :key="item.title"
             v-model="item.active"
             :prepend-icon="item.action"
@@ -45,19 +45,18 @@
             </template>
 
             <v-list-item
-              v-for="subItem in item.items"
+              v-for="(subItem, subIindex) in item.items"
               :key="subItem.title"
-              @click=""
+              v-bind:class="{ 'overlay': isActive == subIindex+''+mainIndex }"
             >
-              <v-list-item-content>
-                <v-list-item-title>
-		<router-link :to="subItem.url" class="nav-item nav-link">{{ subItem.title }}</router-link>
-		</v-list-item-title>
-              </v-list-item-content>
-
               <v-list-item-action>
-                <v-icon>{{ subItem.action }}</v-icon>
+                <v-icon v-text="subItem.icon"></v-icon>
               </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title v-on:click="showAdvanced(subIindex, mainIndex)">
+                  <router-link :to="subItem.url" class="nav-item nav-link">{{ subItem.title }}</router-link>
+                </v-list-item-title>
+              </v-list-item-content>
             </v-list-item>
           </v-list-group>
         </v-list>
@@ -156,42 +155,46 @@
             title: 'Main',
             active: true,
             items: [
-              { title: 'Overview', url: '/admin/dashboard' },
-              { title: 'Jobs', url: '/admin/jobs'  },
-              { title: 'Dispatches', url: '/admin/dispatches'  },
-              { title: 'Services', url: '/admin/services'  }
+              { title: 'Overview', url: '/admin/dashboard', icon: 'mdi-view-dashboard' },
+              { title: 'Jobs', url: '/admin/jobs', icon: 'mdi-wallet-travel' },
+              { title: 'Dispatches', url: '/admin/dispatches', icon: 'mdi-cube-outline' },
+              { title: 'Services', url: '/admin/services', icon: 'mdi-settings' },
             ]
           },
           {
             action: 'local_activity',
             title: 'Customer',
+            active: true,
             items: [
-              { title: 'Customer', url: '/admin/customer'  },
-              { title: 'Hauler', url: '/admin/hauler'  }
+              { title: 'Customer', url: '/admin/customer', icon: 'mdi-account' },
+              { title: 'Hauler', url: '/admin/hauler', icon: 'mdi-account-plus' }
             ]
           },
           {
             action: 'local_activity',
             title: 'Employee',
+            active: true,
             items: [
-              { title: 'Managers', url: '/admin/manager' },
-	      { title: 'Drivers', url: '/admin/truckdrivers' }
+              { title: 'Managers', url: '/admin/manager', icon: 'mdi-account-check' },
+	            { title: 'Drivers', url: '/admin/truckdrivers', icon: 'mdi-account-outline' }
             ]
           },
           {
             action: 'local_activity',
             title: 'Fleet',
+            active: true,
             items: [
-              { title: 'Truck', url: '/admin/trucks' },
-	      { title: 'SkidSteer', url: '/admin/skidsteers' }
+              { title: 'Truck', url: '/admin/trucks', icon: 'mdi-truck' },
+	            { title: 'SkidSteer', url: '/admin/skidsteers',  }
             ]
           },
           {
             action: 'local_activity',
             title: 'Accounts',
+            active: true,
             items: [
-               { title: 'Accountings',url: '/admin/accounting' },
-              { title: 'Reports', url: '/admin/reports' }
+               { title: 'Accountings',url: '/admin/accounting', icon: 'mdi-book-open' },
+              { title: 'Reports', url: '/admin/reports', icon: 'mdi-file-document' }
             ]
           }
         ],
@@ -266,7 +269,8 @@
 	],
 	isManager: false,
 	isDriver: false,
-	isAdmin: false
+	isAdmin: false,
+  isActive: null,
     }),
   created() {
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
@@ -317,6 +321,9 @@
           children: item.children ? item.children.map(this.mapItem) : undefined,
           //title: this.$t(item.title),
         }
+      },
+      showAdvanced: function(subIindex, mainIndex) {
+        this.isActive = subIindex+''+mainIndex;
       },
     },
   }
