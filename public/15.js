@@ -92,6 +92,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
  // Components
@@ -454,17 +455,33 @@ var render = function() {
         "div",
         { staticClass: "header-right" },
         [
-          _c(
-            "v-icon",
-            {
-              on: {
-                click: function($event) {
-                  return _vm.setDrawer(!_vm.drawer)
-                }
-              }
-            },
-            [_vm._v("mdi-format-indent-decrease")]
-          ),
+          !_vm.drawer
+            ? _c(
+                "v-icon",
+                {
+                  on: {
+                    click: function($event) {
+                      return _vm.setDrawer(!_vm.drawer)
+                    }
+                  }
+                },
+                [_vm._v("mdi-format-indent-increase")]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.drawer
+            ? _c(
+                "v-icon",
+                {
+                  on: {
+                    click: function($event) {
+                      return _vm.setDrawer(!_vm.drawer)
+                    }
+                  }
+                },
+                [_vm._v("mdi-format-indent-decrease")]
+              )
+            : _vm._e(),
           _vm._v(" "),
           _c("span", { staticClass: "page-title" }, [_vm._v("Overview")])
         ],

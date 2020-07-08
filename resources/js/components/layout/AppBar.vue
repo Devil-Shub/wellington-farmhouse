@@ -57,7 +57,8 @@
     </v-btn> -->
 
     <div class="header-right">
-      <v-icon @click="setDrawer(!drawer)">mdi-format-indent-decrease</v-icon>
+      <v-icon v-if="!drawer" @click="setDrawer(!drawer)">mdi-format-indent-increase</v-icon>
+      <v-icon v-if="drawer" @click="setDrawer(!drawer)">mdi-format-indent-decrease</v-icon>
       <span class="page-title">Overview</span>
     </div>
 
