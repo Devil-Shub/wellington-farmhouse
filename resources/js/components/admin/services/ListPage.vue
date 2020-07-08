@@ -168,7 +168,12 @@ export default {
       this.dialog = false;
     },
     dropdownToggle: function(setIndex) {
-      this.triggerDropdown = setIndex;
+      //if same index is called up again then close it
+      if(this.triggerDropdown == setIndex) {
+        this.triggerDropdown = null;
+      } else {
+        this.triggerDropdown = setIndex;
+      }
     },
     selectTr: function(rowIndex){
       this.isActive = rowIndex;
