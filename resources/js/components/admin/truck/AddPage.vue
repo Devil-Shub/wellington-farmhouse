@@ -2,109 +2,141 @@
   <v-app>
     <v-container fluid>
       <v-row>
-<h2>Add New Truck</h2>
+<h4 class="main-title text-left ml-6">Add New Truck</h4>
         <v-col cols="12" md="12">
           <v-form ref="form" v-model="valid" lazy-validation @submit="save">
             <v-row>
-              <v-col cols="8" md="8">
-                <v-col cols="12" md="12">
-                  <v-text-field
-                    v-model="addForm.company_name"
-                    :rules="[v => !!v || 'Company name is required']"
-                    label="Company Name"
-                    required
-                  ></v-text-field>
+              <v-col cols="12" md="12">
+                <v-col cols="12" md="12" class="pt-0">
+                  <v-col sm="2" class="label-align pt-0">
+                    <label>Company Name</label>
+                  </v-col>
+                  <v-col sm="4" class="pt-0">
+                    <v-text-field
+                      v-model="addForm.company_name"
+                      :rules="[v => !!v || 'Company name is required']"
+                      required
+                    ></v-text-field>
+                  </v-col>
                 </v-col>
-                <v-col cols="12" md="12">
-                  <v-text-field
-                    v-model="addForm.truck_number"
-                    :rules="[v => !!v || 'Truck number is required']"
-                    label="Truck Number"
-                    required
-                  ></v-text-field>
-                </v-col>
-
-                <v-col cols="12" md="12">
-                  <v-text-field
-                    v-model="addForm.chaase_number"
-                    :rules="[v => !!v || 'Chassis number is required']"
-                    label="Chassis Number"
-                    required
-                  ></v-text-field>
-                </v-col>
-
-                <v-col cols="12" md="12">
-                  <v-text-field
-                    v-model="addForm.insurance_number"
-                    :rules="[v => !!v || 'Insurance number is required']"
-                    label="Insurance Number"
-                    required
-                  ></v-text-field>
+                <v-col cols="12" md="12" class="pt-0">
+                  <v-col sm="2" class="label-align pt-0">
+                    <label>Truck Number</label>
+                  </v-col>
+                  <v-col sm="4" class="pt-0">
+                    <v-text-field
+                      v-model="addForm.truck_number"
+                      :rules="[v => !!v || 'Truck number is required']"
+                      required
+                    ></v-text-field>
+                  </v-col>
                 </v-col>
 
-                <v-col cols="12" md="12">
-                  <v-menu
-                    v-model="menu2"
-                    :close-on-content-click="false"
-                    :nudge-right="40"
-                    transition="scale-transition"
-                    offset-y
-                    min-width="290px"
-                  >
-                    <template v-slot:activator="{ on }">
-                      <v-text-field
-                        v-model="date"
-                        label="Insurance Date"
-                        prepend-icon="event"
-                        readonly
-                        v-on="on"
-			required
-                      :rules="[v => !!v || 'Insurance date is required']"
-                      ></v-text-field>
-                    </template>
-                    <v-date-picker v-model="date" @input="menu2 = false"></v-date-picker>
-                  </v-menu>
-                </v-col>
-                <v-col cols="12" md="12">
-                  <v-menu
-                    v-model="menu1"
-                    :close-on-content-click="false"
-                    :nudge-right="40"
-                    transition="scale-transition"
-                    offset-y
-                    min-width="290px"
-                  >
-                    <template v-slot:activator="{ on }">
-                      <v-text-field
-                        v-model="date1"
-                        label="Insurance expiry date"
-                        prepend-icon="event"
-                        readonly
-                        v-on="on"
-			required
-                      :rules="[v => !!v || 'Insurance expiry date is required']"
-                      ></v-text-field>
-                    </template>
-                    <v-date-picker v-model="date1" @input="menu1 = false" :min="setDate"></v-date-picker>
-                  </v-menu>
+                <v-col cols="12" md="12" class="pt-0">
+                  <v-col sm="2" class="label-align pt-0">
+                    <label>Chassis Number</label>
+                  </v-col>
+                  <v-col sm="4" class="pt-0">
+                    <v-text-field
+                      v-model="addForm.chaase_number"
+                      :rules="[v => !!v || 'Chassis number is required']"
+                      required
+                    ></v-text-field>
+                  </v-col>
                 </v-col>
 
-                <v-col cols="12" md="12">
-                  <v-text-field
-                    v-model="addForm.total_killometer"
-                    label="Total Miles"
-                    required
-                    :rules="killometerRules"
-                  ></v-text-field>
+                <v-col cols="12" md="12" class="pt-0">
+                  <v-col sm="2" class="label-align pt-0">
+                    <label>Insurance Number</label>
+                  </v-col>
+                  <v-col sm="4" class="pt-0">
+                    <v-text-field
+                      v-model="addForm.insurance_number"
+                      :rules="[v => !!v || 'Insurance number is required']"
+                      required
+                    ></v-text-field>
+                  </v-col>
                 </v-col>
-		<v-col cols="12" md="12">
-                  <v-text-field
-                   type="number"
-                    v-model="addForm.capacity"
-                    label="Truck Capacity"
-                    required
-                    :rules="[v => !!v || 'Truck capacity is required']"
-                  ></v-text-field>
+
+                <v-col cols="12" md="12" class="pt-0">
+                  <v-col sm="2" class="label-align pt-0">
+                    <label>Insurance Date</label>
+                  </v-col>
+                  <v-col sm="4" class="pt-0">
+                    <v-menu
+                      v-model="menu2"
+                      :close-on-content-click="false"
+                      :nudge-right="40"
+                      transition="scale-transition"
+                      offset-y
+                      min-width="290px"
+                    >
+                      <template v-slot:activator="{ on }">
+                        <v-text-field
+                          v-model="date"
+                          prepend-icon="event"
+                          readonly
+                          v-on="on"
+                          required
+                        :rules="[v => !!v || 'Insurance date is required']"
+                        ></v-text-field>
+                      </template>
+                      <v-date-picker v-model="date" @input="menu2 = false"></v-date-picker>
+                    </v-menu>
+                  </v-col>
+                </v-col>
+                <v-col cols="12" md="12" class="pt-0">
+                  <v-col sm="2" class="label-align pt-0">
+                    <label>Insurance expiry date</label>
+                  </v-col>
+                  <v-col sm="4" class="pt-0">
+                    <v-menu
+                      v-model="menu1"
+                      :close-on-content-click="false"
+                      :nudge-right="40"
+                      transition="scale-transition"
+                      offset-y
+                      min-width="290px"
+                    >
+                      <template v-slot:activator="{ on }">
+                        <v-text-field
+                          v-model="date1"
+                          prepend-icon="event"
+                          readonly
+                          v-on="on"
+                          required
+                        :rules="[v => !!v || 'Insurance expiry date is required']"
+                        ></v-text-field>
+                      </template>
+                      <v-date-picker v-model="date1" @input="menu1 = false" :min="setDate"></v-date-picker>
+                    </v-menu>
+                  </v-col>
+                </v-col>
+
+                <v-col cols="12" md="12" class="pt-0">
+                  <v-col sm="2" class="label-align pt-0">
+                    <label>Total Miles</label>
+                  </v-col>
+                  <v-col sm="4" class="pt-0">
+                    <v-text-field
+                      v-model="addForm.total_killometer"
+                      required
+                      :rules="killometerRules"
+                    ></v-text-field>
+                  </v-col>
+                </v-col>
+		            <v-col cols="12" md="12" class="pt-0">
+                  <v-col sm="2" class="label-align pt-0">
+                    <label>Truck Capacity</label>
+                  </v-col>
+                  <v-col sm="4" class="pt-0">
+                    <v-text-field
+                    type="number"
+                      v-model="addForm.capacity"
+                      required
+                      :rules="[v => !!v || 'Truck capacity is required']"
+                    ></v-text-field>
+                  </v-col>
                 </v-col>
 
                 <v-col cols="12" md="12">
@@ -118,12 +150,12 @@
                     v-on:addfilestart="setUploadIndex"
                     v-on:processfile="handleProcessFile1"
                     v-on:processfilerevert="handleRemoveFile1"
-		    allow-file-type-validation="true"
-		    accepted-file-types="image/jpeg, image/png"
+                    allow-file-type-validation="true"
+                    accepted-file-types="image/jpeg, image/png"
                   />
                 <div class="v-messages theme--light error--text" role="alert" v-if="docError">
-		<div class="v-messages__wrapper"><div class="v-messages__message">RC document upload is required</div></div>
-		</div>
+                <div class="v-messages__wrapper"><div class="v-messages__message">RC document upload is required</div></div>
+                </div>
                 </v-col>
                 <v-col cols="12" md="12">
                   <file-pond

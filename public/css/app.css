@@ -10992,6 +10992,10 @@ a.text-dark:focus {
   padding-right: 0;
 }
 
+#app .d-ib {
+  display: inline-block;
+}
+
 #app .mt-m11 {
   margin-top: -11px;
 }
@@ -11319,6 +11323,10 @@ a.text-dark:focus {
   border-bottom: none;
   font-size: 14px;
   padding-bottom: 40px;
+}
+
+#app main.v-content .v-data-table__wrapper table tr th.mgr-add-col {
+  min-width: 150px;
 }
 
 #app main.v-content .v-data-table__wrapper table tr td {
@@ -11991,6 +11999,10 @@ a.text-dark:focus {
 #app .dropdown .dropdown-trigger {
   cursor: pointer;
   font-size: 11px;
+  background-color: #f6f9f8;
+  width: 14px;
+  color: #a0a1a1;
+  border-radius: 2px;
 }
 
 #app .dropdown .dropdown-menu {
@@ -12038,6 +12050,11 @@ a.text-dark:focus {
 #app .v-data-table tbody tr:hover:not(.v-data-table__expanded__content):not(.v-data-table__empty-wrapper) a,
 #app .v-data-table tbody tr.selected a {
   color: #fff;
+}
+
+#app .v-data-table tbody tr:hover:not(.v-data-table__expanded__content):not(.v-data-table__empty-wrapper) .dropdown .dropdown-trigger,
+#app .v-data-table tbody tr.selected .dropdown .dropdown-trigger {
+  color: #53bf7b;
 }
 
 #app .v-data-table tbody tr.selected {
@@ -12094,6 +12111,10 @@ a.text-dark:focus {
 
 #app .ft-left {
   float: left;
+  width: 100%;
+}
+
+#app .only-jobs {
   width: 100%;
 }
 

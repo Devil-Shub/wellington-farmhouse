@@ -29,31 +29,43 @@
                 v-on:processfilerevert="handleRemoveFile"
               />
             </v-col>
-            <v-col cols="12" md="12">
+            <v-col cols="12" md="12" class="pt-0">
+              <v-col sm="2" class="label-align pt-0">
+                <label>First name</label>
+              </v-col>
+              <v-col sm="4" class="pt-0">
               <v-text-field
                 v-model="addForm.first_name"
                 :rules="FnameRules"
-                label="First name"
                 required
               ></v-text-field>
+              </v-col>
             </v-col>
-            <v-col cols="12" md="12">
+            <v-col cols="12" md="12" class="pt-0">
+              <v-col sm="2" class="label-align pt-0">
+                <label>Last name</label>
+              </v-col>
+              <v-col sm="4" class="pt-0">
               <v-text-field
                 v-model="addForm.last_name"
                 :rules="LnameRules"
-                label="Last name"
                 required
               ></v-text-field>
+              </v-col>
             </v-col>
 
-            <v-col cols="12" md="12">
+            <v-col cols="12" md="12" class="pt-0">
+              <v-col sm="2" class="label-align pt-0">
+                <label>E-mail</label>
+              </v-col>
+              <v-col sm="4" class="pt-0">
               <v-text-field
                 v-model="addForm.email"
                 :rules="emailRules"
                 name="email"
-                label="E-mail"
                 required
               ></v-text-field>
+              </v-col>
             </v-col>
             <v-btn type="submit" :loading="loading" :disabled="loading" color="success" class="mr-4 custom-save-btn" @click="update">Submit</v-btn>
           </v-form>

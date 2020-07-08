@@ -92,6 +92,9 @@ $hover-white: #fff;
         padding-right: 0;
       }
     }
+    .d-ib {
+      display: inline-block;
+    }
     .mt-m11 {
       margin-top: -11px;
     }
@@ -385,6 +388,9 @@ $hover-white: #fff;
               padding-bottom: 40px;
               &:first-of-type {
                 // padding-left: 0;
+              }
+              &.mgr-add-col {
+                min-width: 150px;
               }
             }
             td {
@@ -1029,6 +1035,10 @@ $hover-white: #fff;
       .dropdown-trigger {
         cursor: pointer;
         font-size: 11px;
+        background-color: #f6f9f8;
+        width: 14px;
+        color: #a0a1a1;
+        border-radius: 2px;
       }
       .dropdown-menu {
         transform: translate3d(-162px, 21px, 0px);
@@ -1069,6 +1079,11 @@ $hover-white: #fff;
       color: #fff;
       a {
         color: #fff;
+      }
+      .dropdown {
+        .dropdown-trigger {
+          color: #53bf7b;
+        }
       }
     }
     .v-data-table tbody tr.selected {
@@ -1119,6 +1134,9 @@ $hover-white: #fff;
     }
     .ft-left {
       float: left;
+      width: 100%;
+    }
+    .only-jobs {
       width: 100%;
     }
   }

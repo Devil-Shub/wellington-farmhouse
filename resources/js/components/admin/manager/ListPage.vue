@@ -18,12 +18,12 @@
                 <tr>
                   <th class="text-left">Image</th>
                   <th class="text-left">Manager Name</th>
-                  <th class="text-left">Address</th>
+                  <th class="text-left mgr-add-col">Address</th>
                   <th class="text-left">Contact Number</th>
                   <th class="text-left">Email Address</th>
                   <th class="text-left">Salary</th>
                   <th class="text-left">Active</th>
-                  <th class="text-left">Action</th>
+                  <th class="text-left">Options</th>
                 </tr>
               </thead>
               <tbody>
@@ -58,27 +58,21 @@
                       >Yes</v-chip>
                     </td>
                     <td class="action-col">
-                      <router-link
-                        v-if="isAdmin"
-                        :to="'/admin/manager/edit/' + item.id"
-                        class="nav-item nav-link"
-                      >
                         <!-- <edit-icon size="1.5x" class="custom-class"></edit-icon> -->
-                        <span class="custom-action-btn">Edit</span>
-                      </router-link>
-                      <router-link
-                        v-if="!isAdmin"
-                        :to="'/manager/manager/edit/' + item.id"
-                        class="nav-item nav-link"
-                      >
-                        <!-- <edit-icon size="1.5x" class="custom-class"></edit-icon> -->
-                        <span class="custom-action-btn">Edit</span>
-                      </router-link>
-
-                      <v-btn color="blue darken-1" text @click="Delete(item.id)">
                         <!-- <trash-icon size="1.5x" class="custom-class"></trash-icon> -->
-                        <span class="custom-action-btn">Delete</span>
-                      </v-btn>
+
+                      <div class="dropdown" v-bind:class="{ 'show': triggerDropdown == index }">
+                        <more-vertical-icon size="1.5x" class="custom-class dropdown-trigger" v-on:click="dropdownToggle(index)"></more-vertical-icon>
+                        <span class="dropdown-menu">
+                          <router-link v-if="isAdmin" :to="'/admin/manager/edit/' + item.id" class="dropdown-item">
+                            <button class="btn">Edit</button>
+                          </router-link>
+                          <router-link v-if="!isAdmin" :to="'/manager/manager/edit/' + item.id" class="dropdown-item">
+                            <button class="btn">Edit</button>
+                          </router-link>
+                          <button class="btn dropdown-item" @click="Delete(item.id)">Delete</button>
+                        </span>
+                      </div>
                     </td>
                   </template>
                 </tr>
@@ -104,7 +98,8 @@ import {
   UserIcon,
   EditIcon,
   TrashIcon,
-  PlusCircleIcon
+  PlusCircleIcon,
+  MoreVerticalIcon
 } from "vue-feather-icons";
 import { router } from "../../../_helpers/router";
 export default {
@@ -112,11 +107,13 @@ export default {
     UserIcon,
     EditIcon,
     TrashIcon,
-    PlusCircleIcon
+    PlusCircleIcon,
+    MoreVerticalIcon
   },
   data() {
     return {
       dialog: false,
+      triggerDropdown: null,
       on: false,
       isActive: null,
       managers: [],
@@ -180,6 +177,14 @@ export default {
     },
     Close() {
       this.dialog = false;
+    },
+    dropdownToggle: function(setIndex) {
+      //if same index is called up again then close it
+      if(this.triggerDropdown == setIndex) {
+        this.triggerDropdown = null;
+      } else {
+        this.triggerDropdown = setIndex;
+      }
     }
   }
 };
