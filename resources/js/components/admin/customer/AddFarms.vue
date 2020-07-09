@@ -413,29 +413,10 @@ export default {
     },
     handleRemoveFile3: function(file){
     },
-    
-    update() {
-     this.addForm.customer_id = this.$route.params.id;
-     if (this.uploadInProgress) {
-        this.$toast.open({
-          message: "Image uploading is in progress!",
-          type: "error",
-          position: "top-right"
-        });
-        return false;
-      }
-      if(this.addForm.farm_images.length == 0){
-          this.farmImgError = true;
-          return false;
-      }
-      if(this.addForm.manager_card_image){
-          this.docError = true;
-          return false;
-      }
-      if (this.$refs.customerForm.validate()) {
-        //start loading
-        this.loading = true;
-        customerService.addFarm(this.addForm).then(response => {
+
+    _saveFarmInfo(customerId) {
+      this.addForm.customer_id = customerId;
+      customerService.addFarm(this.addForm).then(response => {
           //stop loading
           this.loading = false;
           //handle response
@@ -460,6 +441,52 @@ export default {
             });
           }
         });
+    },
+    
+    update() {
+     if (this.uploadInProgress) {
+        this.$toast.open({
+          message: "Image uploading is in progress!",
+          type: "error",
+          position: "top-right"
+        });
+        return false;
+      }
+      if(this.addForm.farm_images.length == 0){
+          this.farmImgError = true;
+          return false;
+      }
+      if(this.addForm.manager_card_image){
+          this.docError = true;
+          return false;
+      }
+      if (this.$refs.customerForm.validate()) {
+        //check if customer details exist if not then direct save farm
+        if(localStorage.getItem("customerDetails") == null) {
+          //save farm data
+          this._saveFarmInfo(response.data.id);
+        }
+        //start loading
+        this.loading = true;
+        
+        customerService.add(JSON.parse(localStorage.getItem("customerDetails"))).then(response => {
+          //stop loading
+          this.loading = false;
+          //handle response
+          if (response.status) {
+            //remove customer details from localStorage
+            localStorage.removeItem("customerDetails")
+            //save farm data
+            this._saveFarmInfo(response.data.id);
+          } else {
+            this.$toast.open({
+              message: response.message,
+              type: "error",
+              position: "top-right"
+            });
+          }
+        });
+
       }
     }
   }
