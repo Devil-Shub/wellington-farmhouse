@@ -55,6 +55,11 @@ class User extends Authenticatable
         return $this->hasOne('App\CustomerFarm', 'customer_id');
     }
 
+    public function farmlist()
+    {
+        return $this->hasMany('App\CustomerFarm', 'customer_id');
+    }
+
     public function messages()
     {
         return $this->hasMany(Message::class);

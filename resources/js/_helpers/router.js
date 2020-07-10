@@ -34,7 +34,7 @@ import CustomerListPage from "../components/admin/customer/ListPage";
 import CustomerAddPage from "../components/admin/customer/AddPage";
 import CustomerDetails from "../components/admin/customer/Details";
 import CustomerAddFarms from "../components/admin/customer/AddFarms";
-
+import CustomerAddMoreFarms from "../components/admin/customer/AddMoreFarms";
 
 //Company listing
 import CompanyListPage from "../components/admin/company/ListPage";
@@ -128,6 +128,7 @@ export const router = new Router({
         { path: 'customer/details/:id', component: CustomerDetails, name: 'CustomerDetail', meta: { requiresAuth: [Role.Admin] } },
         { path: 'customer/farms/:id', component: CustomerDetails, name: 'Customerfarms', meta: { requiresAuth: [Role.Admin] } },
         { path: 'customer/addfarm', component: CustomerAddFarms, name: 'CustomerAddFarms', meta: { requiresAuth: [Role.Admin] } },
+        { path: 'customer/addfarmmore/:id', component: CustomerAddMoreFarms, name: 'CustomerAddMoreFarms', meta: { requiresAuth: [Role.Admin] } },
 
         { path: 'hauler', component: CompanyListPage, name: 'Company', meta: { requiresAuth: [Role.Admin] } },
         { path: 'hauler/add', component: CompanyAddPage, name: 'CompanyAdd', meta: { requiresAuth: [Role.Admin] } },
@@ -239,6 +240,7 @@ export const router = new Router({
         { path: 'customer/details/:id', component: CustomerDetails, name: 'MCustomerDetail', meta: { requiresAuth: [Role.Admin_Manager] } },
         { path: 'customer/farms/:id', component: CustomerDetails, name: 'MCustomerfarms', meta: { requiresAuth: [Role.Admin_Manager] } },
         { path: 'customer/addfarm', component: CustomerAddFarms, name: 'MCustomerAddFarms', meta: { requiresAuth: [Role.Admin_Manager] } },
+        { path: 'customer/addfarmmore/:id', component: CustomerAddMoreFarms, name: 'MCustomerAddMoreFarms', meta: { requiresAuth: [Role.Admin] } },
 
         { path: 'hauler', component: CompanyListPage, name: 'MCompany', meta: { requiresAuth: [Role.Admin_Manager] } },
         { path: 'hauler/add', component: CompanyAddPage, name: 'MCompanyAdd', meta: { requiresAuth: [Role.Admin_Manager] } },

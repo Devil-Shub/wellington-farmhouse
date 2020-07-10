@@ -459,7 +459,7 @@ class CustomerController extends Controller
     {
         // \DB::connection()->enableQueryLog();
 
-        $getCustomer = User::with('customerManager.manager_farms')
+        $getCustomer = User::with('farmlist.farmManager')
             ->whereRoleId(config('constant.roles.Customer'))->get();
         // $queries = \DB::getQueryLog();
         // dd($queries);

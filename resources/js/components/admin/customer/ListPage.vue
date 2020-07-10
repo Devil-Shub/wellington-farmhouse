@@ -11,8 +11,8 @@
           </router-link>
         </div>
         <v-col cols="12" md="12">
-          <v-simple-table class="custom-table">
-            <template v-slot:default>
+      <table id="example" class="table table-striped table-bordered" style="width:100%">
+
               <thead>
                 <tr>
                   <th class="text-left"></th>
@@ -25,37 +25,48 @@
                    <router-link v-if="isAdmin" :to="'/admin/customer/details/' + customer.id" class="nav-item nav-link">{{ customer.prefix }}  {{ customer.first_name }} {{ customer.last_name }}</router-link>
                    <router-link v-if="!isAdmin" :to="'/manager/customer/details/' + customer.id" class="nav-item nav-link">{{ customer.prefix }}  {{ customer.first_name }} {{ customer.last_name }}</router-link>
                    </span> 
-                    <v-data-table
-                      :headers="headers"
-                      :items="customer.customer_manager"
-                      hide-default-footer
-                      class=""
-                    >
-                      <!-- <template slot="items" slot-scope="props">
-                        <td class="text-xs-right">{{ props.index }}</td>
-                        <td class="text-xs-right">
-		         <template v-slot:item.id="{ item }">
-		            <span class="custom-action-btn"> 
-				<router-link v-if="isAdmin" :to="'/admin/customer/farms/' +item.id">{{ props.item.first_name }}</router-link>
-				<router-link v-if="!isAdmin" :to="'/manager/customer/farms/' +item.id">{{ props.item.first_name }}</router-link>
-			    </span>
-		          </template>
-                        </td>
-                        <td class="text-xs-right">{{ props.item.phone }}</td>
-                        <td class="text-xs-right">{{ props.item.email }}</td>
-                        <td class="text-xs-right">{{ props.item.farms.farm_address }}</td>
-                        <td class="text-xs-right">{{ props.item.farms.farm_city }}</td>
-                        <td class="text-xs-right">{{ props.item.farms.farm_province }}</td>
-                        <td class="text-xs-right">{{ props.item.farms.farm_zipcode }}</td>
-                        <td class="text-xs-right">0</td>
-                        <td class="text-xs-right">05/07/2020</td>
-                      </template> -->
-                    </v-data-table>
+		<v-simple-table>
+			<thead>
+			<tr>
+			 <th>Sno</th>
+			<th>Manager Name</th>
+			<th>Phone Number</th>
+			<th>Email</th>
+			<th>Fram Address</th>
+			<th>City</th>
+			<th>State/Province</th>
+			<th>Zip/Postal</th>
+			<th>No Of Jobs</th>
+			<th>Last Services</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr v-for="(farm, index) in customer.farmlist">
+			   <td>{{index+1}}</td>
+			    <td>
+				<span v-for="manager in farm.farm_manager">{{manager.first_name}}<br></span>
+			    </td>
+			    <td>
+				<span v-for="manager in farm.farm_manager">{{manager.phone}}<br></span>
+			    </td>
+		            <td>
+				<span v-for="manager in farm.farm_manager">{{manager.email}}<br></span>
+			    </td>
+			   <td>{{farm.farm_address}}</td>
+			   <td>{{farm.farm_city}}</td>
+			   <td>{{farm.farm_province}}</td>
+			   <td>{{farm.farm_zipcode}}</td>
+			   <td>N/A</td>
+   			   <td>N/A</td>
+			</tr>
+			</tbody>
+		  </v-simple-table>
+		
+                 
                   </td>
                 </tr>
               </tbody>
-            </template>
-          </v-simple-table>
+          </table>
         </v-col>
       </v-row>
     </v-container>
@@ -92,13 +103,13 @@ export default {
           sortable: false,
           value: "index"
         },
-        { text: "Manager", value: "first_name" },
-        { text: "Phone Number", value: "phone" },
-        { text: "Email", value: "email" },
-        { text: "Farm Address", value: "manager_farms.farm_address" },
-        { text: "City", value: "manager_farms.farm_city" },
-        { text: "State/Province", value: "manager_farms.farm_province" },
-        { text: "Zip/Postal", value: "manager_farms.farm_zipcode" },
+        { text: "Manager", value: "farm_manager.first_name" },
+        { text: "Phone Number", value: "farm_manager.phone" },
+        { text: "Email", value: "farm_manager.email" },
+        { text: "Farm Address", value: "farm_address" },
+        { text: "City", value: "farm_city" },
+        { text: "State/Province", value: "farm_province" },
+        { text: "Zip/Postal", value: "farm_zipcode" },
         { text: "No Of Jobs", value: "" },
         { text: "Last Services", value: "" }
       ],
@@ -164,6 +175,13 @@ export default {
     Close() {
       this.dialog = false;
     }
-  }
+  },
+updated() {
+setTimeout(function() {
+     $(document).ready(function() {
+	    $('#example').DataTable();
+	} );
+  }, 1000);
+    }
 };
 </script>
