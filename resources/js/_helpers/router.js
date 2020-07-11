@@ -94,6 +94,7 @@ import AccountingDetails from "../components/admin/accounting/Details";
 import LoginPage from "../components/login/LoginPage";
 import RegisterPage from "../components/register/RegisterPage";
 import ChangePassword from "../components/ChangePasswordPage";
+import ForgetPassword from "../components/ForgotPasswordPage";
 
 
 Vue.use(Router);
@@ -268,6 +269,7 @@ export const router = new Router({
     { path: "/login", component: LoginPage },
     { path: "/register", component: RegisterPage },
     { path: "/change-passowrd", component: ChangePassword },
+    { path: "/forget-passowrd", component: ForgetPassword },
 
     {
       path: '/auth/:provider/callback',

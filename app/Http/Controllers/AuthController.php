@@ -139,8 +139,6 @@ class AuthController extends Controller
             'body' => $post_json
         ]);
 
-        Log::info(json_encode($res));
-
         return true;
     }
 
