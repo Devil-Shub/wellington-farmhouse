@@ -2,7 +2,7 @@
   <v-app>
     <v-container fluid>
       <v-row>
-        <h4 class="main-title">Driver list</h4>
+        <h4 class="main-title text-left">Driver list</h4>
         <div class="add-icon">
           <router-link v-if="isAdmin" to="/admin/truckdriver/add" class="nav-item nav-link">
             <plus-circle-icon size="1.5x" class="custom-class"></plus-circle-icon>
@@ -18,7 +18,7 @@
                 <tr>
                   <th class="text-left">Image</th>
                   <th class="text-left">Driver Name</th>
-                  <th class="text-left">Address</th>
+                  <th class="text-left mgr-add-col">Address</th>
                   <th class="text-left">Contact Number</th>
                   <th class="text-left">Email Address</th>
                   <th class="text-left">Driver License Number</th>
@@ -27,7 +27,7 @@
                   <th class="text-left">Salary Rate</th>
                   <th class="text-left">Total Amount</th>
                   <th class="text-left">Active</th>
-                  <th class="text-left">Action</th>
+                  <th class="text-left">Options</th>
                 </tr>
               </thead>
               <tbody>
@@ -82,24 +82,18 @@
                     >
                       <user-icon size="1.5x" class="custom-class"></user-icon>
                     </router-link>-->
-                    <router-link
-                      v-if="isAdmin"
-                      :to="'/admin/truckdriver/edit/' + item.user.id"
-                      class="nav-item nav-link"
-                    >
-                      <span class="custom-action-btn">Edit</span>
-                    </router-link>
-                    <router-link
-                      v-if="!isAdmin"
-                      :to="'/manager/truckdriver/edit/' + item.user.id"
-                      class="nav-item nav-link"
-                    >
-                      <span class="custom-action-btn">Edit</span>
-                    </router-link>
-                    <v-btn color="blue darken-1" text @click="Delete(item.user.id)">
-                      <!-- <trash-icon size="1.5x" class="custom-class"></trash-icon> -->
-                      <span class="custom-action-btn">Delete</span>
-                    </v-btn>
+                    <div class="dropdown" v-bind:class="{ 'show': triggerDropdown == index }">
+                      <more-vertical-icon size="1.5x" class="custom-class dropdown-trigger" v-on:click="dropdownToggle(index)"></more-vertical-icon>
+                      <span class="dropdown-menu">
+                        <router-link v-if="isAdmin" :to="'/admin/truckdriver/edit/' + item.id" class="dropdown-item">
+                          <button class="btn">Edit</button>
+                        </router-link>
+                        <router-link v-if="!isAdmin" :to="'/manager/truckdriver/edit/' + item.id" class="dropdown-item">
+                          <button class="btn">Edit</button>
+                        </router-link>
+                        <button class="btn dropdown-item" @click="Delete(item.id)">Delete</button>
+                      </span>
+                    </div>
                   </td>
                 </tr>
                 <tr v-if="drivers.length == 0">
@@ -124,7 +118,8 @@ import {
   UserIcon,
   EditIcon,
   TrashIcon,
-  PlusCircleIcon
+  PlusCircleIcon,
+  MoreVerticalIcon
 } from "vue-feather-icons";
 import { router } from "../../../_helpers/router";
 export default {
@@ -132,7 +127,8 @@ export default {
     UserIcon,
     EditIcon,
     TrashIcon,
-    PlusCircleIcon
+    PlusCircleIcon,
+    MoreVerticalIcon
   },
   data() {
     return {
@@ -140,7 +136,8 @@ export default {
       isActive: null,
       on: false,
       drivers: [],
-      isAdmin: true
+      isAdmin: true,
+      triggerDropdown: null
     };
   },
   mounted() {
@@ -197,6 +194,14 @@ export default {
     },
     Close() {
       this.dialog = false;
+    },
+    dropdownToggle: function(setIndex) {
+      //if same index is called up again then close it
+      if(this.triggerDropdown == setIndex) {
+        this.triggerDropdown = null;
+      } else {
+        this.triggerDropdown = setIndex;
+      }
     }
   }
 };

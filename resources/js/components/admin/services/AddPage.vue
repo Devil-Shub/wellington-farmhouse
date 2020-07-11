@@ -2,26 +2,33 @@
   <v-app>
     <v-container fluid>
       <v-row>
-        <h4 class="main-title">Add Service</h4>
+        <h4 class="main-title text-left">Add Service</h4>
 
         <v-col cols="12" md="12" class="pl-0 pt-0">
           <v-form ref="form" v-model="valid" lazy-validation @submit="save">
-            <v-col cols="12" md="12">
-              <v-text-field
-                v-model="addForm.service_name"
-                label="Service name"
-                required
-		            :rules="[v => !!v || 'Service name is required']">
-              </v-text-field>
+            <v-col cols="12" md="12" class="pt-0">
+              <v-col sm="2" class="label-align pt-0">
+                <label>Service name</label>
+              </v-col>
+              <v-col sm="4" class="pt-0">
+                <v-text-field
+                  v-model="addForm.service_name"
+                  required
+                  :rules="[v => !!v || 'Service name is required']">
+                </v-text-field>
+              </v-col>
             </v-col>
-	          <v-col cols="12" md="12">
-             <header>Service Time Period</header>
-            <div class="custom-checkbox">
+	          <v-col cols="12" md="12" class="pt-0">
+              <v-col sm="2" class="label-align pt-0">
+                <label>Service Time Period</label>
+              </v-col>
+              <v-col sm="4">
+            <div class="custom-checkbox d-ib">
               <input type="checkbox" class="pr-6" v-model="addForm.slot_type" :checked="true" @change="getTime(1)" value="1" id="morningJob">
               <label for="morningJob"></label>
               <span class="checkbox-title">Morning</span>
             </div>
-            <div class="custom-checkbox">
+            <div class="custom-checkbox d-ib">
               <input type="checkbox" class="pr-6" v-model="addForm.slot_type" @change="getTime(2)" value="2" id="eveningJob">
               <label for="eveningJob"></label>
               <span class="checkbox-title">Evening</span>
@@ -29,10 +36,11 @@
               <div class="v-messages theme--light error--text" role="alert" v-if="!timeSlotErr">
 		<div class="v-messages__wrapper"><div class="v-messages__message">Service time period is required.</div></div>
 		</div>
-	         
+	         </v-col>
 	          </v-col>
 
 	          <v-col class="time-slots pt-0" cols="12" md="12" v-if="morningSlots.length">
+              <v-col sm="10">
               <template v-for="(timeSlot, index) in morningSlots">
               <span class="checkbox" v-bind:class="[addForm.slot_time.includes(timeSlot.id) ? 'activeClass' : '']">
                 <input 
@@ -42,9 +50,11 @@
                 :id="timeSlot.id"><label v-bind:for="timeSlot.id">{{timeSlot.slot_start+'-'+timeSlot.slot_end}}</label>
               </span>
               </template>
+              </v-col>
 	          </v-col>
 
             <v-col class="time-slots pt-0" cols="12" md="12" v-if="eveningSlots.length">
+              <v-col sm="10">
               <template v-for="(timeSlot, index) in eveningSlots">
               <span class="checkbox" v-bind:class="[addForm.slot_time.includes(timeSlot.id) ? 'activeClass' : '']">
                 <input 
@@ -54,30 +64,39 @@
                 :id="timeSlot.id"><label v-bind:for="timeSlot.id">{{timeSlot.slot_start+'-'+timeSlot.slot_end}}</label>
               </span>
               </template>
+              </v-col>
 	          </v-col>
 
-            <v-col cols="12" md="12">
+            <v-col cols="12" md="12" class="pt-0">
+              <v-col sm="2" class="label-align pt-0">
+                <label>Service Price</label>
+              </v-col>
+              <v-col sm="4" class="pt-0">
               <v-text-field
                 type="number"
                 max="100"
                 min="0"
                 v-model="addForm.price"
                 :rules="priceRules"
-                label="Service Price"
                 required
               ></v-text-field>
+              </v-col>
             </v-col>
 
-            <v-col cols="12" md="12" class="textarea-parent">
+            <v-col cols="12" md="12" class="textarea-parent pt-0">
+              <v-col sm="2" class="label-align pt-0">
+                <label>Description</label>
+              </v-col>
+              <v-col sm="4" class="pt-0">
               <v-textarea rows="3"
                 auto-grow
                 clearable
                 clear-icon="cancel"
                 v-model="addForm.description"
                 :rules="descriptionRules"
-                label="Description"
                 required
               ></v-textarea>
+              </v-col>
             </v-col>
             <v-col cols="12" md="12">
               <file-pond

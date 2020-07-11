@@ -105,7 +105,7 @@
                               class="v-avatar v-list-item__avatar"
                               style="height: 80px; min-width: 80px; width: 80px;"
                             >
-                              <img :src="'../../../'+input.manager_image" />
+                              <img :src="Mavatar" />
                             </div>
                             <file-pond
                               name="uploadImage"
@@ -118,7 +118,7 @@
                               allow-file-type-validation="true"
                               accepted-file-types="image/jpeg, image/png"
                               v-on:processfile="handleProcessFile2"
-                              v-on:processfilerevert="handleRemoveFile2(index)"
+                              v-on:processfilerevert="handleRemoveFile2"
                             />
                           </v-col>
                           <v-col cols="3" md="3">
@@ -402,8 +402,7 @@ export default {
       this.Mavatar = this.imgUrl+file.serverId;
       this.uploadInProgress = false;
     },
-    handleRemoveFile2: function(index){
-      this.addForm.manager_details[index].manager_image = '';
+    handleRemoveFile2: function(file){
     },
     //manager id card image process
     handleProcessFile3: function(error, file) {
@@ -413,10 +412,29 @@ export default {
     },
     handleRemoveFile3: function(file){
     },
-
-    _saveFarmInfo(customerId) {
-      this.addForm.customer_id = customerId;
-      customerService.addFarm(this.addForm).then(response => {
+    
+    update() {
+     this.addForm.customer_id = this.$route.params.id;
+     if (this.uploadInProgress) {
+        this.$toast.open({
+          message: "Image uploading is in progress!",
+          type: "error",
+          position: "top-right"
+        });
+        return false;
+      }
+      if(this.addForm.farm_images.length == 0){
+          this.farmImgError = true;
+          return false;
+      }
+      if(this.addForm.manager_card_image){
+          this.docError = true;
+          return false;
+      }
+      if (this.$refs.customerForm.validate()) {
+        //start loading
+        this.loading = true;
+        customerService.addFarm(this.addForm).then(response => {
           //stop loading
           this.loading = false;
           //handle response
@@ -441,52 +459,6 @@ export default {
             });
           }
         });
-    },
-    
-    update() {
-     if (this.uploadInProgress) {
-        this.$toast.open({
-          message: "Image uploading is in progress!",
-          type: "error",
-          position: "top-right"
-        });
-        return false;
-      }
-      if(this.addForm.farm_images.length == 0){
-          this.farmImgError = true;
-          return false;
-      }
-      if(this.addForm.manager_card_image){
-          this.docError = true;
-          return false;
-      }
-      if (this.$refs.customerForm.validate()) {
-        //check if customer details exist if not then direct save farm
-        if(localStorage.getItem("customerDetails") == null) {
-          //save farm data
-          this._saveFarmInfo(response.data.id);
-        }
-        //start loading
-        this.loading = true;
-        
-        customerService.add(JSON.parse(localStorage.getItem("customerDetails"))).then(response => {
-          //stop loading
-          this.loading = false;
-          //handle response
-          if (response.status) {
-            //remove customer details from localStorage
-            localStorage.removeItem("customerDetails")
-            //save farm data
-            this._saveFarmInfo(response.data.id);
-          } else {
-            this.$toast.open({
-              message: response.message,
-              type: "error",
-              position: "top-right"
-            });
-          }
-        });
-
       }
     }
   }

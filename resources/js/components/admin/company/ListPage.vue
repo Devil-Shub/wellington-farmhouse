@@ -157,6 +157,13 @@ export default {
     Close() {
       this.dialog = false;
     }
-  }
+  },
+updated() {
+setTimeout(function() {
+     $(document).ready(function() {
+	    $('#example').DataTable();
+	} );
+  }, 1000);
+    }
 };
 </script>

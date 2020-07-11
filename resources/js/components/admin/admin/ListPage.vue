@@ -20,7 +20,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="item in managers" :key="item.name" v-on:click="selectTr" v-bind:class="{ 'selected' : isActive}">
+                <tr v-for="(item, index) in managers" :key="item.name" v-on:click="selectTr" v-bind:class="{ 'selected' : isActive}">
 		<template v-if="currentUser.id != item.id">
                   <td>
                     <div
@@ -48,8 +48,8 @@
                     >Activate</v-chip>
                   </td> -->
                   <td class="action-col">
-                    <div class="dropdown" v-bind:class="{ 'show': triggerDropdown }">
-                      <more-vertical-icon size="1.5x" class="custom-class dropdown-trigger" v-on:click="dropdownToggle"></more-vertical-icon>
+                    <div class="dropdown" v-bind:class="{ 'show': triggerDropdown == index }">
+                      <more-vertical-icon size="1.5x" class="custom-class dropdown-trigger" v-on:click="dropdownToggle(index)"></more-vertical-icon>
                       <span class="dropdown-menu">
                         <router-link :to="'/admin/admin/edit/' + item.id" class="dropdown-item">
                           <button class="btn">Edit</button>
@@ -97,7 +97,7 @@ export default {
       on: false,
       managers: [],
       currentUser: '',
-      triggerDropdown: false,
+      triggerDropdown: null,
       isActive: false,
     };
   },
@@ -159,8 +159,13 @@ export default {
     Close() {
       this.dialog = false;
     },
-    dropdownToggle: function() {
-      this.triggerDropdown = !this.triggerDropdown;
+    dropdownToggle: function(setIndex) {
+      //if same index is called up again then close it
+      if(this.triggerDropdown == setIndex) {
+        this.triggerDropdown = null;
+      } else {
+        this.triggerDropdown = setIndex;
+      }
     },
     selectTr: function(){
       this.isActive = !this.isActive;

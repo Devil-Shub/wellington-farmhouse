@@ -6,7 +6,7 @@
         <v-col cols="12" md="12">
           <v-form ref="form" v-model="valid" lazy-validation @submit="save">
             <v-row>
-              <v-col cols="5" md="5">
+              <v-col cols="6" md="6">
                 <div
                   class="v-avatar v-list-item__avatar"
                   style="height: 80px; min-width: 80px; width: 80px;"
@@ -34,56 +34,80 @@
                     </div>
                   </div>
                 </v-col>
-                <v-col cols="12" md="12">
-                  <v-text-field
-                    v-model="addForm.driver_name"
-                    :rules="[v => !!v || 'Driver name is required']"
-                    label="Driver Name"
-                    required
-                  ></v-text-field>
+                <v-col cols="12" md="12" class="pt-0">
+                  <v-col sm="4" class="label-align pt-0">
+                    <label>Driver name</label>
+                  </v-col>
+                  <v-col sm="7" class="pt-0">
+                    <v-text-field
+                      v-model="addForm.driver_name"
+                      :rules="[v => !!v || 'Driver name is required']"
+                      required
+                    ></v-text-field>
+                  </v-col>
                 </v-col>
 
-                <v-col cols="12" md="12">
+                <v-col cols="12" md="12" class="pt-0">
+                  <v-col sm="4" class="label-align pt-0">
+                    <label>Email Address</label>
+                  </v-col>
+                  <v-col sm="7" class="pt-0">
                   <v-text-field
                     v-model="addForm.email"
                     :rules="emailRules"
                     name="email"
-                    label="Email Address"
                     required
                   ></v-text-field>
+                  </v-col>
                 </v-col>
-                <v-col cols="12" md="12">
+                <v-col cols="12" md="12" class="pt-0">
+                  <v-col sm="4" class="label-align pt-0">
+                    <label>Address</label>
+                  </v-col>
+                  <v-col sm="7" class="pt-0">
                   <v-text-field
                     v-model="addForm.driver_address"
                     :rules="[v => !!v || 'Address is required']"
-                    label="Address"
                     required
                   ></v-text-field>
+                  </v-col>
                 </v-col>
-                <v-col cols="12" md="12">
+                <v-col cols="12" md="12" class="pt-0">
+                  <v-col sm="4" class="label-align pt-0">
+                    <label>City</label>
+                  </v-col>
+                  <v-col sm="7" class="pt-0">
                   <v-text-field
                     v-model="addForm.driver_city"
                     :rules="[v => !!v || 'City is required']"
-                    label="City"
                     required
                   ></v-text-field>
+                  </v-col>
                 </v-col>
 
-                <v-col cols="12" md="12">
+                <v-col cols="12" md="12" class="pt-0">
+                  <v-col sm="4" class="label-align pt-0">
+                    <label>State</label>
+                  </v-col>
+                  <v-col sm="7" class="pt-0">
                   <v-text-field
                     v-model="addForm.driver_state"
                     :rules="[v => !!v || 'State is required']"
-                    label="State"
                     required
                   ></v-text-field>
+                  </v-col>
                 </v-col>
-                <v-col cols="12" md="12">
+                <v-col cols="12" md="12" class="pt-0">
+                  <v-col sm="4" class="label-align pt-0">
+                    <label>Zipcode</label>
+                  </v-col>
+                  <v-col sm="7" class="pt-0">
                   <v-text-field
                     v-model="addForm.driver_zipcode"
                     :rules="[v => !!v || 'Zip code is required']"
-                    label="zipcode"
                     required
                   ></v-text-field>
+                  </v-col>
                 </v-col>
                 <!-- <v-col cols="12" md="12">
                   <v-text-field
@@ -95,26 +119,38 @@
                 </v-col>-->
               </v-col>
 
-              <v-col cols="5" md="5">
-                <v-col cols="12" md="12">
+              <v-col cols="6" md="6">
+                <v-col cols="12" md="12" class="pt-0">
+                  <v-col sm="4" class="label-align pt-0">
+                    <label>Mobile Number</label>
+                  </v-col>
+                  <v-col sm="7" class="pt-0">
                   <v-text-field
                     v-model="addForm.driver_phone"
                     :rules="phoneRules"
-                    label="Mobile Number"
                     required
                     maxlength="10"
                   ></v-text-field>
+                  </v-col>
                 </v-col>
-                <v-col cols="12" md="12">
+                <v-col cols="12" md="12" class="pt-0">
+                  <v-col sm="4" class="label-align pt-0">
+                    <label>Driver Licence Number</label>
+                  </v-col>
+                  <v-col sm="7" class="pt-0">
                   <v-text-field
                     v-model="addForm.driver_licence"
                     :rules="[v => !!v || 'driver licence number is required']"
-                    label="Driver Licence Number"
                     required
                   ></v-text-field>
+                  </v-col>
                 </v-col>
 
-                <v-col cols="12" md="12">
+                <v-col cols="12" md="12" class="pt-0">
+                  <v-col sm="4" class="label-align pt-0">
+                    <label>Licence Expiry Date</label>
+                  </v-col>
+                  <v-col sm="7" class="pt-0">
                   <v-menu
                     v-model="menu2"
                     :close-on-content-click="false"
@@ -126,7 +162,6 @@
                     <template v-slot:activator="{ on }">
                       <v-text-field
                         v-model="date"
-                        label="Licence Expiry Date"
                         prepend-icon="event"
                         readonly
                         v-on="on"
@@ -134,9 +169,11 @@
                     </template>
                     <v-date-picker v-model="date" @input="menu2 = false" :min="setDate"></v-date-picker>
                   </v-menu>
+                  </v-col>
                 </v-col>
-                <v-col cols="12" md="12">
+                <v-col cols="12" md="12" class="pt-0">
                   <v-radio-group
+                  row
                     v-model="addForm.salary_type"
                     :rules="[v => !!v || 'Field is required']"
                   >
@@ -144,13 +181,17 @@
                     <v-radio label="Per Load" value="1"></v-radio>
                   </v-radio-group>
                 </v-col>
-                <v-col cols="12" md="12">
+                <v-col cols="12" md="12" class="pt-0">
+                  <v-col sm="4" class="label-align pt-0">
+                    <label>Driver Salary</label>
+                  </v-col>
+                  <v-col sm="7" class="pt-0">
                   <v-text-field
                     v-model="addForm.driver_salary"
-                    label="Driver Salary"
                     required
                     :rules="salaryRules"
                   ></v-text-field>
+                  </v-col>
                 </v-col>
                 <v-col cols="12" md="12">
                   <file-pond
@@ -174,16 +215,18 @@
                   </div>
                 </v-col>
 
-                <v-radio-group
-                  row
-                  v-model="addForm.driver_type"
-                  :mandatory="false"
-                  required
-                  :rules="[v => !!v || 'Truck type is required']"
-                >
-                  <v-radio label="Truck" value="1"></v-radio>
-                  <v-radio label="Skidsteer" value="0"></v-radio>
-                </v-radio-group>
+                <v-col cols="12" md="12" class="pt-0">
+                  <v-radio-group
+                    row
+                    v-model="addForm.driver_type"
+                    :mandatory="false"
+                    required
+                    :rules="[v => !!v || 'Truck type is required']"
+                  >
+                    <v-radio label="Truck" value="1"></v-radio>
+                    <v-radio label="Skidsteer" value="0"></v-radio>
+                  </v-radio-group>
+                </v-col>
               </v-col>
 
               <v-col cols="12" md="12">

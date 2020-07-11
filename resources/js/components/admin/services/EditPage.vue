@@ -3,7 +3,7 @@
     <v-container fluid>
       <v-row>
         <v-col cols="12" md="12">
-          <h4 class="main-title">Edit Service</h4>
+          <h4 class="main-title text-left">Edit Service</h4>
         </v-col>
         <v-col cols="12" md="12">
           <v-form ref="form" v-model="valid" lazy-validation @submit="update">
@@ -17,9 +17,16 @@
             </v-col>
             <v-col cols="12" md="12">
               <header>Service Time Period</header>
-<input type="checkbox" class="pr-6" v-model="editForm.slot_type" :checked="editForm.slot_type.includes(1) ? true:false" @change="getTime(1)" value="1">Morning
-<br>
-<input type="checkbox" class="pr-6" v-model="editForm.slot_type" :checked="editForm.slot_type.includes(2) ? true:false" @change="getTime(2)" value="2">Evening
+              <div class="custom-checkbox">
+                <input type="checkbox" class="pr-6" v-model="editForm.slot_type" :checked="editForm.slot_type.includes(1) ? true:false" @change="getTime(1)" value="1" id="morningJob">
+                <label for="morningJob"></label>
+                <span class="checkbox-title">Morning</span> 
+              </div>
+              <div class="custom-checkbox">
+                <input type="checkbox" class="pr-6" v-model="editForm.slot_type" :checked="editForm.slot_type.includes(2) ? true:false" @change="getTime(2)" value="2" id="eveningJob">
+                <label for="eveningJob"></label>
+                <span class="checkbox-title">Evening</span>
+              </div>
      <div class="v-messages theme--light error--text" role="alert" v-if="!timeSlotErr">
 		<div class="v-messages__wrapper"><div class="v-messages__message">Service time period is required.</div></div>
 		</div>

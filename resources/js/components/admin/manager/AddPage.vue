@@ -2,7 +2,7 @@
   <v-app>
     <v-container fluid>
       <v-row>
-     <h4 class="main-title">Add New Manager</h4>
+     <h4 class="main-title text-left">Add New Manager</h4>
         <v-col cols="12" md="12">
           <v-form ref="form" v-model="valid" lazy-validation @submit="update">
             <v-row>
@@ -35,85 +35,125 @@
               </v-col>
               <v-col cols="6" md="6" class="pl-0 manager-cols">
                 <v-col cols="12" md="12" class="custom-col">
-                  <v-text-field
-                    v-model="addForm.first_name"
-                    label="Manager name"
-                    required
-                    :rules="[v => !!v || 'Manager name is required']"
-                  ></v-text-field>
+                  <v-col sm="4" class="label-align pt-0">
+                    <label>Manager name</label>
+                  </v-col>
+                  <v-col sm="7" class="pt-0">
+                    <v-text-field
+                      v-model="addForm.first_name"
+                      required
+                      :rules="[v => !!v || 'Manager name is required']"
+                    ></v-text-field>
+                  </v-col>
                 </v-col>
                 <v-col cols="12" md="12" class="custom-col">
-                  <v-text-field
-                    v-model="addForm.email"
-                    :rules="emailRules"
-                    name="email"
-                    label="E-mail"
-                    required
-                  ></v-text-field>
+                  <v-col sm="4" class="label-align pt-0">
+                    <label>E-mail</label>
+                  </v-col>
+                  <v-col sm="7" class="pt-0">
+                    <v-text-field
+                      v-model="addForm.email"
+                      :rules="emailRules"
+                      name="email"
+                      required
+                    ></v-text-field>
+                  </v-col>
                 </v-col>
                 <v-col cols="12" md="12" class="custom-col">
-                  <v-text-field
-                    v-model="addForm.address"
-                    label="Address"
-                    required
-                    :rules="[v => !!v || 'address is required']"
-                  ></v-text-field>
+                  <v-col sm="4" class="label-align pt-0">
+                    <label>Address</label>
+                  </v-col>
+                  <v-col sm="7" class="pt-0">
+                    <v-text-field
+                      v-model="addForm.address"
+                      required
+                      :rules="[v => !!v || 'address is required']"
+                    ></v-text-field>
+                  </v-col>
                 </v-col>
                 <v-col cols="12" md="12" class="custom-col">
-                  <v-text-field
-                    v-model="addForm.city"
-                    label="City"
-                    required
-                    :rules="[v => !!v || 'City is required']"
-                  ></v-text-field>
+                  <v-col sm="4" class="label-align pt-0">
+                    <label>City</label>
+                  </v-col>
+                  <v-col sm="7" class="pt-0">
+                    <v-text-field
+                      v-model="addForm.city"
+                      required
+                      :rules="[v => !!v || 'City is required']"
+                    ></v-text-field>
+                  </v-col>
                 </v-col>
                 <v-col cols="12" md="12" class="custom-col">
-                  <v-text-field
-                    v-model="addForm.state"
-                    label="State"
-                    required
-                    :rules="[v => !!v || 'State is required']"
-                  ></v-text-field>
+                  <v-col sm="4" class="label-align pt-0">
+                    <label>State</label>
+                  </v-col>
+                  <v-col sm="7" class="pt-0">
+                    <v-text-field
+                      v-model="addForm.state"
+                      required
+                      :rules="[v => !!v || 'State is required']"
+                    ></v-text-field>
+                  </v-col>
                 </v-col>
 
                 <v-col cols="12" md="12" class="custom-col">
-                  <v-text-field
-                    v-model="addForm.country"
-                    label="Country"
-                    required
-                    :rules="[v => !!v || 'Country is required']"
-                  ></v-text-field>
+                  <v-col sm="4" class="label-align pt-0">
+                    <label>Country</label>
+                  </v-col>
+                  <v-col sm="7" class="pt-0">
+                    <v-text-field
+                      v-model="addForm.country"
+                      required
+                      :rules="[v => !!v || 'Country is required']"
+                    ></v-text-field>
+                  </v-col>
                 </v-col>
               </v-col>
 
               <v-col cols="6" md="6" class="pl-0 manager-cols">
                 <v-col cols="12" md="12" class="custom-col">
-                  <v-text-field
-                    v-model="addForm.manager_zipcode"
-                    :rules="[v => !!v || 'Zip code is required']"
-                    label="zipcode"
-                    required
-                  ></v-text-field>
+                  <v-col sm="4" class="label-align pt-0">
+                    <label>Zipcode</label>
+                  </v-col>
+                  <v-col sm="7" class="pt-0">
+                    <v-text-field
+                      v-model="addForm.manager_zipcode"
+                      :rules="[v => !!v || 'Zip code is required']"
+                      required
+                    ></v-text-field>
+                  </v-col>
                 </v-col>
                 <v-col cols="12" md="12" class="custom-col">
-                  <v-text-field
-                    v-model="addForm.manager_phone"
-                    :rules="phoneRules"
-                    label="Mobile Number"
-                    required
-                    maxlength="10"
-                  ></v-text-field>
+                  <v-col sm="4" class="label-align pt-0">
+                    <label>Mobile Number</label>
+                  </v-col>
+                  <v-col sm="7" class="pt-0">
+                    <v-text-field
+                      v-model="addForm.manager_phone"
+                      :rules="phoneRules"
+                      required
+                      maxlength="10"
+                    ></v-text-field>
+                  </v-col>
                 </v-col>
                 <v-col cols="12" md="12" class="custom-col">
-                  <v-text-field
-                    v-model="addForm.identification_number"
-                    label="Identification number"
-                    required
-                    :rules="[v => !!v || 'Identification number is required']"
-                  ></v-text-field>
+                  <v-col sm="4" class="label-align pt-0">
+                    <label>Identification number</label>
+                  </v-col>
+                  <v-col sm="7" class="pt-0">
+                    <v-text-field
+                      v-model="addForm.identification_number"
+                      required
+                      :rules="[v => !!v || 'Identification number is required']"
+                    ></v-text-field>
+                  </v-col>
                 </v-col>
 
                 <v-col cols="12" md="12" class="custom-col calendar-col">
+                  <v-col sm="4" class="label-align pt-0">
+                    <label>Joining Date</label>
+                  </v-col>
+                  <v-col sm="7" class="pt-0">
                   <v-menu
                     v-model="menu1"
                     :close-on-content-click="false"
@@ -125,7 +165,6 @@
                     <template v-slot:activator="{ on }">
                       <v-text-field
                         v-model="date"
-                        label="Joining Date"
                         prepend-icon="event"
                         readonly
                         v-on="on"
@@ -135,9 +174,14 @@
                     </template>
                     <v-date-picker v-model="date" @input="menu1 = false"></v-date-picker>
                   </v-menu>
+                  </v-col>
                 </v-col>
 
                 <v-col cols="12" md="12" class="custom-col calendar-col">
+                  <v-col sm="4" class="label-align pt-0">
+                    <label>Releaving date(if required)</label>
+                  </v-col>
+                  <v-col sm="7" class="pt-0">
                   <v-menu
                     v-model="menu2"
                     :close-on-content-click="false"
@@ -149,7 +193,6 @@
                     <template v-slot:activator="{ on }">
                       <v-text-field
                         v-model="date1"
-                        label="Releaving date(if required)"
                         prepend-icon="event"
                         readonly
                         v-on="on"
@@ -157,14 +200,19 @@
                     </template>
                     <v-date-picker v-model="date1" @input="menu2 = false"></v-date-picker>
                   </v-menu>
+                  </v-col>
                 </v-col>
                 <v-col cols="12" md="12" class="custom-col">
-                  <v-text-field
-                    v-model="addForm.salary"
-                    label="Manager Salary"
-                    required
-                    :rules="salaryRules"
-                  ></v-text-field>
+                  <v-col sm="4" class="label-align pt-0">
+                    <label>Manager Salary</label>
+                  </v-col>
+                  <v-col sm="7" class="pt-0">
+                    <v-text-field
+                      v-model="addForm.salary"
+                      required
+                      :rules="salaryRules"
+                    ></v-text-field>
+                  </v-col>
                 </v-col>
                 <v-col cols="12" md="12" class="custom-col custom-img-holder">
                 <!-- single id document -->

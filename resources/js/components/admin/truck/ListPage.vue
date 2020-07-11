@@ -70,8 +70,8 @@
                   <td v-if="item.status == 1">Available</td>
                   <td v-if="item.status == 0">Unavailable</td>
                   <td class="action-col">
-                    <div class="dropdown" v-bind:class="{ 'show': triggerDropdown }">
-                      <more-vertical-icon size="1.5x" class="custom-class dropdown-trigger" v-on:click="dropdownToggle"></more-vertical-icon>
+                    <div class="dropdown" v-bind:class="{ 'show': triggerDropdown == index }">
+                      <more-vertical-icon size="1.5x" class="custom-class dropdown-trigger" v-on:click="dropdownToggle(index)"></more-vertical-icon>
                       <span class="dropdown-menu">
                         <router-link v-if="isAdmin" :to="'/admin/truck/edit/' + item.id" class="dropdown-item">
                           <button class="btn">Edit</button>
@@ -121,7 +121,7 @@ export default {
   data() {
     return {
       dialog: false,
-      triggerDropdown: false,
+      triggerDropdown: null,
       isActive: null,
       on: false,
       trucks: [],
@@ -181,8 +181,13 @@ export default {
     Close() {
       this.dialog = false;
     },
-    dropdownToggle: function() {
-      this.triggerDropdown = !this.triggerDropdown;
+    dropdownToggle: function(setIndex) {
+      //if same index is called up again then close it
+      if(this.triggerDropdown == setIndex) {
+        this.triggerDropdown = null;
+      } else {
+        this.triggerDropdown = setIndex;
+      }
     },
     selectTr: function(rowIndex){
       this.isActive = rowIndex;

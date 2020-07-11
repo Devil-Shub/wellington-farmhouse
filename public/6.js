@@ -448,7 +448,7 @@ var render = function() {
                                           staticClass: "nav-item nav-link",
                                           attrs: {
                                             to:
-                                              "/admin/customer/addfarm/" +
+                                              "/admin/customer/addfarmmore/" +
                                               _vm.addForm.id
                                           }
                                         },
@@ -463,7 +463,7 @@ var render = function() {
                                           staticClass: "nav-item nav-link",
                                           attrs: {
                                             to:
-                                              "/manager/customer/addfarm/" +
+                                              "/manager/customer/addfarmmore/" +
                                               _vm.addForm.id
                                           }
                                         },

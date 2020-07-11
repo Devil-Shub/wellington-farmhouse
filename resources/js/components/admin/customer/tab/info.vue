@@ -7,8 +7,8 @@
             <v-row>
               <v-col cols="12" md="12">
                 <v-row>
-          <router-link v-if="isAdmin" :to="'/admin/customer/addfarm/' + addForm.id" class="nav-item nav-link">Add Another Farm</router-link>
-         <router-link v-if="!isAdmin" :to="'/manager/customer/addfarm/' + addForm.id" class="nav-item nav-link">Add Another Farm</router-link>
+          <router-link v-if="isAdmin" :to="'/admin/customer/addfarmmore/' + addForm.id" class="nav-item nav-link">Add Another Farm</router-link>
+         <router-link v-if="!isAdmin" :to="'/manager/customer/addfarmmore/' + addForm.id" class="nav-item nav-link">Add Another Farm</router-link>
                   <v-col cols="12" md="12">
                     <div
                       class="v-avatar v-list-item__avatar"
