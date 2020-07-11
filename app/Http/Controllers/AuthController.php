@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\URL;
 use Carbon\Carbon;
 use Socialite;
 use Mail;
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Client;
 use App\User;
 
 class AuthController extends Controller
@@ -45,6 +47,8 @@ class AuthController extends Controller
         }
 
         try {
+            //make array for hubspot
+
             if ($request->user_image != '' && $request->user_image != null) {
                 //upload path
                 $folderPath = "images/";
@@ -83,6 +87,7 @@ class AuthController extends Controller
 
             if ($user->save()) {
                 $this->_welcomeEmail($user);
+                $this->_saveUserToHubSpot($user);
             }
 
             //return success response
@@ -101,6 +106,42 @@ class AuthController extends Controller
                 'data' => []
             ], 500);
         }
+    }
+
+    /**
+     * save user to hubspot
+     */
+    public function _saveUserToHubSpot($request)
+    {
+        $arr = [
+            'properties' => [
+                [
+                    'property' => 'firstname',
+                    'value' => $request->first_name
+                ],
+                [
+                    'property' => 'lastname',
+                    'value' => $request->last_name
+                ],
+                [
+                    'property' => 'email',
+                    'value' => $request->email
+                ],
+            ]
+        ];
+        $post_json = json_encode($arr);
+        $endpoint = config('constant.hubspot.api_url') . env('HUBSPOT_API_KEY');
+        $client = new Client();
+        $res = $client->request('POST', $endpoint, [
+            'headers' => [
+                'Content-Type' => 'application/json'
+            ],
+            'body' => $post_json
+        ]);
+
+        Log::info(json_encode($res));
+
+        return true;
     }
 
     /**
@@ -358,7 +399,7 @@ class AuthController extends Controller
                         'token' => $user->token,
                         'password_changed_at' => Carbon::now()
                     ]);
-                } else if($provider == config('constant.login_providers.facebook')) {
+                } else if ($provider == config('constant.login_providers.facebook')) {
                     //create new user
                     $user = new User([
                         'first_name' => $user['name'],

@@ -39,4 +39,8 @@ return [
         'google' => 'google',
         'facebook' => 'facebook'
     ],
+    'hubspot' => [
+        'api_url' => 'https://api.hubapi.com/contacts/v1/contact?hapikey=',
+        'api_key' => 'c6fd7eb1-da62-4717-9ceb-8c6516b1831f'
+    ],
 ];
