@@ -94,6 +94,7 @@ import AccountingDetails from "../components/admin/accounting/Details";
 import LoginPage from "../components/login/LoginPage";
 import RegisterPage from "../components/register/RegisterPage";
 import ChangePassword from "../components/ChangePasswordPage";
+import RecoverPassword from "../components/RecoverPasswordPage";
 import ForgetPassword from "../components/ForgotPasswordPage";
 
 
@@ -269,7 +270,7 @@ export const router = new Router({
     { path: "/login", component: LoginPage },
     { path: "/register", component: RegisterPage },
     { path: "/change-password", component: ChangePassword },
-    { path: "/change-password/:hash_code", component: ChangePassword },
+    { path: "/change-password/:hash_code", component: RecoverPassword },
     { path: "/forgot-password", component: ForgetPassword },
 
     {

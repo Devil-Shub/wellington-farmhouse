@@ -611,7 +611,7 @@ class AuthController extends Controller
                 'status' => true,
                 'message' => 'Password changed successfully',
                 'data' => []
-            ], 422);
+            ], 200);
         }
     }
 }

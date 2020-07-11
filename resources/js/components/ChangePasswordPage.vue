@@ -64,10 +64,11 @@ export default {
     passwordConfirmationRule() {
       return () =>
         this.password === this.confirm_password || "Password must match";
-    }
+    },
   },
   methods: {
     validate() {
+	console.log(this.$route.params);
       const currentUser = authenticationService.currentUserValue;
       if (this.$refs.form.validate()) {
         authenticationService

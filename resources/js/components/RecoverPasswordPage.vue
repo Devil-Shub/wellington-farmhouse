@@ -5,29 +5,45 @@
         <v-row>
           <v-col cols="6" md="6" class="img_bg_outside">
             <div class="img_bg">
-              <img src="images/login_img.png" />
+              <img :src="'../images/login_img.png'" />
             </div>
           </v-col>
           <v-col cols="6" md="6">
-            <div class="login_box">
+           <div class="login_box">
               <div class="login_txt">
-                <h2>Recover your password</h2>
-                <p>Please enter your email address and we'll send you instructions on how to reset your password.</p>
+		<h2>Reset Password</h2>
+                <p>Please enter your new password.</p>
               </div>
-              <v-form ref="form" v-model="valid" lazy-validation class="slide-right">
-                <v-col cols="12" sm="12">
-                  <v-text-field
-                    v-model="email"
-                    :rules="emailRules"
-                    name="email"
-                    label="E-mail"
-                    required
-                  ></v-text-field>
-                </v-col>
+            <v-form ref="form" v-model="valid" lazy-validation class="slide-right">
+              <v-col cols="12" sm="12">
+                <v-text-field
+                  v-model="password"
+                  :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                  :rules="[rules.required, rules.min]"
+                  :type="show1 ? 'text' : 'password'"
+                  name="password"
+                  label="Password"
+                  hint="At least 8 characters"
+                  counter
+                  @click:append="show1 = !show1"
+                ></v-text-field>
+                <v-col cols="12" sm="12"></v-col>
+                <v-text-field
+                  v-model="confirm_password"
+                  :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+                  :rules="[rules.required, rules.min, passwordConfirmationRule]"
+                  :type="show2 ? 'text' : 'password'"
+                  name="confirm_password"
+                  label="Confirm Password"
+                  hint="At least 8 characters"
+                  counter
+                  @click:append="show2 = !show2"
+                ></v-text-field>
+              </v-col>
                 <router-link to="/login" style="margin: 0px 15px;" class="back-btn">Back To Login</router-link>
-                <v-btn class="recover_btn" style="color: #fff;" @click="validate">Recover Password</v-btn>
-              </v-form>
-            </div>
+              <v-btn color="success" class="mr-4 recover_btn" @click="validate">Reset</v-btn>
+            </v-form>
+		</div>
           </v-col>
         </v-row>
       </v-container>
@@ -41,26 +57,32 @@ import { router } from "../_helpers/router";
 import { authenticationService } from "../_services/authentication.service";
 export default {
   data: () => ({
+    show1: false,
+    show2: false,
+    password: "",
+    confirm_password: "",
     valid: true,
-    email: "",
-    emailRules: [
-      v => !!v || "E-mail is required",
-      v => /.+@.+/.test(v) || "E-mail must be valid"
-    ]
+    rules: {
+      required: value => !!value || "Password is equired.",
+      min: v => v.length >= 8 || "Password Min 8 characters"
+    }
   }),
   computed: {
     passwordConfirmationRule() {
       return () =>
         this.password === this.confirm_password || "Password must match";
-    }
+    },
   },
   methods: {
     validate() {
+	console.log(this.$route.params);
       const currentUser = authenticationService.currentUserValue;
       if (this.$refs.form.validate()) {
         authenticationService
-          .forgetpassword({
-            email: this.email,
+          .recoverPassword({
+            hash_code: this.$route.params.hash_code,
+            password: this.password,
+            password_confirmation: this.confirm_password
           })
           .then(response => {
             //handle response
@@ -71,7 +93,7 @@ export default {
                 position: "top-right"
               });
               //redirect to login
-              router.push("/forgot-password");
+              router.push("/login");
             } else {
               this.$toast.open({
                 message: response.message,
@@ -86,6 +108,18 @@ export default {
 };
 </script>
 <style>
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-10%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.slide-right {
+	animation: 1s ease-out 0s 1 slideInFromLeft;
+}
 
 .recover_btn {
   margin: 0px 9px 0px 0px;
@@ -98,19 +132,6 @@ export default {
   padding: 10px 30px;
   border-radius: 7px;
   outline: none;
-}
-
-@keyframes slideInFromLeft {
-  0% {
-    transform: translateX(-10%);
-  }
-  100% {
-    transform: translateX(0);
-  }
-}
-
-.slide-right {
-	animation: 1s ease-out 0s 1 slideInFromLeft;
 }
 
 #login_bg {
@@ -163,6 +184,16 @@ export default {
   align-items: center;
   padding: 10px 0px;
   flex-direction: row-reverse;
+}
+#login_bg .login_form .btn_grp button.login_btn {
+  background: #5c8546;
+  color: #fff;
+  font-size: 13px;
+  text-transform: capitalize;
+  font-weight: 400;
+  padding: 10px 30px;
+  border-radius: 7px;
+  outline: none;
 }
 .social_btn button {
   margin-right: 20px;
