@@ -1,6 +1,5 @@
 <template class="bg_login_img">
   <v-app id="login_bg">
- <img src="images/login-bg4.jpg" />
     <div class="login_form">
              <v-container>
       <v-row>
@@ -107,7 +106,7 @@ import { authenticationService } from "../_services/authentication.service";
   max-width: 100%;
 } */
 #login_bg {
-  background-image: url("/public/images/login-bg.jpg");
+  background-image: url("/images/login-bg4.jpg");
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: cover;

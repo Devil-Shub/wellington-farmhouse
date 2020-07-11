@@ -1,6 +1,5 @@
 <template class="bg_login_img">
   <v-app id="login_bg">
-    <img src="images/login-bg4.jpg" />
     <div class="login_form">
       <v-container>
         <v-row>
@@ -9,7 +8,7 @@
               <img src="images/login_img.png" />
             </div>
           </v-col>
-          <v-col cols="6" md="6">
+          <v-col cols="12" md="6">
             <div class="login_box">
               <div class="login_txt">
                 <h2>Login</h2>
@@ -39,7 +38,7 @@
                   ></v-text-field>
                 </div>
                 <div class="forget">
-                  <v-checkbox v-model="readonly" class="mx-2 custom_checkbox" label="Remember Me"></v-checkbox>
+                  <v-checkbox v-model="readonly" class="mx-2 custom_checkbox" label="Remember me"></v-checkbox>
                   <div class="forget_password">
                     <router-link to="/forget-password">Forgot Password?</router-link>
                   </div>
@@ -192,11 +191,8 @@ export default {
 };
 </script>
 <style>
-/* #login_bg > img {
-  max-width: 100%;
-} */
 #login_bg {
-  background-image: url("/public/images/login-bg.jpg");
+  background-image: url("/images/login-bg4.jpg");
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: cover;
@@ -206,10 +202,10 @@ export default {
   width: 100%;
   margin: auto;
   padding: 20px;
-  position: absolute;
+  /* position: absolute;
   left: 0;
   right: 0;
-  top: calc(50% - 265px);
+  top: calc(50% - 265px); */
 }
 .login_txt {
   padding-bottom: 26px;
@@ -300,8 +296,8 @@ export default {
 .forget .custom_checkbox label {
   top: 4px;
 }
-.v-application .primary--text {
-  color: #5c8545 !important;
+.forget .v-application .primary--text {
+  color: #5c8545;
 }
 .custom_input {
   position: relative;
