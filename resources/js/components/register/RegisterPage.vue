@@ -10,7 +10,7 @@
           </v-col>
         <v-col cols="6" md="6">
 <div class="login_box">
-          <v-form ref="form" v-model="valid" lazy-validation>
+          <v-form ref="form" v-model="valid" lazy-validation class="slide-right">
             <v-col cols="12" md="12">
               <v-text-field v-model="firstname" :rules="FnameRules" label="First name" required></v-text-field>
             </v-col>
@@ -146,6 +146,18 @@ export default {
 };
 </script>
 <style>
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-10%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.slide-right {
+	animation: 1s ease-out 0s 1 slideInFromLeft;
+}
 /* #login_bg > img {
   max-width: 100%;
 } */
