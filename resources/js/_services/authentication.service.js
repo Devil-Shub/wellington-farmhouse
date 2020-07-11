@@ -77,6 +77,9 @@ function login(email, password) {
       if(user.data.user.role_id === 4){
         this.currentUrl = "Home"; 
       }
+      if(user.data.user.role_id === 5){
+        this.currentUrl = "Home"; 
+      }
       return this.currentUrl;
     });
 }

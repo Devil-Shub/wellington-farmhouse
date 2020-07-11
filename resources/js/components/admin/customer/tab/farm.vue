@@ -111,7 +111,8 @@
                 <v-col cols="12" md="12">
                   <h3>Manager Details</h3>
                 </v-col>
-                <v-col cols="12" md="12" v-for="(manager, childIndex) in updateForm.managers">
+		<template  v-for="(manager, childIndex) in updateForm.managers">
+                <v-col cols="12" md="12">
                   <v-row>
                     <v-col cols="12" md="12">
                       <div
@@ -282,6 +283,7 @@
                     </v-col>
                   </v-row>
                 </v-col>
+                </template>
                 <v-col cols="2" md="2">
                       <v-switch class="mx-2" label="Edit" @click="enableForm(parentIndex)"></v-switch>
                     </v-col>

@@ -109,6 +109,8 @@ export const router = new Router({
     { path: "/chat", component: ChatPage, name: 'F_chat', meta: { requiresAuth: [Role.Customer] } },
     { path: "/payment/:unique_id", component: PaymentPage, name: 'Payment', meta: { requiresAuth: [Role.Customer] } },
     { path: "/book-job/:id", component: AddJobPage, name: 'addjobpage', meta: { requiresAuth: [Role.Customer] } },
+
+    { path: "/home", component: HomePage, name: 'MHome', meta: { requiresAuth: [Role.Customer_Manager] } },
     //admin routes
     {
       path: '/admin',
@@ -119,7 +121,7 @@ export const router = new Router({
         { path: 'dashboard', component: Dashboard, name: 'Dashboard', meta: { requiresAuth: [Role.Admin] } },
         { path: 'settings', component: Settings, name: 'Settings', meta: { requiresAuth: [Role.Admin] } },
         { path: 'profile', component: ProfilePage, name: 'Profile' },
-        { path: 'changepassword', component: ChangePasswordPage, name: 'Changepassword', meta: { requiresAuth: [Role.Admin] } },
+        { path: 'changepassword', component: ChangePasswordPage, name: 'AChangepassword', meta: { requiresAuth: [Role.Admin] } },
         { path: 'admin', component: AdminListPage, name: 'Admin', meta: { requiresAuth: [Role.Admin] } },
         { path: 'admin/add', component: AdminAddPage, name: 'AdminAdd', meta: { requiresAuth: [Role.Admin] } },
         { path: 'admin/edit/:id', component: AdminEditPage, name: 'AdminEdit', meta: { requiresAuth: [Role.Admin] } },
