@@ -5,7 +5,7 @@
         <v-row>
           <v-col cols="6" md="6" class="img_bg_outside">
             <div class="img_bg">
-              <img src="images/login_img.png" />
+              <img :src="'../images/login_img.png'" />
             </div>
           </v-col>
           <v-col cols="6" md="6">
@@ -35,7 +35,7 @@
                   @click:append="show2 = !show2"
                 ></v-text-field>
               </v-col>
-              <v-btn color="success" class="mr-4" @click="validate">Update</v-btn>
+              <v-btn color="success" class="mr-4 recover_btn" @click="validate">Update</v-btn>
             </v-form>
           </v-col>
         </v-row>
@@ -111,6 +111,20 @@ export default {
 .slide-right {
 	animation: 1s ease-out 0s 1 slideInFromLeft;
 }
+
+.recover_btn {
+  margin: 0px 9px 0px 0px;
+  float: right;
+  background: #5c8546 !important;
+  color: #fff;
+  font-size: 13px;
+  text-transform: capitalize;
+  font-weight: 400;
+  padding: 10px 30px;
+  border-radius: 7px;
+  outline: none;
+}
+
 #login_bg {
   background-image: url("/images/login-bg4.jpg");
   background-position: 50%;
