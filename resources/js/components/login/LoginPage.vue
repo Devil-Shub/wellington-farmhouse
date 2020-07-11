@@ -14,7 +14,7 @@
                 <h2>Login</h2>
                 <p>Welcome back, please login to your account.</p>
               </div>
-              <v-form ref="form" v-model="valid" lazy-validation>
+              <v-form ref="form" v-model="valid" lazy-validation class="slide-right">
                 <label for="email">E-mail</label>
                 <div class="custom_input">
                   <user-icon size="1.5x" class="custom-class icons_custom"></user-icon>
@@ -191,6 +191,19 @@ export default {
 };
 </script>
 <style>
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-10%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.slide-right {
+	animation: 1s ease-out 0s 1 slideInFromLeft;
+}
+
 #login_bg {
   background-image: url("/images/login-bg4.jpg");
   background-position: 50%;
