@@ -40,7 +40,7 @@
                 <div class="forget">
                   <v-checkbox v-model="readonly" class="mx-2 custom_checkbox" label="Remember me"></v-checkbox>
                   <div class="forget_password">
-                    <router-link to="/forget-passowrd">Forgot Password?</router-link>
+                    <router-link to="/forgot-password">Forgot Password?</router-link>
                   </div>
                 </div>
                 <div class="btn_grp">

@@ -268,8 +268,9 @@ export const router = new Router({
     },
     { path: "/login", component: LoginPage },
     { path: "/register", component: RegisterPage },
-    { path: "/change-passowrd", component: ChangePassword },
-    { path: "/forget-passowrd", component: ForgetPassword },
+    { path: "/change-password", component: ChangePassword },
+    { path: "/change-password/:hash_code", component: ChangePassword },
+    { path: "/forgot-password", component: ForgetPassword },
 
     {
       path: '/auth/:provider/callback',
@@ -297,7 +298,7 @@ router.beforeEach((to, from, next) => {
     // check if route is restricted by role
     if (requiresAuth.length && requiresAuth.includes(currentUser.data.user.role_id)) {
       if (!currentUser.data.user.password_changed_at) {
-        return next({ path: "/change-passowrd", query: { returnUrl: to.path } });
+        return next({ path: "/change-password", query: { returnUrl: to.path } });
       }
     }
 

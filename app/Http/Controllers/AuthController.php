@@ -528,4 +528,90 @@ class AuthController extends Controller
 
         // return Redirect::back();
     }
+
+    /**
+     * forgot password
+     */
+    public function forgotPassword(Request $request)
+    {
+
+        try {
+            $user = User::whereEmail($request->email)->first();
+            //return with error if email not found
+            if (!$user) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Email not found!',
+                    'data' => []
+                ], 404);
+            }
+
+            $name = $user->first_name . ' ' . $user->last_name;
+            $data = array(
+                'name' => $name,
+                'email' => $user->email,
+                'verificationLink' => env('APP_URL') . 'change-password/' . base64_encode($user->email)
+            );
+
+            $sendForGotEmail = Mail::send('email_templates.forgot_password', $data, function ($message) use ($user, $name) {
+                $message->to($user->email, $name)->subject('Email Confirmation');
+                $message->from(env('MAIL_USERNAME'), env('MAIL_USERNAME'));
+            });
+
+            return response()->json([
+                'status' => true,
+                'message' => 'We have sent you a email for change password link. Please check and proceed further.',
+                'data' => []
+            ]);
+        } catch (\Exception $e) {
+            //make log of errors
+            Log::error(json_encode($e->getMessage()));
+            //return with error
+            return response()->json([
+                'status' => false,
+                'message' => 'Internal server error!',
+                'data' => []
+            ], 500);
+        }
+    }
+
+    /**
+     * recover password
+     */
+    public function recoverPassword(Request $request)
+    {
+        //validate request
+        $validator = Validator::make($request->all(), [
+            'password' => 'required|confirmed'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'The given data was invalid.',
+                'data' => $validator->errors()
+            ], 422);
+        }
+
+        $user = User::whereEmail(base64_decode($request->hash_code))->first();
+        //return with error if email not found
+        if (!$user) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Link Expired!',
+                'data' => []
+            ], 422);
+        } else {
+            $user->password = bcrypt($request->password);
+            $user->password_changed_at = Carbon::now();
+
+            $user->save();
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Password changed successfully',
+                'data' => []
+            ], 422);
+        }
+    }
 }
