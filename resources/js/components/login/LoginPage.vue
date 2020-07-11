@@ -17,26 +17,29 @@
               </div>
               <v-form ref="form" v-model="valid" lazy-validation>
                 <label for="email">E-mail</label>
-                <user-icon size="1.5x" class="custom-class"></user-icon>
-                <v-text-field
-                  v-model="email"
-                  :rules="emailRules"
-                  name="email"
-                  placeholder="Enter email"
-                  prepend-inner-icon="user-icon"
-                  id="email"
-                ></v-text-field>
+                <div class="custom_input">
+                  <user-icon size="1.5x" class="custom-class icons_custom"></user-icon>
+                  <v-text-field
+                    v-model="email"
+                    :rules="emailRules"
+                    name="email"
+                    placeholder="Enter email"
+                    id="email"
+                  ></v-text-field>
+                </div>
                 <label for>Password</label>
-		  <lock-icon size="1.5x" class="custom-class"></lock-icon>
-                <v-text-field
-                  v-model="password"
-                  :rules="[rules.required]"
-                  :type="show1 ? 'text' : 'password'"
-                  name="password"
-                  placeholder="Enter password"
-                ></v-text-field>
+                <div class="custom_input">
+                  <lock-icon size="1.5x" class="custom-class icons_custom"></lock-icon>
+                  <v-text-field
+                    v-model="password"
+                    :rules="[rules.required]"
+                    :type="show1 ? 'text' : 'password'"
+                    name="password"
+                    placeholder="Enter password"
+                  ></v-text-field>
+                </div>
                 <div class="forget">
-                  <v-checkbox v-model="readonly" class="mx-2 custom_checkbox" label="Read-only"></v-checkbox>
+                  <v-checkbox v-model="readonly" class="mx-2 custom_checkbox" label="Remember Me"></v-checkbox>
                   <div class="forget_password">
                     <router-link to="/forget-password">Forgot Password?</router-link>
                   </div>
@@ -67,13 +70,13 @@
 
 <script>
 import { required } from "vuelidate/lib/validators";
-import { UserIcon, LockIcon } from 'vue-feather-icons'
+import { UserIcon, LockIcon } from "vue-feather-icons";
 import { router } from "../../_helpers/router";
 import { authenticationService } from "../../_services/authentication.service";
 
 export default {
   name: "login",
- components: {
+  components: {
     UserIcon,
     LockIcon
   },
@@ -82,7 +85,7 @@ export default {
       valid: true,
       show1: false,
       email: "",
-      readonly: '',
+      readonly: "",
       emailRules: [
         v => !!v || "E-mail is required",
         v => /.+@.+/.test(v) || "E-mail must be valid"
@@ -270,7 +273,11 @@ export default {
   margin-top: 0px;
 }
 .v-input input {
- 
+  max-height: 94px;
+  padding: 13px;
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  border-radius: 6px;
+  padding-left: 48px;
 }
 .v-application .error--text {
   border: none;
@@ -295,6 +302,17 @@ export default {
 }
 .v-application .primary--text {
   color: #5c8545 !important;
+}
+.custom_input {
+  position: relative;
+}
+.custom_input .icons_custom {
+  position: absolute;
+  top: 12px;
+  left: 15px;
+}
+.custom_input .icons_custom {
+  color: rgba(0, 0, 0, 0.4);
 }
 @media only screen and (max-width: 992px) {
   .img_bg_outside {
