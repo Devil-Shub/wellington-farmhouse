@@ -23,6 +23,8 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('login', 'AuthController@login');
     Route::post('signup', 'AuthController@signup');
     Route::get('confirm-email/{decode_code}', 'AuthController@confirmEmail');
+    Route::post('forgot-password', 'AuthController@forgotPassword');
+    Route::post('recover-password', 'AuthController@recoverPassword');
     //Route::get('confirm-update-email/{email}/{id}', 'AuthController@confirmUpdateEmail');
 
     //Auth full routes

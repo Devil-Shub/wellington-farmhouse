@@ -318,6 +318,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -1103,705 +1105,732 @@ var render = function() {
                                 manager,
                                 childIndex
                               ) {
-                                return _c(
-                                  "v-col",
-                                  { attrs: { cols: "12", md: "12" } },
-                                  [
-                                    _c(
-                                      "v-row",
-                                      [
-                                        _c(
-                                          "v-col",
-                                          { attrs: { cols: "12", md: "12" } },
-                                          [
-                                            _c(
-                                              "div",
-                                              {
-                                                staticClass:
-                                                  "v-avatar v-list-item__avatar",
-                                                staticStyle: {
-                                                  height: "40px",
-                                                  "min-width": "40px",
-                                                  width: "40px"
-                                                }
-                                              },
-                                              [
-                                                _c("img", {
-                                                  attrs: {
-                                                    src:
-                                                      "../../../" +
-                                                      manager.manager_image
+                                return [
+                                  _c(
+                                    "v-col",
+                                    { attrs: { cols: "12", md: "12" } },
+                                    [
+                                      _c(
+                                        "v-row",
+                                        [
+                                          _c(
+                                            "v-col",
+                                            { attrs: { cols: "12", md: "12" } },
+                                            [
+                                              _c(
+                                                "div",
+                                                {
+                                                  staticClass:
+                                                    "v-avatar v-list-item__avatar",
+                                                  staticStyle: {
+                                                    height: "40px",
+                                                    "min-width": "40px",
+                                                    width: "40px"
                                                   }
-                                                })
-                                              ]
-                                            ),
-                                            _vm._v(" "),
-                                            _c("file-pond", {
-                                              ref: "pond",
-                                              refInFor: true,
-                                              attrs: {
-                                                name: "uploadImage",
-                                                "label-idle": "Add Profile Pic",
-                                                "allow-multiple": "false",
-                                                server: _vm.serverOptions,
-                                                files: _vm.myFiles,
-                                                "allow-file-type-validation":
-                                                  "true",
-                                                "accepted-file-types":
-                                                  "image/jpeg, image/png",
-                                                disabled: _vm.formDisable.includes(
-                                                  parentIndex
-                                                )
-                                                  ? true
-                                                  : false
-                                              },
-                                              on: {
-                                                addfilestart: function($event) {
-                                                  return _vm.setUploadIndex(
-                                                    parentIndex,
-                                                    childIndex
-                                                  )
                                                 },
-                                                processfile:
-                                                  _vm.handleProcessFile2,
-                                                processfilerevert: function(
-                                                  $event
-                                                ) {
-                                                  return _vm.handleRemoveFile2(
-                                                    parentIndex,
-                                                    childIndex
+                                                [
+                                                  _c("img", {
+                                                    attrs: {
+                                                      src:
+                                                        "../../../" +
+                                                        manager.manager_image
+                                                    }
+                                                  })
+                                                ]
+                                              ),
+                                              _vm._v(" "),
+                                              _c("file-pond", {
+                                                ref: "pond",
+                                                refInFor: true,
+                                                attrs: {
+                                                  name: "uploadImage",
+                                                  "label-idle":
+                                                    "Add Profile Pic",
+                                                  "allow-multiple": "false",
+                                                  server: _vm.serverOptions,
+                                                  files: _vm.myFiles,
+                                                  "allow-file-type-validation":
+                                                    "true",
+                                                  "accepted-file-types":
+                                                    "image/jpeg, image/png",
+                                                  disabled: _vm.formDisable.includes(
+                                                    parentIndex
                                                   )
-                                                }
-                                              }
-                                            })
-                                          ],
-                                          1
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "v-col",
-                                          { attrs: { cols: "3", md: "3" } },
-                                          [
-                                            _c(
-                                              "v-col",
-                                              {
-                                                staticClass: "pl-0 pt-0 pb-0",
-                                                attrs: { cols: "4", sm: "4" }
-                                              },
-                                              [
-                                                _c(
-                                                  "label",
-                                                  { staticClass: "ft-normal" },
-                                                  [_vm._v("Prefix")]
-                                                )
-                                              ]
-                                            ),
-                                            _vm._v(" "),
-                                            _c(
-                                              "v-col",
-                                              {
-                                                staticClass: "p-0 ml-m4",
-                                                attrs: { cols: "8", sm: "8" }
-                                              },
-                                              [
-                                                _c("v-select", {
-                                                  staticClass: "disabled-tag",
-                                                  attrs: {
-                                                    items: _vm.prefixs,
-                                                    label: "Select",
-                                                    rules: [
-                                                      function(v) {
-                                                        return (
-                                                          !!v ||
-                                                          "Prefix is required"
-                                                        )
-                                                      }
-                                                    ],
-                                                    disabled: _vm.formDisable.includes(
-                                                      parentIndex
-                                                    )
-                                                      ? true
-                                                      : false
-                                                  },
-                                                  model: {
-                                                    value:
-                                                      manager.manager_prefix,
-                                                    callback: function($$v) {
-                                                      _vm.$set(
-                                                        manager,
-                                                        "manager_prefix",
-                                                        $$v
-                                                      )
-                                                    },
-                                                    expression:
-                                                      "manager.manager_prefix"
-                                                  }
-                                                })
-                                              ],
-                                              1
-                                            )
-                                          ],
-                                          1
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "v-col",
-                                          { attrs: { cols: "3", md: "3" } },
-                                          [
-                                            _c(
-                                              "v-col",
-                                              {
-                                                staticClass: "pl-0 pt-0 pb-0",
-                                                attrs: { cols: "4", sm: "4" }
-                                              },
-                                              [
-                                                _c(
-                                                  "label",
-                                                  { staticClass: "ft-normal" },
-                                                  [_vm._v("Name")]
-                                                )
-                                              ]
-                                            ),
-                                            _vm._v(" "),
-                                            _c(
-                                              "v-col",
-                                              {
-                                                staticClass: "p-0 ml-m4",
-                                                attrs: { cols: "8", sm: "8" }
-                                              },
-                                              [
-                                                _c("v-text-field", {
-                                                  staticClass: "disabled-tag",
-                                                  attrs: {
-                                                    required: "",
-                                                    rules: [
-                                                      function(v) {
-                                                        return (
-                                                          !!v ||
-                                                          "Manager name is required"
-                                                        )
-                                                      }
-                                                    ],
-                                                    disabled: _vm.formDisable.includes(
-                                                      parentIndex
-                                                    )
-                                                      ? true
-                                                      : false
-                                                  },
-                                                  model: {
-                                                    value: manager.manager_name,
-                                                    callback: function($$v) {
-                                                      _vm.$set(
-                                                        manager,
-                                                        "manager_name",
-                                                        $$v
-                                                      )
-                                                    },
-                                                    expression:
-                                                      "manager.manager_name"
-                                                  }
-                                                })
-                                              ],
-                                              1
-                                            )
-                                          ],
-                                          1
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "v-col",
-                                          { attrs: { cols: "3", md: "3" } },
-                                          [
-                                            _c(
-                                              "v-col",
-                                              {
-                                                staticClass: "pl-0 pt-0 pb-0",
-                                                attrs: { cols: "4", sm: "4" }
-                                              },
-                                              [
-                                                _c(
-                                                  "label",
-                                                  { staticClass: "ft-normal" },
-                                                  [_vm._v("E-mail")]
-                                                )
-                                              ]
-                                            ),
-                                            _vm._v(" "),
-                                            _c(
-                                              "v-col",
-                                              {
-                                                staticClass: "p-0 ml-m4",
-                                                attrs: { cols: "8", sm: "8" }
-                                              },
-                                              [
-                                                _c("v-text-field", {
-                                                  staticClass: "disabled-tag",
-                                                  attrs: {
-                                                    rules: _vm.emailRules,
-                                                    disabled: _vm.formDisable.includes(
-                                                      parentIndex
-                                                    )
-                                                      ? true
-                                                      : false,
-                                                    name: "email",
-                                                    required: ""
-                                                  },
-                                                  model: {
-                                                    value:
-                                                      manager.manager_email,
-                                                    callback: function($$v) {
-                                                      _vm.$set(
-                                                        manager,
-                                                        "manager_email",
-                                                        $$v
-                                                      )
-                                                    },
-                                                    expression:
-                                                      "manager.manager_email"
-                                                  }
-                                                })
-                                              ],
-                                              1
-                                            )
-                                          ],
-                                          1
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "v-col",
-                                          { attrs: { cols: "3", md: "3" } },
-                                          [
-                                            _c(
-                                              "v-col",
-                                              {
-                                                staticClass: "pl-0 pt-0 pb-0",
-                                                attrs: { cols: "4", sm: "4" }
-                                              },
-                                              [
-                                                _c(
-                                                  "label",
-                                                  { staticClass: "ft-normal" },
-                                                  [_vm._v("Phone")]
-                                                )
-                                              ]
-                                            ),
-                                            _vm._v(" "),
-                                            _c(
-                                              "v-col",
-                                              {
-                                                staticClass: "p-0 ml-m4",
-                                                attrs: { cols: "8", sm: "8" }
-                                              },
-                                              [
-                                                _c("v-text-field", {
-                                                  staticClass: "disabled-tag",
-                                                  attrs: {
-                                                    rules: _vm.phoneRules,
-                                                    disabled: _vm.formDisable.includes(
-                                                      parentIndex
-                                                    )
-                                                      ? true
-                                                      : false,
-                                                    required: "",
-                                                    maxlength: "10"
-                                                  },
-                                                  model: {
-                                                    value:
-                                                      manager.manager_phone,
-                                                    callback: function($$v) {
-                                                      _vm.$set(
-                                                        manager,
-                                                        "manager_phone",
-                                                        $$v
-                                                      )
-                                                    },
-                                                    expression:
-                                                      "manager.manager_phone"
-                                                  }
-                                                })
-                                              ],
-                                              1
-                                            )
-                                          ],
-                                          1
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "v-col",
-                                          { attrs: { cols: "3", md: "3" } },
-                                          [
-                                            _c(
-                                              "v-col",
-                                              {
-                                                staticClass: "pl-0 pt-0 pb-0",
-                                                attrs: { cols: "4", sm: "4" }
-                                              },
-                                              [
-                                                _c(
-                                                  "label",
-                                                  { staticClass: "ft-normal" },
-                                                  [_vm._v("Address")]
-                                                )
-                                              ]
-                                            ),
-                                            _vm._v(" "),
-                                            _c(
-                                              "v-col",
-                                              {
-                                                staticClass: "p-0 ml-m4",
-                                                attrs: { cols: "8", sm: "8" }
-                                              },
-                                              [
-                                                _c("v-text-field", {
-                                                  staticClass: "disabled-tag",
-                                                  attrs: {
-                                                    required: "",
-                                                    rules: [
-                                                      function(v) {
-                                                        return (
-                                                          !!v ||
-                                                          "address is required"
-                                                        )
-                                                      }
-                                                    ],
-                                                    disabled: _vm.formDisable.includes(
-                                                      parentIndex
-                                                    )
-                                                      ? true
-                                                      : false
-                                                  },
-                                                  model: {
-                                                    value:
-                                                      manager.manager_address,
-                                                    callback: function($$v) {
-                                                      _vm.$set(
-                                                        manager,
-                                                        "manager_address",
-                                                        $$v
-                                                      )
-                                                    },
-                                                    expression:
-                                                      "manager.manager_address"
-                                                  }
-                                                })
-                                              ],
-                                              1
-                                            )
-                                          ],
-                                          1
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "v-col",
-                                          { attrs: { cols: "3", md: "3" } },
-                                          [
-                                            _c(
-                                              "v-col",
-                                              {
-                                                staticClass: "pl-0 pt-0 pb-0",
-                                                attrs: { cols: "4", sm: "4" }
-                                              },
-                                              [
-                                                _c(
-                                                  "label",
-                                                  { staticClass: "ft-normal" },
-                                                  [_vm._v("City")]
-                                                )
-                                              ]
-                                            ),
-                                            _vm._v(" "),
-                                            _c(
-                                              "v-col",
-                                              {
-                                                staticClass: "p-0 ml-m4",
-                                                attrs: { cols: "8", sm: "8" }
-                                              },
-                                              [
-                                                _c("v-text-field", {
-                                                  staticClass: "disabled-tag",
-                                                  attrs: {
-                                                    required: "",
-                                                    rules: [
-                                                      function(v) {
-                                                        return (
-                                                          !!v ||
-                                                          "City is required"
-                                                        )
-                                                      }
-                                                    ],
-                                                    disabled: _vm.formDisable.includes(
-                                                      parentIndex
-                                                    )
-                                                      ? true
-                                                      : false
-                                                  },
-                                                  model: {
-                                                    value: manager.manager_city,
-                                                    callback: function($$v) {
-                                                      _vm.$set(
-                                                        manager,
-                                                        "manager_city",
-                                                        $$v
-                                                      )
-                                                    },
-                                                    expression:
-                                                      "manager.manager_city"
-                                                  }
-                                                })
-                                              ],
-                                              1
-                                            )
-                                          ],
-                                          1
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "v-col",
-                                          { attrs: { cols: "3", md: "3" } },
-                                          [
-                                            _c(
-                                              "v-col",
-                                              {
-                                                staticClass: "pl-0 pt-0 pb-0",
-                                                attrs: { cols: "4", sm: "4" }
-                                              },
-                                              [
-                                                _c(
-                                                  "label",
-                                                  { staticClass: "ft-normal" },
-                                                  [_vm._v("State")]
-                                                )
-                                              ]
-                                            ),
-                                            _vm._v(" "),
-                                            _c(
-                                              "v-col",
-                                              {
-                                                staticClass: "p-0 ml-m4",
-                                                attrs: { cols: "8", sm: "8" }
-                                              },
-                                              [
-                                                _c("v-text-field", {
-                                                  staticClass: "disabled-tag",
-                                                  attrs: {
-                                                    required: "",
-                                                    rules: [
-                                                      function(v) {
-                                                        return (
-                                                          !!v ||
-                                                          "Province is required"
-                                                        )
-                                                      }
-                                                    ],
-                                                    disabled: _vm.formDisable.includes(
-                                                      parentIndex
-                                                    )
-                                                      ? true
-                                                      : false
-                                                  },
-                                                  model: {
-                                                    value:
-                                                      manager.manager_province,
-                                                    callback: function($$v) {
-                                                      _vm.$set(
-                                                        manager,
-                                                        "manager_province",
-                                                        $$v
-                                                      )
-                                                    },
-                                                    expression:
-                                                      "manager.manager_province"
-                                                  }
-                                                })
-                                              ],
-                                              1
-                                            )
-                                          ],
-                                          1
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "v-col",
-                                          { attrs: { cols: "3", md: "3" } },
-                                          [
-                                            _c(
-                                              "v-col",
-                                              {
-                                                staticClass: "pl-0 pt-0 pb-0",
-                                                attrs: { cols: "4", sm: "4" }
-                                              },
-                                              [
-                                                _c(
-                                                  "label",
-                                                  { staticClass: "ft-normal" },
-                                                  [_vm._v("zipcode")]
-                                                )
-                                              ]
-                                            ),
-                                            _vm._v(" "),
-                                            _c(
-                                              "v-col",
-                                              {
-                                                staticClass: "p-0 ml-m4",
-                                                attrs: { cols: "8", sm: "8" }
-                                              },
-                                              [
-                                                _c("v-text-field", {
-                                                  staticClass: "disabled-tag",
-                                                  attrs: {
-                                                    rules: [
-                                                      function(v) {
-                                                        return (
-                                                          !!v ||
-                                                          "Zip code is required"
-                                                        )
-                                                      }
-                                                    ],
-                                                    disabled: _vm.formDisable.includes(
-                                                      parentIndex
-                                                    )
-                                                      ? true
-                                                      : false,
-                                                    required: ""
-                                                  },
-                                                  model: {
-                                                    value:
-                                                      manager.manager_zipcode,
-                                                    callback: function($$v) {
-                                                      _vm.$set(
-                                                        manager,
-                                                        "manager_zipcode",
-                                                        $$v
-                                                      )
-                                                    },
-                                                    expression:
-                                                      "manager.manager_zipcode"
-                                                  }
-                                                })
-                                              ],
-                                              1
-                                            )
-                                          ],
-                                          1
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "v-col",
-                                          { attrs: { cols: "3", md: "3" } },
-                                          [
-                                            _c(
-                                              "v-col",
-                                              {
-                                                staticClass: "pl-0 pt-0 pb-0",
-                                                attrs: { cols: "4", sm: "4" }
-                                              },
-                                              [
-                                                _c(
-                                                  "label",
-                                                  { staticClass: "ft-normal" },
-                                                  [_vm._v("Id CardNo")]
-                                                )
-                                              ]
-                                            ),
-                                            _vm._v(" "),
-                                            _c(
-                                              "v-col",
-                                              {
-                                                staticClass: "p-0 ml-m4",
-                                                attrs: { cols: "8", sm: "8" }
-                                              },
-                                              [
-                                                _c("v-text-field", {
-                                                  staticClass: "disabled-tag",
-                                                  attrs: {
-                                                    rules: [
-                                                      function(v) {
-                                                        return (
-                                                          !!v ||
-                                                          "Card Id number is required"
-                                                        )
-                                                      }
-                                                    ],
-                                                    disabled: _vm.formDisable.includes(
-                                                      parentIndex
-                                                    )
-                                                      ? true
-                                                      : false,
-                                                    required: ""
-                                                  },
-                                                  model: {
-                                                    value:
-                                                      manager.manager_id_card,
-                                                    callback: function($$v) {
-                                                      _vm.$set(
-                                                        manager,
-                                                        "manager_id_card",
-                                                        $$v
-                                                      )
-                                                    },
-                                                    expression:
-                                                      "manager.manager_id_card"
-                                                  }
-                                                })
-                                              ],
-                                              1
-                                            )
-                                          ],
-                                          1
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "v-col",
-                                          { attrs: { cols: "4", md: "4" } },
-                                          [
-                                            _c("file-pond", {
-                                              ref: "pond",
-                                              refInFor: true,
-                                              attrs: {
-                                                name: "uploadImage",
-                                                "label-idle":
-                                                  "Upload Id Card Image",
-                                                "allow-multiple": "false",
-                                                server: _vm.serverOptions,
-                                                files: _vm.myFiles,
-                                                "allow-file-type-validation":
-                                                  "true",
-                                                "accepted-file-types":
-                                                  "image/jpeg, image/png",
-                                                disabled: _vm.formDisable.includes(
-                                                  parentIndex
-                                                )
-                                                  ? true
-                                                  : false
-                                              },
-                                              on: {
-                                                addfilestart: function($event) {
-                                                  return _vm.setUploadIndex(
-                                                    parentIndex,
-                                                    childIndex
-                                                  )
+                                                    ? true
+                                                    : false
                                                 },
-                                                processfile:
-                                                  _vm.handleProcessFile3,
-                                                processfilerevert: function(
-                                                  $event
-                                                ) {
-                                                  return _vm.handleRemoveFile3(
-                                                    parentIndex,
-                                                    childIndex
-                                                  )
+                                                on: {
+                                                  addfilestart: function(
+                                                    $event
+                                                  ) {
+                                                    return _vm.setUploadIndex(
+                                                      parentIndex,
+                                                      childIndex
+                                                    )
+                                                  },
+                                                  processfile:
+                                                    _vm.handleProcessFile2,
+                                                  processfilerevert: function(
+                                                    $event
+                                                  ) {
+                                                    return _vm.handleRemoveFile2(
+                                                      parentIndex,
+                                                      childIndex
+                                                    )
+                                                  }
                                                 }
-                                              }
-                                            })
-                                          ],
-                                          1
-                                        )
-                                      ],
-                                      1
-                                    )
-                                  ],
-                                  1
-                                )
+                                              })
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-col",
+                                            { attrs: { cols: "3", md: "3" } },
+                                            [
+                                              _c(
+                                                "v-col",
+                                                {
+                                                  staticClass: "pl-0 pt-0 pb-0",
+                                                  attrs: { cols: "4", sm: "4" }
+                                                },
+                                                [
+                                                  _c(
+                                                    "label",
+                                                    {
+                                                      staticClass: "ft-normal"
+                                                    },
+                                                    [_vm._v("Prefix")]
+                                                  )
+                                                ]
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "v-col",
+                                                {
+                                                  staticClass: "p-0 ml-m4",
+                                                  attrs: { cols: "8", sm: "8" }
+                                                },
+                                                [
+                                                  _c("v-select", {
+                                                    staticClass: "disabled-tag",
+                                                    attrs: {
+                                                      items: _vm.prefixs,
+                                                      label: "Select",
+                                                      rules: [
+                                                        function(v) {
+                                                          return (
+                                                            !!v ||
+                                                            "Prefix is required"
+                                                          )
+                                                        }
+                                                      ],
+                                                      disabled: _vm.formDisable.includes(
+                                                        parentIndex
+                                                      )
+                                                        ? true
+                                                        : false
+                                                    },
+                                                    model: {
+                                                      value:
+                                                        manager.manager_prefix,
+                                                      callback: function($$v) {
+                                                        _vm.$set(
+                                                          manager,
+                                                          "manager_prefix",
+                                                          $$v
+                                                        )
+                                                      },
+                                                      expression:
+                                                        "manager.manager_prefix"
+                                                    }
+                                                  })
+                                                ],
+                                                1
+                                              )
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-col",
+                                            { attrs: { cols: "3", md: "3" } },
+                                            [
+                                              _c(
+                                                "v-col",
+                                                {
+                                                  staticClass: "pl-0 pt-0 pb-0",
+                                                  attrs: { cols: "4", sm: "4" }
+                                                },
+                                                [
+                                                  _c(
+                                                    "label",
+                                                    {
+                                                      staticClass: "ft-normal"
+                                                    },
+                                                    [_vm._v("Name")]
+                                                  )
+                                                ]
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "v-col",
+                                                {
+                                                  staticClass: "p-0 ml-m4",
+                                                  attrs: { cols: "8", sm: "8" }
+                                                },
+                                                [
+                                                  _c("v-text-field", {
+                                                    staticClass: "disabled-tag",
+                                                    attrs: {
+                                                      required: "",
+                                                      rules: [
+                                                        function(v) {
+                                                          return (
+                                                            !!v ||
+                                                            "Manager name is required"
+                                                          )
+                                                        }
+                                                      ],
+                                                      disabled: _vm.formDisable.includes(
+                                                        parentIndex
+                                                      )
+                                                        ? true
+                                                        : false
+                                                    },
+                                                    model: {
+                                                      value:
+                                                        manager.manager_name,
+                                                      callback: function($$v) {
+                                                        _vm.$set(
+                                                          manager,
+                                                          "manager_name",
+                                                          $$v
+                                                        )
+                                                      },
+                                                      expression:
+                                                        "manager.manager_name"
+                                                    }
+                                                  })
+                                                ],
+                                                1
+                                              )
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-col",
+                                            { attrs: { cols: "3", md: "3" } },
+                                            [
+                                              _c(
+                                                "v-col",
+                                                {
+                                                  staticClass: "pl-0 pt-0 pb-0",
+                                                  attrs: { cols: "4", sm: "4" }
+                                                },
+                                                [
+                                                  _c(
+                                                    "label",
+                                                    {
+                                                      staticClass: "ft-normal"
+                                                    },
+                                                    [_vm._v("E-mail")]
+                                                  )
+                                                ]
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "v-col",
+                                                {
+                                                  staticClass: "p-0 ml-m4",
+                                                  attrs: { cols: "8", sm: "8" }
+                                                },
+                                                [
+                                                  _c("v-text-field", {
+                                                    staticClass: "disabled-tag",
+                                                    attrs: {
+                                                      rules: _vm.emailRules,
+                                                      disabled: _vm.formDisable.includes(
+                                                        parentIndex
+                                                      )
+                                                        ? true
+                                                        : false,
+                                                      name: "email",
+                                                      required: ""
+                                                    },
+                                                    model: {
+                                                      value:
+                                                        manager.manager_email,
+                                                      callback: function($$v) {
+                                                        _vm.$set(
+                                                          manager,
+                                                          "manager_email",
+                                                          $$v
+                                                        )
+                                                      },
+                                                      expression:
+                                                        "manager.manager_email"
+                                                    }
+                                                  })
+                                                ],
+                                                1
+                                              )
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-col",
+                                            { attrs: { cols: "3", md: "3" } },
+                                            [
+                                              _c(
+                                                "v-col",
+                                                {
+                                                  staticClass: "pl-0 pt-0 pb-0",
+                                                  attrs: { cols: "4", sm: "4" }
+                                                },
+                                                [
+                                                  _c(
+                                                    "label",
+                                                    {
+                                                      staticClass: "ft-normal"
+                                                    },
+                                                    [_vm._v("Phone")]
+                                                  )
+                                                ]
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "v-col",
+                                                {
+                                                  staticClass: "p-0 ml-m4",
+                                                  attrs: { cols: "8", sm: "8" }
+                                                },
+                                                [
+                                                  _c("v-text-field", {
+                                                    staticClass: "disabled-tag",
+                                                    attrs: {
+                                                      rules: _vm.phoneRules,
+                                                      disabled: _vm.formDisable.includes(
+                                                        parentIndex
+                                                      )
+                                                        ? true
+                                                        : false,
+                                                      required: "",
+                                                      maxlength: "10"
+                                                    },
+                                                    model: {
+                                                      value:
+                                                        manager.manager_phone,
+                                                      callback: function($$v) {
+                                                        _vm.$set(
+                                                          manager,
+                                                          "manager_phone",
+                                                          $$v
+                                                        )
+                                                      },
+                                                      expression:
+                                                        "manager.manager_phone"
+                                                    }
+                                                  })
+                                                ],
+                                                1
+                                              )
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-col",
+                                            { attrs: { cols: "3", md: "3" } },
+                                            [
+                                              _c(
+                                                "v-col",
+                                                {
+                                                  staticClass: "pl-0 pt-0 pb-0",
+                                                  attrs: { cols: "4", sm: "4" }
+                                                },
+                                                [
+                                                  _c(
+                                                    "label",
+                                                    {
+                                                      staticClass: "ft-normal"
+                                                    },
+                                                    [_vm._v("Address")]
+                                                  )
+                                                ]
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "v-col",
+                                                {
+                                                  staticClass: "p-0 ml-m4",
+                                                  attrs: { cols: "8", sm: "8" }
+                                                },
+                                                [
+                                                  _c("v-text-field", {
+                                                    staticClass: "disabled-tag",
+                                                    attrs: {
+                                                      required: "",
+                                                      rules: [
+                                                        function(v) {
+                                                          return (
+                                                            !!v ||
+                                                            "address is required"
+                                                          )
+                                                        }
+                                                      ],
+                                                      disabled: _vm.formDisable.includes(
+                                                        parentIndex
+                                                      )
+                                                        ? true
+                                                        : false
+                                                    },
+                                                    model: {
+                                                      value:
+                                                        manager.manager_address,
+                                                      callback: function($$v) {
+                                                        _vm.$set(
+                                                          manager,
+                                                          "manager_address",
+                                                          $$v
+                                                        )
+                                                      },
+                                                      expression:
+                                                        "manager.manager_address"
+                                                    }
+                                                  })
+                                                ],
+                                                1
+                                              )
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-col",
+                                            { attrs: { cols: "3", md: "3" } },
+                                            [
+                                              _c(
+                                                "v-col",
+                                                {
+                                                  staticClass: "pl-0 pt-0 pb-0",
+                                                  attrs: { cols: "4", sm: "4" }
+                                                },
+                                                [
+                                                  _c(
+                                                    "label",
+                                                    {
+                                                      staticClass: "ft-normal"
+                                                    },
+                                                    [_vm._v("City")]
+                                                  )
+                                                ]
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "v-col",
+                                                {
+                                                  staticClass: "p-0 ml-m4",
+                                                  attrs: { cols: "8", sm: "8" }
+                                                },
+                                                [
+                                                  _c("v-text-field", {
+                                                    staticClass: "disabled-tag",
+                                                    attrs: {
+                                                      required: "",
+                                                      rules: [
+                                                        function(v) {
+                                                          return (
+                                                            !!v ||
+                                                            "City is required"
+                                                          )
+                                                        }
+                                                      ],
+                                                      disabled: _vm.formDisable.includes(
+                                                        parentIndex
+                                                      )
+                                                        ? true
+                                                        : false
+                                                    },
+                                                    model: {
+                                                      value:
+                                                        manager.manager_city,
+                                                      callback: function($$v) {
+                                                        _vm.$set(
+                                                          manager,
+                                                          "manager_city",
+                                                          $$v
+                                                        )
+                                                      },
+                                                      expression:
+                                                        "manager.manager_city"
+                                                    }
+                                                  })
+                                                ],
+                                                1
+                                              )
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-col",
+                                            { attrs: { cols: "3", md: "3" } },
+                                            [
+                                              _c(
+                                                "v-col",
+                                                {
+                                                  staticClass: "pl-0 pt-0 pb-0",
+                                                  attrs: { cols: "4", sm: "4" }
+                                                },
+                                                [
+                                                  _c(
+                                                    "label",
+                                                    {
+                                                      staticClass: "ft-normal"
+                                                    },
+                                                    [_vm._v("State")]
+                                                  )
+                                                ]
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "v-col",
+                                                {
+                                                  staticClass: "p-0 ml-m4",
+                                                  attrs: { cols: "8", sm: "8" }
+                                                },
+                                                [
+                                                  _c("v-text-field", {
+                                                    staticClass: "disabled-tag",
+                                                    attrs: {
+                                                      required: "",
+                                                      rules: [
+                                                        function(v) {
+                                                          return (
+                                                            !!v ||
+                                                            "Province is required"
+                                                          )
+                                                        }
+                                                      ],
+                                                      disabled: _vm.formDisable.includes(
+                                                        parentIndex
+                                                      )
+                                                        ? true
+                                                        : false
+                                                    },
+                                                    model: {
+                                                      value:
+                                                        manager.manager_province,
+                                                      callback: function($$v) {
+                                                        _vm.$set(
+                                                          manager,
+                                                          "manager_province",
+                                                          $$v
+                                                        )
+                                                      },
+                                                      expression:
+                                                        "manager.manager_province"
+                                                    }
+                                                  })
+                                                ],
+                                                1
+                                              )
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-col",
+                                            { attrs: { cols: "3", md: "3" } },
+                                            [
+                                              _c(
+                                                "v-col",
+                                                {
+                                                  staticClass: "pl-0 pt-0 pb-0",
+                                                  attrs: { cols: "4", sm: "4" }
+                                                },
+                                                [
+                                                  _c(
+                                                    "label",
+                                                    {
+                                                      staticClass: "ft-normal"
+                                                    },
+                                                    [_vm._v("zipcode")]
+                                                  )
+                                                ]
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "v-col",
+                                                {
+                                                  staticClass: "p-0 ml-m4",
+                                                  attrs: { cols: "8", sm: "8" }
+                                                },
+                                                [
+                                                  _c("v-text-field", {
+                                                    staticClass: "disabled-tag",
+                                                    attrs: {
+                                                      rules: [
+                                                        function(v) {
+                                                          return (
+                                                            !!v ||
+                                                            "Zip code is required"
+                                                          )
+                                                        }
+                                                      ],
+                                                      disabled: _vm.formDisable.includes(
+                                                        parentIndex
+                                                      )
+                                                        ? true
+                                                        : false,
+                                                      required: ""
+                                                    },
+                                                    model: {
+                                                      value:
+                                                        manager.manager_zipcode,
+                                                      callback: function($$v) {
+                                                        _vm.$set(
+                                                          manager,
+                                                          "manager_zipcode",
+                                                          $$v
+                                                        )
+                                                      },
+                                                      expression:
+                                                        "manager.manager_zipcode"
+                                                    }
+                                                  })
+                                                ],
+                                                1
+                                              )
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-col",
+                                            { attrs: { cols: "3", md: "3" } },
+                                            [
+                                              _c(
+                                                "v-col",
+                                                {
+                                                  staticClass: "pl-0 pt-0 pb-0",
+                                                  attrs: { cols: "4", sm: "4" }
+                                                },
+                                                [
+                                                  _c(
+                                                    "label",
+                                                    {
+                                                      staticClass: "ft-normal"
+                                                    },
+                                                    [_vm._v("Id CardNo")]
+                                                  )
+                                                ]
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "v-col",
+                                                {
+                                                  staticClass: "p-0 ml-m4",
+                                                  attrs: { cols: "8", sm: "8" }
+                                                },
+                                                [
+                                                  _c("v-text-field", {
+                                                    staticClass: "disabled-tag",
+                                                    attrs: {
+                                                      rules: [
+                                                        function(v) {
+                                                          return (
+                                                            !!v ||
+                                                            "Card Id number is required"
+                                                          )
+                                                        }
+                                                      ],
+                                                      disabled: _vm.formDisable.includes(
+                                                        parentIndex
+                                                      )
+                                                        ? true
+                                                        : false,
+                                                      required: ""
+                                                    },
+                                                    model: {
+                                                      value:
+                                                        manager.manager_id_card,
+                                                      callback: function($$v) {
+                                                        _vm.$set(
+                                                          manager,
+                                                          "manager_id_card",
+                                                          $$v
+                                                        )
+                                                      },
+                                                      expression:
+                                                        "manager.manager_id_card"
+                                                    }
+                                                  })
+                                                ],
+                                                1
+                                              )
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-col",
+                                            { attrs: { cols: "4", md: "4" } },
+                                            [
+                                              _c("file-pond", {
+                                                ref: "pond",
+                                                refInFor: true,
+                                                attrs: {
+                                                  name: "uploadImage",
+                                                  "label-idle":
+                                                    "Upload Id Card Image",
+                                                  "allow-multiple": "false",
+                                                  server: _vm.serverOptions,
+                                                  files: _vm.myFiles,
+                                                  "allow-file-type-validation":
+                                                    "true",
+                                                  "accepted-file-types":
+                                                    "image/jpeg, image/png",
+                                                  disabled: _vm.formDisable.includes(
+                                                    parentIndex
+                                                  )
+                                                    ? true
+                                                    : false
+                                                },
+                                                on: {
+                                                  addfilestart: function(
+                                                    $event
+                                                  ) {
+                                                    return _vm.setUploadIndex(
+                                                      parentIndex,
+                                                      childIndex
+                                                    )
+                                                  },
+                                                  processfile:
+                                                    _vm.handleProcessFile3,
+                                                  processfilerevert: function(
+                                                    $event
+                                                  ) {
+                                                    return _vm.handleRemoveFile3(
+                                                      parentIndex,
+                                                      childIndex
+                                                    )
+                                                  }
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ]
                               }),
                               _vm._v(" "),
                               _c(

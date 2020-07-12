@@ -94,6 +94,7 @@ import AccountingDetails from "../components/admin/accounting/Details";
 import LoginPage from "../components/login/LoginPage";
 import RegisterPage from "../components/register/RegisterPage";
 import ChangePassword from "../components/ChangePasswordPage";
+import RecoverPassword from "../components/RecoverPasswordPage";
 import ForgetPassword from "../components/ForgotPasswordPage";
 
 
@@ -108,6 +109,8 @@ export const router = new Router({
     { path: "/chat", component: ChatPage, name: 'F_chat', meta: { requiresAuth: [Role.Customer] } },
     { path: "/payment/:unique_id", component: PaymentPage, name: 'Payment', meta: { requiresAuth: [Role.Customer] } },
     { path: "/book-job/:id", component: AddJobPage, name: 'addjobpage', meta: { requiresAuth: [Role.Customer] } },
+
+    { path: "/home", component: HomePage, name: 'MHome', meta: { requiresAuth: [Role.Customer_Manager] } },
     //admin routes
     {
       path: '/admin',
@@ -118,7 +121,7 @@ export const router = new Router({
         { path: 'dashboard', component: Dashboard, name: 'Dashboard', meta: { requiresAuth: [Role.Admin] } },
         { path: 'settings', component: Settings, name: 'Settings', meta: { requiresAuth: [Role.Admin] } },
         { path: 'profile', component: ProfilePage, name: 'Profile' },
-        { path: 'changepassword', component: ChangePasswordPage, name: 'Changepassword', meta: { requiresAuth: [Role.Admin] } },
+        { path: 'changepassword', component: ChangePasswordPage, name: 'AChangepassword', meta: { requiresAuth: [Role.Admin] } },
         { path: 'admin', component: AdminListPage, name: 'Admin', meta: { requiresAuth: [Role.Admin] } },
         { path: 'admin/add', component: AdminAddPage, name: 'AdminAdd', meta: { requiresAuth: [Role.Admin] } },
         { path: 'admin/edit/:id', component: AdminEditPage, name: 'AdminEdit', meta: { requiresAuth: [Role.Admin] } },
@@ -268,8 +271,9 @@ export const router = new Router({
     },
     { path: "/login", component: LoginPage },
     { path: "/register", component: RegisterPage },
-    { path: "/change-passowrd", component: ChangePassword },
-    { path: "/forget-passowrd", component: ForgetPassword },
+    { path: "/change-password", component: ChangePassword },
+    { path: "/change-password/:hash_code", component: RecoverPassword },
+    { path: "/forgot-password", component: ForgetPassword },
 
     {
       path: '/auth/:provider/callback',
@@ -297,7 +301,7 @@ router.beforeEach((to, from, next) => {
     // check if route is restricted by role
     if (requiresAuth.length && requiresAuth.includes(currentUser.data.user.role_id)) {
       if (!currentUser.data.user.password_changed_at) {
-        return next({ path: "/change-passowrd", query: { returnUrl: to.path } });
+        return next({ path: "/change-password", query: { returnUrl: to.path } });
       }
     }
 

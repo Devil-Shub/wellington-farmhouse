@@ -9,6 +9,11 @@
             </div>
           </v-col>
           <v-col cols="6" md="6">
+           <div class="login_box">
+              <div class="login_txt">
+		<h2>Reset Password</h2>
+                <p>Please enter your new password.</p>
+              </div>
             <v-form ref="form" v-model="valid" lazy-validation class="slide-right">
               <v-col cols="12" sm="12">
                 <v-text-field
@@ -35,8 +40,10 @@
                   @click:append="show2 = !show2"
                 ></v-text-field>
               </v-col>
-              <v-btn color="success" class="mr-4 recover_btn" @click="validate">Update</v-btn>
+                <router-link to="/login" style="margin: 0px 15px;" class="back-btn">Back To Login</router-link>
+              <v-btn color="success" class="mr-4 recover_btn" @click="validate">Reset</v-btn>
             </v-form>
+		</div>
           </v-col>
         </v-row>
       </v-container>
@@ -72,7 +79,8 @@ export default {
       const currentUser = authenticationService.currentUserValue;
       if (this.$refs.form.validate()) {
         authenticationService
-          .changePassword({
+          .recoverPassword({
+            hash_code: this.$route.params.hash_code,
             password: this.password,
             password_confirmation: this.confirm_password
           })
@@ -142,10 +150,6 @@ export default {
   right: 0;
   top: calc(50% - 265px);
 }
-.change_password label {
-    padding: 5px;
-}
-
 .login_txt {
   padding-bottom: 26px;
 }
@@ -163,7 +167,7 @@ export default {
   margin-bottom: 10px;
 }
 .login_txt p {
-  color: #626262;
+  color: #2c2c2c;
   font-size: 16px;
   font-weight: 400;
   margin-bottom: 10px;
@@ -207,7 +211,8 @@ export default {
   padding-top: 0px;
   margin-top: 0px;
 }
-
+.v-input input {
+}
 .v-application .error--text {
   border: none;
 }
@@ -218,18 +223,25 @@ export default {
 .v-text-field > .v-input__control > .v-input__slot:before {
   content: none;
 }
-.v-input input{
-  padding-left: 0px;
+.forget {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.forget .custom_checkbox {
+  margin: 0;
+}
+.forget .custom_checkbox label {
+  top: 4px;
 }
 .v-application .primary--text {
   color: #5c8545 !important;
 }
 a.back-btn {
     padding: 10px;
-    border: 1px solid rgba(0,0,0,0.51);
+    border: 1px solid rgba(0,0,0,.87);
     text-decoration: none;
-    color: rgba(0, 0, 0, 0.51) !important;
-    border-radius:6px
+    color: rgba(0,0,0,.87) !important;
 }
 @media only screen and (max-width: 992px) {
   .img_bg_outside {
