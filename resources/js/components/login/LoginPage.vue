@@ -14,7 +14,7 @@
                 <h2>Login</h2>
                 <p>Welcome back, please login to your account.</p>
               </div>
-              <v-form ref="form" v-model="valid" lazy-validation class="slide-right">
+              <v-form ref="form" v-model="valid" lazy-validation class="slide-right" autocomplete="off">
                 <label for="email">E-mail</label>
                 <div class="custom_input">
                   <user-icon size="1.5x" class="custom-class icons_custom"></user-icon>
@@ -24,6 +24,7 @@
                     name="email"
                     placeholder="Enter email"
                     id="email"
+                    autocomplete="off"
                   ></v-text-field>
                 </div>
                 <label for>Password</label>
@@ -35,6 +36,7 @@
                     :type="show1 ? 'text' : 'password'"
                     name="password"
                     placeholder="Enter password"
+		    autocomplete="nope"
                   ></v-text-field>
                 </div>
                 <div class="forget">
@@ -237,7 +239,7 @@ export default {
   margin-bottom: 10px;
 }
 .login_txt p {
-  color: #2c2c2c;
+  color: #626262;
   font-size: 16px;
   font-weight: 400;
   margin-bottom: 10px;
@@ -284,9 +286,9 @@ export default {
 .v-input input {
   max-height: 94px;
   padding: 13px;
-  border: 1px solid rgba(0, 0, 0, 0.14);
+  border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 6px;
-  padding-left: 48px;
+  padding-left: 48px !important;
 }
 .v-application .error--text {
   border: none;

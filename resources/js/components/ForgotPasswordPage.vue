@@ -15,7 +15,7 @@
                 <p>Please enter your email address and we'll send you instructions on how to reset your password.</p>
               </div>
               <v-form ref="form" v-model="valid" lazy-validation class="slide-right">
-                <v-col cols="12" sm="12">
+                <v-col cols="12" sm="12" class="change_password">
                   <v-text-field
                     v-model="email"
                     :rules="emailRules"
@@ -24,8 +24,10 @@
                     required
                   ></v-text-field>
                 </v-col>
+                <v-col cols="12" sm="12">
                 <router-link to="/login" style="margin: 0px 15px;" class="back-btn">Back To Login</router-link>
                 <v-btn class="recover_btn" style="color: #fff;" @click="validate">Recover Password</v-btn>
+		</v-col>
               </v-form>
             </div>
           </v-col>
@@ -71,7 +73,7 @@ export default {
                 position: "top-right"
               });
               //redirect to login
-              router.push("/forgot-password");
+              //router.push("/forgot-password");
             } else {
               this.$toast.open({
                 message: response.message,
@@ -146,7 +148,7 @@ export default {
   margin-bottom: 10px;
 }
 .login_txt p {
-  color: #2c2c2c;
+  color: #626262;
   font-size: 16px;
   font-weight: 400;
   margin-bottom: 10px;
@@ -176,12 +178,6 @@ export default {
 .login_box {
   padding: 1rem;
 }
-.v-text-field {
-  padding-top: 0px;
-  margin-top: 0px;
-}
-.v-input input {
-}
 .v-application .error--text {
   border: none;
 }
@@ -192,25 +188,22 @@ export default {
 .v-text-field > .v-input__control > .v-input__slot:before {
   content: none;
 }
-.forget {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.forget .custom_checkbox {
-  margin: 0;
-}
-.forget .custom_checkbox label {
-  top: 4px;
+.change_password .v-input input{
+  padding-left: 0px !important;
+  max-height: 94px;
+  padding: 13px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
 }
 .v-application .primary--text {
   color: #5c8545 !important;
 }
 a.back-btn {
     padding: 10px;
-    border: 1px solid rgba(0,0,0,.87);
+    border: 1px solid rgba(0,0,0,0.51);
     text-decoration: none;
-    color: rgba(0,0,0,.87) !important;
+    color: rgba(0, 0, 0, 0.51) !important;
+    border-radius:6px
 }
 @media only screen and (max-width: 992px) {
   .img_bg_outside {

@@ -142,6 +142,10 @@ export default {
   right: 0;
   top: calc(50% - 265px);
 }
+.change_password label {
+    padding: 5px;
+}
+
 .login_txt {
   padding-bottom: 26px;
 }
@@ -159,7 +163,7 @@ export default {
   margin-bottom: 10px;
 }
 .login_txt p {
-  color: #2c2c2c;
+  color: #626262;
   font-size: 16px;
   font-weight: 400;
   margin-bottom: 10px;
@@ -203,8 +207,7 @@ export default {
   padding-top: 0px;
   margin-top: 0px;
 }
-.v-input input {
-}
+
 .v-application .error--text {
   border: none;
 }
@@ -215,19 +218,18 @@ export default {
 .v-text-field > .v-input__control > .v-input__slot:before {
   content: none;
 }
-.forget {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.forget .custom_checkbox {
-  margin: 0;
-}
-.forget .custom_checkbox label {
-  top: 4px;
+.v-input input{
+  padding-left: 0px;
 }
 .v-application .primary--text {
   color: #5c8545 !important;
+}
+a.back-btn {
+    padding: 10px;
+    border: 1px solid rgba(0,0,0,0.51);
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.51) !important;
+    border-radius:6px
 }
 @media only screen and (max-width: 992px) {
   .img_bg_outside {
