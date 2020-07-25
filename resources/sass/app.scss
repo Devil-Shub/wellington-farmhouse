@@ -1225,4 +1225,32 @@ $hover-white: #fff;
       }
     }
   }
-  
+  #app-bar{
+      width: calc(100% - 260px);
+      margin-left: auto;
+    .v-toolbar__content{
+      display: flex !important;
+      flex-direction: row-reverse;
+      margin: 0px 20px;
+      margin-left: 20px;
+      margin-left: 0;
+      border-radius: 10px;
+      background: #fff;
+    }
+  }
+  #app-bar.custom-toolbar{
+      background: unset !important;
+      box-shadow: unset !important;
+      margin-top: 21px !important;
+  }
+  #app-bar{
+    .v-toolbar__content{
+      padding-top: 4px !important;
+    }
+  }
+  #app{
+    main.v-content{
+      padding-top: 104px !important;
+    }
+  }
+
