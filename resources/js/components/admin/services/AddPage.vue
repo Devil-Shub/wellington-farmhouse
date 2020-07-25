@@ -4,7 +4,7 @@
       <v-row>
         <h4 class="main-title text-left top_heading">Add Service</h4>
 
-        <v-col cols="12" md="12" class="pl-0 pt-0">
+        <v-col cols="12" md="12" class="pl-0 pt-0 slide-right">
           <v-form
             ref="form"
             v-model="valid"

@@ -5,7 +5,7 @@
         <v-col cols="12" md="12">
           <h4 class="main-title text-left top_heading">Edit Service</h4>
         </v-col>
-        <v-col cols="12" md="12">
+        <v-col cols="12" md="12" class="slide-right">
           <v-form
             ref="form"
             v-model="valid"
