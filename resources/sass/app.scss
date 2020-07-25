@@ -7,6 +7,9 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+// Montserrat Font
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600;700;800;900&display=swap');
+
 // $overall-color: #49b3a2;
 $overall-color: #405f6e;
 $hover-white: #fff;
@@ -1138,5 +1141,87 @@ $hover-white: #fff;
     }
     .only-jobs {
       width: 100%;
+    }
+  }
+  h4.top_heading {
+      font-family: 'Montserrat', sans-serif;
+  }
+  .label_text{
+    font-size: 14px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+  }
+  .mor_eve{
+    font-size: 14px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+  }
+  #form_field.custom_form_field{
+    input{
+      border: none;
+      padding-left: 0 !important;
+      font-family: 'Montserrat', sans-serif;
+      ::placeholder{
+        font-size: 14px;
+        font-weight: 400;
+        color: rgba(0, 0, 0, 0.6);
+      }
+    }
+  }
+  .custom_form_field{
+    button#submit_btn{
+      background: #28c76f !important;
+      border-radius: 4px;
+      &:hover{
+        box-shadow: 0 8px 25px -8px #28c76f9c;
+      }
+    }
+  }
+  #custom_tabel{
+    font-family: 'Montserrat', sans-serif;
+    table{
+      thead{
+        tr{
+          th{
+            padding-bottom: 10px !important;
+            font-size: 14px !important;
+            font-weight: 600 !important;
+            color: rgba(0,0,0,.54) !important;
+          }
+        }
+      }
+      tbody{
+        tr{
+          td{
+            border-bottom: 1px solid #e2e2e2 !important;
+            border-top: 1px solid #e2e2e2 !important;
+            font-size: 14px !important;
+            color: #00000091;
+            font-weight: 500;
+          }
+          td#description_txt{
+            max-width: 150px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+          &:hover{
+            background: #f9f9f9 !important;
+          }
+          .selected{
+            background: #f9f9f9 !important;
+          }
+        }
+      }
+    }
+  }
+  #app{
+    main.v-content{
+      .v-content__wrap{
+        padding-right: 20px;
+        .v-application{
+          border-radius: 10px;
+        }
+      }
     }
   }
