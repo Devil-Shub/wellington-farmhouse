@@ -9,8 +9,9 @@
                 <img :src="profileImage" id="userImage" />
               </v-list-item-avatar>
               <span class="logged-name">
-                <span class="log-name">Jason Statham
-                    <v-icon v-on="on">mdi-dots-horizontal</v-icon>
+                <span class="log-name">
+                  Jason Statham
+                  <v-icon v-on="on">mdi-dots-horizontal</v-icon>
                 </span>
                 <span>Admin</span>
               </span>
@@ -27,9 +28,12 @@
                   <router-link to="/manager/profile" class="nav-item nav-link">Profile</router-link>
                 </v-list-item-title>
                 <v-list-item-title v-if="isManager">
-                  <router-link to="/manager/changepassword" class="nav-item nav-link">Change Password</router-link>
+                  <router-link
+                    to="/manager/changepassword"
+                    class="nav-item nav-link"
+                  >Change Password</router-link>
                 </v-list-item-title>
-	        <v-list-item-title v-if="isDriver">
+                <v-list-item-title v-if="isDriver">
                   <router-link to="/driver/profile" class="nav-item nav-link">Profile</router-link>
                 </v-list-item-title>
                 <v-list-item-title v-if="isDriver">
@@ -54,7 +58,7 @@
       <v-icon v-if="value">mdi-view-quilt</v-icon>
 
       <v-icon v-else>mdi-dots-vertical</v-icon>
-    </v-btn> -->
+    </v-btn>-->
 
     <div class="header-right">
       <v-icon v-if="!drawer" @click="setDrawer(!drawer)">mdi-format-indent-increase</v-icon>
@@ -64,10 +68,9 @@
 
     <!--  <v-spacer />
 
-    <div class="mx-3" /> -->
+    <div class="mx-3" />-->
 
     <!-- <v-toolbar-title class="hidden-sm-and-down font-weight-normal main-title mt-5" v-text="$route.name" />  -->
-
   </v-app-bar>
 </template>
 
@@ -96,58 +99,58 @@ export default {
                   attrs: this.$attrs,
                   class: {
                     "black--text": !hover,
-                    "white--text secondary elevation-12": hover
+                    "white--text secondary elevation-12": hover,
                   },
                   props: {
                     activeClass: "",
                     dark: hover,
                     link: true,
-                    ...this.$attrs
-                  }
+                    ...this.$attrs,
+                  },
                 },
                 this.$slots.default
               );
-            }
-          }
+            },
+          },
         });
-      }
-    }
+      },
+    },
   },
 
   props: {
     value: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
 
   data: () => ({
     profileImage: "",
-	isManager: false,
-	isDriver: false,
-	isAdmin: false
+    isManager: false,
+    isDriver: false,
+    isAdmin: false,
   }),
 
   created() {
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-    if(currentUser.data.user.role_id == 1){
-	this.isAdmin = true;
-    }else if(currentUser.data.user.role_id == 2){
-	 this.isManager = true;
-    }else if(currentUser.data.user.role_id == 3){
-         this.isDriver = true;
-    }else{
-	 this.isAdmin = true;
+    if (currentUser.data.user.role_id == 1) {
+      this.isAdmin = true;
+    } else if (currentUser.data.user.role_id == 2) {
+      this.isManager = true;
+    } else if (currentUser.data.user.role_id == 3) {
+      this.isDriver = true;
+    } else {
+      this.isAdmin = true;
     }
     this.loadProfileImage();
   },
   computed: {
-    ...mapState(["drawer"])
+    ...mapState(["drawer"]),
   },
 
   methods: {
     ...mapMutations({
-      setDrawer: "SET_DRAWER"
+      setDrawer: "SET_DRAWER",
     }),
     loadProfileImage() {
       const currentUser = JSON.parse(localStorage.getItem("currentUser"));
@@ -160,7 +163,7 @@ export default {
     logout() {
       authenticationService.logout();
       router.push("/login");
-    }
-  }
+    },
+  },
 };
 </script>
