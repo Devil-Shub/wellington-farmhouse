@@ -10885,7 +10885,7 @@ a.text-dark:focus {
 
 @-webkit-keyframes slideInFromLeft {
   0% {
-    transform: translateX(-10%);
+    transform: translateX(-1%);
   }
 
   100% {
@@ -10895,7 +10895,7 @@ a.text-dark:focus {
 
 @keyframes slideInFromLeft {
   0% {
-    transform: translateX(-10%);
+    transform: translateX(-1%);
   }
 
   100% {
@@ -12146,6 +12146,7 @@ a.text-dark:focus {
 
 h4.top_heading {
   font-family: "Montserrat", sans-serif;
+  padding-left: 20px !important;
 }
 
 .label_text {
@@ -12260,12 +12261,14 @@ h4.top_heading {
   margin-left: 0;
   border-radius: 10px;
   background: #fff;
+  box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.05);
 }
 
 #app-bar.custom-toolbar {
   background: unset !important;
   box-shadow: unset !important;
   margin-top: 21px !important;
+  z-index: 9999;
 }
 
 #app-bar .v-toolbar__content {
@@ -12274,5 +12277,136 @@ h4.top_heading {
 
 #app main.v-content {
   padding-top: 104px !important;
+}
+
+#app .sidebar-nav {
+  top: 0 !important;
+}
+
+#example {
+  font-family: "Montserrat", sans-serif !important;
+}
+
+#example thead tr th {
+  padding-bottom: 10px !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  color: rgba(0, 0, 0, 0.54) !important;
+}
+
+#example tbody tr tr:nth-of-type(2n+1) {
+  background-color: unset;
+}
+
+#example tbody tr td {
+  border-top: 1px solid #e2e2e2 !important;
+  font-size: 14px !important;
+  color: #00000091;
+  font-weight: 500;
+}
+
+#example tbody tr td#description_txt {
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#example tbody tr td.action-col {
+  display: flex;
+  align-items: center;
+}
+
+#example tbody tr:hover {
+  background: #f9f9f9 !important;
+}
+
+#example tbody tr .selected {
+  background: #f9f9f9 !important;
+}
+
+.v-list-item.theme--dark {
+  transition: 0.3s ease-in-out;
+}
+
+.v-list-item.theme--dark:hover i {
+  transform: translateX(10px);
+  transition: 0.3s ease-in-out;
+}
+
+.v-list-item.theme--dark:hover a {
+  transform: translateX(10px);
+  transition: 0.3s ease-in-out;
+  border: 1px solid transparent !important;
+}
+
+.bread_crum ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  padding-left: 0 !important;
+}
+
+.bread_crum ul li {
+  display: inline-block;
+}
+
+.bread_crum ul li a {
+  display: inline-block;
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  color: #00000096;
+  font-weight: 500;
+  padding-right: 11px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+#app main.v-content .v-content__wrap {
+  padding-left: 0px;
+}
+
+#app main.v-content .v-content__wrap .v-application {
+  background-color: unset;
+  box-shadow: unset;
+}
+
+.main_box {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+  margin-top: 20px;
+}
+
+a.home_svg > svg {
+  color: #56bf7a !important;
+}
+
+#app .add-icon {
+  top: 117px;
+}
+
+.swal2-actions button.swal2-confirm.swal2-styled {
+  background: #28c76f !important;
+  border-radius: 4px;
+  outline: none;
+  transition: 0.3s ease-in-out;
+}
+
+.swal2-actions button.swal2-confirm.swal2-styled:hover {
+  box-shadow: 0 8px 25px -8px #28c76f;
+  transition: 0.3s ease-in-out;
+}
+
+.swal2-actions button.swal2-cancel.swal2-styled {
+  background-color: #ea5455;
+  border-radius: 4px;
+  outline: none;
+  transition: 0.3s ease-in-out;
+}
+
+.swal2-actions button.swal2-cancel.swal2-styled:hover {
+  box-shadow: 0 8px 25px -8px #ea5455;
+  transition: 0.3s ease-in-out;
 }
 

@@ -1,212 +1,279 @@
 <template>
   <v-app>
-    <v-container fluid>
-      <v-row>
-        <v-col cols="12" md="12">
-          <h4 class="main-title text-left top_heading">Edit Service</h4>
-        </v-col>
-        <v-col cols="12" md="12" class="slide-right">
-          <v-form
-            ref="form"
-            v-model="valid"
-            lazy-validation
-            @submit="update"
-            class="custom_form_field"
-            id="form_field"
-          >
-            <v-col cols="12" md="12" class="pt-0">
-              <v-col sm="2" class="label-align pt-0">
-                <label class="label_text">Service name</label>
+    <div class="bread_crum">
+      <ul>
+        <li>
+          <router-link to="/admin/dashboard" class="home_svg">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24px"
+              height="24px"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="feather feather-home h-5 w-5 mb-1 stroke-current text-primary"
+            >
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+              <polyline points="9 22 9 12 15 12 15 22" />
+            </svg>
+            <span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16px"
+                height="16px"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="feather feather-chevrons-right w-4 h-4"
+              >
+                <polyline points="13 17 18 12 13 7" />
+                <polyline points="6 17 11 12 6 7" />
+              </svg>
+            </span>
+          </router-link>
+        </li>
+        <li>
+          <router-link to="/admin/services">
+            List
+            <span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16px"
+                height="16px"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="feather feather-chevrons-right w-4 h-4"
+              >
+                <polyline points="13 17 18 12 13 7" />
+                <polyline points="6 17 11 12 6 7" />
+              </svg>
+            </span>
+          </router-link>
+        </li>
+        <li>
+          <router-link to="/admin/service/add">Add</router-link>
+        </li>
+      </ul>
+    </div>
+    <div class="main_box">
+      <v-container fluid>
+        <v-row>
+          <v-col cols="12" md="12">
+            <h4 class="main-title text-left top_heading">Edit Service</h4>
+          </v-col>
+          <v-col cols="12" md="12" class="slide-right">
+            <v-form
+              ref="form"
+              v-model="valid"
+              lazy-validation
+              @submit="update"
+              class="custom_form_field"
+              id="form_field"
+            >
+              <v-col cols="12" md="12" class="pt-0">
+                <v-col sm="2" class="label-align pt-0">
+                  <label class="label_text">Service name</label>
+                </v-col>
+                <v-col sm="4" class="pt-0">
+                  <v-text-field
+                    label="Enter service name"
+                    placeholder
+                    v-model="editForm.service_name"
+                    :rules="nameRules"
+                    required
+                  ></v-text-field>
+                </v-col>
               </v-col>
-              <v-col sm="4" class="pt-0">
-                <v-text-field
-                  label="Service Name"
-                  placeholder="Enter service name"
-                  v-model="editForm.service_name"
-                  :rules="nameRules"
-                  required
-                ></v-text-field>
-              </v-col>
-            </v-col>
-            <v-col cols="12" md="12">
-              <v-col sm="2" class="label-align pt-0">
-                <label class="label_text">Service Time Period</label>
-              </v-col>
-              <!-- <header class="label_text">Service Time Period</header> -->
-              <v-col sm="4">
-                <div class="custom-checkbox d-ib">
-                  <input
-                    type="checkbox"
-                    class="pr-6"
-                    v-model="editForm.slot_type"
-                    :checked="editForm.slot_type.includes(1) ? true:false"
-                    @change="getTime(1)"
-                    value="1"
-                    id="morningJob"
-                  />
-                  <label for="morningJob"></label>
-                  <span class="checkbox-title mor_eve">Morning</span>
-                </div>
+              <v-col cols="12" md="12">
+                <v-col sm="2" class="label-align pt-0">
+                  <label class="label_text">Service Time Period</label>
+                </v-col>
+                <!-- <header class="label_text">Service Time Period</header> -->
+                <v-col sm="4">
+                  <div class="custom-checkbox d-ib">
+                    <input
+                      type="checkbox"
+                      class="pr-6"
+                      v-model="editForm.slot_type"
+                      :checked="editForm.slot_type.includes(1) ? true:false"
+                      @change="getTime(1)"
+                      value="1"
+                      id="morningJob"
+                    />
+                    <label for="morningJob"></label>
+                    <span class="checkbox-title mor_eve">Morning</span>
+                  </div>
 
-                <div class="custom-checkbox d-ib">
-                  <input
-                    type="checkbox"
-                    class="pr-6"
-                    v-model="editForm.slot_type"
-                    :checked="editForm.slot_type.includes(2) ? true:false"
-                    @change="getTime(2)"
-                    value="2"
-                    id="eveningJob"
-                  />
-                  <label for="eveningJob"></label>
-                  <span class="checkbox-title mor_eve">Evening</span>
-                </div>
-                <div class="v-messages theme--light error--text" role="alert" v-if="!timeSlotErr">
+                  <div class="custom-checkbox d-ib">
+                    <input
+                      type="checkbox"
+                      class="pr-6"
+                      v-model="editForm.slot_type"
+                      :checked="editForm.slot_type.includes(2) ? true:false"
+                      @change="getTime(2)"
+                      value="2"
+                      id="eveningJob"
+                    />
+                    <label for="eveningJob"></label>
+                    <span class="checkbox-title mor_eve">Evening</span>
+                  </div>
+                  <div class="v-messages theme--light error--text" role="alert" v-if="!timeSlotErr">
+                    <div class="v-messages__wrapper">
+                      <div class="v-messages__message">Service time period is required.</div>
+                    </div>
+                  </div>
+                </v-col>
+              </v-col>
+
+              <v-col class="time-slots pt-0" cols="12" md="12" v-if="morningSlots.length">
+                <template v-for="timeSlot in morningSlots">
+                  <span
+                    class="checkbox"
+                    v-bind:class="[editForm.slot_time.includes(timeSlot.id) ? 'activeClass' : '']"
+                  >
+                    <input
+                      type="checkbox"
+                      @click="setTimeSlot(timeSlot.id)"
+                      :value="timeSlot.id"
+                      :id="timeSlot.id"
+                      required
+                      :checked="editForm.slot_time.includes(timeSlot.id) ? true:false"
+                    />
+                    <label v-bind:for="timeSlot.id">{{timeSlot.slot_start+'-'+timeSlot.slot_end}}</label>
+                  </span>
+                  <!-- <v-checkbox v-model="editForm.slot_time" :value="timeSlot.id" class="mx-2" :label="timeSlot.slot_start+'-'+timeSlot.slot_end"></v-checkbox> -->
+                </template>
+              </v-col>
+
+              <v-col class="time-slots pt-0" cols="12" md="12" v-if="eveningSlots.length">
+                <template v-for="timeSlot in eveningSlots">
+                  <span
+                    class="checkbox"
+                    v-bind:class="[editForm.slot_time.includes(timeSlot.id) ? 'activeClass' : '']"
+                  >
+                    <input
+                      type="checkbox"
+                      @click="setTimeSlot(timeSlot.id)"
+                      :value="timeSlot.id"
+                      :id="timeSlot.id"
+                      required
+                      :checked="editForm.slot_time.includes(timeSlot.id) ? true:false"
+                    />
+                    <label v-bind:for="timeSlot.id">{{timeSlot.slot_start+'-'+timeSlot.slot_end}}</label>
+                  </span>
+                  <!-- <v-checkbox v-model="editForm.slot_time" :value="timeSlot.id" class="mx-2" :label="timeSlot.slot_start+'-'+timeSlot.slot_end"></v-checkbox> -->
+                </template>
+              </v-col>
+
+              <v-col cols="12" md="12" class="pt-0">
+                <v-col sm="2" class="label-align pt-0">
+                  <label class="label_text">Service Price</label>
+                </v-col>
+                <v-col sm="4" class="pt-0">
+                  <v-text-field
+                    type="number"
+                    max="100"
+                    min="0"
+                    v-model="editForm.price"
+                    :rules="priceRules"
+                    label="Enter service price"
+                    required
+                  ></v-text-field>
+                </v-col>
+              </v-col>
+
+              <v-col cols="12" md="12" class="textarea-parent pt-0">
+                <v-col sm="2" class="label-align pt-0">
+                  <label class="label_text">Description</label>
+                </v-col>
+                <v-col sm="4" class="pt-0">
+                  <v-textarea
+                    rows="3"
+                    auto-grow
+                    clearable
+                    clear-icon="cancel"
+                    v-model="editForm.description"
+                    :rules="descRules"
+                    label="Enter description"
+                    required
+                  ></v-textarea>
+                </v-col>
+              </v-col>
+              <v-col cols="12" md="12" class="mb-4">
+                <file-pond
+                  name="uploadImage"
+                  ref="pond"
+                  label-idle="Drop files here..."
+                  v-bind:allow-multiple="false"
+                  v-bind:server="serverOptions"
+                  v-bind:files="myFiles"
+                  v-on:addfilestart="setUploadIndex"
+                  v-on:processfile="handleProcessFile"
+                  v-on:processfilerevert="handleRemoveFile"
+                  allow-file-type-validation="true"
+                  accepted-file-types="image/jpeg, image/png"
+                />
+                <div class="v-messages theme--light error--text" role="alert" v-if="docError">
                   <div class="v-messages__wrapper">
-                    <div class="v-messages__message">Service time period is required.</div>
+                    <div class="v-messages__message">Document upload is required</div>
                   </div>
                 </div>
-              </v-col>
-            </v-col>
-
-            <v-col class="time-slots pt-0" cols="12" md="12" v-if="morningSlots.length">
-              <template v-for="timeSlot in morningSlots">
-                <span
-                  class="checkbox"
-                  v-bind:class="[editForm.slot_time.includes(timeSlot.id) ? 'activeClass' : '']"
+                <div
+                  class
+                  v-if="editForm.service_image"
+                  style="height: 100px; min-width: 100px; width: 100px;"
                 >
-                  <input
-                    type="checkbox"
-                    @click="setTimeSlot(timeSlot.id)"
-                    :value="timeSlot.id"
-                    :id="timeSlot.id"
-                    required
-                    :checked="editForm.slot_time.includes(timeSlot.id) ? true:false"
-                  />
-                  <label v-bind:for="timeSlot.id">{{timeSlot.slot_start+'-'+timeSlot.slot_end}}</label>
-                </span>
-                <!-- <v-checkbox v-model="editForm.slot_time" :value="timeSlot.id" class="mx-2" :label="timeSlot.slot_start+'-'+timeSlot.slot_end"></v-checkbox> -->
-              </template>
-            </v-col>
-
-            <v-col class="time-slots pt-0" cols="12" md="12" v-if="eveningSlots.length">
-              <template v-for="timeSlot in eveningSlots">
-                <span
-                  class="checkbox"
-                  v-bind:class="[editForm.slot_time.includes(timeSlot.id) ? 'activeClass' : '']"
-                >
-                  <input
-                    type="checkbox"
-                    @click="setTimeSlot(timeSlot.id)"
-                    :value="timeSlot.id"
-                    :id="timeSlot.id"
-                    required
-                    :checked="editForm.slot_time.includes(timeSlot.id) ? true:false"
-                  />
-                  <label v-bind:for="timeSlot.id">{{timeSlot.slot_start+'-'+timeSlot.slot_end}}</label>
-                </span>
-                <!-- <v-checkbox v-model="editForm.slot_time" :value="timeSlot.id" class="mx-2" :label="timeSlot.slot_start+'-'+timeSlot.slot_end"></v-checkbox> -->
-              </template>
-            </v-col>
-
-            <v-col cols="12" md="12" class="pt-0">
-              <v-col sm="2" class="label-align pt-0">
-                <label class="label_text">Service Price</label>
-              </v-col>
-              <v-col sm="4" class="pt-0">
-                <v-text-field
-                  type="number"
-                  max="100"
-                  min="0"
-                  v-model="editForm.price"
-                  :rules="priceRules"
-                  label="Service Price"
-                  required
-                ></v-text-field>
-              </v-col>
-            </v-col>
-
-            <v-col cols="12" md="12" class="textarea-parent pt-0">
-              <v-col sm="2" class="label-align pt-0">
-                <label class="label_text">Description</label>
-              </v-col>
-              <v-col sm="4" class="pt-0">
-                <v-textarea
-                  rows="3"
-                  auto-grow
-                  clearable
-                  clear-icon="cancel"
-                  v-model="editForm.description"
-                  :rules="descRules"
-                  label="Description"
-                  required
-                ></v-textarea>
-              </v-col>
-            </v-col>
-            <v-col cols="12" md="12" class="mb-4">
-              <file-pond
-                name="uploadImage"
-                ref="pond"
-                label-idle="Drop files here..."
-                v-bind:allow-multiple="false"
-                v-bind:server="serverOptions"
-                v-bind:files="myFiles"
-                v-on:addfilestart="setUploadIndex"
-                v-on:processfile="handleProcessFile"
-                v-on:processfilerevert="handleRemoveFile"
-                allow-file-type-validation="true"
-                accepted-file-types="image/jpeg, image/png"
-              />
-              <div class="v-messages theme--light error--text" role="alert" v-if="docError">
-                <div class="v-messages__wrapper">
-                  <div class="v-messages__message">Document upload is required</div>
+                  <button
+                    id="submit_btn"
+                    type="button"
+                    class="close AClass"
+                    style="margin-right: 13px; margin-top: -25px; font-size: 30px;"
+                    v-if="cross"
+                    @click="Remove()"
+                  >
+                    <span>&times;</span>
+                  </button>
+                  <img width="100%" :src="baseUrl+editForm.service_image" alt="John" />
                 </div>
-              </div>
-              <div
-                class
-                v-if="editForm.service_image"
-                style="height: 100px; min-width: 100px; width: 100px;"
-              >
-                <button
-                  id="submit_btn"
-                  type="button"
-                  class="close AClass"
-                  style="margin-right: 13px; margin-top: -25px; font-size: 30px;"
-                  v-if="cross"
-                  @click="Remove()"
-                >
-                  <span>&times;</span>
-                </button>
-                <img width="100%" :src="baseUrl+editForm.service_image" alt="John" />
-              </div>
-            </v-col>
+              </v-col>
 
-            <v-col cols="12" md="12">
-              <header>Service Rate</header>
-              <v-radio-group
-                row
-                v-model="editForm.service_rate"
-                :mandatory="false"
-                required
-                :rules="[v => !!v || 'Service rate is required']"
-              >
-                <v-radio label="per Load" value="perload" class="mor_eve"></v-radio>
-                <v-radio label="Round" value="round" class="mor_eve"></v-radio>
-              </v-radio-group>
-            </v-col>
-            <v-btn
-              type="submit"
-              :loading="loading"
-              :disabled="loading"
-              color="success"
-              class="mr-4 custom-save-btn ml-4 mt-4"
-              @click="update"
-              id="submit_btn"
-            >Update</v-btn>
-          </v-form>
-        </v-col>
-      </v-row>
-    </v-container>
+              <v-col cols="12" md="12">
+                <header>Service Rate</header>
+                <v-radio-group
+                  row
+                  v-model="editForm.service_rate"
+                  :mandatory="false"
+                  required
+                  :rules="[v => !!v || 'Service rate is required']"
+                >
+                  <v-radio label="per Load" value="perload" class="mor_eve"></v-radio>
+                  <v-radio label="Round" value="round" class="mor_eve"></v-radio>
+                </v-radio-group>
+              </v-col>
+              <v-btn
+                type="submit"
+                :loading="loading"
+                :disabled="loading"
+                color="success"
+                class="mr-4 custom-save-btn ml-4 mt-4"
+                @click="update"
+                id="submit_btn"
+              >Update</v-btn>
+            </v-form>
+          </v-col>
+        </v-row>
+      </v-container>
+    </div>
   </v-app>
 </template>
 

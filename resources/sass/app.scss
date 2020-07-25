@@ -16,7 +16,7 @@ $hover-white: #fff;
 
 @keyframes slideInFromLeft {
   0% {
-    transform: translateX(-10%);
+    transform: translateX(-1%);
   }
   100% {
     transform: translateX(0);
@@ -1158,6 +1158,7 @@ $hover-white: #fff;
   }
   h4.top_heading {
       font-family: 'Montserrat', sans-serif;
+    padding-left: 20px !important;
   }
   .label_text{
     font-size: 14px;
@@ -1249,12 +1250,14 @@ $hover-white: #fff;
       margin-left: 0;
       border-radius: 10px;
       background: #fff;
+      box-shadow: 0 4px 20px 0 rgba(0,0,0,.05);
     }
   }
   #app-bar.custom-toolbar{
       background: unset !important;
       box-shadow: unset !important;
       margin-top: 21px !important;
+      z-index: 9999;
   }
   #app-bar{
     .v-toolbar__content{
@@ -1265,5 +1268,149 @@ $hover-white: #fff;
     main.v-content{
       padding-top: 104px !important;
     }
+    .sidebar-nav{
+      top: 0 !important;
+    }
   }
-
+  #example{
+    font-family: 'Montserrat', sans-serif !important;
+    thead{
+      tr{
+        th{
+          padding-bottom: 10px !important;
+          font-size: 14px !important;
+          font-weight: 600 !important;
+          color: rgba(0,0,0,.54) !important;
+        }
+      }
+    }
+    tbody{
+      tr{
+        // :nth-of-type(2n+1){
+        //   background-color: #fff;
+        // }
+        tr:nth-of-type(2n+1) {
+          background-color: unset;
+      }
+        td{
+          // border-bottom: 1px solid #e2e2e2 !important;
+          border-top: 1px solid #e2e2e2 !important;
+          font-size: 14px !important;
+          color: #00000091;
+          font-weight: 500;
+        }
+        td#description_txt{
+          max-width: 150px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+        td.action-col{
+          display: flex;
+          align-items: center;
+        }
+        &:hover{
+          background: #f9f9f9 !important;
+        }
+        .selected{
+          background: #f9f9f9 !important;
+        }
+      }
+    }
+  }
+  .v-list-item.theme--dark{
+    transition: 0.3s ease-in-out;
+    &:hover i{
+      transform: translateX(10px);
+      transition: 0.3s ease-in-out;
+    }
+    &:hover a{
+      transform: translateX(10px);
+      transition: 0.3s ease-in-out;
+      border: 1px solid transparent !important;
+    }
+  }
+  // .v-list-item.theme--dark{
+  //   a{
+  //     position: relative;
+  //     &:hover{
+  //       content: '';
+  //       position: absolute;
+  //       background: red;
+  //       left: 0;
+  //       top: 0;
+  //       width: 100%;
+  //       height: 100px;
+  //     }
+  //   }
+  // }
+  .bread_crum{
+    ul{
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+      padding-left: 0 !important;
+      li{
+        display: inline-block;
+        a{
+          display: inline-block;
+          font-family: 'Montserrat', sans-serif;
+          font-size: 14px;
+          color: #00000096;
+          font-weight: 500;
+          padding-right: 11px;
+          padding-top: 10px;
+          padding-bottom: 10px;
+        }
+      }
+    }
+  }
+  #app{
+    main.v-content{
+      .v-content__wrap{
+          padding-left: 0px;
+        .v-application{
+          background-color:unset;
+          box-shadow: unset;
+        }
+      }
+    }
+  }
+  .main_box{
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+    margin-top: 20px;
+  }
+  a.home_svg{
+    >svg{
+      color:#56bf7a !important;
+    }
+  }
+  #app{
+    .add-icon{
+      top: 117px;
+    }
+  }
+  .swal2-actions{
+    button.swal2-confirm.swal2-styled{
+      background: #28c76f !important;
+      border-radius: 4px;
+      outline: none;
+      transition: 0.3s ease-in-out;
+    &:hover{
+      box-shadow: 0 8px 25px -8px #28c76f;
+      transition: 0.3s ease-in-out;
+    }
+    }
+    button.swal2-cancel.swal2-styled{
+      background-color: #ea5455;
+      border-radius: 4px;
+      outline: none;
+      transition: 0.3s ease-in-out;
+      &:hover{
+        box-shadow: 0 8px 25px -8px #ea5455;
+        transition: 0.3s ease-in-out;
+      }
+    }
+  }

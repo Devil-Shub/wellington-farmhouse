@@ -1,20 +1,86 @@
 <template>
   <v-app>
-    <v-container fluid>
-      <v-row>
-        <h4 class="main-title top_heading">Services List</h4>
-        <div class="add-icon">
-          <router-link v-if="isAdmin" to="/admin/service/add" class="nav-item nav-link">
-            <plus-circle-icon size="1.5x" class="custom-class"></plus-circle-icon>
+    <div class="bread_crum">
+      <ul>
+        <li>
+          <router-link to="/admin/dashboard" class="home_svg">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24px"
+              height="24px"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="feather feather-home h-5 w-5 mb-1 stroke-current text-primary"
+            >
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+              <polyline points="9 22 9 12 15 12 15 22" />
+            </svg>
+            <span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16px"
+                height="16px"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="feather feather-chevrons-right w-4 h-4"
+              >
+                <polyline points="13 17 18 12 13 7" />
+                <polyline points="6 17 11 12 6 7" />
+              </svg>
+            </span>
           </router-link>
-          <router-link v-if="!isAdmin" to="/manager/service/add" class="nav-item nav-link">
-            <plus-circle-icon size="1.5x" class="custom-class"></plus-circle-icon>
+        </li>
+        <li>
+          <router-link to="/admin/services">
+            List
+            <span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16px"
+                height="16px"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="feather feather-chevrons-right w-4 h-4"
+              >
+                <polyline points="13 17 18 12 13 7" />
+                <polyline points="6 17 11 12 6 7" />
+              </svg>
+            </span>
           </router-link>
-        </div>
-        <v-col cols="12" md="12">
-           <table id="example" class="table table-striped table-bordered" style="width:100%">
-                <thead>
-                    <tr>
+        </li>
+        <li>
+          <router-link to="/admin/service/add">Add</router-link>
+        </li>
+      </ul>
+    </div>
+    <div class="main_box">
+      <v-container fluid>
+        <v-row>
+          <h4 class="main-title top_heading">Services List</h4>
+          <div class="add-icon">
+            <router-link v-if="isAdmin" to="/admin/service/add" class="nav-item nav-link">
+              <plus-circle-icon size="1.5x" class="custom-class"></plus-circle-icon>
+            </router-link>
+            <router-link v-if="!isAdmin" to="/manager/service/add" class="nav-item nav-link">
+              <plus-circle-icon size="1.5x" class="custom-class"></plus-circle-icon>
+            </router-link>
+          </div>
+          <v-col cols="12" md="12" id="#custom_tabel">
+            <table id="example" class="table table-striped table-bordered" style="width:100%">
+              <thead>
+                <tr>
                   <th class="text-left">Sno</th>
                   <th class="text-left">Service Name</th>
                   <th class="text-left">Service Rate</th>
@@ -50,20 +116,31 @@
                   </td>
                   <td id="description_txt">{{ item.description }}</td>
                   <td class="action-col">
-                    <router-link v-if="isAdmin" :to="'/admin/service/edit/' + item.id" class="nav-item nav-link">
+                    <router-link
+                      v-if="isAdmin"
+                      :to="'/admin/service/edit/' + item.id"
+                      class="nav-item nav-link"
+                    >
                       <edit-3-icon size="1.5x" class="custom-class"></edit-3-icon>
                     </router-link>
-                    <router-link v-if="!isAdmin" :to="'/manager/service/edit/' + item.id" class="nav-item nav-link">
-                     <edit-3-icon size="1.5x" class="custom-class"></edit-3-icon>
+                    <router-link
+                      v-if="!isAdmin"
+                      :to="'/manager/service/edit/' + item.id"
+                      class="nav-item nav-link"
+                    >
+                      <edit-3-icon size="1.5x" class="custom-class"></edit-3-icon>
                     </router-link>
-                    <a href="javascript:void(0);" text @click="Delete(item.id)"><trash-icon size="1.5x" class="custom-class"></trash-icon></a>
+                    <a href="javascript:void(0);" text @click="Delete(item.id)">
+                      <trash-icon size="1.5x" class="custom-class"></trash-icon>
+                    </a>
                   </td>
                 </tr>
               </tbody>
-          </table>
-        </v-col>
-      </v-row>
-    </v-container>
+            </table>
+          </v-col>
+        </v-row>
+      </v-container>
+    </div>
   </v-app>
 </template>
 
@@ -78,7 +155,7 @@ import {
   TrashIcon,
   PlusCircleIcon,
   MoreVerticalIcon,
-  Edit3Icon
+  Edit3Icon,
 } from "vue-feather-icons";
 import { router } from "../../../_helpers/router";
 export default {
@@ -88,7 +165,7 @@ export default {
     TrashIcon,
     PlusCircleIcon,
     MoreVerticalIcon,
-    Edit3Icon
+    Edit3Icon,
   },
   data() {
     return {
@@ -127,21 +204,20 @@ export default {
       });
     },
     Delete(e) {
-
       this.$swal({
-          title: 'Are you sure?',
-          text: 'You can\'t revert your action',
-          type: 'warning',
-          showCancelButton: true,
-          confirmButtonText: 'Yes Delete it!',
-          cancelButtonText: 'No, Keep it!',
-          showCloseButton: true,
-          showLoaderOnConfirm: true
-        }).then((result) => {
-          if(result.value) {
-            this.deleteService(e);
-          }
-        })
+        title: "Are you sure?",
+        text: "You can't revert your action",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes Delete it!",
+        cancelButtonText: "No, Keep it!",
+        showCloseButton: true,
+        showLoaderOnConfirm: true,
+      }).then((result) => {
+        if (result.value) {
+          this.deleteService(e);
+        }
+      });
 
       return false;
     },
@@ -177,12 +253,12 @@ export default {
       this.isActive = rowIndex;
     },
   },
-updated() {
-setTimeout(function() {
-     $(document).ready(function() {
-	    $('#example').DataTable();
-	} );
-  }, 1000);
-    }
+  updated() {
+    setTimeout(function () {
+      $(document).ready(function () {
+        $("#example").DataTable();
+      });
+    }, 1000);
+  },
 };
 </script>
