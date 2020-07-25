@@ -99,36 +99,36 @@ export default {
                   attrs: this.$attrs,
                   class: {
                     "black--text": !hover,
-                    "white--text secondary elevation-12": hover,
+                    "white--text secondary elevation-12": hover
                   },
                   props: {
                     activeClass: "",
                     dark: hover,
                     link: true,
-                    ...this.$attrs,
-                  },
+                    ...this.$attrs
+                  }
                 },
                 this.$slots.default
               );
-            },
-          },
+            }
+          }
         });
-      },
-    },
+      }
+    }
   },
 
   props: {
     value: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
 
   data: () => ({
     profileImage: "",
     isManager: false,
     isDriver: false,
-    isAdmin: false,
+    isAdmin: false
   }),
 
   created() {
@@ -145,12 +145,22 @@ export default {
     this.loadProfileImage();
   },
   computed: {
-    ...mapState(["drawer"]),
+    ...mapState(["drawer"])
+  },
+
+  watch: {
+    'drawer'(newVal) {
+      if(this.drawer) {
+        document.getElementById("app-bar").style.width = "calc(100% - 260px)";
+      } else {
+        document.getElementById("app-bar").style.width = "unset";
+      }
+    }
   },
 
   methods: {
     ...mapMutations({
-      setDrawer: "SET_DRAWER",
+      setDrawer: "SET_DRAWER"
     }),
     loadProfileImage() {
       const currentUser = JSON.parse(localStorage.getItem("currentUser"));
@@ -163,7 +173,7 @@ export default {
     logout() {
       authenticationService.logout();
       router.push("/login");
-    },
-  },
+    }
+  }
 };
 </script>
