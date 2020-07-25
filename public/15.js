@@ -162,6 +162,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.loadProfileImage();
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_4__["mapState"])(["drawer"])),
+  watch: {
+    'drawer': function drawer(newVal) {
+      if (this.drawer) {
+        document.getElementById("app-bar").style.width = "calc(100% - 260px)";
+      } else {
+        document.getElementById("app-bar").style.width = "unset";
+      }
+    }
+  },
   methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_4__["mapMutations"])({
     setDrawer: "SET_DRAWER"
   })), {}, {
