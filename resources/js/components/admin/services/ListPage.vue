@@ -127,6 +127,25 @@ export default {
       });
     },
     Delete(e) {
+
+      this.$swal({
+          title: 'Are you sure?',
+          text: 'You can\'t revert your action',
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Yes Delete it!',
+          cancelButtonText: 'No, Keep it!',
+          showCloseButton: true,
+          showLoaderOnConfirm: true
+        }).then((result) => {
+          if(result.value) {
+            this.deleteService(e);
+          }
+        })
+
+      return false;
+    },
+    deleteService(e) {
       if (e) {
         serviceService.Delete(e).then((response) => {
           //handle response
@@ -135,7 +154,7 @@ export default {
             this.$toast.open({
               message: response.message,
               type: "success",
-              position: "top-right",
+              position: "bottom-right",
             });
             //redirect to login
             this.dialog = false;
@@ -145,7 +164,7 @@ export default {
             this.$toast.open({
               message: response.message,
               type: "error",
-              position: "top-right",
+              position: "bottom-right",
             });
           }
         });
