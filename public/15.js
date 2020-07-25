@@ -93,6 +93,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
  // Components
@@ -256,7 +259,7 @@ var render = function() {
                                   { staticClass: "log-name" },
                                   [
                                     _vm._v(
-                                      "Jason Statham\n                    "
+                                      "\n                Jason Statham\n                "
                                     ),
                                     _c("v-icon", _vm._g({}, on), [
                                       _vm._v("mdi-dots-horizontal")

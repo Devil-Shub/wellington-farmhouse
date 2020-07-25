@@ -12,10 +12,9 @@
           </router-link>
         </div>
         <v-col cols="12" md="12">
-          <v-simple-table id="custom_tabel">
-            <template v-slot:default>
-              <thead>
-                <tr>
+           <table id="example" class="table table-striped table-bordered" style="width:100%">
+                <thead>
+                    <tr>
                   <th class="text-left">Sno</th>
                   <th class="text-left">Service Name</th>
                   <th class="text-left">Service Rate</th>
@@ -51,45 +50,17 @@
                   </td>
                   <td id="description_txt">{{ item.description }}</td>
                   <td class="action-col">
-                    <!-- <router-link v-if="isAdmin" :to="'/admin/service/edit/' + item.id" class="nav-item nav-link">
-                      <span class="custom-action-btn">Edit</span>
+                    <router-link v-if="isAdmin" :to="'/admin/service/edit/' + item.id" class="nav-item nav-link">
+                      <edit-3-icon size="1.5x" class="custom-class"></edit-3-icon>
                     </router-link>
                     <router-link v-if="!isAdmin" :to="'/manager/service/edit/' + item.id" class="nav-item nav-link">
-                      <span class="custom-action-btn">Edit</span>
+                     <edit-3-icon size="1.5x" class="custom-class"></edit-3-icon>
                     </router-link>
-                    <v-btn color="blue darken-1" text @click="Delete(item.id)">
-                      <span class="custom-action-btn">Delete</span>
-                    </v-btn>-->
-
-                    <div class="dropdown" v-bind:class="{ 'show': triggerDropdown == index }">
-                      <more-vertical-icon
-                        size="1.5x"
-                        class="custom-class dropdown-trigger"
-                        v-on:click="dropdownToggle(index)"
-                      ></more-vertical-icon>
-                      <span class="dropdown-menu">
-                        <router-link
-                          v-if="isAdmin"
-                          :to="'/admin/service/edit/' + item.id"
-                          class="dropdown-item"
-                        >
-                          <button class="btn">Edit</button>
-                        </router-link>
-                        <router-link
-                          v-if="!isAdmin"
-                          :to="'/manager/service/edit/' + item.id"
-                          class="dropdown-item"
-                        >
-                          <button class="btn">Edit</button>
-                        </router-link>
-                        <button class="btn dropdown-item" @click="Delete(item.id)">Delete</button>
-                      </span>
-                    </div>
+                    <a href="javascript:void(0);" text @click="Delete(item.id)"><trash-icon size="1.5x" class="custom-class"></trash-icon></a>
                   </td>
                 </tr>
               </tbody>
-            </template>
-          </v-simple-table>
+          </table>
         </v-col>
       </v-row>
     </v-container>
@@ -107,6 +78,7 @@ import {
   TrashIcon,
   PlusCircleIcon,
   MoreVerticalIcon,
+  Edit3Icon
 } from "vue-feather-icons";
 import { router } from "../../../_helpers/router";
 export default {
@@ -116,6 +88,7 @@ export default {
     TrashIcon,
     PlusCircleIcon,
     MoreVerticalIcon,
+    Edit3Icon
   },
   data() {
     return {
@@ -181,17 +154,16 @@ export default {
     Close() {
       this.dialog = false;
     },
-    dropdownToggle: function (setIndex) {
-      //if same index is called up again then close it
-      if (this.triggerDropdown == setIndex) {
-        this.triggerDropdown = null;
-      } else {
-        this.triggerDropdown = setIndex;
-      }
-    },
     selectTr: function (rowIndex) {
       this.isActive = rowIndex;
     },
   },
+updated() {
+setTimeout(function() {
+     $(document).ready(function() {
+	    $('#example').DataTable();
+	} );
+  }, 1000);
+    }
 };
 </script>
