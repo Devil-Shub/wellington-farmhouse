@@ -30,7 +30,6 @@
                 <tr
                   v-for="(item, index) in services"
                   :key="item.name"
-                  v-on:click="selectTr(index)"
                   v-bind:class="{ 'selected' : isActive == index}"
                 >
                   <td>{{index+1}}</td>
