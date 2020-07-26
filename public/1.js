@@ -184,7 +184,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }, {
           title: 'Services',
           url: '/admin/services',
-          icon: 'mdi-settings'
+          icon: 'mdi-camera-timer'
         }]
       }, {
         action: 'local_activity',
