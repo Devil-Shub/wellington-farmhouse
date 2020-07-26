@@ -61,7 +61,7 @@
           </router-link>
         </li>
         <li>
-          <router-link to="/admin/service/add">Add</router-link>
+          <router-link to="/admin/service/add">Edit</router-link>
         </li>
       </ul>
     </div>
