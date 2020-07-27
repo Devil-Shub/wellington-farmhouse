@@ -1172,9 +1172,14 @@ $hover-white: #fff;
   }
   #form_field.custom_form_field{
     input{
+      // border-color: rgba(0, 0, 0, 0.42);
       border: none;
       padding-left: 0 !important;
       font-family: 'Montserrat', sans-serif;
+      // border-top: none;
+      // border-right: none;
+      // border-left: none;
+      // border-radius: 0px;
       ::placeholder{
         font-size: 14px;
         font-weight: 400;
@@ -1257,7 +1262,7 @@ $hover-white: #fff;
       background: unset !important;
       box-shadow: unset !important;
       margin-top: 21px !important;
-      z-index: 9999;
+      z-index: 999;
   }
   #app-bar{
     .v-toolbar__content{
@@ -1292,12 +1297,14 @@ $hover-white: #fff;
         tr:nth-of-type(2n+1) {
           background-color: unset;
       }
+      
         td{
           // border-bottom: 1px solid #e2e2e2 !important;
           border-top: 1px solid #e2e2e2 !important;
           font-size: 14px !important;
-          color: #00000091;
-          font-weight: 500;
+          color: #000;
+          font-weight: 400;
+          padding-top: 15px !important;
         }
         td#description_txt{
           max-width: 150px;
@@ -1308,6 +1315,7 @@ $hover-white: #fff;
         td.action-col{
           display: flex;
           align-items: center;
+          padding-top: 6px !important;
         }
         &:hover{
           background: #f9f9f9 !important;
@@ -1412,5 +1420,66 @@ $hover-white: #fff;
         box-shadow: 0 8px 25px -8px #ea5455;
         transition: 0.3s ease-in-out;
       }
+    }
+  }
+  .swal2-popup{
+    padding-top: 0!important;
+    padding-right: 0!important;
+    padding-left: 0!important;
+    width: 28em!important;
+    .swal2-header{
+      padding: 15px 15px 10px 15px;
+      background: #f8f8f8;
+      align-items: self-start;
+      margin-bottom: 0;
+      opacity: 1;
+      border-top-left-radius: 6px;
+      border-top-right-radius: 6px;
+      h2{
+        font-size: 18px;
+        font-family: "Montserrat", sans-serif;
+        color: #5bc870 !important;
+        font-weight: 500;
+      }
+      button.swal2-close{
+        top: 8px;
+        right: 10px;
+        font-size: 28px !important;
+      }
+    }
+    .swal2-content{
+      margin: 13px 15px;
+      text-align: left;
+      font-size: 14px;
+      font-family: 'Montserrat', sans-serif;
+      color: #000;
+      border-bottom: 1px solid rgb(0 0 0 / 8%);
+      padding: 16px 0px;
+      margin-top: 0;
+      font-weight: 400;
+    }
+    .swal2-actions {
+      margin-top: 0px;
+      justify-content: flex-end;
+      padding-right: 7px;
+      button{
+        border-radius: 6px !important;
+        max-width: 168px;
+        padding: 9px 22px;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 14px !important;
+      }
+    }
+  }
+  .custom_form_field{
+    .v-input.v-input--has-state.theme--light.v-text-field.v-text-field--is-booted.error--text{
+      .v-input__slot {
+        border-bottom: 1px solid #f00;
+      }
+    }
+  }
+  table#example {
+    tr.odd{
+      background: #fff !important;
     }
   }

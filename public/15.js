@@ -253,7 +253,7 @@ var render = function() {
                           fn: function(ref) {
                             var on = ref.on
                             return [
-                              _c("v-list-item-avatar", [
+                              _c("v-list-item-avatar", _vm._g({}, on), [
                                 _c("img", {
                                   attrs: {
                                     src: _vm.profileImage,
@@ -263,19 +263,11 @@ var render = function() {
                               ]),
                               _vm._v(" "),
                               _c("span", { staticClass: "logged-name" }, [
-                                _c(
-                                  "span",
-                                  { staticClass: "log-name" },
-                                  [
-                                    _vm._v(
-                                      "\n                Jason Statham\n                "
-                                    ),
-                                    _c("v-icon", _vm._g({}, on), [
-                                      _vm._v("mdi-dots-horizontal")
-                                    ])
-                                  ],
-                                  1
-                                ),
+                                _c("span", { staticClass: "log-name" }, [
+                                  _vm._v(
+                                    "\n                Jason Statham\n                "
+                                  )
+                                ]),
                                 _vm._v(" "),
                                 _c("span", [_vm._v("Admin")])
                               ])

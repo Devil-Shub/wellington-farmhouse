@@ -39,29 +39,7 @@
           </router-link>
         </li>
         <li>
-          <router-link to="/admin/services">
             List
-            <span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16px"
-                height="16px"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="feather feather-chevrons-right w-4 h-4"
-              >
-                <polyline points="13 17 18 12 13 7" />
-                <polyline points="6 17 11 12 6 7" />
-              </svg>
-            </span>
-          </router-link>
-        </li>
-        <li>
-          <router-link to="/admin/service/add">Add</router-link>
         </li>
       </ul>
     </div>

@@ -5,13 +5,13 @@
         <v-row class="float-right" justify="space-around">
           <v-menu bottom origin="center center" transition="scale-transition">
             <template v-slot:activator="{ on }">
-              <v-list-item-avatar>
+              <v-list-item-avatar v-on="on">
                 <img :src="profileImage" id="userImage" />
               </v-list-item-avatar>
               <span class="logged-name">
                 <span class="log-name">
                   Jason Statham
-                  <v-icon v-on="on">mdi-dots-horizontal</v-icon>
+                  <!-- <v-icon>mdi-dots-horizontal</v-icon> -->
                 </span>
                 <span>Admin</span>
               </span>
