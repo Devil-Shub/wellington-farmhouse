@@ -11333,7 +11333,6 @@ a.text-dark:focus {
 
 #app main.v-content .v-content__wrap .v-application .v-application--wrap {
   padding-left: 20px;
-  padding-top: 20px;
 }
 
 #app main.v-content .v-data-table__wrapper {
@@ -12377,7 +12376,7 @@ h4.top_heading {
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
-  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 a.home_svg > svg {

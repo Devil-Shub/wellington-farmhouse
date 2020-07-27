@@ -2,6 +2,7 @@
   <v-app>
     <div class="bread_crum">
       <ul>
+       <li><h4 class="main-title top_heading">Services List |</h4></li>
         <li>
           <router-link to="/admin/dashboard" class="home_svg">
             <svg
@@ -46,7 +47,6 @@
     <div class="main_box">
       <v-container fluid>
         <v-row>
-          <h4 class="main-title top_heading">Services List</h4>
           <div class="add-icon">
             <router-link v-if="isAdmin" to="/admin/service/add" class="nav-item nav-link">
               <plus-circle-icon size="1.5x" class="custom-class"></plus-circle-icon>
@@ -234,7 +234,14 @@ export default {
   updated() {
     setTimeout(function () {
       $(document).ready(function () {
-        $("#example").DataTable();
+        $("#example").DataTable({
+	"language": {
+	    "paginate": {
+	      "previous": "<",
+               "next": ">"
+	    }
+	  }
+        });
       });
     }, 1000);
   },

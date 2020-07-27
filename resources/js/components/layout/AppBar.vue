@@ -5,27 +5,31 @@
         <v-row class="float-right" justify="space-around">
           <v-menu bottom origin="center center" transition="scale-transition">
             <template v-slot:activator="{ on }">
-              <v-list-item-avatar v-on="on">
-                <img :src="profileImage" id="userImage" />
-              </v-list-item-avatar>
               <span class="logged-name">
                 <span class="log-name">
-                  Jason Statham
-                  <!-- <v-icon>mdi-dots-horizontal</v-icon> -->
+		{{userdata.first_name}} {{userdata.last_name}}
                 </span>
-                <span>Admin</span>
+                <span v-if="isAdmin">Admin</span>
+                <span v-if="isManager">Manager</span>
+                <span v-if="isDriver">Driver</span>
               </span>
+   <v-list-item-avatar v-on="on">
+                <img :src="profileImage" id="userImage" />
+              </v-list-item-avatar>
             </template>
             <v-list class="header-right-menu">
               <v-list-item>
                 <v-list-item-title v-if="isAdmin">
-                  <router-link to="/admin/profile" class="nav-item nav-link">Profile</router-link>
+                  <router-link to="/admin/profile" class="nav-item nav-link">  <user-icon size="1.5x" class="custom-class"></user-icon>
+Profile</router-link>
                 </v-list-item-title>
                 <v-list-item-title v-if="isAdmin">
-                  <router-link to="/admin/changepassword" class="nav-item nav-link">Change Password</router-link>
+                  <router-link to="/admin/changepassword" class="nav-item nav-link">  <edit-3-icon size="1.5x" class="custom-class"></edit-3-icon>
+Change Password</router-link>
                 </v-list-item-title>
                 <v-list-item-title v-if="isManager">
-                  <router-link to="/manager/profile" class="nav-item nav-link">Profile</router-link>
+                  <router-link to="/manager/profile" class="nav-item nav-link">  <user-icon size="1.5x" class="custom-class"></user-icon>
+Profile</router-link>
                 </v-list-item-title>
                 <v-list-item-title v-if="isManager">
                   <router-link
@@ -34,24 +38,29 @@
                   >Change Password</router-link>
                 </v-list-item-title>
                 <v-list-item-title v-if="isDriver">
-                  <router-link to="/driver/profile" class="nav-item nav-link">Profile</router-link>
+                  <router-link to="/driver/profile" class="nav-item nav-link"><user-icon size="1.5x" class="custom-class"></user-icon>Profile</router-link>
                 </v-list-item-title>
                 <v-list-item-title v-if="isDriver">
-                  <router-link to="/driver/changepassword" class="nav-item nav-link">Change Password</router-link>
+                  <router-link to="/driver/changepassword" class="nav-item nav-link">  <edit-3-icon size="1.5x" class="custom-class"></edit-3-icon>
+Change Password</router-link>
                 </v-list-item-title>
                 <v-list-item-title v-if="isAdmin">
-                  <router-link to="/admin/admin/add" class="nav-item nav-link">Add Admin</router-link>
+                  <router-link to="/admin/admin/add" class="nav-item nav-link">  <user-plus-icon size="1.5x" class="custom-class"></user-plus-icon>
+Add Admin</router-link>
                 </v-list-item-title>
                 <v-list-item-title v-if="isAdmin">
-                  <router-link to="/admin/admin" class="nav-item nav-link">List Admin</router-link>
+                  <router-link to="/admin/admin" class="nav-item nav-link">  <list-icon size="1.5x" class="custom-class"></list-icon>
+List Admin</router-link>
                 </v-list-item-title>
                 <v-list-item-title>
-                  <button type="button" @click="logout" class="nav-item nav-link">Logout</button>
+                  <button type="button" @click="logout" class="nav-item nav-link">  <log-out-icon size="1.5x" class="custom-class"></log-out-icon>
+ Logout</button>
                 </v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
         </v-row>
+              <span class="notification"><bell-icon size="1.5x" class="custom-class"></bell-icon><span class="count">5</span></span>
       </v-col>
     </v-row>
     <!-- <v-btn class="mr-3" elevation="1" fab small @click="setDrawer(!drawer)">
@@ -83,11 +92,18 @@ import { VHover, VListItem } from "vuetify/lib";
 
 // Utilities
 import { mapState, mapMutations } from "vuex";
+import { UserIcon, LogOutIcon, UserPlusIcon, ListIcon, Edit3Icon, BellIcon } from 'vue-feather-icons'
 
 export default {
   name: "DashboardCoreAppBar",
 
   components: {
+        UserIcon,
+	LogOutIcon,
+	UserPlusIcon,
+	ListIcon,
+	Edit3Icon,
+	BellIcon,
     AppBarItem: {
       render(h) {
         return h(VHover, {
@@ -128,11 +144,13 @@ export default {
     profileImage: "",
     isManager: false,
     isDriver: false,
-    isAdmin: false
+    isAdmin: false,
+    userdata: '',
   }),
 
   created() {
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    this.userdata = currentUser.data.user;
     if (currentUser.data.user.role_id == 1) {
       this.isAdmin = true;
     } else if (currentUser.data.user.role_id == 2) {

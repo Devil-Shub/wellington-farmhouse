@@ -14,12 +14,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _config_test_env__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../config/test.env */ "./resources/js/config/test.env.js");
 /* harmony import */ var vuetify_lib__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuetify/lib */ "./node_modules/vuetify/lib/index.js");
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vue_feather_icons__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue-feather-icons */ "./node_modules/vue-feather-icons/dist/vue-feather-icons.es.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -103,9 +113,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
  // Utilities
 
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "DashboardCoreAppBar",
   components: {
+    UserIcon: vue_feather_icons__WEBPACK_IMPORTED_MODULE_5__["UserIcon"],
+    LogOutIcon: vue_feather_icons__WEBPACK_IMPORTED_MODULE_5__["LogOutIcon"],
+    UserPlusIcon: vue_feather_icons__WEBPACK_IMPORTED_MODULE_5__["UserPlusIcon"],
+    ListIcon: vue_feather_icons__WEBPACK_IMPORTED_MODULE_5__["ListIcon"],
+    Edit3Icon: vue_feather_icons__WEBPACK_IMPORTED_MODULE_5__["Edit3Icon"],
+    BellIcon: vue_feather_icons__WEBPACK_IMPORTED_MODULE_5__["BellIcon"],
     AppBarItem: {
       render: function render(h) {
         var _this = this;
@@ -143,11 +160,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       profileImage: "",
       isManager: false,
       isDriver: false,
-      isAdmin: false
+      isAdmin: false,
+      userdata: ''
     };
   },
   created: function created() {
     var currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    this.userdata = currentUser.data.user;
 
     if (currentUser.data.user.role_id == 1) {
       this.isAdmin = true;
@@ -253,6 +272,30 @@ var render = function() {
                           fn: function(ref) {
                             var on = ref.on
                             return [
+                              _c("span", { staticClass: "logged-name" }, [
+                                _c("span", { staticClass: "log-name" }, [
+                                  _vm._v(
+                                    "\n\t\t" +
+                                      _vm._s(_vm.userdata.first_name) +
+                                      " " +
+                                      _vm._s(_vm.userdata.last_name) +
+                                      "\n                "
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _vm.isAdmin
+                                  ? _c("span", [_vm._v("Admin")])
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                _vm.isManager
+                                  ? _c("span", [_vm._v("Manager")])
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                _vm.isDriver
+                                  ? _c("span", [_vm._v("Driver")])
+                                  : _vm._e()
+                              ]),
+                              _vm._v(" "),
                               _c("v-list-item-avatar", _vm._g({}, on), [
                                 _c("img", {
                                   attrs: {
@@ -260,16 +303,6 @@ var render = function() {
                                     id: "userImage"
                                   }
                                 })
-                              ]),
-                              _vm._v(" "),
-                              _c("span", { staticClass: "logged-name" }, [
-                                _c("span", { staticClass: "log-name" }, [
-                                  _vm._v(
-                                    "\n                Jason Statham\n                "
-                                  )
-                                ]),
-                                _vm._v(" "),
-                                _c("span", [_vm._v("Admin")])
                               ])
                             ]
                           }
@@ -295,7 +328,14 @@ var render = function() {
                                           staticClass: "nav-item nav-link",
                                           attrs: { to: "/admin/profile" }
                                         },
-                                        [_vm._v("Profile")]
+                                        [
+                                          _c("user-icon", {
+                                            staticClass: "custom-class",
+                                            attrs: { size: "1.5x" }
+                                          }),
+                                          _vm._v("\nProfile")
+                                        ],
+                                        1
                                       )
                                     ],
                                     1
@@ -312,7 +352,14 @@ var render = function() {
                                           staticClass: "nav-item nav-link",
                                           attrs: { to: "/admin/changepassword" }
                                         },
-                                        [_vm._v("Change Password")]
+                                        [
+                                          _c("edit-3-icon", {
+                                            staticClass: "custom-class",
+                                            attrs: { size: "1.5x" }
+                                          }),
+                                          _vm._v("\nChange Password")
+                                        ],
+                                        1
                                       )
                                     ],
                                     1
@@ -329,7 +376,14 @@ var render = function() {
                                           staticClass: "nav-item nav-link",
                                           attrs: { to: "/manager/profile" }
                                         },
-                                        [_vm._v("Profile")]
+                                        [
+                                          _c("user-icon", {
+                                            staticClass: "custom-class",
+                                            attrs: { size: "1.5x" }
+                                          }),
+                                          _vm._v("\nProfile")
+                                        ],
+                                        1
                                       )
                                     ],
                                     1
@@ -365,7 +419,14 @@ var render = function() {
                                           staticClass: "nav-item nav-link",
                                           attrs: { to: "/driver/profile" }
                                         },
-                                        [_vm._v("Profile")]
+                                        [
+                                          _c("user-icon", {
+                                            staticClass: "custom-class",
+                                            attrs: { size: "1.5x" }
+                                          }),
+                                          _vm._v("Profile")
+                                        ],
+                                        1
                                       )
                                     ],
                                     1
@@ -384,7 +445,14 @@ var render = function() {
                                             to: "/driver/changepassword"
                                           }
                                         },
-                                        [_vm._v("Change Password")]
+                                        [
+                                          _c("edit-3-icon", {
+                                            staticClass: "custom-class",
+                                            attrs: { size: "1.5x" }
+                                          }),
+                                          _vm._v("\nChange Password")
+                                        ],
+                                        1
                                       )
                                     ],
                                     1
@@ -401,7 +469,14 @@ var render = function() {
                                           staticClass: "nav-item nav-link",
                                           attrs: { to: "/admin/admin/add" }
                                         },
-                                        [_vm._v("Add Admin")]
+                                        [
+                                          _c("user-plus-icon", {
+                                            staticClass: "custom-class",
+                                            attrs: { size: "1.5x" }
+                                          }),
+                                          _vm._v("\nAdd Admin")
+                                        ],
+                                        1
                                       )
                                     ],
                                     1
@@ -418,7 +493,14 @@ var render = function() {
                                           staticClass: "nav-item nav-link",
                                           attrs: { to: "/admin/admin" }
                                         },
-                                        [_vm._v("List Admin")]
+                                        [
+                                          _c("list-icon", {
+                                            staticClass: "custom-class",
+                                            attrs: { size: "1.5x" }
+                                          }),
+                                          _vm._v("\nList Admin")
+                                        ],
+                                        1
                                       )
                                     ],
                                     1
@@ -433,7 +515,14 @@ var render = function() {
                                     attrs: { type: "button" },
                                     on: { click: _vm.logout }
                                   },
-                                  [_vm._v("Logout")]
+                                  [
+                                    _c("log-out-icon", {
+                                      staticClass: "custom-class",
+                                      attrs: { size: "1.5x" }
+                                    }),
+                                    _vm._v("\n Logout")
+                                  ],
+                                  1
                                 )
                               ])
                             ],
@@ -445,6 +534,19 @@ var render = function() {
                     ],
                     1
                   )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "span",
+                { staticClass: "notification" },
+                [
+                  _c("bell-icon", {
+                    staticClass: "custom-class",
+                    attrs: { size: "1.5x" }
+                  }),
+                  _c("span", { staticClass: "count" }, [_vm._v("5")])
                 ],
                 1
               )

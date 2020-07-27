@@ -2,6 +2,7 @@
   <v-app>
     <div class="bread_crum">
       <ul>
+	<li><h4 class="main-title text-left top_heading">Edit Service | </h4></li>
         <li>
           <router-link to="/admin/dashboard" class="home_svg">
             <svg
@@ -68,9 +69,6 @@
     <div class="main_box">
       <v-container fluid>
         <v-row>
-          <v-col cols="12" md="12">
-            <h4 class="main-title text-left top_heading">Edit Service</h4>
-          </v-col>
           <v-col cols="12" md="12" class="slide-right">
             <v-form
               ref="form"
@@ -545,7 +543,7 @@ export default {
             this.$toast.open({
               message: response.message,
               type: "success",
-              position: "top-right",
+              position: "bottom-right",
             });
             //redirect to login
             const currentUser = authenticationService.currentUserValue;
@@ -558,7 +556,7 @@ export default {
             this.$toast.open({
               message: response.message,
               type: "error",
-              position: "top-right",
+              position: "bottom-right",
             });
           }
         });
