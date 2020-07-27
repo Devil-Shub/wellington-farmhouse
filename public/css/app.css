@@ -11285,7 +11285,7 @@ a.text-dark:focus {
 
 #app .add-icon {
   position: absolute;
-  top: 20px;
+  top: 20px !important;
   right: 22px;
   z-index: 1;
 }
@@ -12352,6 +12352,10 @@ h4.top_heading {
   display: inline-block;
 }
 
+.bread_crum ul li h4.main-title.top_heading {
+  padding-right: 11px;
+}
+
 .bread_crum ul li a {
   display: inline-block;
   font-family: "Montserrat", sans-serif;
@@ -12473,5 +12477,157 @@ a.home_svg > svg {
 
 table#example tr.odd {
   background: #fff !important;
+}
+
+.user-image-inner {
+  position: relative;
+}
+
+.user-image-inner span.notification {
+  position: absolute;
+  right: 215px;
+  top: 20px;
+}
+
+.user-image-inner span.notification span.count {
+  background: #56bf7a;
+  padding: 2px 7px;
+  border-radius: 50%;
+  color: #fff;
+  position: absolute;
+  top: -12px;
+  right: -8px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.user-image-inner span.notification span.count svg {
+  color: #616161;
+}
+
+.user-image-inner .v-avatar.v-list-item__avatar {
+  margin: 10px !important;
+}
+
+.user-image-inner .logged-name {
+  text-align: right;
+  min-width: unset;
+  padding-right: 15px !important;
+  padding-top: 11px;
+  font-family: "Montserrat", sans-serif;
+}
+
+.user-image-inner .logged-name span {
+  color: #626262;
+}
+
+.user-image-inner .logged-name span.log-name {
+  font-weight: 600;
+  font-size: 15px !important;
+  color: #626262;
+}
+
+div#example_paginate {
+  margin-top: 12px;
+  font-family: "Montserrat", sans-serif;
+}
+
+div#example_paginate span {
+  background: #f0f0f0;
+  padding: 8px 0px;
+  border-radius: 30px;
+}
+
+div#example_paginate a.paginate_button {
+  padding: 0;
+  width: 38px;
+  height: 38px;
+  line-height: 38px;
+  border-radius: 50%;
+  transition: 0.3s ease-in-out;
+  color: #777777 !important;
+  font-weight: 700;
+}
+
+div#example_paginate a.paginate_button:hover {
+  background: #56bf7a;
+  transition: 0.3s ease-in-out;
+  color: #fff !important;
+  border: none;
+}
+
+div#example_paginate a#example_previous {
+  background: #f0f0f0;
+  border-radius: 50%;
+  color: #bababa !important;
+  margin-right: 8px;
+  transition: 0.3s ease-in-out;
+  cursor: pointer;
+  padding: 0;
+  width: 38px;
+  height: 38px;
+  line-height: 38px;
+}
+
+div#example_paginate a#example_previous:hover {
+  background: #56bf7a;
+  transition: 0.3s ease-in-out;
+  color: #fff !important;
+}
+
+div#example_paginate a.paginate_button.current {
+  background: #56bf7a !important;
+  border: none !important;
+  border-radius: 50%;
+  color: #fff !important;
+}
+
+div#example_paginate a#example_next {
+  background: #f0f0f0;
+  border-radius: 50%;
+  color: #bababa !important;
+  margin-left: 8px;
+  transition: 0.3s ease-in-out;
+  cursor: pointer;
+  padding: 0;
+  width: 38px;
+  height: 38px;
+  line-height: 38px;
+}
+
+div#example_paginate a#example_next:hover {
+  background: #56bf7a;
+  transition: 0.3s ease-in-out;
+  color: #fff !important;
+}
+
+div#example_info {
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.4);
+  font-weight: 500;
+  padding-top: 26px;
+}
+
+.v-menu__content.theme--light.v-menu__content--fixed.menuable__content__active {
+  top: 86px !important;
+}
+
+.v-menu__content .header-right-menu .v-list-item__title a {
+  text-align: left !important;
+  color: #626262 !important;
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  border: none;
+}
+
+.v-menu__content .header-right-menu button.nav-item.nav-link {
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem 1rem;
+  padding-top: 15px;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  padding-bottom: 0;
 }
 

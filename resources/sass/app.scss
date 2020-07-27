@@ -348,7 +348,7 @@ $hover-white: #fff;
     }
     .add-icon {
       position: absolute;
-      top: 20px;
+      top: 20px !important;
       right: 22px;
       z-index: 1;
       a {
@@ -1360,6 +1360,9 @@ $hover-white: #fff;
       padding-left: 0 !important;
       li{
         display: inline-block;
+        h4.main-title.top_heading{
+          padding-right: 11px;
+        }
         a{
           display: inline-block;
           font-family: 'Montserrat', sans-serif;
@@ -1483,3 +1486,153 @@ $hover-white: #fff;
       background: #fff !important;
     }
   }
+  .user-image-inner{
+    position: relative;
+      span.notification{
+        position: absolute;
+        right: 215px;
+        top: 20px;
+        span.count{
+          background: #56bf7a;
+          padding: 2px 7px;
+          border-radius: 50%;
+          color: #fff;
+          position: absolute;
+          top: -12px;
+          right: -8px;
+          font-size: 11px;
+          font-weight: 600;
+          svg{
+            color: #616161;
+          }
+        }
+      }
+      .v-avatar.v-list-item__avatar{
+        margin: 10px !important;
+      }
+      .logged-name{
+        text-align: right;
+        min-width: unset;
+        padding-right: 15px !important;
+        padding-top: 11px;
+        font-family: 'Montserrat', sans-serif;
+        span{
+          color: #626262;
+        }
+          span.log-name{
+            font-weight: 600;
+            font-size: 15px !important;
+            color: #626262;
+          }
+      }
+     
+    }
+    div#example_paginate{
+      margin-top: 12px;
+      font-family: 'Montserrat', sans-serif;
+      span{
+        background: #f0f0f0;
+        padding: 8px 0px;
+        border-radius: 30px;
+      }
+      a.paginate_button{
+        padding: 0;
+        width: 38px;
+        height: 38px;
+        line-height: 38px;
+        border-radius: 50%;
+        transition: 0.3s ease-in-out;
+        color: #777777 !important;
+        font-weight: 700;
+        &:hover{
+          background: #56bf7a;
+          transition: 0.3s ease-in-out;
+          color: #fff !important;
+          border: none;
+        }
+      }
+      a#example_previous {
+        background: #f0f0f0;
+        border-radius: 50%;
+        color: #bababa !important;
+        margin-right: 8px;
+        transition: 0.3s ease-in-out;
+        cursor: pointer;
+        padding: 0;
+        width: 38px;
+        height: 38px;
+        line-height: 38px;
+        &:hover{
+          background: #56bf7a;
+          transition: 0.3s ease-in-out;
+          color: #fff !important;
+        }
+      }
+      a.paginate_button.current {
+        background: #56bf7a !important;
+        border: none !important;
+        border-radius: 50%;
+        color: #fff !important;
+    }
+    a#example_next{
+      background: #f0f0f0;
+        border-radius: 50%;
+        color: #bababa !important;
+        margin-left: 8px;
+        transition: 0.3s ease-in-out;
+        cursor: pointer;
+        padding: 0;
+        width: 38px;
+        height: 38px;
+        line-height: 38px;
+        &:hover{
+          background: #56bf7a;
+          transition: 0.3s ease-in-out;
+          color: #fff !important;
+        }
+      }
+    }
+    div#example_info{
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      color: rgb(0 0 0 / 40%);
+      font-weight: 500;
+      padding-top: 26px;
+    }
+    .v-menu__content.theme--light.v-menu__content--fixed.menuable__content__active{
+      top: 86px !important;
+      // &:before{
+      //   content: '';
+      //   position: absolute;
+      //   width: 30px;
+      //   height: 30px;
+      //   transform: rotate(45deg);
+      //   background: red;
+      //   top: 0;
+      // }
+    }
+    .v-menu__content{
+      .header-right-menu{
+        .v-list-item__title{
+          a{
+            text-align: left !important;
+            color: #626262 !important;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            border: none;
+          }
+        }
+        button.nav-item.nav-link{
+          width: 100%;
+          text-align: left;
+          padding: 0.5rem 1rem;
+          padding-top: 15px;
+          border-top: 1px solid rgb(0 0 0 / 12%);
+          padding-bottom: 0;
+        }
+      }
+    }
+    
+  
+  
