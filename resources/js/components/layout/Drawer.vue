@@ -158,7 +158,7 @@
               { title: 'Overview', url: '/admin/dashboard', icon: 'mdi-view-dashboard' },
               { title: 'Jobs', url: '/admin/jobs', icon: 'mdi-wallet-travel' },
               { title: 'Dispatches', url: '/admin/dispatches', icon: 'mdi-cube-outline' },
-              { title: 'Services', url: '/admin/services', icon: 'mdi-settings' },
+              { title: 'Services', url: '/admin/services', icon: 'mdi-camera-timer' },
             ]
           },
           {

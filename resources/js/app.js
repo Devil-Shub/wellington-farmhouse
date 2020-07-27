@@ -5,6 +5,9 @@ import 'vuetify/dist/vuetify.min.css';
 // Import one of available themes
 import 'vue-toast-notification/dist/theme-default.css';
 import Vue from "vue";
+
+import VueSweetalert2 from 'vue-sweetalert2';
+
 import Vuelidate from "vuelidate";
 import Vuetify from 'vuetify';
 import VueSocialauth from 'vue-social-auth';
@@ -32,6 +35,13 @@ import FilePondPluginImageCrop from 'filepond-plugin-image-crop';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
 import FilePondPluginFileEncode from 'filepond-plugin-file-encode';
 import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
+
+const options = {
+  confirmButtonColor: '#41b882',
+  cancelButtonColor: '#ff7674',
+};
+
+Vue.use(VueSweetalert2, options);
 
 // Create component
 const FilePond = vueFilePond(
