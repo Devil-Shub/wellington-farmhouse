@@ -2,17 +2,86 @@
   <v-app>
     <v-container fluid>
       <v-row>
-        <h4 class="main-title">Edit Manager</h4>
-        <v-col cols="12" md="12">
-          <v-form ref="form" v-model="valid" lazy-validation @submit="update">
+       <div class="bread_crum">
+      <ul>
+        <li>
+          <h4 class="main-title text-left top_heading">
+            Edit Manager
+            <span class="right-bor"></span>
+          </h4>
+        </li>
+        <li>
+          <router-link to="/admin/dashboard" class="home_svg">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24px"
+              height="24px"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="feather feather-home h-5 w-5 mb-1 stroke-current text-primary"
+            >
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+              <polyline points="9 22 9 12 15 12 15 22" />
+            </svg>
+            <span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16px"
+                height="16px"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="feather feather-chevrons-right w-4 h-4"
+              >
+                <polyline points="13 17 18 12 13 7" />
+                <polyline points="6 17 11 12 6 7" />
+              </svg>
+            </span>
+          </router-link>
+        </li>
+        <li>
+          <router-link to="/admin/services">
+            List
+            <span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16px"
+                height="16px"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="feather feather-chevrons-right w-4 h-4"
+              >
+                <polyline points="13 17 18 12 13 7" />
+                <polyline points="6 17 11 12 6 7" />
+              </svg>
+            </span>
+          </router-link>
+        </li>
+        <li>Add</li>
+      </ul>
+    </div>
+
+        <v-col cols="12" md="12" class="new_driver" id="new_driver">
+          <v-form ref="form" v-model="valid" class="v-form custom_form_field" lazy-validation @submit="update">
             <v-row>
               <div
                 class="v-avatar v-list-item__avatar"
                 style="height: 80px; min-width: 80px; width: 80px;"
               >
             <button type="button" class="close AClass" style="margin-right: 13px; margin-top: -25px; font-size: 30px;" v-if="cross" @click="Remove()">
-               <span>&times;</span>
-             </button>
+               <span>&times;</span>   
+             </button> 
                 <img :src="avatar" alt="Manager" />
               </div>
 
@@ -33,6 +102,10 @@
               </v-col>
               <v-col cols="6" md="6" class="pl-0 manager-cols">
                 <v-col cols="12" md="12" class="custom-col">
+                   <v-col sm="4" class="label-align pt-0">
+                    <label>Manager name</label>
+                  </v-col>
+                <v-col sm="7" class="pt-0">
                   <v-text-field
                     v-model="addForm.first_name"
                     label="Manager name"
@@ -40,7 +113,12 @@
                     :rules="[v => !!v || 'Manager name is required']"
                   ></v-text-field>
                 </v-col>
+                </v-col>
                 <v-col cols="12" md="12" class="custom-col">
+                    <v-col sm="4" class="label-align pt-0">
+                    <label>E-mail</label>
+                  </v-col>
+                    <v-col sm="7" class="pt-0">
                   <v-text-field
                     v-model="addForm.email"
                     :rules="emailRules"
@@ -49,25 +127,40 @@
                     required
                   ></v-text-field>
                 </v-col>
+                </v-col>
 
                 <v-col cols="12" md="12" class="custom-col">
+<v-col sm="4" class="label-align pt-0">
+                    <label>Address</label>
+                  </v-col>
+                   <v-col sm="7" class="pt-0">
                   <v-text-field
                     v-model="addForm.address"
                     label="Address"
                     required
                     :rules="[v => !!v || 'address is required']"
                   ></v-text-field>
+                   </v-col>
                 </v-col>
 
                 <v-col cols="12" md="12" class="custom-col">
+<v-col sm="4" class="label-align pt-0">
+                    <label>City</label>
+                  </v-col>
+                   <v-col sm="7" class="pt-0">
                   <v-text-field
                     v-model="addForm.city"
                     label="City"
                     required
                     :rules="[v => !!v || 'City is required']"
                   ></v-text-field>
+                   </v-col>
                 </v-col>
                 <v-col cols="12" md="12" class="custom-col">
+                <v-col sm="4" class="label-align pt-0">
+                    <label>State</label>
+                  </v-col>
+                    <v-col sm="7" class="pt-0">
                   <v-text-field
                     v-model="addForm.state"
                     label="State"
@@ -75,8 +168,13 @@
                     :rules="[v => !!v || 'State is required']"
                   ></v-text-field>
                 </v-col>
+                </v-col>
 
                 <v-col cols="12" md="12" class="custom-col">
+                <v-col sm="4" class="label-align pt-0">
+                    <label>Country</label>
+                  </v-col>
+                    <v-col sm="7" class="pt-0">
                   <v-text-field
                     v-model="addForm.country"
                     label="Country"
@@ -84,10 +182,15 @@
                     :rules="[v => !!v || 'Country is required']"
                   ></v-text-field>
                 </v-col>
+                </v-col>    
               </v-col>
 
               <v-col cols="6" md="6" class="pl-0 manager-cols">
-                <v-col cols="12" md="12" class="custom-col">
+               <v-col cols="12" md="12" class="custom-col">
+                <v-col sm="4" class="label-align pt-0">
+                    <label>Zipcode</label>
+                  </v-col>
+                 <v-col sm="7" class="pt-0">
                   <v-text-field
                     v-model="addForm.manager_zipcode"
                     :rules="[v => !!v || 'Zip code is required']"
@@ -95,7 +198,12 @@
                     required
                   ></v-text-field>
                 </v-col>
+            </v-col>
                 <v-col cols="12" md="12" class="custom-col">
+                <v-col sm="4" class="label-align pt-0">
+                    <label>Mobile Number </label>
+                  </v-col>
+                   <v-col sm="7" class="pt-0">
                   <v-text-field
                     v-model="addForm.manager_phone"
                     :rules="phoneRules"
@@ -104,7 +212,12 @@
                     maxlength="10"
                   ></v-text-field>
                 </v-col>
+                </v-col>
                 <v-col cols="12" md="12" class="custom-col">
+<v-col sm="4" class="label-align pt-0">
+                    <label>Identification number </label>
+                  </v-col>
+                  <v-col sm="7" class="pt-0">
                   <v-text-field
                     v-model="addForm.identification_number"
                     label="Identification number"
@@ -112,8 +225,13 @@
                     :rules="[v => !!v || 'Identification number is required']"
                   ></v-text-field>
                 </v-col>
+            </v-col>
 
                 <v-col cols="12" md="12" class="custom-col calendar-col">
+                <v-col sm="4" class="label-align pt-0">
+                    <label>Joining Date </label>
+                  </v-col>
+                    <v-col sm="7" class="pt-0">
                   <v-menu
                     v-model="menu1"
                     :close-on-content-click="false"
@@ -136,8 +254,14 @@
                     <v-date-picker v-model="date" @input="menu1 = false"></v-date-picker>
                   </v-menu>
                 </v-col>
+                </v-col>
 
                 <v-col cols="12" md="12" class="custom-col calendar-col">
+<v-col sm="4" class="label-align pt-0">
+                    <label>Releaving date(if required) 
+</label>
+                  </v-col>
+                   <v-col sm="7" class="pt-0">
                   <v-menu
                     v-model="menu2"
                     :close-on-content-click="false"
@@ -158,13 +282,20 @@
                     <v-date-picker v-model="date1" @input="menu2 = false"></v-date-picker>
                   </v-menu>
                 </v-col>
+            </v-col>
                 <v-col cols="12" md="12" class="custom-col">
+                        <v-col sm="4" class="label-align pt-0">
+                    <label>Manager Salary 
+</label>
+                  </v-col>
+                <v-col sm="7" class="pt-0">
                   <v-text-field
                     v-model="addForm.salary"
                     label="Manager Salary"
                     required
                     :rules="[v => !!v || 'Manager salary is required']"
                   ></v-text-field>
+                </v-col>
                 </v-col>
                 <v-col cols="12" md="12" class="custom-col custom-img-holder">
                   <div class="col-img-holder">
@@ -440,3 +571,57 @@ export default {
   }
 };
 </script>
+
+<style>
+    .new_driver {
+       background-color: #fff;
+       box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.05);
+       border-radius: 7px;
+       padding: 20px 0px !important;
+}  
+.v-text-field__slot input {
+    border: 0px !important;
+} 
+.filepond--root {
+    margin-bottom: 0px !important;
+    padding-left: 0px !important;
+}
+.filepond--wrapper {
+    padding-left: 0px !important;
+}    
+.new_driver .v-input input {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+#new_driver.new_driver button {
+    background: #11b276 !important;
+    border-radius: 6px;
+    font-weight: 300;
+    height: 38px;
+} 
+.v-menu__content .v-picker .v-picker__title.primary {
+    background-color: #11b276 !important;
+}
+label {
+    font-weight: 500;
+}
+#new_driver .custom_form_field label {
+    font-size: 14px; 
+}
+#new_driver.new_driver button.close {
+    opacity: 1;
+    width: 25px;
+    height: 25px;
+    border-radius: 100px;
+    text-shadow: none;
+    color: #fff;
+    line-height: 20px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0px !important;
+}
+#new_driver .v-avatar {
+    overflow: visible !important;
+}
+</style>

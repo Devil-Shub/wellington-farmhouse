@@ -153,10 +153,66 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 // Utilities
+ // import { UserIcon, LogOutIcon, UserPlusIcon, ListIcon, Edit3Icon, BellIcon } from 'vue-feather-icons';
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'DashboardCoreDrawer',
+  //   components: {
+  //       UserIcon,
+  // LogOutIcon,
+  // UserPlusIcon,
+  // ListIcon,
+  // Edit3Icon,
+  // BellIcon,
+  //   },
   props: {
     expandOnHover: {
       type: Boolean,
@@ -172,7 +228,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         items: [{
           title: 'Overview',
           url: '/admin/dashboard',
-          icon: 'mdi-view-dashboard'
+          icon: "mdi-view-dashboard"
         }, {
           title: 'Jobs',
           url: '/admin/jobs',
@@ -222,7 +278,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           icon: 'mdi-truck'
         }, {
           title: 'SkidSteer',
-          url: '/admin/skidsteers'
+          url: '/admin/skidsteers',
+          icon: 'mdi-truck'
         }]
       }, {
         action: 'local_activity',
@@ -497,6 +554,16 @@ var render = function() {
         { attrs: { expand: "", nav: "" } },
         [
           _c("div"),
+          _vm._v(" "),
+          _c("div", { staticClass: "sidebar-heading clearfix" }, [
+            _c("img", { attrs: { src: "/images/logo-basic.png" } }),
+            _vm._v(" "),
+            _c("div", { staticClass: "side-head" }, [
+              _c("h4", [_vm._v("Wellington")]),
+              _vm._v(" "),
+              _c("h5", [_vm._v("Agricultural")])
+            ])
+          ]),
           _vm._v(" "),
           _vm.isAdmin
             ? _c(
@@ -802,7 +869,11 @@ var render = function() {
           _c("div")
         ],
         1
-      )
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "sidebar-logo" }, [
+        _c("img", { attrs: { src: "/images/logo-basic.png" } })
+      ])
     ],
     1
   )

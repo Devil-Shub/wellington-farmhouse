@@ -1,44 +1,108 @@
 <template>
   <v-app>
-    <v-container fluid>
-      <v-row>
-        <h4 class="main-title">Truck List</h4>
-        <div class="add-icon">
-          <router-link v-if="isAdmin" to="/admin/truck/add" class="nav-item nav-link">
-            <plus-circle-icon size="1.5x" class="custom-class"></plus-circle-icon>
+    <div class="bread_crum">
+      <ul>
+        <li>
+          <h4 class="main-title top_heading">
+            All Trucks
+            <span class="right-bor"></span>
+          </h4>
+        </li>
+        <li>
+          <router-link to="/admin/dashboard" class="home_svg">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24px"
+              height="24px"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="feather feather-home h-5 w-5 mb-1 stroke-current text-primary"
+            >
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+              <polyline points="9 22 9 12 15 12 15 22" />
+            </svg>
+            <span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16px"
+                height="16px"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="feather feather-chevrons-right w-4 h-4"
+              >
+                <polyline points="13 17 18 12 13 7" />
+                <polyline points="6 17 11 12 6 7" />
+              </svg>
+            </span>
           </router-link>
-          <router-link v-if="!isAdmin" to="/manager/truck/add" class="nav-item nav-link">
-            <plus-circle-icon size="1.5x" class="custom-class"></plus-circle-icon>
-          </router-link>
-        </div>
-        <v-col cols="12" md="12">
-          <v-simple-table>
-            <template v-slot:default>
+        </li>
+        <li>Truck</li>
+        <li>
+          <span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16px"
+              height="16px"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="feather feather-chevrons-right w-4 h-4"
+            >
+              <polyline points="13 17 18 12 13 7" />
+              <polyline points="6 17 11 12 6 7" />
+            </svg>
+          </span>
+        </li>
+        <li>All</li>
+      </ul>
+    </div>
+
+    <div class="main_box">
+      <v-container fluid>
+        <v-row>
+          <!-- <h4 class="main-title">Truck List</h4> -->
+          <div class="add-icon">
+            <router-link v-if="isAdmin" to="/admin/truck/add" class="nav-item nav-link">
+              <plus-circle-icon size="1.5x" class="custom-class"></plus-circle-icon>
+            </router-link>
+            <router-link v-if="!isAdmin" to="/manager/truck/add" class="nav-item nav-link">
+              <plus-circle-icon size="1.5x" class="custom-class"></plus-circle-icon>
+            </router-link>
+          </div>
+          <v-col cols="12" md="12">
+            <table id="example" class="table table-striped table-bordered">
               <thead>
                 <tr>
                   <th class="text-left">Company</th>
                   <th class="text-left">Truck number</th>
                   <th class="text-left">Chassis number</th>
-                  <th class="text-left">Total Km</th>
+                  <th class="text-left">Total Distance</th>
                   <th class="text-left">Service Details</th>
                   <th class="text-left">Documents</th>
                   <th class="text-left">Status</th>
-                  <th class="text-left">Options</th>
+                  <th class="text-left">Actions</th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(item, index) in trucks" :key="item.name" v-on:click="selectTr(index)" v-bind:class="{ 'selected' : isActive == index}">
+                <tr
+                  v-for="(item, index) in trucks"
+                  :key="item.name"
+                  v-on:click="selectTr(index)"
+                  v-bind:class="{ 'selected' : isActive == index}"
+                >
                   <td>
-                    <router-link
-                      v-if="isAdmin"
-                      :to="'/admin/truck/view/' + item.id"
-                      class="nav-item nav-link"
-                    >{{item.company_name}}</router-link>
-                    <router-link
-                      v-if="!isAdmin"
-                      :to="'/manager/truck/view/' + item.id"
-                      class="nav-item nav-link"
-                    >{{item.company_name}}</router-link>
+                    {{item.company_name}}
                   </td>
                   <td>{{item.truck_number}}</td>
                   <td>{{item.chaase_number}}</td>
@@ -70,31 +134,32 @@
                   <td v-if="item.status == 1">Available</td>
                   <td v-if="item.status == 0">Unavailable</td>
                   <td class="action-col">
-                    <div class="dropdown" v-bind:class="{ 'show': triggerDropdown == index }">
-                      <more-vertical-icon size="1.5x" class="custom-class dropdown-trigger" v-on:click="dropdownToggle(index)"></more-vertical-icon>
-                      <span class="dropdown-menu">
-                        <router-link v-if="isAdmin" :to="'/admin/truck/edit/' + item.id" class="dropdown-item">
-                          <button class="btn">Edit</button>
-                        </router-link>
-                        <router-link v-if="!isAdmin" :to="'/manager/truck/edit/' + item.id" class="dropdown-item">
-                          <button class="btn">Edit</button>
-                        </router-link>
-                        <button class="btn dropdown-item" @click="Delete(item.id)">Delete</button>
-                      </span>
-                    </div>
+                    <router-link
+                      v-if="isAdmin"
+                      :to="'/admin/truck/edit/' + item.id"
+                    >
+                      <edit-icon size="1.5x" class="custom-class"></edit-icon>
+                    </router-link>
+                    <router-link
+                      v-if="!isAdmin"
+                      :to="'/manager/truck/edit/' + item.id"
+                    >
+                      <edit-icon size="1.5x" class="custom-class"></edit-icon>
+                    </router-link>
+                    <a href="javascript:void(0);" text @click="Delete(item.id)">
+                      <trash-icon size="1.5x" class="custom-class"></trash-icon>
+                    </a>
                   </td>
                 </tr>
                 <tr v-if="trucks.length == 0">
-                  <template>
-                    No trucks till now.
-                  </template>
+                  <template>No trucks till now.</template>
                 </tr>
               </tbody>
-            </template>
-          </v-simple-table>
-        </v-col>
-      </v-row>
-    </v-container>
+            </table>
+          </v-col>
+        </v-row>
+      </v-container>
+    </div>
   </v-app>
 </template>
 
@@ -106,7 +171,7 @@ import {
   EditIcon,
   TrashIcon,
   PlusCircleIcon,
-  MoreVerticalIcon
+  MoreVerticalIcon,
 } from "vue-feather-icons";
 import { router } from "../../../_helpers/router";
 import { authenticationService } from "../../../_services/authentication.service";
@@ -116,7 +181,7 @@ export default {
     EditIcon,
     TrashIcon,
     PlusCircleIcon,
-    MoreVerticalIcon
+    MoreVerticalIcon,
   },
   data() {
     return {
@@ -125,7 +190,7 @@ export default {
       isActive: null,
       on: false,
       trucks: [],
-      isAdmin: true
+      isAdmin: true,
     };
   },
   mounted() {
@@ -140,7 +205,7 @@ export default {
 
   methods: {
     getResults() {
-      truckService.listTrucks().then(response => {
+      truckService.listTrucks().then((response) => {
         //handle response
         if (response.status) {
           this.trucks = response.data;
@@ -148,20 +213,20 @@ export default {
           this.$toast.open({
             message: response.message,
             type: "error",
-            position: "top-right"
+            position: "top-right",
           });
         }
       });
     },
     Delete(e) {
       if (e) {
-        truckService.Delete(e).then(response => {
+        truckService.Delete(e).then((response) => {
           //handle response
           if (response.status) {
             this.$toast.open({
               message: response.message,
               type: "success",
-              position: "top-right"
+              position: "top-right",
             });
             //redirect to login
             this.dialog = false;
@@ -172,7 +237,7 @@ export default {
             this.$toast.open({
               message: response.message,
               type: "error",
-              position: "top-right"
+              position: "top-right",
             });
           }
         });
@@ -181,17 +246,48 @@ export default {
     Close() {
       this.dialog = false;
     },
-    dropdownToggle: function(setIndex) {
+    dropdownToggle: function (setIndex) {
       //if same index is called up again then close it
-      if(this.triggerDropdown == setIndex) {
+      if (this.triggerDropdown == setIndex) {
         this.triggerDropdown = null;
       } else {
         this.triggerDropdown = setIndex;
       }
     },
-    selectTr: function(rowIndex){
+    selectTr: function (rowIndex) {
       this.isActive = rowIndex;
     },
-  }
+  },
+  updated() {
+    setTimeout(function () {
+      $(document).ready(function () {
+        $("#example").DataTable({
+          aoColumnDefs: [
+            {
+              bSortable: false,
+              aTargets: [-1, -2, -3, -4, -5, -6],
+            },
+          ],
+          // language: {
+          //   paginate: {
+          //     previous: "",
+          //     next: "",
+          //   },
+          // },
+          oLanguage: { sSearch: "" },
+        });
+        $("#example_wrapper .dataTables_filter input").attr(
+          "placeholder",
+          "Search Managers"
+        );
+        $(
+          "#example_wrapper .dataTables_paginate .paginate_button.previous"
+        ).text("");
+        $("#example_wrapper .dataTables_paginate .paginate_button.next").text(
+          ""
+        );
+      });
+    }, 1000);
+  },
 };
 </script>

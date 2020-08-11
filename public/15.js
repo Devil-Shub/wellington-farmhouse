@@ -106,6 +106,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
  // Components
@@ -123,6 +126,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     ListIcon: vue_feather_icons__WEBPACK_IMPORTED_MODULE_5__["ListIcon"],
     Edit3Icon: vue_feather_icons__WEBPACK_IMPORTED_MODULE_5__["Edit3Icon"],
     BellIcon: vue_feather_icons__WEBPACK_IMPORTED_MODULE_5__["BellIcon"],
+    MenuIcon: vue_feather_icons__WEBPACK_IMPORTED_MODULE_5__["MenuIcon"],
     AppBarItem: {
       render: function render(h) {
         var _this = this;
@@ -562,34 +566,30 @@ var render = function() {
         { staticClass: "header-right" },
         [
           !_vm.drawer
-            ? _c(
-                "v-icon",
-                {
-                  on: {
-                    click: function($event) {
-                      return _vm.setDrawer(!_vm.drawer)
-                    }
+            ? _c("menu-icon", {
+                staticClass: "custom-class",
+                attrs: { size: "1.5x" },
+                on: {
+                  click: function($event) {
+                    return _vm.setDrawer(!_vm.drawer)
                   }
-                },
-                [_vm._v("mdi-format-indent-increase")]
-              )
+                }
+              })
             : _vm._e(),
           _vm._v(" "),
           _vm.drawer
-            ? _c(
-                "v-icon",
-                {
-                  on: {
-                    click: function($event) {
-                      return _vm.setDrawer(!_vm.drawer)
-                    }
+            ? _c("menu-icon", {
+                staticClass: "custom-class",
+                attrs: { size: "1.5x" },
+                on: {
+                  click: function($event) {
+                    return _vm.setDrawer(!_vm.drawer)
                   }
-                },
-                [_vm._v("mdi-format-indent-decrease")]
-              )
+                }
+              })
             : _vm._e(),
           _vm._v(" "),
-          _c("span", { staticClass: "page-title" }, [_vm._v("Overview")])
+          _c("span", { staticClass: "page-title" })
         ],
         1
       )

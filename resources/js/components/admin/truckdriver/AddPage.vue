@@ -2,9 +2,79 @@
   <v-app>
     <v-container fluid>
       <v-row>
-        <h2>Add New Driver</h2>
-        <v-col cols="12" md="12">
-          <v-form ref="form" v-model="valid" lazy-validation @submit="save">
+ <div class="bread_crum">
+      <ul>
+        <li>
+          <h4 class="main-title text-left top_heading">
+            Add New Driver
+            <span class="right-bor"></span>
+          </h4>
+        </li>
+        <li>
+          <router-link to="/admin/dashboard" class="home_svg">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24px"
+              height="24px"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="feather feather-home h-5 w-5 mb-1 stroke-current text-primary"
+            >
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+              <polyline points="9 22 9 12 15 12 15 22" />
+            </svg>
+            <span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16px"
+                height="16px"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="feather feather-chevrons-right w-4 h-4"
+              >
+                <polyline points="13 17 18 12 13 7" />
+                <polyline points="6 17 11 12 6 7" />
+              </svg>
+            </span>
+          </router-link>
+        </li>
+        <li>
+          <router-link to="/admin/services">
+            List
+            <span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16px"
+                height="16px"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="feather feather-chevrons-right w-4 h-4"
+              >
+                <polyline points="13 17 18 12 13 7" />
+                <polyline points="6 17 11 12 6 7" />
+              </svg>
+            </span>
+          </router-link>
+        </li>
+        <li>Add</li>
+      </ul>
+    </div>
+
+       
+        <v-col cols="12" md="12" class="new_driver" id="new_driver">
+          <v-form ref="form" v-model="valid" class="v-form custom_form_field" lazy-validation @submit="save">
             <v-row>
               <v-col cols="6" md="6">
                 <div
@@ -43,6 +113,8 @@
                       v-model="addForm.driver_name"
                       :rules="[v => !!v || 'Driver name is required']"
                       required
+                    label="Enter Name"
+                       placeholder
                     ></v-text-field>
                   </v-col>
                 </v-col>
@@ -57,6 +129,8 @@
                     :rules="emailRules"
                     name="email"
                     required
+                    label="Enter Email"
+                       placeholder
                   ></v-text-field>
                   </v-col>
                 </v-col>
@@ -69,6 +143,8 @@
                     v-model="addForm.driver_address"
                     :rules="[v => !!v || 'Address is required']"
                     required
+                    label="Enter Address"
+                       placeholder
                   ></v-text-field>
                   </v-col>
                 </v-col>
@@ -81,6 +157,8 @@
                     v-model="addForm.driver_city"
                     :rules="[v => !!v || 'City is required']"
                     required
+                        label="Enter City"
+                       placeholder
                   ></v-text-field>
                   </v-col>
                 </v-col>
@@ -94,6 +172,8 @@
                     v-model="addForm.driver_state"
                     :rules="[v => !!v || 'State is required']"
                     required
+                    label="Enter State"
+                       placeholder
                   ></v-text-field>
                   </v-col>
                 </v-col>
@@ -106,6 +186,8 @@
                     v-model="addForm.driver_zipcode"
                     :rules="[v => !!v || 'Zip code is required']"
                     required
+                        label="Enter Zipcode"
+                       placeholder
                   ></v-text-field>
                   </v-col>
                 </v-col>
@@ -115,6 +197,8 @@
                     :rules="[v => !!v || 'Country is required']"
                     label="Country"
                     required
+                    label="Enter Comapny"
+                       placeholder
                   ></v-text-field>
                 </v-col>-->
               </v-col>
@@ -129,6 +213,8 @@
                     v-model="addForm.driver_phone"
                     :rules="phoneRules"
                     required
+                    label="Enter Number"
+                       placeholder
                     maxlength="10"
                   ></v-text-field>
                   </v-col>
@@ -142,6 +228,8 @@
                     v-model="addForm.driver_licence"
                     :rules="[v => !!v || 'driver licence number is required']"
                     required
+                    label="Enter Number"
+                       placeholder
                   ></v-text-field>
                   </v-col>
                 </v-col>
@@ -157,21 +245,29 @@
                     :nudge-right="40"
                     transition="scale-transition"
                     offset-y
+                    label="Enter Date"
+                       placeholder
                     min-width="290px"
                   >
                     <template v-slot:activator="{ on }">
                       <v-text-field
                         v-model="date"
                         prepend-icon="event"
-                        readonly
+                        readonly 
                         v-on="on"
-                      ></v-text-field>
+                        label="Enter"
+                       placeholder
+                      ></v-text-field> 
                     </template>
                     <v-date-picker v-model="date" @input="menu2 = false" :min="setDate"></v-date-picker>
                   </v-menu>
                   </v-col>
                 </v-col>
                 <v-col cols="12" md="12" class="pt-0">
+                 <v-col sm="4" class="label-align pt-0">
+                    <label>Select One</label>
+                  </v-col>
+                   <v-col sm="7" class="pt-0">
                   <v-radio-group
                   row
                     v-model="addForm.salary_type"
@@ -180,6 +276,7 @@
                     <v-radio label="Per Hours" value="0"></v-radio>
                     <v-radio label="Per Load" value="1"></v-radio>
                   </v-radio-group>
+                   </v-col>
                 </v-col>
                 <v-col cols="12" md="12" class="pt-0">
                   <v-col sm="4" class="label-align pt-0">
@@ -190,6 +287,8 @@
                     v-model="addForm.driver_salary"
                     required
                     :rules="salaryRules"
+                    label="Enter Salery"
+                       placeholder
                   ></v-text-field>
                   </v-col>
                 </v-col>
@@ -216,6 +315,10 @@
                 </v-col>
 
                 <v-col cols="12" md="12" class="pt-0">
+                <v-col sm="4" class="label-align pt-0">
+                    <label>Select One</label>
+                  </v-col>
+                   <v-col sm="7" class="pt-0">
                   <v-radio-group
                     row
                     v-model="addForm.driver_type"
@@ -226,6 +329,7 @@
                     <v-radio label="Truck" value="1"></v-radio>
                     <v-radio label="Skidsteer" value="0"></v-radio>
                   </v-radio-group>
+</v-col>
                 </v-col>
               </v-col>
 
@@ -415,3 +519,42 @@ export default {
   }
 };
 </script>
+
+<style>
+    .new_driver {
+       background-color: #fff;
+       box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.05);
+       border-radius: 7px;
+       padding: 20px 0px !important;
+}  
+.v-text-field__slot input {
+    border: 0px !important;
+} 
+.filepond--root {
+    margin-bottom: 0px !important;
+    padding-left: 0px !important;
+}
+.filepond--wrapper {
+    padding-left: 0px !important;
+}    
+.new_driver .v-input input {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+#new_driver.new_driver button {
+    background: #11b276 !important;
+    border-radius: 6px;
+    font-weight: 300;
+    height: 38px;
+} 
+.v-menu__content .v-picker .v-picker__title.primary {
+    background-color: #11b276 !important;
+}
+label {
+    font-weight: 500;
+}
+#new_driver .custom_form_field label {
+    font-size: 14px; 
+}
+
+</style>
