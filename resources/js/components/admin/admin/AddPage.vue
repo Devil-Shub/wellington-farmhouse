@@ -9,8 +9,8 @@
            Add New Admin
             <span class="right-bor"></span>
           </h4>
-        </li>
-        <li>
+        </li>  
+        <li> 
           <router-link to="/admin/dashboard" class="home_svg">
             <svg
               xmlns="http://www.w3.org/2000/svg"
