@@ -22,7 +22,7 @@ export const chatService = {
 function send(data) {
 
   return fetch(
-    this.apiUrl+`admin/chat/send`,
+    this.apiUrl+`admin/chat-send`,
     requestOptions.post(data)
   )
     .then(handleResponse)
