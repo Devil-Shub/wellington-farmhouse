@@ -1,7 +1,7 @@
 export const planetChartData = {
     type: 'line',
     data: {
-        labels: ['Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'],
+        labels: ['1', '2', '3', '4', '5', '6', '7', '8'],
         datasets: [
             // { // one line graph
             //     label: 'Number of Moons',
@@ -29,7 +29,7 @@ export const planetChartData = {
             //     borderWidth: 3
             // },
             { // another line graph
-                label: 'Planet Mass (x1,000 km)',
+                label: '',
                 data: [4.8, 12.1, 12.7, 6.7, 139.8, 116.4, 50.7, 49.2],
                 backgroundColor: [
                     'rgb(60,179,113)', // Green
