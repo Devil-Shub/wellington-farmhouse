@@ -14,5 +14,8 @@ class MessageController extends Controller
 			'nickname' => $request->input('nickname'),
 		];
 		event(new ChatEvent($data));
+                return response()->json([
+                'status' => 'message is sent successfuly!'
+               ]);
 	}
 }

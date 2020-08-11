@@ -43,6 +43,7 @@ import { chatService } from "../../_services/chat.service";
                 this.users = data.userCount;
             }.bind(this));
             socket.on("news-action:App\\Events\\ChatEvent", function(data){
+		console.log(data);
                 this.dataMessages.push(data.nickname + ' : ' + data.message);
             }.bind(this));
 
