@@ -126,7 +126,7 @@ Route::group(['prefix' => 'auth'], function () {
             Route::get('/job-salary-details/{driver_id}', 'AccountingController@getSingleJobSalary');
 
             //message
-            Route::post('/chat/send', 'MessageController@send');
+            Route::post('chat-send', 'MessageController@send');
            // Route::post('/message', 'MessageController@store')->name('message.store');
 
             //stripe

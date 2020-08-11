@@ -9,8 +9,6 @@ class MessageController extends Controller
 {
    public function send(Request $request)
 	{
-pr($request);
-
 		$data = [
 			'message' => $request->input('message'),
 			'nickname' => $request->input('nickname'),
