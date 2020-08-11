@@ -1,88 +1,20 @@
 <template>
   <v-app id="driver_list">
-    <div class="bread_crum">
-      <ul>
-        <li>
-          <h4 class="main-title top_heading">
-            All Drivers
-            <span class="right-bor"></span>
-          </h4>
-        </li>
-        <li>
-          <router-link to="/admin/dashboard" class="home_svg">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24px"
-              height="24px"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="feather feather-home h-5 w-5 mb-1 stroke-current text-primary"
-            >
-              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-              <polyline points="9 22 9 12 15 12 15 22" />
-            </svg>
-            <span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16px"
-                height="16px"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="feather feather-chevrons-right w-4 h-4"
-              >
-                <polyline points="13 17 18 12 13 7" />
-                <polyline points="6 17 11 12 6 7" />
-              </svg>
-            </span>
+    <v-container fluid>
+      <v-row>
+        <h4 class="main-title text-left">Driver list 3</h4>
+        <div class="add-icon">
+          <router-link v-if="isAdmin" to="/admin/truckdriver/add" class="nav-item nav-link">
+            <plus-circle-icon size="1.5x" class="custom-class"></plus-circle-icon>
           </router-link>
-        </li>
-        <li>Driver</li>
-        <li>
-          <span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16px"
-              height="16px"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="feather feather-chevrons-right w-4 h-4"
-            >
-              <polyline points="13 17 18 12 13 7" />
-              <polyline points="6 17 11 12 6 7" />
-            </svg>
-          </span>
-        </li>
-        <li>All</li>
-      </ul>
-    </div>
+          <router-link v-if="!isAdmin" to="/manager/truckdriver/add" class="nav-item nav-link">
+            <plus-circle-icon size="1.5x" class="custom-class"></plus-circle-icon>
+          </router-link>
+        </div>
 
-    <div class="main_box">
-      <v-container fluid>
-        <v-row>
-          <!-- <h4 class="main-title text-left">Driver list 4</h4> -->
-          <div class="add-icon">
-            <router-link v-if="isAdmin" to="/admin/truckdriver/add" class="nav-item nav-link">
-              <plus-circle-icon size="1.5x" class="custom-class"></plus-circle-icon>
-            </router-link>
-            <router-link v-if="!isAdmin" to="/manager/truckdriver/add" class="nav-item nav-link">
-              <plus-circle-icon size="1.5x" class="custom-class"></plus-circle-icon>
-            </router-link>
-          </div>
-
-          <v-col cols="12" md="12" id="manager_wrap">
-            <table id="example" class="table table-striped table-bordered">
+        <v-col cols="12" md="12" id="manager_wrap">
+          <v-simple-table>
+            <template v-slot:default>
               <thead>
                 <tr>
                   <!-- <th class="text-left">Image</th> -->

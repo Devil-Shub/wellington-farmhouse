@@ -62,14 +62,6 @@
   </v-list-group>
     </v-list> -->
     
-<div class="sidebar-heading clearfix">
-  <img src="/images/logo-basic.png" class="" />
-  <div class="side-head">
-<h4>Wellington</h4>
-<h5>Agricultural</h5>
-  </div>
-  </div>
-
 <v-list v-if="isAdmin">
           <v-list-group
             v-for="(item, mainIndex) in items"

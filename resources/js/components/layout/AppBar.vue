@@ -70,11 +70,8 @@ List Admin</router-link>
     </v-btn>-->
 
     <div class="header-right">
-      <menu-icon v-if="!drawer" @click="setDrawer(!drawer)" size="1.5x" class="custom-class"></menu-icon>
-      <menu-icon v-if="drawer" @click="setDrawer(!drawer)" size="1.5x" class="custom-class"></menu-icon>
-      
-      <!-- <v-icon v-if="!drawer" @click="setDrawer(!drawer)">mdi-format-indent-increase</v-icon> -->
-      <!-- <v-icon v-if="drawer" @click="setDrawer(!drawer)">mdi-format-indent-decrease</v-icon> -->
+      <v-icon v-if="!drawer" @click="setDrawer(!drawer)">mdi-format-indent-increase</v-icon>
+      <v-icon v-if="drawer" @click="setDrawer(!drawer)">mdi-format-indent-decrease</v-icon>
       <span class="page-title"></span>
     </div>
 

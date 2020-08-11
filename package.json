@@ -59,6 +59,8 @@
         "vuebar": "0.0.20",
         "vuejs-google-maps": "0.0.10",
         "vuelidate": "^0.7.5",
-        "vuex": "^3.4.0"
+        "vuex": "^3.4.0",
+        "ioredis": "^4.2.0",
+        "socket.io": "^2.1.1"
     }
 }

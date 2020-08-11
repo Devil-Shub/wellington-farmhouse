@@ -12697,6 +12697,7 @@ div#example_info {
   line-height: 12px;
   opacity: 1;
   height: 29px !important;
+<<<<<<< HEAD
 }
 
 .v-menu__content.v-menu__content--fixed {
@@ -12706,6 +12707,17 @@ div#example_info {
   transform: translate(-8px, 0px);
 }
 
+=======
+}
+
+.v-menu__content.v-menu__content--fixed {
+  box-shadow: 0 5px 25px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  top: 83px !important;
+  transform: translate(-8px, 0px);
+}
+
+>>>>>>> 53143c306eb7b086df0f8b6f7c0959876d89c757
 .v-menu__content.v-menu__content--fixed .header-right-menu .v-list-item__title a {
   text-align: left !important;
   color: #626262 !important;
@@ -12715,12 +12727,21 @@ div#example_info {
   border: none;
   vertical-align: middle;
   padding: 9px 10px;
+<<<<<<< HEAD
 }
 
 .v-menu__content.v-menu__content--fixed .header-right-menu .v-list-item__title a:hover {
   color: #fff !important;
 }
 
+=======
+}
+
+.v-menu__content.v-menu__content--fixed .header-right-menu .v-list-item__title a:hover {
+  color: #fff !important;
+}
+
+>>>>>>> 53143c306eb7b086df0f8b6f7c0959876d89c757
 .v-menu__content.v-menu__content--fixed .header-right-menu .v-list-item__title a svg {
   width: 17px;
   height: 17px;
@@ -12745,6 +12766,7 @@ div#example_info {
   height: 17px;
   vertical-align: bottom;
   margin-right: 8px;
+<<<<<<< HEAD
 }
 
 .header-right {
@@ -12821,5 +12843,7 @@ div#example_info {
   width: 30px;
   height: auto;
   margin: 0 5px 0 0;
+=======
+>>>>>>> 53143c306eb7b086df0f8b6f7c0959876d89c757
 }
 

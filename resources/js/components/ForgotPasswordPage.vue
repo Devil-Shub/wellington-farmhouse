@@ -42,7 +42,10 @@
                 <v-col cols="12" class="login-btn-div">
                   <div class="btn_grp">
                     <v-btn class="login_btn" @click="validate">Recover Password</v-btn>
-                    <v-btn @click="goToEvents()" class="login_btn">Back To Login</v-btn>
+                    <v-btn class="login_btn back-btn" >Back To Login</v-btn>
+      <v-btn @click="goToEvents()" class="login_btn">Back To Login</v-btn>
+
+                    <router-link to="/login" class="back-btn login_btn">Back To Login</router-link>
                   </div>
                 </v-col>
               </div>
@@ -78,7 +81,7 @@ export default {
     }
   },
   methods: {
-    goToEvents: function () {
+ goToEvents: function () {
     router.push("/login");
     },
     validate() {
@@ -111,3 +114,4 @@ export default {
   }
 };
 </script>
+

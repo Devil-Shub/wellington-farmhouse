@@ -43,106 +43,59 @@
               </svg>
             </span>
           </router-link>
-        </li>
-        <li>Managers</li>
-        <li>
-            <span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16px"
-                height="16px"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="feather feather-chevrons-right w-4 h-4"
-              >
-                <polyline points="13 17 18 12 13 7" />
-                <polyline points="6 17 11 12 6 7" />
-              </svg>
-            </span>
-        </li>
-        <li>All</li>
-      </ul>
-    </div>
-    <div class="main_box">
-      <v-container fluid>
-        <v-row>
-          <div class="add-icon">
-            <router-link v-if="isAdmin" to="/admin/manager/add" class="nav-item nav-link">
-              <plus-circle-icon size="1.5x" class="custom-class"></plus-circle-icon>
-            </router-link>
-            <router-link v-if="!isAdmin" to="/manager/manager/add" class="nav-item nav-link">
-              <plus-circle-icon size="1.5x" class="custom-class"></plus-circle-icon>
-            </router-link>
-          </div>
-          <v-col cols="12" md="12" id="manager_wrap">
-             <table id="example" class="table table-striped table-bordered">
-                <thead>
-                  <tr>
-                    <!-- <th class="text-left">Image</th> -->
-                    <th class="text-left">Manager</th>
-                    <th class="text-left mgr-add-col">Address</th>
-                    <th class="text-left">Contact Number</th>
-                    <th class="text-left">Email</th>
-                    <th class="text-left">Salary</th>
-                    <th class="text-left">Active</th>
-                    <th class="text-left">Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr
-                    v-for="(item, index) in managers"
-                    :key="item.name"
-                    v-on:click="selectTr(index)"
-                    v-bind:class="{ 'selected' : isActive == index}"
-                  >
-                    <template v-if="checkuser != item.id">
-                      <!-- <td>
-                        
-                      <td> -->
-                        <td>
-                        <div
-                          class="v-avatar v-list-item__avatar">
-                          <img v-if="item.user_image" :src="'../'+item.user_image" alt="" class="small-img"/>
-                          <img v-if="!item.user_image" src="/images/avatar.png" alt="" class="small-img" />
-                        </div>
-                        {{ item.first_name }} {{ item.last_name }}
-                      </td>
-                      <td>{{ item.address }} {{ item.city }} {{ item.state }} {{ item.country }} {{ item.zip_code }}</td>
-                      <td>{{ item.phone }}</td>
-                      <td>{{ item.email }}</td>
-                      <td>${{ item.manager.salary }}</td>
-                      <td>                     
-                        <span v-if="!item.is_active" class="badges-item">No</span>
-                        <span v-if="item.is_active" class="badges-item">Yes</span>
-                      </td>
-                      <td class="action-col">
-                        <router-link
-                              v-if="isAdmin"
-                              :to="'/admin/manager/edit/' + item.id"
-                            >
-                              <edit-icon size="1.5x" class="custom-class"></edit-icon>
-                            </router-link>
-                             <router-link
-                              v-if="!isAdmin"
-                              :to="'/manager/manager/edit/' + item.id"
-                            >
-                              <edit-icon size="1.5x" class="custom-class"></edit-icon>
-                            </router-link>
-                        <a href="javascript:void(0);" text @click="Delete(item.id)">
-                      <trash-icon size="1.5x" class="custom-class"></trash-icon>
-                    </a>
-                      </td>
-                    </template>
-                  </tr>
-                  <tr v-if="managers.length == 0">
-                    <template>No manager till now.</template>
-                  </tr>
-                </tbody>
-            </table>
+          <router-link v-if="!isAdmin" to="/manager/manager/add" class="nav-item nav-link">
+            <plus-circle-icon size="1.5x" class="custom-class"></plus-circle-icon>
+          </router-link>
+        </div>
+        <v-col cols="12" md="12" id="manager_wrap">
+          <v-simple-table>
+            <template v-slot:default>
+              <thead>
+                <tr>
+                  <th class="text-left">Image</th>
+                  <th class="text-left">Manager Name</th>
+                  <th class="text-left mgr-add-col">Address</th>
+                  <th class="text-left">Contact Number</th>
+                  <th class="text-left">Email Address</th>
+                  <th class="text-left">Salary</th>
+                  <th class="text-left">Active</th>
+                  <th class="text-left">Options</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(item, index) in managers" :key="item.name" v-on:click="selectTr(index)" v-bind:class="{ 'selected' : isActive == index}">
+                  <template v-if="checkuser != item.id">
+                    <td>
+                      <div
+                        class="v-avatar v-list-item__avatar"
+                        style="height: 40px; min-width: 40px; width: 40px;"
+                      >
+                        <img v-if="item.user_image" :src="'../'+item.user_image" alt="John" />
+                        <img v-if="!item.user_image" src="/images/avatar.png" alt="driver" />
+                      </div>
+                    </td>
+                    <td>
+                      <router-link
+                        :to="'/admin/manager/view/' + item.id"
+                        class="nav-item nav-link"
+                      >{{ item.first_name }} {{ item.last_name }}</router-link>
+                    </td>
+                    <td>{{ item.address }} {{ item.city }} {{ item.state }} {{ item.country }} {{ item.zip_code }}</td>
+                    <td>{{ item.phone }}</td>
+                    <td>{{ item.email }}</td>
+                    <td>${{ item.manager.salary }}</td>
+                    <td>
+                      <v-chip v-if="!item.is_active" class="ma-2" color="red" text-color="white">No</v-chip>
+                      <v-chip
+                        v-if="item.is_active"
+                        class="ma-2"
+                        color="green"
+                        text-color="white"
+                      >Yes</v-chip>
+                    </td>
+                    <td class="action-col">
+                        <!-- <edit-icon size="1.5x" class="custom-class"></edit-icon> -->
+                        <!-- <trash-icon size="1.5x" class="custom-class"></trash-icon> -->
 
           </v-col>
         </v-row>

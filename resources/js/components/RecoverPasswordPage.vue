@@ -25,9 +25,9 @@
                 class="slide-right"
                 autocomplete="off"
                 >
+                <label for>Password</label>
                 <div class="custom_input">
                 <lock-icon size="1.5x" class="custom-class icons_custom"></lock-icon>
-                
                 <v-text-field
                   v-model="password"
                   :rules="[rules.required, rules.min]"
@@ -41,8 +41,6 @@
               
               <div class="custom_input">
                 <lock-icon size="1.5x" class="custom-class icons_custom"></lock-icon>
-               
-
                 <v-text-field
                   v-model="confirm_password"
                   :rules="[rules.required, rules.min]"
@@ -57,8 +55,9 @@
                 <div class="forget forget-login">
                 <v-col cols="12" class="login-btn-div">
                   <div class="btn_grp">
-                    <v-btn color="success" class="mr-4 login_btn" @click="validate">Reset</v-btn>
-                    <v-btn @click="goToEvents()" class="login_btn">Back To Login</v-btn>
+                    <v-btn color="success" class="mr-4 recover_btn" @click="validate">Reset</v-btn>
+                    <v-btn class="login_btn back-btn" >Back To Login</v-btn>
+                    <router-link to="/login" class="back-btn login_btn">Back To Login</router-link>
                   </div>
                 </v-col>
               </div>
@@ -69,6 +68,16 @@
     </div>
   </v-app>
 </template>
+
+
+
+
+
+
+
+
+
+
 
 <script>
 import { required } from "vuelidate/lib/validators";

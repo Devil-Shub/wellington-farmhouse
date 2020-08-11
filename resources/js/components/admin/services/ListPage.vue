@@ -61,7 +61,7 @@
           <v-col cols="12" md="12" id="#custom_tabel" class="main-box-inner">
             <!-- <div v-bar="{
     preventParentScroll: true,
-            scrollThrottle: 30, }">-->
+    scrollThrottle: 30, }"> -->
             <table id="example" class="table table-striped table-bordered" style="width:100%">
               <thead>
                 <tr>
@@ -71,6 +71,7 @@
                   <th class="text-left">Price</th>
                   <th class="text-left">Type</th>
                   <th class="text-left">Time</th>
+                  <th class="text-left">Description</th>
                   <th class="text-left">Actions</th>
                 </tr>
               </thead>
@@ -260,12 +261,8 @@ export default {
           "placeholder",
           "Search Services"
         );
-        $(
-          "#example_wrapper .dataTables_paginate .paginate_button.previous"
-        ).text("");
-        $("#example_wrapper .dataTables_paginate .paginate_button.next").text(
-          ""
-        );
+         $("#example_wrapper .dataTables_paginate .paginate_button.previous").text('');
+         $("#example_wrapper .dataTables_paginate .paginate_button.next").text('');
       });
     }, 1000);
   },

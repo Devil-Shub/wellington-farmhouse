@@ -313,8 +313,8 @@ $hover-white: #fff;
                     &:hover {
                         .v-list-item__title {
                             a {
-                                // border: 1px solid #00be7a;
-                                // color: #00be7a;
+                                border: 1px solid #00be7a;
+                                color: #00be7a;
                                 background-color: transparent;
                             }
                         }
@@ -1194,7 +1194,7 @@ $hover-white: #fff;
 
             thead {
                 th {
-                    background-position: -5px 50%;
+                    background-position: -5px 75%;
                 }
             }
 
@@ -1907,6 +1907,10 @@ table#example {
         }
     }
 
+    .v-avatar.v-list-item__avatar {
+        margin: 10px !important;
+    }
+
     .logged-name {
         text-align: right;
         min-width: unset;
@@ -2049,7 +2053,7 @@ div#example_info {
                 padding: 9px 10px;
 
                 &:hover {
-                    color: #fff !important;
+                  color: #fff !important;
                 }
 
                 svg {
@@ -2079,81 +2083,5 @@ div#example_info {
                 margin-right: 8px;
             }
         }
-    }
-}
-
-.header-right {
-    position: relative;
-    z-index: 1;
-}
-
-.sidebar-logo {
-    img {
-        width: 83px;
-    }
-
-    margin-bottom: 30px;
-    margin-left: 30px;
-}
-
-.sidebar-heading {
-    font-weight: 500;
-    font-size: 15px !important;
-    color: #626262;
-    padding-left: 12px;
-    color: #11b276;
-    padding-top: 10px;
-    margin-bottom: 10px;
-
-    h4 {
-        font-size: 24px;
-        color: #11b276;
-        margin: 0;
-        text-transform: uppercase;
-    }
-
-    h5 {
-        font-size: 14px;
-        padding-left: 3px;
-        margin: 0;
-        margin-top: -2px;
-        text-transform: uppercase;
-    }
-
-    img {
-        width: 43px;
-        float: left;
-    }
-
-    .side-head {
-        float: left;
-        padding-left: 5px;
-    }
-}
-
-.badges-item {
-    background-color: #dff7ea;
-    border-color: #53bf7b;
-    color: #53bf7b;
-    padding: 4px 8px 3px 8px;
-    text-transform: capitalize;
-    font-size: 12px;
-    border-radius: 5px;
-    margin-bottom: 5px;
-    display: inline-block;
-    margin-right: 5px;
-
-    label {
-        margin: 0;
-    }
-}
-
-.v-avatar.v-list-item__avatar {
-    margin: 0 !important;
-
-    .small-img {
-        width: 30px;
-        height: auto;
-        margin: 0 5px 0 0;
     }
 }

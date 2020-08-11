@@ -72,7 +72,7 @@
     <div class="main_box">
       <v-container fluid>
         <v-row>
-          <v-col cols="12" md="12" class="pl-0 pr-0 pt-0 slide-left">
+          <v-col cols="12" md="12" class="pl-0 pt-0 slide-left">
             <v-form
               ref="form"
               v-model="valid"

@@ -30,4 +30,14 @@ class Vehicle extends Model
     {
         return $this->hasOne('App\VehicleInsurance');
     }
+
+    public function jobTruck()
+    {
+        return $this->hasMany('App\Job', 'truck_id', 'id');
+    }
+
+    public function jobSkidsteer()
+    {
+        return $this->hasMany('App\Job', 'skidsteer_id', 'id');
+    }
 }

@@ -534,7 +534,6 @@ class AuthController extends Controller
      */
     public function forgotPassword(Request $request)
     {
-
         try {
             $user = User::whereEmail($request->email)->first();
             //return with error if email not found
@@ -550,7 +549,7 @@ class AuthController extends Controller
             $data = array(
                 'name' => $name,
                 'email' => $user->email,
-                'verificationLink' => env('APP_URL') . 'change-password/' . base64_encode($user->email)
+                'verificationLink' => env('APP_URL') . 'change-password/' . base64_encode($user->email."&".Carbon::now()->addDays(1))
             );
 
             $sendForGotEmail = Mail::send('email_templates.forgot_password', $data, function ($message) use ($user, $name) {
@@ -593,9 +592,13 @@ class AuthController extends Controller
             ], 422);
         }
 
-        $user = User::whereEmail(base64_decode($request->hash_code))->first();
+        //decode hash
+        $breakHash = explode("&",base64_decode($request->hash_code));
+        //find user by email
+        $user = User::whereEmail($breakHash[0])->first();
+
         //return with error if email not found
-        if (!$user) {
+        if (!$user || $breakHash[1] < Carbon::now()) {
             return response()->json([
                 'status' => false,
                 'message' => 'Link Expired!',
