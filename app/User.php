@@ -72,12 +72,12 @@ class User extends Authenticatable
 
     public function jobTruckDriver()
     {
-        return $this->hasMany('App\Job', 'truck_driver_id', 'id');
+        return $this->hasOne('App\Job', 'truck_driver_id');
     }
 
     public function jobSkidsteerDriver()
     {
-        return $this->hasMany('App\Job', 'skidsteer_driver_id', 'id');
+        return $this->hasOne('App\Job', 'skidsteer_driver_id');
     }
 
     public function employeeSalaries()

@@ -10,10 +10,6 @@ return [
         'Company' => 6,
         'Company_Manager' => 7
     ],
-    'driver_type' => [
-        'truck' => 1,
-        'skid_steer' => 2
-    ],
     'vehicle_type' => [
         'truck' => 1,
         'skidsteer' => 2

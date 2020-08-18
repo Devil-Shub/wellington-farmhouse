@@ -127,7 +127,6 @@ Route::group(['prefix' => 'auth'], function () {
 
             //message
             Route::post('chat-send', 'MessageController@send');
-           // Route::post('/message', 'MessageController@store')->name('message.store');
 
             //stripe
             Route::post('stripe-charge', 'PaymentController@stripeCharge');

@@ -25,43 +25,40 @@
                 class="slide-right"
                 autocomplete="off"
                 >
-                <label for>Password</label>
                 <div class="custom_input">
                 <lock-icon size="1.5x" class="custom-class icons_custom"></lock-icon>
+                
                 <v-text-field
                   v-model="password"
-                  :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
                   :rules="[rules.required, rules.min]"
                   :type="show1 ? 'text' : 'password'"
                   name="password"
-                  label="Password"
                   hint="At least 8 characters"
-                  counter
-                  @click:append="show1 = !show1"
+                  placeholder="Enter password"
+                  autocomplete="nope"
                 ></v-text-field>
               </div>
               
               <div class="custom_input">
                 <lock-icon size="1.5x" class="custom-class icons_custom"></lock-icon>
+               
+
                 <v-text-field
                   v-model="confirm_password"
-                  :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
-                  :rules="[rules.required, rules.min, passwordConfirmationRule]"
+                  :rules="[rules.required, rules.min]"
                   :type="show2 ? 'text' : 'password'"
                   name="confirm_password"
-                  label="Confirm Password"
                   hint="At least 8 characters"
-                  counter
-                  @click:append="show2 = !show2"
+                  placeholder="Confirmed password"
+                  autocomplete="nope"
                 ></v-text-field>
               </div>
 
                 <div class="forget forget-login">
                 <v-col cols="12" class="login-btn-div">
                   <div class="btn_grp">
-                    <v-btn color="success" class="mr-4 recover_btn" @click="validate">Reset</v-btn>
-                    <v-btn class="login_btn back-btn" >Back To Login</v-btn>
-                    <router-link to="/login" class="back-btn login_btn">Back To Login</router-link>
+                    <v-btn color="success" class="mr-4 login_btn" @click="validate">Reset</v-btn>
+                    <v-btn @click="goToEvents()" class="login_btn">Back To Login</v-btn>
                   </div>
                 </v-col>
               </div>
@@ -73,21 +70,15 @@
   </v-app>
 </template>
 
-
-
-
-
-
-
-
-
-
-
 <script>
 import { required } from "vuelidate/lib/validators";
+import { LockIcon } from "vue-feather-icons";
 import { router } from "../_helpers/router";
 import { authenticationService } from "../_services/authentication.service";
 export default {
+    components: {
+    LockIcon
+  },
   data: () => ({
     show1: false,
     show2: false,
@@ -106,6 +97,9 @@ export default {
     },
   },
   methods: {
+    goToEvents: function () {
+    router.push("/login");
+    },
     validate() {
 	console.log(this.$route.params);
       const currentUser = authenticationService.currentUserValue;

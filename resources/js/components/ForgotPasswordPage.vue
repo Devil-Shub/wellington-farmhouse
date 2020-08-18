@@ -42,10 +42,7 @@
                 <v-col cols="12" class="login-btn-div">
                   <div class="btn_grp">
                     <v-btn class="login_btn" @click="validate">Recover Password</v-btn>
-                    <v-btn class="login_btn back-btn" >Back To Login</v-btn>
-      <v-btn @click="goToEvents()" class="login_btn">Back To Login</v-btn>
-
-                    <router-link to="/login" class="back-btn login_btn">Back To Login</router-link>
+                    <v-btn @click="goToEvents()" class="login_btn">Back To Login</v-btn>
                   </div>
                 </v-col>
               </div>
@@ -59,9 +56,13 @@
 
 <script>
 import { required } from "vuelidate/lib/validators";
+import { UserIcon } from "vue-feather-icons";
 import { router } from "../_helpers/router";
 import { authenticationService } from "../_services/authentication.service";
 export default {
+    components: {
+    UserIcon,
+  },
   data: () => ({
     valid: true,
     email: "",
@@ -77,7 +78,7 @@ export default {
     }
   },
   methods: {
- goToEvents: function () {
+    goToEvents: function () {
     router.push("/login");
     },
     validate() {
@@ -110,4 +111,3 @@ export default {
   }
 };
 </script>
-

@@ -1,37 +1,46 @@
 <template>
   <v-container id="dashboard" fluid tag="section">
-    <v-row class="dashboard-columns">
-            <div class="services col mx-1">
-                <h4> 92.6K </h4>
-                <p> Services </p>
-              <canvas id="planet-chart"></canvas>
-            </div> 
-            <div class="services col mx-1">
-                <h4> 352 </h4>
-                <p> Employees </p>
-            </div> 
-            <div class="services col mx-1">
-                <h4> 400 </h4>
-                <p> Drivers </p>
-            </div> 
-            <div class="services col mx-1">
-                <h4> 150 </h4>
-                <p> Fleets </p>
-            </div> 
-            <div class="services col mx-1">
-                <h4> 100 </h4>
-                <p> Skid steers </p>
-            </div> 
-          </v-row>
+    <v-row>
+      <h4 class="main-title">Overview</h4>
+      <v-col cols="12" lg="12">
+        <div class="dashboard">
+          <!-- <v-row>
+            <v-col cols="12" sm="6" lg="3">
+              <v-card>
+                <h5>
+                  Total Jobs
+                  <span>100</span>
+                </h5>
+              </v-card>
+            </v-col>
 
-          <v-row class="dashboard-columns-1">
-            <div class="main col mx-6">
-                sdcsd
-            </div>
-            <div class="main col mx 2">
-                sdcsd
-            </div>
-          </v-row>
+            <v-col cols="12" sm="6" lg="3">
+              <v-card>
+                <h5>
+                  Total Trucks
+                  <span>100</span>
+                </h5>
+              </v-card>
+            </v-col>
+
+            <v-col cols="12" sm="6" lg="3">
+              <v-card>
+                <h5>
+                  Total Drivers
+                  <span>100</span>
+                </h5>
+              </v-card>
+            </v-col>
+
+            <v-col cols="12" sm="6" lg="3">
+              <v-card>
+                <h5>
+                  Successful Jobs
+                  <span>100</span>
+                </h5>
+              </v-card>
+            </v-col>
+          </v-row> -->
           <v-row>
             <v-col cols="12" sm="6" lg="6">
               <canvas id="planet-chart"></canvas>
@@ -40,6 +49,9 @@
               <canvas id="pie-chart"></canvas>
             </v-col>
           </v-row>
+        </div>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -47,6 +59,7 @@
 import Chart from "chart.js";
 import planetChartData from "./chart/chart-data.js";
 import pieChartData from "./chart/pie-chart-data.js";
+
 export default {
   data() {
     return {
@@ -71,30 +84,3 @@ export default {
   created() {}
 };
 </script>
-
-<style>
-    .dashboard-columns .services { 
-            height: 200px; 
-            background-color: #fff;
-            box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-        } 
-
-    .dashboard-columns-1 {
-        margin-top: 30px;
-    margin-bottom: 30px;
-}
-    .dashboard-columns-1 .main {
-            height: 200px;
-            background-color: #fff;
-            box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-            margin-left: 5px !important;
-}
-
-        #dashboard {
-            
-}
-</style>
-
-
